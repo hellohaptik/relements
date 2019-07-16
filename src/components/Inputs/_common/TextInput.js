@@ -20,7 +20,7 @@ export const TextInput = ({
   prefixComponent,
   postfixComponent,
 }) => {
-  const focusedClassName = focused ? styles.focused : '';
+  const focusedClassName = !disabled && focused ? styles.focused : '';
   const focusedClassNameString = focused ? 'focused' : '';
   const errorClassName = error ? styles.error : '';
   const [textValue, setTextValue] = useState();
@@ -38,6 +38,7 @@ export const TextInput = ({
       placeholder={placeholder}
       type="text"
       ref={inputRef}
+      className={`${errorClassName}`}
     />
   );
 

@@ -26,11 +26,23 @@ const Text = ({
   const {
     focused, setFocused, handleFocus, handleBlur,
   } = useInput(_TextInputDOM, onFocus, onBlur);
+  const errorClassName = error ? 'error' : '';
+  const disabledClassName = disabled ? 'disabled' : '';
 
   return (
-    <div className={`${styles.text} ${prefixClassName} ${className}`}>
-      <Label focused={focused} error={error} className={`${styles.dropdownLabel} ${prefixClassName}-label`}>
+    <div
+      className={`${styles.text} ${prefixClassName} ${className} ${errorClassName} ${disabledClassName}`}
+      data-testid="text"
+    >
+      <Label
+        focused={focused}
+        error={error}
+        className={`${styles.dropdownLabel} ${prefixClassName}-label`}
+        disabled={disabled}
+      >
         {label}
+        <br />
+        <span>{error}</span>
       </Label>
       <TextInput
         inputRef={_TextInputDOM}
@@ -43,21 +55,50 @@ const Text = ({
         value={value}
         placeholder={placeholder}
         disabled={disabled}
+        error={error}
       />
     </div>
   );
 };
 
 Text.propTypes = {
+  /** Place Holder Text for an Empty Text Field */
   placeholder: PropTypes.string,
+  /** Classname for the Parent element */
   className: PropTypes.string,
+  /** Value of the Text Field */
   value: PropTypes.string,
+  /** Label for the input */
   label: PropTypes.string,
+  /** Error to be displayed (if any) */
   error: PropTypes.string,
+  /** onChange Callback */
   onChange: PropTypes.func,
+  /** A classname prepended on parent */
   prefixClassName: PropTypes.string,
+  /** onFocus Callback */
   onFocus: PropTypes.func,
+  /** onBlur Callback */
   onBlur: PropTypes.func,
+  /** Disable Flag for input */
+  disabled: PropTypes.bool,
+};
+
+Text.defaultProps = {
+  placeholder: '',
+  className: '',
+  value: '',
+  label: '',
+  error: '',
+  disabled: false,
+  onChange: () => {},
+  onFocus: () => {},
+  onBlur: () => {},
+};
+
+Text.classNames = {
+  '$className': 'demoClassName',
+  '$prefixClassName': 'prefixClassName',
 };
 
 export default Text;

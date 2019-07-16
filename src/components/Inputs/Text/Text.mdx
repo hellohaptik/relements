@@ -1,0 +1,40 @@
+import { CodeBlock, ConfigBlock } from '@src/helpers/DocBlocks';
+import Text from './Text';
+
+# Text
+
+> A regular input element where user interacts textually
+
+<CodeBlock>
+  <Text label="Demo Label" value={'Demo Value'} onChange={console.log}/>
+</CodeBlock>
+
+## Configuration
+
+<ConfigBlock of={Text} />
+
+## Examples
+
+<CodeBlock title="Type : Default">
+  <Text onChange={console.log}/>
+</CodeBlock>
+
+<CodeBlock title="Type : Disabled">
+  <Text value={''} onChange={console.log} disabled />
+</CodeBlock>
+
+<CodeBlock title="Type : With Label">
+  <Text label="Demo Label" onChange={console.log}/>
+</CodeBlock>
+
+<CodeBlock title="Type : With Value">
+  <Text value={'Demo Value'} onChange={console.log}/>
+</CodeBlock>
+
+<CodeBlock title="Type : Error">
+  <Text error={'This is a demo error'} onChange={console.log}/>
+</CodeBlock>
+
+<CodeBlock title="Type : Tooltip">
+  <Text label="Demo Label" value={'Demo Value'} onChange={console.log}/>
+</CodeBlock>
