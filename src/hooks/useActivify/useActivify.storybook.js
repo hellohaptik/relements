@@ -1,10 +1,10 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-import useActivify from './useActivify';
+import React from "react";
+import { storiesOf } from "@storybook/react";
+import useActivify from "./useActivify";
 
-const stories = storiesOf('Hooks/useActivify', module);
+const stories = storiesOf("Components|Hooks/useActivify", module);
 
-stories.add('Default', () => <TestComponent />);
+stories.add("Default", () => <TestComponent />);
 
 function ActivifiedComponent({ active }) {
   const { visible, enabled } = useActivify(active);
@@ -13,7 +13,7 @@ function ActivifiedComponent({ active }) {
     <div
       style={{
         opacity: visible ? 1 : 0,
-        transition: '0.2s ease-out',
+        transition: "0.2s ease-out",
       }}
     >
       I am activified content
@@ -25,7 +25,9 @@ function TestComponent() {
   const [active, setActive] = React.useState();
   return (
     <div>
-      <button onClick={() => setActive(!active)}>{active ? 'Deactivate' : 'Activate'}</button>
+      <button onClick={() => setActive(!active)}>
+        {active ? "Deactivate" : "Activate"}
+      </button>
       <ActivifiedComponent active={active} />
     </div>
   );

@@ -1,10 +1,10 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import React from "react";
+import { storiesOf } from "@storybook/react";
 
-import Odometer from './Odometer';
-import Docs from './Odometer.mdx';
+import Odometer from "./Odometer";
+import Docs from "./Odometer.mdx";
 
-storiesOf('UI/Odometer').add('Documentation', () => <Docs />);
+storiesOf("Components|UI/Odometer").add("Documentation", () => <Docs />);
 
 export class OdometerTest extends React.Component {
   state = {
@@ -12,7 +12,10 @@ export class OdometerTest extends React.Component {
   };
 
   componentDidMount = () => {
-    this._interval = setInterval(() => this.setState({ value: this.state.value + 1 }), 2000);
+    this._interval = setInterval(
+      () => this.setState({ value: this.state.value + 1 }),
+      2000,
+    );
   };
 
   componentWillUnmount = () => {

@@ -3,7 +3,7 @@ import { storiesOf } from "@storybook/react";
 
 import TimePicker from "./Time";
 
-storiesOf("Inputs/Time", module)
+storiesOf("Components|Inputs/Time", module)
   .add("Single", () => {
     const story = <TimeWrapper />;
     return story;

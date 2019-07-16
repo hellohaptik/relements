@@ -1,11 +1,11 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import React from "react";
+import { storiesOf } from "@storybook/react";
 
-import Toggle from './Toggle';
+import Toggle from "./Toggle";
 
-const VALUE = '';
+const VALUE = "";
 
-storiesOf('Inputs/Toggle', module).add('Single', () => {
+storiesOf("Components|Inputs/Toggle", module).add("Single", () => {
   const story = (
     <div>
       <Toggle label="Toggle Input" value={VALUE} onChange={console.log} />

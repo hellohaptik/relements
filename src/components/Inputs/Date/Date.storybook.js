@@ -1,18 +1,18 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import React from "react";
+import { storiesOf } from "@storybook/react";
 
-import DatePicker from './Date';
+import DatePicker from "./Date";
 
-storiesOf('Inputs/Date', module)
-  .add('Single', () => {
+storiesOf("Components|Inputs/Date", module)
+  .add("Single", () => {
     const story = <DateWrapper />;
     return story;
   })
-  .add('Range', () => {
+  .add("Range", () => {
     const story = <DateWrapperRange />;
     return story;
   })
-  .add('Comparison', () => {
+  .add("Comparison", () => {
     const story = <DateWrapperRangeComparison />;
     return story;
   });
@@ -23,7 +23,7 @@ class DateWrapper extends React.Component {
   };
 
   render() {
-    console.log('VALUE', this.state.value);
+    console.log("VALUE", this.state.value);
     return (
       <DatePicker
         label="Select Date"
@@ -45,7 +45,7 @@ class DateWrapperRange extends React.Component {
   };
 
   render() {
-    console.log('VALUE', this.state.value);
+    console.log("VALUE", this.state.value);
     return (
       <DatePicker
         label="Select Date"

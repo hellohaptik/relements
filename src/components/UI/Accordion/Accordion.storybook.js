@@ -1,10 +1,12 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import React from "react";
+import { storiesOf } from "@storybook/react";
 
-import Docs from './Accordion.mdx';
-import Accordion from './Accordion';
+import Docs from "./Accordion.mdx";
+import Accordion from "./Accordion";
 
-storiesOf('UI/Accordion', module).add('Documentation', () => <Docs />);
+storiesOf("Components|UI/Accordion", module).add("Documentation", () => (
+  <Docs />
+));
 
 export class AccordionTest extends React.Component {
   state = {
@@ -21,7 +23,11 @@ export class AccordionTest extends React.Component {
           onChange={i => this.setState({ active: i })}
           noPadding
         >
-          <div data-testid="accordion-body" style={{ padding: 8, boxSizing: 'border-box' }} className="body">
+          <div
+            data-testid="accordion-body"
+            style={{ padding: 8, boxSizing: "border-box" }}
+            className="body"
+          >
             <h3 style={{ marginTop: 0 }}>This is the body 1</h3>
             <p>This is some long form body</p>
           </div>
@@ -33,7 +39,11 @@ export class AccordionTest extends React.Component {
           onChange={i => this.setState({ active: i })}
           noPadding
         >
-          <div data-testid="accordion-body" style={{ padding: 8, boxSizing: 'border-box' }} className="body">
+          <div
+            data-testid="accordion-body"
+            style={{ padding: 8, boxSizing: "border-box" }}
+            className="body"
+          >
             <h3 style={{ marginTop: 0 }}>This is the body 2</h3>
             <p>This is some long form body</p>
           </div>
@@ -44,10 +54,12 @@ export class AccordionTest extends React.Component {
 
   renderHeader(i) {
     return (
-      <div style={{ padding: 8 }} className="header" data-testid="accordion-header">
-        Accordion Header
-        {' '}
-        {i}
+      <div
+        style={{ padding: 8 }}
+        className="header"
+        data-testid="accordion-header"
+      >
+        Accordion Header {i}
       </div>
     );
   }

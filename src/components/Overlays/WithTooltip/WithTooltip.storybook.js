@@ -1,14 +1,14 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import React from "react";
+import { storiesOf } from "@storybook/react";
 
-import WithTooltip from './WithTooltip';
+import WithTooltip from "./WithTooltip";
 
-storiesOf('Overlays/WithTooltip', module).add('Default', () => {
+storiesOf("Components|Overlays/WithTooltip", module).add("Default", () => {
   const story = (
     <div
       style={{
-        width: '100vw',
-        height: '100vh',
+        width: "100vw",
+        height: "100vh",
         paddingTop: 200,
         paddingLeft: 200,
       }}
