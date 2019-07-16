@@ -1,11 +1,11 @@
 @import 'constants/index.scss';
 
-.time {
+.date {
   position: relative;
   margin-bottom: 24px;
 }
 
-.timeLabel {
+.dateLabel {
   display: block;
   color: #666;
   font-size: 12px;
@@ -19,7 +19,7 @@
   }
 }
 
-.timeInputWrapper {
+.dateInputWrapper {
   border: 1px solid $border-color;
   border-radius: 8px;
   overflow: hidden;
@@ -28,7 +28,7 @@
   align-items: center;
   justify-content: space-between;
   background-color: #fff;
-  padding: 7px 12px;
+  padding: 4px 8px;
   box-sizing: border-box;
   cursor: pointer;
   outline: none;
@@ -37,30 +37,35 @@
   &.focused {
     border-color: $primary-color;
   }
+
+  &.disabled {
+    pointer-events: none;
+    background-color: #eee;
+  }
 }
 
-.timeInput {
+.dateInput {
   border: none;
   outline: none;
   width: 100%;
-  font-size: 14px;
+  font-size: 12px;
   white-space: nowrap;
   span {
     opacity: 0.3;
   }
 }
 
-.timeError {
-  .timeLabel {
+.dateError {
+  .dateLabel {
     color: $warning-color;
   }
-  .timeInputWrapper {
+  .dateInputWrapper {
     border-color: $warning-color;
     background-color: rgba($warning-color, 0.05);
   }
 }
 
-.timeInputSubtext {
+.dateInputSubtext {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -69,23 +74,22 @@
 
   position: absolute;
   bottom: 0;
-  transform: translate3d(0,100%,0);
+  transform: translate3d(0, 100%, 0);
   padding-top: 4px;
 }
 
-.timeInputSubtextError {
+.dateInputSubtextError {
   color: #ff0c0c;
   opacity: 0.8;
 }
 
-
-.timePickrInput {
+.datePickrInput {
   position: absolute;
   left: 0;
   bottom: 0;
 }
 
-.timeInputZeroState {
+.dateInputZeroState {
   font-family: 'Roboto';
   display: block;
   padding: 16px;

@@ -1,0 +1,53 @@
+@import 'constants/index.scss';
+
+:global {
+  .date-picker-tooltip {
+    max-width: unset !important;
+  }
+}
+
+.timePicker {
+  background-color: #fff;
+  border-radius: 8px;
+  margin-top: 8px;
+  display: flex;
+  align-items: flex-start;
+  color: #333;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+
+  > span {
+    padding: 0 4px;
+  }
+
+  &Switcher {
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 8px;
+    &Value {
+      color: #999;
+      transition: 0.2s ease-out;
+      cursor: pointer;
+
+      &:hover {
+        color: #000;
+      }
+
+      &.active {
+        color: #000;
+      }
+    }
+
+  }
+}
+
+@keyframes show-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

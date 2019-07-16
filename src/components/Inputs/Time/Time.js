@@ -1,126 +1,159 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import flatpickr from 'flatpickr';
 import dayjs from 'dayjs';
-import 'flatpickr/dist/themes/airbnb.css';
 
-import Icon from 'components/UI/Icon';
-import AngleDownIcon from 'icons/angle-down.svg';
+import Tooltip from '@src/components/Overlays/Tooltip';
+import Icon from '@src/components/UI/Icon';
+import AngleDownIcon from '@src/icons/angle-down.svg';
+
+import { TextInput } from '../_common/TextInput';
+import { Label } from '../_common/Label';
+
+import TimePicker from './components/TimePicker';
 import styles from './Time.scss';
 
 class Time extends React.Component {
   state = {
     active: false,
     focused: false,
+    value: dayjs(),
   };
 
-  componentDidMount() {
-    this._flatpickr = flatpickr(this._FlatPickrDOM, {
-      onChange: this._handleChange,
-      onClose: this._handleBlur,
-      enableTime: true,
-      noCalendar: true,
-      dateFormat: 'H:i',
-      defaultDate: this.props.value,
-    });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.value !== nextProps.value) {
-      this._flatpickr.setDate(nextProps.value);
-    }
-  }
+  _DOMNode = React.createRef();
 
   render() {
-    const {
-      placeholder, className, value = '', label, error, errorMessage, errorMsgClassName,
-    } = this.props;
-
-    const activeClassName = this.state.active ? styles.active : '';
-    const errorClassName = error ? styles.timeError : '';
-    const focusedClassName = this.state.focused ? styles.focused : '';
-    const parsedValue = value ? dayjs(value).format('h:mm A') : '';
+    const { className, error, disabled } = this.props;
+    const errorClassName = error ? styles.dateError : '';
+    const disabledClassName = disabled ? styles.disabled : '';
 
     return (
-      <div className={`${styles.time} ${errorClassName} ${className}`}>
-        <span className={`${styles.timeLabel} ${focusedClassName}`}>{label}</span>
-        <div
-          ref={(DOMNode) => {
-            this._DOMNode = DOMNode;
-          }}
-          tabIndex="0"
-          onKeyDown={this._handleKeyDown}
-          onFocus={this._handleFocus}
-          onBlur={this._handleBlur}
-          onClick={this._toggleTime}
-          className={`${styles.timeInputWrapper} ${activeClassName} ${focusedClassName}`}
+      <div
+        className={`${styles.date} ${errorClassName} ${disabledClassName} ${className}`}
+      >
+        {this.renderLabel()}
+        {this.renderInput()}
+        <Tooltip
+          onClose={this.closeDate}
+          attachTo={this.props.attachTo || this._DOMNode}
+          active={this.state.active}
+          offset={this.props.offset}
+          className="date-picker-tooltip"
+          position={this.props.position}
         >
-          <div className={styles.timeInput}>{parsedValue || <span>{placeholder}</span>}</div>
-          <Icon src={ AngleDownIcon } />
-          <div
-            className={styles.timePickrInput}
-            ref={(DOMNode) => {
-              this._FlatPickrDOM = DOMNode;
-            }}
-          />
-        </div>
-        {error && errorMessage && (
-          <div className={`${styles.timeInputSubtext} ${errorMsgClassName}`}>{this._renderError(errorMessage)}</div>
-        )}
+          <TimePicker value={this.state.value} onChange={this._handleChange} />
+        </Tooltip>
+        {this.renderError()}
       </div>
     );
   }
 
-  _renderError = (errorMessage) => {
-    return <span className={styles.timeInputSubtextError}>{errorMessage}</span>;
+  renderLabel() {
+    const { prefixClassName, error, label } = this.props;
+    if (!label) return null;
+    return (
+      <Label
+        focused={this.state.focused}
+        error={error}
+        className={`${prefixClassName}-label`}
+      >
+        {label}
+      </Label>
+    );
+  }
+
+  renderInput() {
+    const { focused, active } = this.state;
+    const {
+      placeholder, prefixClassName, onFocus, onBlur,
+    } = this.props;
+    const parsedValue = this._getParsedDate();
+    return (
+      <TextInput
+        className={`${prefixClassName}-input`}
+        innerRef={this._DOMNode}
+        onKeyDown={this._handleKeyDown}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onMouseDown={this.toggleDate}
+        focused={focused}
+        active={active}
+        value={parsedValue}
+        placeholder={placeholder}
+        disabled
+        postfixComponent={<Icon src={AngleDownIcon} />}
+      />
+    );
+  }
+
+  renderError = () => {
+    const { errorMessage, errorMsgClassName, error } = this.props;
+    if (!error || !errorMessage) return null;
+    return (
+      <div className={`${styles.dateInputSubtext} ${errorMsgClassName}`}>
+        <span className={styles.dateInputSubtextError}>{errorMessage}</span>
+      </div>
+    );
   };
 
-  _handleFocus = (e) => {
-    this.props.onFocus && this.props.onFocus(e);
-    this._flatpickr.open();
-    // this._DOMNode.scrollIntoView();
-    this._timeout = setTimeout(() => {
-      this.setState({ active: true, focused: true });
-    }, 300);
+  _getParsedDate = () => {
+    const { value } = this.props;
+    const format = 'hh:mm A';
+    const date = this._getParsedValueFromDate(value);
+    if (!date.isValid()) return 'Invalid Date';
+    return `${date.format(format)}`;
   };
 
-  _handleBlur = (e) => {
-    if (this._flatpickr.isOpen) return;
+  _getParsedValueFromDate = (value) => {
+    return dayjs(value);
+  };
 
-    if (this._timeout) {
-      clearTimeout(this._timeout);
-    }
+  _handleChange = (date) => {
+    this.setState({ value: date });
+  };
+
+  toggleDate = () => {
+    this.setState(state => ({ active: !state.active, focused: !state.active }));
+  };
+
+  closeDate = () => {
     this.setState({ active: false, focused: false });
-    this.props.onBlur && this.props.onBlur(e);
-  };
-
-  _onTimeClick = (option) => {
-    this.setState({ active: false, focused: false });
-    this.props.onChange(option);
-  };
-
-  _handleChange = (e) => {
-    this._onTimeClick(e[0]);
-  };
-
-  _toggleTime = () => {
-    this.setState({ active: !this.state.active, focused: !this.state.active }, () => {
-      this.state.active ? this._flatpickr.open() : this._flatpickr.close();
-    });
+    this.props.onChange(this.state.value.toDate());
   };
 }
 
 Time.propTypes = {
-  placeholder: PropTypes.string,
+  attachTo: PropTypes.object,
   className: PropTypes.string,
-  value: PropTypes.instanceOf(Date),
-  label: PropTypes.string,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
+  disabled: PropTypes.bool,
   error: PropTypes.bool,
   errorMessage: PropTypes.string,
   errorMsgClassName: PropTypes.string,
+  prefixClassName: PropTypes.string,
+  label: PropTypes.string,
+  offset: PropTypes.object,
+  onBlur: PropTypes.func,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  placeholder: PropTypes.string,
+  position: PropTypes.string,
+  value: PropTypes.string,
+};
+
+Time.defaultProps = {
+  onFocus: () => {},
+  onBlur: () => {},
+  onChange: () => {},
+  label: '',
+  className: '',
+  value: '',
+  placeholder: '',
+  error: false,
+  disabled: false,
+  errorMessage: '',
+  errorMsgClassName: '',
+  offset: null,
+  position: null,
+  attachTo: null,
 };
 
 export default Time;
