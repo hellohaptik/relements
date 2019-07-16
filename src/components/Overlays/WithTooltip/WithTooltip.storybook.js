@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 
 import WithTooltip from './WithTooltip';
 
-storiesOf('WithTooltip', module).add('Default', () => {
+storiesOf('Overlays/WithTooltip', module).add('Default', () => {
   const story = (
     <div
       style={{
@@ -13,7 +13,9 @@ storiesOf('WithTooltip', module).add('Default', () => {
         paddingLeft: 200,
       }}
     >
-      <WithTooltip tooltip="Yo ! This is some longer message. Like really really long">Test</WithTooltip>
+      <WithTooltip tooltip="Yo ! This is some longer message. Like really really long">
+        Test
+      </WithTooltip>
     </div>
   );
   return story;

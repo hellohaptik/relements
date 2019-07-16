@@ -9,11 +9,57 @@ storiesOf('Inputs/Date', module)
     return story;
   })
   .add('Range', () => {
-    const story = <DateWrapper mode="range" />;
+    const story = <DateWrapperRange />;
+    return story;
+  })
+  .add('Comparison', () => {
+    const story = <DateWrapperRangeComparison />;
     return story;
   });
 
 class DateWrapper extends React.Component {
+  state = {
+    value: new Date(),
+  };
+
+  render() {
+    console.log('VALUE', this.state.value);
+    return (
+      <DatePicker
+        label="Select Date"
+        placeholder="Select..."
+        value={this.state.value}
+        onChange={value => this.setState({ value })}
+        minDate={new Date()}
+      />
+    );
+  }
+}
+
+class DateWrapperRange extends React.Component {
+  state = {
+    value: {
+      startDate: new Date(),
+      endDate: new Date(),
+    },
+  };
+
+  render() {
+    console.log('VALUE', this.state.value);
+    return (
+      <DatePicker
+        label="Select Date"
+        placeholder="Select..."
+        value={this.state.value}
+        onChange={value => this.setState({ value })}
+        minDate={new Date()}
+        withRange
+      />
+    );
+  }
+}
+
+class DateWrapperRangeComparison extends React.Component {
   state = {
     value: {
       startDate: new Date(),
@@ -29,6 +75,8 @@ class DateWrapper extends React.Component {
         value={this.state.value}
         onChange={value => this.setState({ value })}
         minDate={new Date()}
+        withRange
+        withComparison
       />
     );
   }

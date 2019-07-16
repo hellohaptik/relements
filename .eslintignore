@@ -1,0 +1,15 @@
+/build/**
+/coverage/**
+/docs/**
+/jsdoc/**
+/templates/**
+/tests/bench/**
+/tests/fixtures/**
+/tests/performance/**
+/tmp/**
+/lib/rules/utils/unicode/is-combining-character.js
+test.js
+!.eslintrc.js
+*.storybook.js
+src/helpers
+

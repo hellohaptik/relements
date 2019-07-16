@@ -1,5 +1,5 @@
 {
-  'src/**/*.+(js|md|ts|css|sass|less|graphql|yml|yaml|scss|json|vue|jsx|mdx)': [
+  'src/**/*.+(js|json|jsx)': [
     'eslint --fix',
     'prettier --write',
     'jest --findRelatedTests',
