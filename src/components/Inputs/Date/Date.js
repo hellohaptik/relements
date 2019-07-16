@@ -1,18 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
+import React from "react";
+import PropTypes from "prop-types";
+import dayjs from "dayjs";
 
-import Tooltip from '@src/components/Overlays/Tooltip';
-import Icon from '@src/components/UI/Icon';
-import AngleDownIcon from '@src/icons/angle-down.svg';
+import Tooltip from "@src/components/Overlays/Tooltip";
+import Icon from "@src/components/UI/Icon";
+import AngleDownIcon from "@src/icons/angle-down.svg";
 
-import { TextInput } from '../_common/TextInput';
-import { Label } from '../_common/Label';
+import { TextInput } from "../_common/TextInput";
+import { Label } from "../_common/Label";
 
-import RangeComparison from './components/RangeComparison';
-import SinglePicker from './components/SinglePicker';
+import RangeComparison from "./components/RangeComparison";
+import SinglePicker from "./components/SinglePicker";
 
-import styles from './Date.scss';
+import styles from "./Date.scss";
 
 class Date extends React.Component {
   state = {
@@ -35,8 +35,8 @@ class Date extends React.Component {
       withComparison,
       value,
     } = this.props;
-    const errorClassName = error ? styles.dateError : '';
-    const disabledClassName = disabled ? styles.disabled : '';
+    const errorClassName = error ? styles.dateError : "";
+    const disabledClassName = disabled ? styles.disabled : "";
 
     return (
       <div
@@ -92,9 +92,7 @@ class Date extends React.Component {
 
   renderInput() {
     const { focused, active } = this.state;
-    const {
-      placeholder, prefixClassName, onFocus, onBlur,
-    } = this.props;
+    const { placeholder, prefixClassName, onFocus, onBlur } = this.props;
     const parsedValue = this._getParsedDate();
     return (
       <TextInput
@@ -126,17 +124,17 @@ class Date extends React.Component {
 
   _getParsedDate = () => {
     const { withRange, value } = this.props;
-    const format = 'DD MMM, YYYY';
+    const format = "DD MMM, YYYY";
 
     if (withRange) {
       const { startDate, endDate } = this._getParsedValueFromObject(value);
-      if (!startDate.isValid() || !endDate.isValid()) return '';
+      if (!startDate.isValid() || !endDate.isValid()) return "";
       return `${startDate.format(format)} - ${endDate.format(format)}`;
     }
 
     const date = this._getParsedValueFromDate(value);
-    if (!date.isValid()) return 'Invalid Date';
-    return `${date.format('DD MMMM, YYYY')}`;
+    if (!date.isValid()) return "Invalid Date";
+    return `${date.format("DD MMMM, YYYY")}`;
   };
 
   _getParsedValueFromObject = () => {
@@ -162,7 +160,7 @@ class Date extends React.Component {
     return dayjs(value);
   };
 
-  _handleChange = (date) => {
+  _handleChange = date => {
     this.setState({ active: false, focused: false });
     this.props.onChange(date);
   };
@@ -204,14 +202,14 @@ Date.defaultProps = {
   onFocus: () => {},
   onBlur: () => {},
   onChange: () => {},
-  label: '',
-  className: '',
-  value: '',
-  placeholder: '',
+  label: "",
+  className: "",
+  value: "",
+  placeholder: "",
   error: false,
   disabled: false,
-  errorMessage: '',
-  errorMsgClassName: '',
+  errorMessage: "",
+  errorMsgClassName: "",
   offset: null,
   position: null,
   attachTo: null,

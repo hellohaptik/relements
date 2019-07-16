@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import Icon from '@src/components/UI/Icon';
-import AngleDownIcon from '@src/icons/angle-down.svg';
-import styles from './TimePickerInput.scss';
+import Icon from "@src/components/UI/Icon";
+import AngleDownIcon from "@src/icons/angle-down.svg";
+import styles from "./TimePickerInput.scss";
 
 function TimePickerInput(props) {
   return (

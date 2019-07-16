@@ -1,14 +1,14 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import React from "react";
+import { storiesOf } from "@storybook/react";
 
-import TimePicker from './Time';
+import TimePicker from "./Time";
 
-storiesOf('Inputs/Time', module)
-  .add('Single', () => {
+storiesOf("Inputs/Time", module)
+  .add("Single", () => {
     const story = <TimeWrapper />;
     return story;
   })
-  .add('Range', () => {
+  .add("Range", () => {
     const story = <TimeWrapper />;
     return story;
   });
@@ -19,7 +19,7 @@ class TimeWrapper extends React.Component {
   };
 
   render() {
-    console.log('VALUE', this.state.value);
+    console.log("VALUE", this.state.value);
     return (
       <TimePicker
         label="Select Time"

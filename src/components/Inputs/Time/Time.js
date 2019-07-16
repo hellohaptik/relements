@@ -1,16 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
+import React from "react";
+import PropTypes from "prop-types";
+import dayjs from "dayjs";
 
-import Tooltip from '@src/components/Overlays/Tooltip';
-import Icon from '@src/components/UI/Icon';
-import AngleDownIcon from '@src/icons/angle-down.svg';
+import Tooltip from "@src/components/Overlays/Tooltip";
+import Icon from "@src/components/UI/Icon";
+import AngleDownIcon from "@src/icons/angle-down.svg";
 
-import { TextInput } from '../_common/TextInput';
-import { Label } from '../_common/Label';
+import { TextInput } from "../_common/TextInput";
+import { Label } from "../_common/Label";
 
-import TimePicker from './components/TimePicker';
-import styles from './Time.scss';
+import TimePicker from "./components/TimePicker";
+import styles from "./Time.scss";
 
 class Time extends React.Component {
   state = {
@@ -23,8 +23,8 @@ class Time extends React.Component {
 
   render() {
     const { className, error, disabled } = this.props;
-    const errorClassName = error ? styles.dateError : '';
-    const disabledClassName = disabled ? styles.disabled : '';
+    const errorClassName = error ? styles.dateError : "";
+    const disabledClassName = disabled ? styles.disabled : "";
 
     return (
       <div
@@ -63,9 +63,7 @@ class Time extends React.Component {
 
   renderInput() {
     const { focused, active } = this.state;
-    const {
-      placeholder, prefixClassName, onFocus, onBlur,
-    } = this.props;
+    const { placeholder, prefixClassName, onFocus, onBlur } = this.props;
     const parsedValue = this._getParsedDate();
     return (
       <TextInput
@@ -97,17 +95,17 @@ class Time extends React.Component {
 
   _getParsedDate = () => {
     const { value } = this.props;
-    const format = 'hh:mm A';
+    const format = "hh:mm A";
     const date = this._getParsedValueFromDate(value);
-    if (!date.isValid()) return 'Invalid Date';
+    if (!date.isValid()) return "Invalid Date";
     return `${date.format(format)}`;
   };
 
-  _getParsedValueFromDate = (value) => {
+  _getParsedValueFromDate = value => {
     return dayjs(value);
   };
 
-  _handleChange = (date) => {
+  _handleChange = date => {
     this.setState({ value: date });
   };
 
@@ -143,14 +141,14 @@ Time.defaultProps = {
   onFocus: () => {},
   onBlur: () => {},
   onChange: () => {},
-  label: '',
-  className: '',
-  value: '',
-  placeholder: '',
+  label: "",
+  className: "",
+  value: "",
+  placeholder: "",
   error: false,
   disabled: false,
-  errorMessage: '',
-  errorMsgClassName: '',
+  errorMessage: "",
+  errorMsgClassName: "",
   offset: null,
   position: null,
   attachTo: null,
