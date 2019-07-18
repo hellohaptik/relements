@@ -15,9 +15,9 @@
   bottom: 0;
   right: 0;
   margin: auto;
-  height: 32px;
-  width: 32px;
-  clip: rect(0, 32px, 32px, 16px);
+  height: inherit;
+  width: inherit;
+  clip: inherit;
   animation: loader-1-2 1.2s linear infinite;
 
   &:after {
@@ -28,9 +28,9 @@
     bottom: 0;
     right: 0;
     margin: auto;
-    height: 32px;
-    width: 32px;
-    clip: rect(0, 32px, 32px, 16px);
+    height: inherit;
+    width: inherit;
+    clip: inherit;
     border: 3px solid $primary-color;
     border-radius: 50%;
     box-sizing: border-box;

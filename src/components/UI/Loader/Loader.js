@@ -8,7 +8,11 @@ const Loader = ({ size, className, prefixClassName }) => {
     <div
       data-testid="loader"
       className={`${styles.loader} ${prefixClassName} ${className}`}
-      style={{ width: size, height: size }}
+      style={{
+        width: size,
+        height: size,
+        clip: `rect(0, ${size}px, ${size}px, ${size / 2}px)`,
+      }}
     >
       <span
         data-testid="inner-loader"
@@ -28,7 +32,7 @@ Loader.propTypes = {
 };
 
 Loader.defaultProps = {
-  size: 40,
+  size: 32,
   className: "",
   prefixClassName: "",
 };
