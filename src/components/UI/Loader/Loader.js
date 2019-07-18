@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import styles from "./Loader.scss";
+import styles from './Loader.scss';
 
 const Loader = ({ size, className, prefixClassName }) => {
   return (
@@ -15,7 +15,7 @@ const Loader = ({ size, className, prefixClassName }) => {
       }}
     >
       <span
-        data-testid="inner-loader"
+        data-testid="loader-inner"
         className={`${styles.loaderInner} ${prefixClassName}-inner`}
       />
     </div>
@@ -33,8 +33,8 @@ Loader.propTypes = {
 
 Loader.defaultProps = {
   size: 32,
-  className: "",
-  prefixClassName: "",
+  className: '',
+  prefixClassName: '',
 };
 
 export default Loader;

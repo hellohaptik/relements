@@ -24,7 +24,7 @@ test("Prefix custom class", async () => {
   );
   expect(getByTestId("loader")).toHaveClass("pre");
   expect(getByTestId("loader")).toHaveClass("test");
-  expect(getByTestId("inner-loader")).toHaveClass("pre-inner");
+  expect(getByTestId("loader-inner")).toHaveClass("pre-inner");
 });
 
 test("Size variations", async () => {
