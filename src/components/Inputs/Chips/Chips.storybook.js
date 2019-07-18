@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { storiesOf } from '@storybook/react';
+import React, { useState } from "react";
+import { storiesOf } from "@storybook/react";
 
-import Chips from './Chips';
+import Chips from "./Chips";
 
-storiesOf('Inputs/Chips', module).add('Single', () => {
+storiesOf("Components|Inputs/Chips", module).add("Single", () => {
   return <ChipsTest />;
 });
 

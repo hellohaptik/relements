@@ -1,0 +1,48 @@
+import { CodeBlock } from "@src/helpers/DocBlocks";
+import Button from "@src/components/UI/Button";
+
+# Usage
+
+Relements elements are all self contained elements with their own styles. When used in conjunction with Webpack, they can individually imported and used.
+
+We provide an optional `Provider` element to provide some basic theme options such as `primaryColor` etc.
+
+## Using elements
+
+All the elements can be individually imported and used.
+
+```
+import React from 'react'
+import Button from 'relements/UI/Button'
+
+function App() {
+  return <Button type={Button.TYPES.PRIMARY}> Hello, World! </Button>
+}
+```
+
+#### Output
+
+<CodeBlock>
+  <Button type={Button.TYPES.PRIMARY}> Hello, World! </Button>
+</CodeBlock>
+
+---
+
+## Using the Provider
+
+The Provider must wrap your application at the root level. It provides the components with some configuration data using the React Context API.
+
+```
+import React from 'react'
+import Provider from 'relements/core/Provider'
+
+function App() {
+  return (
+    <Provider config={{ primaryColor: '#F00000' }}>
+      <MyApp/>
+    </Provider>
+  )
+}
+```
+
+#### Configuration Options

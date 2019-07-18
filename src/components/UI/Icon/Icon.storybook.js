@@ -1,9 +1,9 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import React from "react";
+import { storiesOf } from "@storybook/react";
 
-import Docs from './Icon.mdx';
+import Docs from "./Icon.mdx";
 
-storiesOf('UI/Icon', module).add('Documentation', () => {
+storiesOf("Components|UI/Icon", module).add("Documentation", () => {
   return <Docs />;
 });
 

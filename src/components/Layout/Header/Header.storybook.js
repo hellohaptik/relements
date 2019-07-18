@@ -10,7 +10,7 @@ import HeaderButtons from './HeaderButtons';
 import HeaderLeft from './HeaderLeft';
 import HeaderRight from './HeaderRight';
 
-storiesOf('Header Component', module).add('Default', () => {
+storiesOf('Components|Layout/Header', module).add('Default', () => {
   const story = (
     <Header>
       <HeaderLeft>
@@ -22,11 +22,19 @@ storiesOf('Header Component', module).add('Default', () => {
             Train
           </Button>
           <Button size="big">Transfer</Button>
-          <ContextMenu.Button size="big" title="General Nodes" offset={{ top: 40, left: -144 }}>
+          <ContextMenu.Button
+            size="big"
+            title="General Nodes"
+            offset={{ top: 40, left: -144 }}
+          >
             <ContextMenu.Item size="big">Bot General Nodes</ContextMenu.Item>
             <ContextMenu.Item size="big">Story General Nodes</ContextMenu.Item>
           </ContextMenu.Button>
-          <ContextMenu.Button size="big" title="More" offset={{ top: 40, left: -108 }}>
+          <ContextMenu.Button
+            size="big"
+            title="More"
+            offset={{ top: 40, left: -108 }}
+          >
             <ContextMenu.Item size="big">Extract Bot</ContextMenu.Item>
             <ContextMenu.Item size="big">General Responses</ContextMenu.Item>
             <ContextMenu.Item size="big">Node Priority</ContextMenu.Item>

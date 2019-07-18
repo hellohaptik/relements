@@ -2,9 +2,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Docs from './Text.mdx';
 
-import Text from './Text';
+import Text from "./Text";
 
-const VALUE = '';
+const VALUE = "";
 
 storiesOf('Inputs/Text', module)
   .add('Single', () => {

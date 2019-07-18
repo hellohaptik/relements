@@ -1,15 +1,15 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-import useLoader from './useLoader';
+import React from "react";
+import { storiesOf } from "@storybook/react";
+import useLoader from "./useLoader";
 
-const stories = storiesOf('Hooks/useLoader', module);
+const stories = storiesOf("Components|Hooks/useLoader", module);
 
-stories.add('Default', () => <TestComponent />);
+stories.add("Default", () => <TestComponent />);
 
 function WithLoader({ loading }) {
   const { renderLoader, activateLoader, deactivateLoader } = useLoader(loading);
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: "relative" }}>
       {renderLoader()}
       This content has a loader
       <button onClick={activateLoader}>Activate from inside too!</button>
@@ -21,7 +21,9 @@ function TestComponent() {
   const [active, setActive] = React.useState();
   return (
     <div>
-      <button onClick={() => setActive(!active)}>{active ? 'Deactivate' : 'Activate'}</button>
+      <button onClick={() => setActive(!active)}>
+        {active ? "Deactivate" : "Activate"}
+      </button>
       <WithLoader loading={active} />
     </div>
   );

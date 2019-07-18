@@ -1,28 +1,34 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import React from "react";
+import { storiesOf } from "@storybook/react";
 
-import File from './File';
+import File from "./File";
 
-storiesOf('Inputs/File', module)
-  .add('Single Image', () => {
+storiesOf("Components|Inputs/File", module)
+  .add("Single Image", () => {
     const story = <File onChange={console.log} />;
     return story;
   })
-  .add('Multiple Images', () => {
+  .add("Multiple Images", () => {
     const story = <File onChange={console.log} multiple />;
     return story;
   })
-  .add('File', () => {
+  .add("File", () => {
     const story = <FileTest />;
     return story;
   });
 
 class FileTest extends React.Component {
   state = {
-    value: '',
+    value: "",
   };
 
   render() {
-    return <File value={this.state.value} onChange={value => this.setState({ value })} type="file" />;
+    return (
+      <File
+        value={this.state.value}
+        onChange={value => this.setState({ value })}
+        type="file"
+      />
+    );
   }
 }
