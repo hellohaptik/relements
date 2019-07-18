@@ -8,12 +8,33 @@
   margin-bottom: 6px;
   margin-left: 2px;
   transition: 0.2s ease-out;
-
+  
   &.focused {
     color: $primary-color;
   }
 
   &.error {
+    margin-left: 8px;
+    opacity: 0.9;
     color: $warning-color;
   }
+}
+
+.container {
+  display: flex;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  top: -1px;
+  margin-left: 4px;
+}
+
+.tooltipIcon {
+  width: 16px;
+  height: 16px;
 }

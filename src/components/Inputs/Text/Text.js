@@ -15,6 +15,7 @@ const Text = ({
   className,
   prefixClassName,
   error,
+  tooltip,
 
   onFocus,
   onBlur,
@@ -39,10 +40,9 @@ const Text = ({
         error={error}
         className={`${styles.dropdownLabel} ${prefixClassName}-label`}
         disabled={disabled}
+        tooltip={tooltip}
       >
-        {label}
-        <br />
-        <span>{error}</span>
+        <span>{label}</span>
       </Label>
       <TextInput
         inputRef={_TextInputDOM}
@@ -82,6 +82,8 @@ Text.propTypes = {
   onBlur: PropTypes.func,
   /** Disable Flag for input */
   disabled: PropTypes.bool,
+  /** Tooltip to help user with the input fields */
+  tooltip: PropTypes.string,
 };
 
 Text.defaultProps = {
@@ -90,6 +92,7 @@ Text.defaultProps = {
   value: '',
   label: '',
   error: '',
+  tooltip: '',
   disabled: false,
   onChange: () => {},
   onFocus: () => {},
