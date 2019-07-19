@@ -19,7 +19,10 @@ const Checkbox = ({
 }) => {
   const [activeIndexes, handleChange] = useCheckbox(value, onChange, options);
   return (
-    <div className={`${styles.checkbox} ${className} ${prefixClassName}`}>
+    <div
+      data-testid="checkbox"
+      className={`${styles.checkbox} ${className} ${prefixClassName}`}
+    >
       <Label
         hint={hint}
         disabled={disabled}
@@ -84,7 +87,7 @@ Checkbox.classNames = {
   "$prefix-options": "Div wrapping all the options",
   "$prefix-option": "Div wrapping the option",
   "$prefix-option-box": "Div wrapping the icon",
-  "$prefix-option-box-icon": "The icon div",
+  "$prefix-option-box-tick": "The icon div inside the box",
   "$prefix-option-text": "The Text of each of the checkbox options",
 };
 

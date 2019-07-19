@@ -84,6 +84,7 @@
     "husky": "^3.0.0",
     "jest": "^24.8.0",
     "jest-dom": "^3.5.0",
+    "jest-expect-message": "^1.0.2",
     "json-loader": "^0.5.7",
     "lint-staged": "^9.1.0",
     "majestic": "^1.6.0",

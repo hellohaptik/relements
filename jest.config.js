@@ -14,5 +14,5 @@ module.exports = {
     '\\.(mdx|md)$': '<rootDir>/.jest/docsMock.js',
     '\\.(svg)$': '<rootDir>/.jest/svgMock.js',
   },
-  setupFilesAfterEnv: ['<rootDir>/.jest/setup.js'],
+  setupFilesAfterEnv: ['jest-expect-message', '<rootDir>/.jest/setup.js'],
 };

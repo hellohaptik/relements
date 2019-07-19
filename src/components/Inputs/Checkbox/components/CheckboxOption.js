@@ -43,6 +43,7 @@ const CheckboxOption = ({
   return (
     <div
       ref={innerRef}
+      data-testid="checkbox-item"
       className={classNames.main}
       onClick={e => onChange(!value, e)}
     >
@@ -80,8 +81,8 @@ CheckboxOption.defaultProps = {
 
 CheckboxOption.classNames = {
   $prefix: "Outermost element",
-  "$prefix-icon": "Div wrapping the icon",
-  "$prefix-icon-inner": "The icon div",
+  "$prefix-box": "Div wrapping the icon",
+  "$prefix-box-tick": "The icon div",
   "$prefix-text": "The Text of each of the checkbox options",
 };
 
