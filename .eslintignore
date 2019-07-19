@@ -8,7 +8,7 @@
 /tests/performance/**
 /tmp/**
 /lib/rules/utils/unicode/is-combining-character.js
-test.js
+*.test.js
 !.eslintrc.js
 *.storybook.js
 src/helpers
