@@ -63,7 +63,8 @@
     "no-unused-expressions": 0,
     "prefer-destructuring": 0,
     "jsx-a11y/alt-text": 0,
-    "react/destructuring-assignment": 0
+    "react/destructuring-assignment": 0,
+    "jsx-a11y/no-noninteractive-tabindex": 0
   },
   "settings": {
     "import/resolver": {

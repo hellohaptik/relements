@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import TimePickerInput from "../TimePickerInput";
 import styles from "./TimePicker.scss";
 
-function TimePicker({ value, onChange }) {
+function TimePicker({ value, onChange, prefixClassName }) {
   const date = dayjs(value);
   const HHRef = React.useRef();
   const MMRef = React.useRef();
@@ -50,7 +50,7 @@ function TimePicker({ value, onChange }) {
   });
 
   return (
-    <div className={styles.timePicker}>
+    <div className={`${styles.timePicker} ${prefixClassName}`}>
       <TimePickerInput
         autoFocus
         innerRef={HHRef}
@@ -58,25 +58,29 @@ function TimePicker({ value, onChange }) {
         onChange={handleHHChange}
         placeholder="HH"
         increment={1}
+        prefixClassName={`${prefixClassName}-input`}
       />
-      <span>:</span>
+      <span className={`${prefixClassName}-separator`}>:</span>
       <TimePickerInput
         innerRef={MMRef}
         value={MM}
         onChange={handleMMChange}
         placeholder="MM"
         increment={30}
+        prefixClassName={`${prefixClassName}-input`}
       />
-      <div className={styles.timePickerSwitcher}>
+      <div
+        className={`${styles.timePickerSwitcher} ${prefixClassName}-switcher`}
+      >
         <div
           onClick={handleAMPMChange("AM")}
-          className={`${styles.timePickerSwitcherValue} ${amActiveClassName}`}
+          className={`${styles.timePickerSwitcherValue} ${amActiveClassName} ${prefixClassName}-switcher-value`}
         >
           AM
         </div>
         <div
           onClick={handleAMPMChange("PM")}
-          className={`${styles.timePickerSwitcherValue} ${pmActiveClassName}`}
+          className={`${styles.timePickerSwitcherValue} ${pmActiveClassName} ${prefixClassName}-switcher-value`}
         >
           PM
         </div>
@@ -88,11 +92,13 @@ function TimePicker({ value, onChange }) {
 TimePicker.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.object,
+  prefixClassName: PropTypes.string,
 };
 
 TimePicker.defaultProps = {
   onChange: () => {},
   value: dayjs(),
+  prefixClassName: "",
 };
 
 export default TimePicker;

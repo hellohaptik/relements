@@ -7,18 +7,24 @@ import styles from "./TimePickerInput.scss";
 
 function TimePickerInput(props) {
   return (
-    <div className={styles.timePickerInput}>
-      <input {...props} ref={props.innerRef} />
-      <div className={styles.timePickerInputArrows}>
+    <div className={`${styles.timePickerInput} ${props.prefixClassName}`}>
+      <input
+        {...props}
+        ref={props.innerRef}
+        className={`${props.prefixClassName}-element`}
+      />
+      <div
+        className={`${styles.timePickerInputArrows} ${props.prefixClassName}-arrows`}
+      >
         <Icon
           onClick={() => props.onChange(+props.value + props.increment)}
           src={AngleDownIcon}
-          className={styles.timePickerInputArrow}
+          className={`${styles.timePickerInputArrow} ${props.prefixClassName}-arrow`}
         />
         <Icon
           onClick={() => props.onChange(+props.value - props.increment)}
           src={AngleDownIcon}
-          className={styles.timePickerInputArrow}
+          className={`${styles.timePickerInputArrow} ${props.prefixClassName}-arrow`}
         />
       </div>
     </div>
@@ -30,12 +36,14 @@ TimePickerInput.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.object,
   increment: PropTypes.number,
+  prefixClassName: PropTypes.string,
 };
 
 TimePickerInput.defaultProps = {
   innerRef: null,
   increment: 1,
   onChange: () => {},
+  prefixClassName: "",
 };
 
 export default TimePickerInput;

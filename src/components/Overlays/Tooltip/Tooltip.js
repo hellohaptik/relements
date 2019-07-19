@@ -1,11 +1,18 @@
-import React from 'react';
-import { Portal } from 'react-portal';
-import PropTypes from 'prop-types';
-import useActivify from '@src/hooks/useActivify';
-import usePositioner from '@src/hooks/usePositioner';
-import useEscapeKey from '@src/hooks/useEscapeKey';
+import React from "react";
+import { Portal } from "react-portal";
+import PropTypes from "prop-types";
+import useActivify from "@src/hooks/useActivify";
+import usePositioner from "@src/hooks/usePositioner";
+import useEscapeKey from "@src/hooks/useEscapeKey";
 
-import styles from './Tooltip.scss';
+import styles from "./Tooltip.scss";
+
+let modalRoot = document.getElementById("portal-root");
+if (!modalRoot) {
+  modalRoot = document.createElement("div");
+  modalRoot.setAttribute("id", "portal-root");
+  document.body.appendChild(modalRoot);
+}
 
 function Tooltip({
   active,
@@ -26,24 +33,24 @@ function Tooltip({
   });
 
   const { enabled, visible } = useActivify(active);
-  const activeClassName = visible ? styles.tooltipActive : '';
-  const topPositionClassName = position === 'TOP' ? styles.top : styles.bottom;
+  const activeClassName = visible ? styles.tooltipActive : "";
+  const topPositionClassName = position === "TOP" ? styles.top : styles.bottom;
 
   useEscapeKey(onClose);
 
   if (!attachTo || !enabled) return null;
 
   return (
-    <Portal>
+    <Portal node={document && document.getElementById("portal-root")}>
       <div
-        className={`${styles.tooltipWrapper} ${className} ${prefixClassName}-wrapper`}
+        className={`${styles.tooltipWrapper} ${className} ${prefixClassName}`}
       >
         <div
           onClick={onClose}
           className={`${styles.tooltipOverlay} ${prefixClassName}-overlay`}
         />
         <div
-          className={`${styles.tooltip} ${activeClassName} ${prefixClassName}`}
+          className={`${styles.tooltip} ${activeClassName} ${prefixClassName}-inner`}
           ref={tooltipRef}
           style={coordinates}
         >
@@ -78,9 +85,9 @@ Tooltip.propTypes = {
 Tooltip.defaultProps = {
   active: false,
   children: null,
-  className: '',
-  prefixClassName: '',
-  position: '',
+  className: "",
+  prefixClassName: "",
+  position: "",
   onClose: () => {},
   offset: null,
 };

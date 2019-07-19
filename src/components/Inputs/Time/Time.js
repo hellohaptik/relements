@@ -22,13 +22,14 @@ class Time extends React.Component {
   _DOMNode = React.createRef();
 
   render() {
-    const { className, error, disabled } = this.props;
+    const { className, error, disabled, prefixClassName } = this.props;
     const errorClassName = error ? styles.dateError : "";
     const disabledClassName = disabled ? styles.disabled : "";
 
     return (
       <div
-        className={`${styles.date} ${errorClassName} ${disabledClassName} ${className}`}
+        data-testid="time"
+        className={`${styles.date} ${errorClassName} ${disabledClassName} ${prefixClassName} ${className}`}
       >
         {this.renderLabel()}
         {this.renderInput()}
@@ -37,10 +38,14 @@ class Time extends React.Component {
           attachTo={this._DOMNode}
           active={this.state.active}
           offset={this.props.offset}
-          className="date-picker-tooltip"
+          prefixClassName={`${prefixClassName}-tooltip`}
           position={this.props.position}
         >
-          <TimePicker value={this.state.value} onChange={this._handleChange} />
+          <TimePicker
+            prefixClassName={`${prefixClassName}-picker`}
+            value={this.state.value}
+            onChange={this._handleChange}
+          />
         </Tooltip>
       </div>
     );
@@ -66,7 +71,7 @@ class Time extends React.Component {
     const parsedValue = this._getParsedDate();
     return (
       <TextInput
-        className={`${prefixClassName}-input`}
+        prefixClassName={`${prefixClassName}-input`}
         innerRef={this._DOMNode}
         onKeyDown={this._handleKeyDown}
         onFocus={onFocus}
@@ -155,9 +160,19 @@ Time.classNames = {
   $prefix: "Added to the wrapper",
   "$prefix-label": "Added to the wrapper",
   "$prefix-input": "Added to the wrapper",
+
   "$prefix-tooltip": "Added to the wrapper",
+  "$prefix-tooltip-overlay": "Added to the wrapper",
+  "$prefix-tooltip-inner": "Added to the wrapper",
+  "$prefix-tooltip-caret": "Added to the wrapper",
+  "$prefix-tooltip-body": "Added to the wrapper",
+
   "$prefix-picker": "Added to the wrapper",
   "$prefix-picker-input": "Added to the wrapper",
+  "$prefix-picker-input-element": "Added to the wrapper",
+  "$prefix-picker-input-arrows": "Added to the wrapper",
+  "$prefix-picker-input-arrow": "Added to the wrapper",
+
   "$prefix-picker-switcher": "Added to the wrapper",
   "$prefix-picker-switcher-value": "Added to the wrapper",
 };
