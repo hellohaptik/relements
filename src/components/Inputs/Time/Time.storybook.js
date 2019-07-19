@@ -1,19 +1,15 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 
-import TimePicker from "./Time";
+import Docs from "./Time.mdx";
+import Time from "./Time";
 
-storiesOf("Components|Inputs/Time", module)
-  .add("Single", () => {
-    const story = <TimeWrapper />;
-    return story;
-  })
-  .add("Range", () => {
-    const story = <TimeWrapper />;
-    return story;
-  });
+storiesOf("Components|Inputs/Time", module).add("Documentation", () => {
+  const story = <Docs />;
+  return story;
+});
 
-class TimeWrapper extends React.Component {
+export class TimeWrapper extends React.Component {
   state = {
     value: new Date(),
   };
@@ -21,7 +17,7 @@ class TimeWrapper extends React.Component {
   render() {
     console.log("VALUE", this.state.value);
     return (
-      <TimePicker
+      <Time
         label="Select Time"
         placeholder="Select..."
         value={this.state.value}

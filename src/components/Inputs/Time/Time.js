@@ -34,7 +34,7 @@ class Time extends React.Component {
         {this.renderInput()}
         <Tooltip
           onClose={this.closeDate}
-          attachTo={this.props.attachTo || this._DOMNode}
+          attachTo={this._DOMNode}
           active={this.state.active}
           offset={this.props.offset}
           className="date-picker-tooltip"
@@ -42,7 +42,6 @@ class Time extends React.Component {
         >
           <TimePicker value={this.state.value} onChange={this._handleChange} />
         </Tooltip>
-        {this.renderError()}
       </div>
     );
   }
@@ -63,7 +62,7 @@ class Time extends React.Component {
 
   renderInput() {
     const { focused, active } = this.state;
-    const { placeholder, prefixClassName, onFocus, onBlur } = this.props;
+    const { placeholder, prefixClassName, onFocus, onBlur, error } = this.props;
     const parsedValue = this._getParsedDate();
     return (
       <TextInput
@@ -77,21 +76,12 @@ class Time extends React.Component {
         active={active}
         value={parsedValue}
         placeholder={placeholder}
+        error={error}
         disabled
         postfixComponent={<Icon src={AngleDownIcon} />}
       />
     );
   }
-
-  renderError = () => {
-    const { errorMessage, errorMsgClassName, error } = this.props;
-    if (!error || !errorMessage) return null;
-    return (
-      <div className={`${styles.dateInputSubtext} ${errorMsgClassName}`}>
-        <span className={styles.dateInputSubtextError}>{errorMessage}</span>
-      </div>
-    );
-  };
 
   _getParsedDate = () => {
     const { value } = this.props;
@@ -120,38 +110,56 @@ class Time extends React.Component {
 }
 
 Time.propTypes = {
-  attachTo: PropTypes.object,
+  /** The classname to appended to the outermost element */
   className: PropTypes.string,
+  /** If the input is disabled (non-editable) */
   disabled: PropTypes.bool,
+  /** If the input has an error. */
   error: PropTypes.bool,
-  errorMessage: PropTypes.string,
-  errorMsgClassName: PropTypes.string,
+  /** The prefix classname appended to all elements */
   prefixClassName: PropTypes.string,
+  /** Label text */
   label: PropTypes.string,
+  /** The offset of the tooltip containing the picker */
   offset: PropTypes.object,
+  /** onBlur callback */
   onBlur: PropTypes.func,
+  /** onChange callback */
   onChange: PropTypes.func,
+  /** onFocus callback */
   onFocus: PropTypes.func,
+  /** The input placeholder (when no value is selected) */
   placeholder: PropTypes.string,
+  /** The position of the tooltip */
   position: PropTypes.string,
+  /** The value of the input */
   value: PropTypes.string,
 };
 
 Time.defaultProps = {
-  onFocus: () => {},
-  onBlur: () => {},
-  onChange: () => {},
   label: "",
   className: "",
+  prefixClassName: "",
   value: "",
   placeholder: "",
   error: false,
   disabled: false,
-  errorMessage: "",
-  errorMsgClassName: "",
   offset: null,
   position: null,
-  attachTo: null,
+  onFocus: () => {},
+  onBlur: () => {},
+  onChange: () => {},
+};
+
+Time.classNames = {
+  $prefix: "Added to the wrapper",
+  "$prefix-label": "Added to the wrapper",
+  "$prefix-input": "Added to the wrapper",
+  "$prefix-tooltip": "Added to the wrapper",
+  "$prefix-picker": "Added to the wrapper",
+  "$prefix-picker-input": "Added to the wrapper",
+  "$prefix-picker-switcher": "Added to the wrapper",
+  "$prefix-picker-switcher-value": "Added to the wrapper",
 };
 
 export default Time;
