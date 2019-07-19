@@ -64,6 +64,7 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-module-resolver": "^3.2.0",
     "babel-plugin-react-docgen": "^3.1.0",
+    "classcat": "^4.0.2",
     "codecov": "^3.5.0",
     "commitizen": "^3.1.1",
     "css-loader": "^3.0.0",

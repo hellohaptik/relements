@@ -1,0 +1,35 @@
+import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
+import Checkbox from "./Checkbox";
+
+# Checkbox.Item
+
+> A clickable UI element with active and hover states. Indicates to the user that it's clickable.
+
+<CodeBlock defaultValue={true}>
+  {(value, onChange) => (
+    <Checkbox.Item label="Node Type" value={value} onChange={onChange} />
+  )}
+</CodeBlock>
+
+## Configuration
+
+<ConfigBlock of={Checkbox.Item} />
+
+## Examples
+
+<CodeBlock title="Default" defaultValue={false}>
+  {(value, onChange) => (
+    <Checkbox.Item label="Node Type" value={value} onChange={onChange} />
+  )}
+</CodeBlock>
+
+<CodeBlock title="Disabled" defaultValue={false}>
+  {(value, onChange) => (
+    <Checkbox.Item
+      label="Node Type"
+      value={value}
+      onChange={onChange}
+      disabled
+    />
+  )}
+</CodeBlock>
