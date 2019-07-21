@@ -46,6 +46,13 @@ Icon.SIZES = {
   BIG: 'big',
 };
 
+Icon.defaultProps = {
+  src: '',
+  className: '',
+  size: Icon.SIZES.MEDIUM,
+  onClick: () => {},
+};
+
 Icon.propTypes = {
   /** Can either be a string identifier for the icon (angle-down) or a react node */
   src: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),

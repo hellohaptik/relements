@@ -11,7 +11,7 @@ afterEach(cleanup);
 
 test('Smoke', async () => {
   const { queryAllByTestId, rerender, container } = render(<Icon />);
-  expect(queryAllByTestId('icon').length).toBe(0)
+  expect(queryAllByTestId('icon').length).toBe(0);
 
   Object.keys(ICON_MAP).forEach((key) => {
     rerender(<Icon src={key} />);

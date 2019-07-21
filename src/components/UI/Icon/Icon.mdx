@@ -1,13 +1,14 @@
 import { CodeBlock, ConfigBlock } from '@src/helpers/DocBlocks';
 import Icon from './Icon';
 import { IconSheet } from './Icon.storybook.js';
+import styles from './Icon.scss';
 
 # Icon
 
 > A clickable UI element with active and hover states. Indicates to the user that it's clickable.
 
 <CodeBlock>
-  <IconSheet />
+  <IconSheet list={['active', 'add', 'arrow', 'api']}/>
 </CodeBlock>
 
 ## Configuration
@@ -15,3 +16,24 @@ import { IconSheet } from './Icon.storybook.js';
 <ConfigBlock of={Icon} />
 
 ## Examples
+
+<CodeBlock title="Type : Default">
+  <Icon src="info"/>
+</CodeBlock>
+
+<CodeBlock title="Type : Custom Class">
+  <Icon src="info" className={`${styles.translucent}`}/>
+</CodeBlock>
+
+<CodeBlock title="Type : Size(Small)">
+  <Icon src="info" size='small'/>
+</CodeBlock>
+
+<CodeBlock title="Type : Size(Medium/Default)">
+  <Icon src="info" size='medium'/>
+</CodeBlock>
+
+<CodeBlock title="Type : Size(Large)">
+  <Icon src="info" size='big'/>
+</CodeBlock>
+
