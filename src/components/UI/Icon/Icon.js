@@ -12,18 +12,44 @@ const Icon = ({
   src = '', className = '', size, onClick, innerRef,
 }) => {
   if (!src) return null;
+
+  const getSizeClassName = () => {
+    switch (size) {
+      case Icon.SIZES.BIG:
+        return styles.big;
+      case Icon.SIZES.MEDIUM:
+        return styles.medium;
+      case Icon.SIZES.SMALL:
+        return styles.small;
+      default:
+        return styles.medium;
+    }
+  };
+
   const IconSvg = typeof src === 'string' ? getIcon(src) : src;
+
   return (
-    <div data-testid="icon" ref={innerRef} onClick={onClick} className={`${styles.icon} ${className}`}>
+    <div
+      data-testid="icon"
+      ref={innerRef}
+      onClick={onClick}
+      className={`${styles.icon} ${className} ${getSizeClassName()}`}
+    >
       <IconSvg />
     </div>
   );
 };
 
+Icon.SIZES = {
+  SMALL: 'small',
+  MEDIUM: 'medium',
+  BIG: 'big',
+};
+
 Icon.propTypes = {
-  /** Can either be a string identifier for the icon (angle-down) or an react node */
+  /** Can either be a string identifier for the icon (angle-down) or a react node */
   src: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  /** The classname to be attached to the icons outer most div */
+  /** The classname to be attached to the icon's outer most div */
   className: PropTypes.string,
   /** The size of the icon (small/medium/large/px number)  */
   size: PropTypes.number,
