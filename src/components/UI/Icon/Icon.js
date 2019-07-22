@@ -58,12 +58,16 @@ Icon.propTypes = {
   src: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   /** The classname to be attached to the icon's outer most div */
   className: PropTypes.string,
-  /** The size of the icon (small/medium/large/px number)  */
+  /** The size of the icon (small/medium/big/px number)  */
   size: PropTypes.number,
   /** The callback function that will be called on click of the icon */
   onClick: PropTypes.func,
   /** Passes the ref to the outermost div  */
   innerRef: PropTypes.func,
+};
+
+Icon.classNames = {
+  className: 'small / medium / big',
 };
 
 export default Icon;
