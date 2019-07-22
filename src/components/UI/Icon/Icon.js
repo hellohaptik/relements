@@ -10,7 +10,7 @@ import WithTooltip from '../../Overlays/WithTooltip';
  * and renders the icon corresponding to that.
  */
 const Icon = ({
-  src = '', className = '', size, onClick, innerRef, tooltip, tooltipPosition,
+  src = '', prefixClassName = '', className = '', size, onClick, innerRef, tooltip, tooltipPosition,
 }) => {
   if (!src) return null;
 
@@ -34,7 +34,7 @@ const Icon = ({
       data-testid="icon"
       ref={innerRef}
       onClick={onClick}
-      className={`${styles.icon} ${className} ${getSizeClassName()}`}
+      className={`${styles.icon} ${prefixClassName} ${className} ${getSizeClassName()}`}
     >
       <WithTooltip tooltip={tooltip} tooltipPosition={tooltipPosition}>
         <IconSvg />
@@ -61,6 +61,8 @@ Icon.defaultProps = {
 Icon.propTypes = {
   /** Can either be a string identifier for the icon (angle-down) or a react node */
   src: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  /** The classname to be prefixed to the icon's outer most div */
+  prefixClassName: PropTypes.string,
   /** The classname to be attached to the icon's outer most div */
   className: PropTypes.string,
   /** The size of the icon (small/medium/big/px number)  */
@@ -77,7 +79,7 @@ Icon.propTypes = {
 };
 
 Icon.classNames = {
-  className: 'small / medium / big',
+  $prefix: 'Outermost element',
 };
 
 export default Icon;
