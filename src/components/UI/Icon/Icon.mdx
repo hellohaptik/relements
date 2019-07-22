@@ -5,15 +5,20 @@ import styles from './Icon.scss';
 
 # Icon
 
-> A clickable UI element with active and hover states. Indicates to the user that it's clickable.
-
 <CodeBlock>
-  <IconSheet list={['active', 'add', 'arrow', 'api']}/>
+  <Icon src="info"/>
 </CodeBlock>
+
+> A clickable UI element with active and hover states. Indicates to the user that it's clickable.
 
 ## Configuration
 
 <ConfigBlock of={Icon} />
+
+## Icon Sheet
+<CodeBlock>
+  <IconSheet />
+</CodeBlock>
 
 ## Examples
 
@@ -37,3 +42,6 @@ import styles from './Icon.scss';
   <Icon src="info" size='big'/>
 </CodeBlock>
 
+<CodeBlock title="Type : With tooltip">
+  <Icon src="info" tooltip="this is a demo tooltip" tooltipPosition="TOP" />
+</CodeBlock>

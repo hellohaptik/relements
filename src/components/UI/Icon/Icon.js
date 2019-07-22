@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 
 import styles from './Icon.scss';
 import { getIcon } from './utils/getIcon';
+import WithTooltip from '../../WithTooltip';
 
 /**
  * Icon component that renders an icon. It takes a string identifier
  * and renders the icon corresponding to that.
  */
 const Icon = ({
-  src = '', className = '', size, onClick, innerRef,
+  src = '', className = '', size, onClick, innerRef, tooltip, tooltipPosition,
 }) => {
   if (!src) return null;
 
@@ -35,7 +36,9 @@ const Icon = ({
       onClick={onClick}
       className={`${styles.icon} ${className} ${getSizeClassName()}`}
     >
-      <IconSvg />
+      <WithTooltip tooltip={tooltip} tooltipPosition={tooltipPosition}>
+        <IconSvg />
+      </WithTooltip>
     </div>
   );
 };
@@ -49,6 +52,8 @@ Icon.SIZES = {
 Icon.defaultProps = {
   src: '',
   className: '',
+  tooltip: '',
+  tooltipPosition: '',
   size: Icon.SIZES.MEDIUM,
   onClick: () => {},
 };
@@ -64,6 +69,11 @@ Icon.propTypes = {
   onClick: PropTypes.func,
   /** Passes the ref to the outermost div  */
   innerRef: PropTypes.func,
+
+  /** Tooltip for the Icon */
+  tooltip: PropTypes.string,
+  /** Tooltip Positioning (TOP/BOTTOM) */
+  tooltipPosition: PropTypes.string,
 };
 
 Icon.classNames = {
