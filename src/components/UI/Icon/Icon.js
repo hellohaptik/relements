@@ -39,9 +39,9 @@ const Icon = ({
       <WithTooltip
         tooltip={tooltip}
         tooltipPosition={tooltipPosition}
-        prefixClassName={prefixClassName}
+        prefixClassName={`${prefixClassName}-tooltip`}
       >
-        <IconSvg prefixClassName={prefixClassName} />
+        <IconSvg className={`${prefixClassName}-svg`} />
       </WithTooltip>
     </div>
   );
@@ -75,7 +75,6 @@ Icon.propTypes = {
   onClick: PropTypes.func,
   /** Passes the ref to the outermost div  */
   innerRef: PropTypes.func,
-
   /** Tooltip for the Icon */
   tooltip: PropTypes.string,
   /** Tooltip Positioning (TOP/BOTTOM) */
@@ -84,6 +83,8 @@ Icon.propTypes = {
 
 Icon.classNames = {
   $prefix: 'Outermost element',
+  '$prefix-tooltip': 'Tooltip wrapping the Icon',
+  '$prefix-svg': 'The SVG wrapped in icon element',
 };
 
 export default Icon;
