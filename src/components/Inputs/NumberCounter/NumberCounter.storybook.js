@@ -1,9 +1,9 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import React from "react";
+import { storiesOf } from "@storybook/react";
 
-import NumberCounter from './NumberCounter';
+import NumberCounter from "./NumberCounter";
 
-storiesOf('Inputs/NumberCounter', module).add('Single', () => {
+storiesOf("Components|Inputs/NumberCounter", module).add("Single", () => {
   const story = <NumberCounterWrapper />;
   return story;
 });

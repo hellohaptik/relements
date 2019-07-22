@@ -1,126 +1,180 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import flatpickr from 'flatpickr';
-import dayjs from 'dayjs';
-import 'flatpickr/dist/themes/airbnb.css';
+import React from "react";
+import PropTypes from "prop-types";
+import dayjs from "dayjs";
 
-import Icon from 'components/UI/Icon';
-import AngleDownIcon from 'icons/angle-down.svg';
-import styles from './Time.scss';
+import Tooltip from "@src/components/Overlays/Tooltip";
+import Icon from "@src/components/UI/Icon";
+import AngleDownIcon from "@src/icons/angle-down.svg";
+
+import { TextInput } from "../_common/TextInput";
+import { Label } from "../_common/Label";
+
+import TimePicker from "./components/TimePicker";
+import styles from "./Time.scss";
 
 class Time extends React.Component {
   state = {
     active: false,
     focused: false,
+    value: dayjs(),
   };
 
-  componentDidMount() {
-    this._flatpickr = flatpickr(this._FlatPickrDOM, {
-      onChange: this._handleChange,
-      onClose: this._handleBlur,
-      enableTime: true,
-      noCalendar: true,
-      dateFormat: 'H:i',
-      defaultDate: this.props.value,
-    });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.value !== nextProps.value) {
-      this._flatpickr.setDate(nextProps.value);
-    }
-  }
+  _DOMNode = React.createRef();
 
   render() {
-    const {
-      placeholder, className, value = '', label, error, errorMessage, errorMsgClassName,
-    } = this.props;
-
-    const activeClassName = this.state.active ? styles.active : '';
-    const errorClassName = error ? styles.timeError : '';
-    const focusedClassName = this.state.focused ? styles.focused : '';
-    const parsedValue = value ? dayjs(value).format('h:mm A') : '';
+    const { className, error, disabled, prefixClassName } = this.props;
+    const errorClassName = error ? styles.dateError : "";
+    const disabledClassName = disabled ? styles.disabled : "";
 
     return (
-      <div className={`${styles.time} ${errorClassName} ${className}`}>
-        <span className={`${styles.timeLabel} ${focusedClassName}`}>{label}</span>
-        <div
-          ref={(DOMNode) => {
-            this._DOMNode = DOMNode;
-          }}
-          tabIndex="0"
-          onKeyDown={this._handleKeyDown}
-          onFocus={this._handleFocus}
-          onBlur={this._handleBlur}
-          onClick={this._toggleTime}
-          className={`${styles.timeInputWrapper} ${activeClassName} ${focusedClassName}`}
+      <div
+        data-testid="time"
+        className={`${styles.date} ${errorClassName} ${disabledClassName} ${prefixClassName} ${className}`}
+      >
+        {this.renderLabel()}
+        {this.renderInput()}
+        <Tooltip
+          onClose={this.closeDate}
+          attachTo={this._DOMNode}
+          active={this.state.active}
+          offset={this.props.offset}
+          prefixClassName={`${prefixClassName}-tooltip`}
+          position={this.props.position}
         >
-          <div className={styles.timeInput}>{parsedValue || <span>{placeholder}</span>}</div>
-          <Icon src={ AngleDownIcon } />
-          <div
-            className={styles.timePickrInput}
-            ref={(DOMNode) => {
-              this._FlatPickrDOM = DOMNode;
-            }}
+          <TimePicker
+            prefixClassName={`${prefixClassName}-picker`}
+            value={this.state.value}
+            onChange={this._handleChange}
           />
-        </div>
-        {error && errorMessage && (
-          <div className={`${styles.timeInputSubtext} ${errorMsgClassName}`}>{this._renderError(errorMessage)}</div>
-        )}
+        </Tooltip>
       </div>
     );
   }
 
-  _renderError = (errorMessage) => {
-    return <span className={styles.timeInputSubtextError}>{errorMessage}</span>;
+  renderLabel() {
+    const { prefixClassName, error, label } = this.props;
+    if (!label) return null;
+    return (
+      <Label
+        focused={this.state.focused}
+        error={error}
+        className={`${prefixClassName}-label`}
+      >
+        {label}
+      </Label>
+    );
+  }
+
+  renderInput() {
+    const { focused, active } = this.state;
+    const { placeholder, prefixClassName, onFocus, onBlur, error } = this.props;
+    const parsedValue = this._getParsedDate();
+    return (
+      <TextInput
+        prefixClassName={`${prefixClassName}-input`}
+        innerRef={this._DOMNode}
+        onKeyDown={this._handleKeyDown}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onMouseDown={this.toggleDate}
+        focused={focused}
+        active={active}
+        value={parsedValue}
+        placeholder={placeholder}
+        error={error}
+        disabled
+        postfixComponent={<Icon src={AngleDownIcon} />}
+      />
+    );
+  }
+
+  _getParsedDate = () => {
+    const { value } = this.props;
+    const format = "hh:mm A";
+    const date = this._getParsedValueFromDate(value);
+    if (!date.isValid()) return "Invalid Date";
+    return `${date.format(format)}`;
   };
 
-  _handleFocus = (e) => {
-    this.props.onFocus && this.props.onFocus(e);
-    this._flatpickr.open();
-    // this._DOMNode.scrollIntoView();
-    this._timeout = setTimeout(() => {
-      this.setState({ active: true, focused: true });
-    }, 300);
+  _getParsedValueFromDate = value => {
+    return dayjs(value);
   };
 
-  _handleBlur = (e) => {
-    if (this._flatpickr.isOpen) return;
+  _handleChange = date => {
+    this.setState({ value: date });
+  };
 
-    if (this._timeout) {
-      clearTimeout(this._timeout);
-    }
+  toggleDate = () => {
+    this.setState(state => ({ active: !state.active, focused: !state.active }));
+  };
+
+  closeDate = () => {
     this.setState({ active: false, focused: false });
-    this.props.onBlur && this.props.onBlur(e);
-  };
-
-  _onTimeClick = (option) => {
-    this.setState({ active: false, focused: false });
-    this.props.onChange(option);
-  };
-
-  _handleChange = (e) => {
-    this._onTimeClick(e[0]);
-  };
-
-  _toggleTime = () => {
-    this.setState({ active: !this.state.active, focused: !this.state.active }, () => {
-      this.state.active ? this._flatpickr.open() : this._flatpickr.close();
-    });
+    this.props.onChange(this.state.value.toDate());
   };
 }
 
 Time.propTypes = {
-  placeholder: PropTypes.string,
+  /** The classname to appended to the outermost element */
   className: PropTypes.string,
-  value: PropTypes.instanceOf(Date),
-  label: PropTypes.string,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
+  /** If the input is disabled (non-editable) */
+  disabled: PropTypes.bool,
+  /** If the input has an error. */
   error: PropTypes.bool,
-  errorMessage: PropTypes.string,
-  errorMsgClassName: PropTypes.string,
+  /** The prefix classname appended to all elements */
+  prefixClassName: PropTypes.string,
+  /** Label text */
+  label: PropTypes.string,
+  /** The offset of the tooltip containing the picker */
+  offset: PropTypes.object,
+  /** onBlur callback */
+  onBlur: PropTypes.func,
+  /** onChange callback */
+  onChange: PropTypes.func,
+  /** onFocus callback */
+  onFocus: PropTypes.func,
+  /** The input placeholder (when no value is selected) */
+  placeholder: PropTypes.string,
+  /** The position of the tooltip */
+  position: PropTypes.string,
+  /** The value of the input */
+  value: PropTypes.string,
+};
+
+Time.defaultProps = {
+  label: "",
+  className: "",
+  prefixClassName: "",
+  value: "",
+  placeholder: "",
+  error: false,
+  disabled: false,
+  offset: null,
+  position: null,
+  onFocus: () => {},
+  onBlur: () => {},
+  onChange: () => {},
+};
+
+Time.classNames = {
+  $prefix: "Added to the wrapper",
+  "$prefix-label": "Added to the wrapper",
+  "$prefix-input": "Added to the wrapper",
+
+  "$prefix-tooltip": "Added to the wrapper",
+  "$prefix-tooltip-overlay": "Added to the wrapper",
+  "$prefix-tooltip-inner": "Added to the wrapper",
+  "$prefix-tooltip-caret": "Added to the wrapper",
+  "$prefix-tooltip-body": "Added to the wrapper",
+
+  "$prefix-picker": "Added to the wrapper",
+  "$prefix-picker-input": "Added to the wrapper",
+  "$prefix-picker-input-element": "Added to the wrapper",
+  "$prefix-picker-input-arrows": "Added to the wrapper",
+  "$prefix-picker-input-arrow": "Added to the wrapper",
+
+  "$prefix-picker-switcher": "Added to the wrapper",
+  "$prefix-picker-switcher-value": "Added to the wrapper",
 };
 
 export default Time;

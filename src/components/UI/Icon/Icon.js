@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import styles from './Icon.scss';
 import { getIcon } from './utils/getIcon';
-import WithTooltip from '../../WithTooltip';
+import WithTooltip from '../../Overlays/WithTooltip';
 
 /**
  * Icon component that renders an icon. It takes a string identifier

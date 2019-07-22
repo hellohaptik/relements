@@ -1,15 +1,15 @@
 /* eslint-env jest */
 
-import React from 'react';
-import 'jest-dom/extend-expect';
-import { render, fireEvent, cleanup } from '@testing-library/react';
+import React from "react";
+import "jest-dom/extend-expect";
+import { render, cleanup } from "@testing-library/react";
 
-import { ICON_MAP } from '../utils/getIcon';
-import Icon from '../Icon';
+import { ICON_MAP } from "../utils/getIcon";
+import Icon from "../Icon";
 
 afterEach(cleanup);
 
-test('Smoke', async () => {
+test("Smoke", async () => {
   const { queryAllByTestId, rerender, container } = render(<Icon />);
   expect(queryAllByTestId('icon').length).toBe(0);
 

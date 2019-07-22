@@ -1,25 +1,28 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import React from "react";
+import { storiesOf } from "@storybook/react";
 
-import Time from './Time';
+import Docs from "./Time.mdx";
+import Time from "./Time";
 
-storiesOf('TimeInput', module).add('Single', () => {
-  const story = <TimeWrapper />;
+storiesOf("Components|Inputs/Time", module).add("Documentation", () => {
+  const story = <Docs />;
   return story;
 });
 
-class TimeWrapper extends React.Component {
+export class TimeWrapper extends React.Component {
   state = {
-    value: undefined,
+    value: new Date(),
   };
 
   render() {
+    console.log("VALUE", this.state.value);
     return (
       <Time
         label="Select Time"
         placeholder="Select..."
         value={this.state.value}
         onChange={value => this.setState({ value })}
+        minTime={new Date()}
       />
     );
   }

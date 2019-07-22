@@ -1,13 +1,13 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import React from "react";
+import { storiesOf } from "@storybook/react";
 
-import RangeSlider from './RangeSlider';
+import RangeSlider from "./RangeSlider";
 
-storiesOf('Inputs/RangeSlider', module)
-  .add('Single', () => {
+storiesOf("Components|Inputs/RangeSlider", module)
+  .add("Single", () => {
     return <RangeSliderTest single />;
   })
-  .add('Multiple', () => {
+  .add("Multiple", () => {
     return <RangeSliderTest />;
   });
 

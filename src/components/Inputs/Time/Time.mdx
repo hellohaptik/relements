@@ -1,0 +1,49 @@
+import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
+
+import { TimeWrapper } from "./Time.storybook.js";
+import Time from "./Time";
+
+# Time
+
+> The timepicker input is used for collecting a time based input from the user.
+
+<CodeBlock defaultValue={new Date()}>
+  {(value, onChange) => (
+    <Time
+      label="Select Time"
+      placeholder="Select..."
+      value={value}
+      onChange={onChange}
+    />
+  )}
+</CodeBlock>
+
+## Configuration
+
+<ConfigBlock of={Time} />
+
+## Examples
+
+<CodeBlock defaultValue={new Date()} title="Disabled">
+  {(value, onChange) => (
+    <Time
+      label="Select Time"
+      placeholder="Select..."
+      value={value}
+      onChange={onChange}
+      disabled
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock defaultValue={new Date()} title="Error">
+  {(value, onChange) => (
+    <Time
+      label="Select Time"
+      placeholder="Select..."
+      value={value}
+      onChange={onChange}
+      error
+    />
+  )}
+</CodeBlock>

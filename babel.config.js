@@ -9,20 +9,18 @@ module.exports = (api) => {
       ['@babel/plugin-proposal-class-properties'],
       ['@babel/plugin-proposal-export-default-from'],
       ['@babel/plugin-proposal-export-namespace-from'],
+      ['module-resolver', { root: ['./src'], alias: { '@src': './src' } }],
       [
-        'module-resolver',
-        {
-          root: ['./src'],
-          alias: {
-            '@src': './src',
-          },
-        },
+        'babel-plugin-react-docgen',
+        { 'handlers:': ['react-docgen-external-proptypes-handler'] },
       ],
-      ['babel-plugin-react-docgen', { 'handlers:': ['react-docgen-external-proptypes-handler'] }],
     ],
     env: {
       test: {
-        plugins: [['@babel/plugin-transform-modules-commonjs'], ['@babel/plugin-transform-runtime']],
+        plugins: [
+          ['@babel/plugin-transform-modules-commonjs'],
+          ['@babel/plugin-transform-runtime'],
+        ],
       },
     },
   };

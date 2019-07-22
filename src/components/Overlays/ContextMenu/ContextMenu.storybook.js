@@ -1,7 +1,10 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import React from "react";
+import { storiesOf } from "@storybook/react";
 
-import Docs from './ContextMenu.mdx';
+import Docs from "./ContextMenu.mdx";
 
 // eslint-disable-next-line
-storiesOf('Overlays/ContextMenu', module).add('Documentation', () => <Docs />);
+storiesOf("Components|Overlays/ContextMenu", module).add(
+  "Documentation",
+  () => <Docs />,
+);

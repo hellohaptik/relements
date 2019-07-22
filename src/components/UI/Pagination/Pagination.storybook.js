@@ -1,5 +1,7 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-import Docs from './Pagination.mdx';
+import React from "react";
+import { storiesOf } from "@storybook/react";
+import Docs from "./Pagination.mdx";
 
-storiesOf('UI/Pagination', module).add('Documentation', () => <Docs />);
+storiesOf("Components|UI/Pagination", module).add("Documentation", () => (
+  <Docs />
+));

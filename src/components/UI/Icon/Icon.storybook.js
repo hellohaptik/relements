@@ -6,7 +6,7 @@ import { ICON_MAP } from './utils/getIcon';
 import { Label } from '../../Inputs/_common/Label';
 import Docs from './Icon.mdx';
 
-storiesOf('UI/Icon', module).add('Documentation', () => {
+storiesOf("Components|UI/Icon", module).add("Documentation", () => {
   return <Docs />;
 });
 

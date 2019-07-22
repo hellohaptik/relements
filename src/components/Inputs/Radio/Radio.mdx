@@ -1,0 +1,96 @@
+import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
+import Radio from "./Radio";
+
+# Radio
+
+> An input element that helps gather on of multiple options (The user can usually only one option at a time.)
+
+<CodeBlock defaultValue={{ title: "Good Node" }}>
+  {(value, onChange) => (
+    <Radio
+      label="Node Type"
+      value={value}
+      onChange={onChange}
+      options={[{ title: "Good Node" }, { title: "Bad Node" }]}
+      optionKey="title"
+    />
+  )}
+</CodeBlock>
+
+## Configuration
+
+<ConfigBlock of={Radio} />
+
+## Examples
+
+<CodeBlock title="Multiple Options" defaultValue={{ title: "Good Node" }}>
+  {(value, onChange) => (
+    <Radio
+      label="Node Type"
+      value={value}
+      onChange={onChange}
+      options={[
+        { title: "Good Node" },
+        { title: "Bad Node" },
+        { title: "Awesome Node" },
+      ]}
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock title="With Hint Text" defaultValue={{ title: "Radiohead" }}>
+  {(value, onChange) => (
+    <Radio
+      label="Bands you like?"
+      value={value}
+      onChange={onChange}
+      hint="Hi this is the hint text"
+      options={[{ title: "Metallica" }, { title: "Radiohead" }]}
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock title="With Error" defaultValue={{ title: "React" }}>
+  {(value, onChange) => (
+    <Radio
+      label="Frontend"
+      value={value}
+      onChange={onChange}
+      error="Hi this is an error"
+      options={[
+        { title: "React" },
+        { title: "Angular" },
+        { title: "Vue" },
+        { title: "Svelte" },
+      ]}
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock title="Disabled" defaultValue={{ title: "F&B" }}>
+  {(value, onChange) => (
+    <Radio
+      label="Businesses"
+      value={value}
+      onChange={onChange}
+      disabled
+      options={[{ title: "Tech" }, { title: "F&B" }, { title: "Finance" }]}
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock title="Tooltip" defaultValue={{ title: "Good Node" }}>
+  {(value, onChange) => (
+    <Radio
+      label="Node Type"
+      value={value}
+      onChange={onChange}
+      tooltip="Hi this is a tooltip"
+      options={[
+        { title: "Good Node" },
+        { title: "Bad Node" },
+        { title: "Awesome Node" },
+      ]}
+    />
+  )}
+</CodeBlock>

@@ -15,8 +15,8 @@ import FilePlaceholder from './components/FilePlaceholder';
 import ImagePlaceholder from './components/ImagePlaceholder';
 import ImageProgressBar from './components/ImageProgressBar';
 
-const FILE_ACCEPT_TYPES = "image/png, image/jpg, image/jpeg, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword";
-const IMAGE_ACCEPT_TYPES = "image/png, image/jpg, image/jpeg";
+const FILE_ACCEPT_TYPES = 'image/png, image/jpg, image/jpeg, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword';
+const IMAGE_ACCEPT_TYPES = 'image/png, image/jpg, image/jpeg';
 
 export default class Image extends React.Component {
   static propTypes = {
@@ -69,7 +69,7 @@ export default class Image extends React.Component {
 
   _renderAddMoreButton = () => (
     <div className={styles.addNewFile}>
-      <Icon src={ PlusIcon } className={styles.addNewFileIcon} />
+      <Icon src={PlusIcon} className={styles.addNewFileIcon} />
       <span className={styles.addNewFileText}>Add more images</span>
       {this._renderInput(this.props.multiple)}
     </div>
@@ -168,7 +168,7 @@ export default class Image extends React.Component {
   };
 
   _transform = (values) => {
-    return values.map(value => {
+    return values.map((value) => {
       const extenstionRegex = /(?:\.([^.]+))?$/;
       const fileExtension = extenstionRegex.exec(value.split('?')[0])[1];
       const isImage = IMAGE_EXTENSIONS.includes(fileExtension);
@@ -178,7 +178,7 @@ export default class Image extends React.Component {
         fileType: isImage ? 'IMAGE' : 'FILE',
         previewURL: value,
         value,
-      }
+      };
     });
   };
 

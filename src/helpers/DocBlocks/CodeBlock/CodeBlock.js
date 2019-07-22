@@ -9,11 +9,14 @@ import styles from './CodeBlock.scss';
 
 const CodeBlock = ({ children, title, defaultValue }) => {
   const codeRef = React.useRef();
+  const childRef = React.useRef();
   const [value, setValue] = React.useState(defaultValue);
   const [codeOpen, setCodeOpen] = React.useState(false);
   const [codeHeight, setCodeHeight] = React.useState(false);
   const { visible, enabled } = useActivify(codeOpen);
-  const bodyStyle = visible ? { height: codeHeight, opacity: 1 } : { height: 0, opacity: 1 };
+  const bodyStyle = visible
+    ? { height: codeHeight, opacity: 1 }
+    : { height: 0, opacity: 1 };
   const toggledClassName = visible ? styles.toggled : '';
   const toggleCode = React.useCallback(() => {
     if (codeOpen) setCodeOpen(false);
@@ -26,17 +29,22 @@ const CodeBlock = ({ children, title, defaultValue }) => {
     setCodeHeight(rect.height);
   }, [enabled]);
 
-  const child = typeof children === 'function' ? children(value, setValue) : children;
+  const child = typeof children === 'function'
+    ? children(value, setValue, childRef)
+    : children;
   return (
     <div className={styles.codeBlockWrapper}>
       {title ? <div className={styles.codeBlockTitle}>{title}</div> : null}
       <div className={styles.codeBlock}>
-        <div className={`${styles.codeBlockPreview} ${toggledClassName}`}>{child}</div>
+        <div className={`${styles.codeBlockPreview} ${toggledClassName}`}>
+          {child}
+        </div>
         {enabled ? (
           <div style={bodyStyle} className={styles.codeBlockBody}>
             <div ref={codeRef} className="language-javascript">
               <SyntaxHighlighter language="jsx" style={tomorrow}>
-                {child.props.originalType.__codeString || CodeBlock.getCode(child)}
+                {child.props.originalType.__codeString
+                  || CodeBlock.getCode(child)}
               </SyntaxHighlighter>
             </div>
           </div>
