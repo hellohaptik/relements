@@ -6,6 +6,7 @@ import styles from './WithTooltip.scss';
 
 function WithTooltip({
   children,
+  prefixClassName,
   className,
   onClick,
   tooltip,
@@ -31,6 +32,7 @@ function WithTooltip({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
+      prefixClassName={prefixClassName}
       className={`${styles.withTooltipWrapper} ${className}`}
     >
       {children}
@@ -53,6 +55,7 @@ function WithTooltip({
 
 WithTooltip.propTypes = {
   children: PropTypes.node,
+  prefixClassName: PropTypes.string,
   className: PropTypes.string,
   tooltip: PropTypes.string,
   position: PropTypes.string,

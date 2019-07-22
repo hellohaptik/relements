@@ -36,8 +36,12 @@ const Icon = ({
       onClick={onClick}
       className={`${styles.icon} ${prefixClassName} ${className} ${getSizeClassName()}`}
     >
-      <WithTooltip tooltip={tooltip} tooltipPosition={tooltipPosition}>
-        <IconSvg />
+      <WithTooltip
+        tooltip={tooltip}
+        tooltipPosition={tooltipPosition}
+        prefixClassName={prefixClassName}
+      >
+        <IconSvg prefixClassName={prefixClassName} />
       </WithTooltip>
     </div>
   );
