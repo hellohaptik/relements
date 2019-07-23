@@ -4,7 +4,7 @@
   outline: none;
   border: none;
   background-color: #fff;
-  border: 1px solid #DDD;
+  border: 1px solid #ddd;
   padding: 6px 10px;
   border-radius: 8px;
   font-size: 12px;
@@ -12,14 +12,25 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+
   &.small {
     font-size: 10px;
   }
 
   &.primary {
     background-color: $primary-color;
-    color: #FFF;
+    color: #fff;
     border-color: $primary-color;
+  }
+
+  &.grey {
+    background-color: #f2f2f2;
+    border-color: #dddddd;
+  }
+
+  &:hover {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
   }
 
   &.disabled {
@@ -31,16 +42,6 @@
       box-shadow: none;
       transform: none;
     }
-  }
-  
-  &.grey {
-    background-color: #f2f2f2;
-    border-color: #dddddd;
-  }
-
-  &:hover {
-    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-    transform: translateY(-2px);
   }
 
   &.big {
@@ -66,7 +67,7 @@
       color: darken($warning-color, 10);
     }
   }
-  
+
   &.yellow {
     background-color: rgba($yellow-color, 0.1);
     color: darken($yellow-color, 10);

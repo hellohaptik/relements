@@ -1,0 +1,17 @@
+@import 'constants/index.scss';
+
+.iconsheet {
+    height: 40px;
+    width: 40px;
+    margin: 20px 60px;
+    cursor: pointer;
+}
+
+.translucent {
+  opacity: 0.5;
+}
+
+.container {
+    float: left;
+    text-align: center;
+}

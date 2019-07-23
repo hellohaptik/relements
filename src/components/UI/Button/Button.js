@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import styles from './Button.scss';
+import styles from "./Button.scss";
 
 /**
  * Button component. Renders a button
@@ -9,7 +9,14 @@ import styles from './Button.scss';
  * to render the contents of the button.
  */
 const Button = ({
-  className, type, size, disabled, onClick, innerRef, children,
+  prefixClassName = "",
+  className = "",
+  type,
+  size,
+  disabled,
+  onClick,
+  innerRef,
+  children,
 }) => {
   /**
    * Get the styles classname corresponding to the type prop
@@ -30,7 +37,7 @@ const Button = ({
       case Button.TYPES.YELLOW:
         return styles.yellow;
       default:
-        return '';
+        return "";
     }
   };
 
@@ -51,6 +58,10 @@ const Button = ({
     }
   };
 
+  const getDisabledClassName = () => {
+    return disabled ? styles.disabled : "";
+  };
+
   return (
     <button
       data-testid="button"
@@ -58,7 +69,14 @@ const Button = ({
       disabled={disabled}
       ref={innerRef}
       onClick={onClick}
-      className={`${styles.button} ${getTypeClassName()} ${getSizeClassName()} ${className}`}
+      className={`
+        ${styles.button}
+        ${prefixClassName}
+        ${className}
+        ${getDisabledClassName()}
+        ${getTypeClassName()}
+        ${getSizeClassName()}
+      `}
     >
       {children}
     </button>
@@ -66,22 +84,24 @@ const Button = ({
 };
 
 Button.SIZES = {
-  SMALL: 'small',
-  MEDIUM: 'medium',
-  BIG: 'big',
+  SMALL: "small",
+  MEDIUM: "medium",
+  BIG: "big",
 };
 
 Button.TYPES = {
-  DEFAULT: 'default',
-  PRIMARY: 'primary',
-  SECONDARY: 'secondary',
-  OUTLINE: 'outline',
-  GREY: 'grey',
-  WARNING: 'warning',
-  YELLOW: 'yellow',
+  DEFAULT: "default",
+  PRIMARY: "primary",
+  SECONDARY: "secondary",
+  OUTLINE: "outline",
+  GREY: "grey",
+  WARNING: "warning",
+  YELLOW: "yellow",
 };
 
 Button.propTypes = {
+  /** The classname to be prefixed on the outermost element */
+  prefixClassName: PropTypes.string,
   /** The classname to appended to the outermost element */
   className: PropTypes.string,
   /** The type of the button (primary, secondary, grey etc.) */
@@ -95,19 +115,31 @@ Button.propTypes = {
     Button.TYPES.YELLOW,
   ]),
   /** The size of the button (small/medium/big) */
-  size: PropTypes.oneOf([Button.SIZES.SMALL, Button.SIZES.MEDIUM, Button.SIZES.BIG]),
+  size: PropTypes.oneOf([
+    Button.SIZES.SMALL,
+    Button.SIZES.MEDIUM,
+    Button.SIZES.BIG,
+  ]),
   /** Whether the button is disabled */
   disabled: PropTypes.bool,
   /** OnClick callback */
   onClick: PropTypes.func,
   /** The ref passed down to the outermost DOM element */
-  innerRef: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({ current: PropTypes.instanceOf(Element) })]),
+  innerRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]),
   /** Children to render inside the button */
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]).isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
 };
 
 Button.defaultProps = {
-  className: '',
+  prefixClassName: "",
+  className: "",
   type: Button.TYPES.DEFAULT,
   size: Button.SIZES.MEDIUM,
   disabled: false,
@@ -115,8 +147,8 @@ Button.defaultProps = {
 };
 
 Button.classNames = {
-  $prefix: 'world!',
-  '$prefix-child': 'world!',
+  $prefix: "Outermost element",
+  "$prefix-child": "Child of the Main Button Component",
 };
 
 export default Button;
