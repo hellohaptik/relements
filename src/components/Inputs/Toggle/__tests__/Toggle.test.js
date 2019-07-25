@@ -14,12 +14,23 @@ test("Smoke", async () => {
 });
 
 test("Custom class", async () => {
-  const { getByTestId } = render(
-    <Toggle label="test" className="test" prefixClassName="pre" />,
+  const { getByTestId } = render(<Toggle label="test" className="test" />);
+  expect(getByTestId("toggle")).toHaveClass("test");
+});
+
+test("Prefix Class", async () => {
+  const classNames = Object.keys(Toggle.classNames).map(className =>
+    className.replace("$prefix", "test"),
   );
-  expect(getByTestId("toggle")).toHaveClass("test", "pre");
-  expect(getByTestId("toggle-toggle")).toHaveClass("pre-toggle");
-  expect(getByTestId("toggle-knob")).toHaveClass("pre-toggle-knob");
+
+  const { container } = render(<Toggle label="test" prefixClassName="test" />);
+
+  classNames.forEach(className => {
+    expect(
+      document.getElementsByClassName(className).length,
+      className,
+    ).toBeGreaterThanOrEqual(1);
+  });
 });
 
 test("Testing button click", async () => {
@@ -33,8 +44,10 @@ test("Testing button click", async () => {
 
 test("Testing on focus", async () => {
   const mockFn = jest.fn();
-  const { getByTestId } = render(<Toggle value={true} onFocus={mockFn} />);
-  const button = getByTestId("toggle-toggle");
+  const { getByTestId } = render(
+    <Toggle prefixClassName="test" value={true} onFocus={mockFn} />,
+  );
+  const button = document.getElementsByClassName("test-toggle")[0];
 
   fireEvent.focus(button);
   expect(mockFn).toHaveBeenCalled();
@@ -42,8 +55,10 @@ test("Testing on focus", async () => {
 
 test("Testing on blur", async () => {
   const mockFn = jest.fn();
-  const { getByTestId } = render(<Toggle value={true} onBlur={mockFn} />);
-  const button = getByTestId("toggle-toggle");
+  const { getByTestId } = render(
+    <Toggle prefixClassName="test" value={true} onBlur={mockFn} />,
+  );
+  const button = document.getElementsByClassName("test-toggle")[0];
 
   fireEvent.blur(button);
   expect(mockFn).toHaveBeenCalled();

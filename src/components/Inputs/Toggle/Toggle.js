@@ -45,19 +45,17 @@ const Toggle = ({
       <Label
         focused={focused}
         error={error}
-        className={`${styles.dropdownLabel} ${prefixClassName}-label`}
+        className={`${styles.toggleLabel} ${prefixClassName}-label`}
       >
         {label}
       </Label>
       <div
-        data-testid="toggle-toggle"
         tabIndex="0"
         onFocus={handleFocus}
         onBlur={handleBlur}
         className={`${classNames.main} ${prefixClassName}-toggle`}
       >
         <div
-          data-testid="toggle-knob"
           className={`${styles.toggleInputKnob} ${redGreenClassName} ${prefixClassName}-toggle-knob ${activeClassName}`}
         />
       </div>
@@ -99,6 +97,13 @@ Toggle.defaultProps = {
   onBlur: () => {},
   error: false,
   disabled: false,
+};
+
+Toggle.classNames = {
+  $prefix: "Outermost element",
+  "$prefix-label": "Label element",
+  "$prefix-toggle": "Inner element that wraps the toggle",
+  "$prefix-toggle-knob": "Knob element inside the wrapper",
 };
 
 export default Toggle;
