@@ -1,23 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import * as API from 'api';
+import React from "react";
+import PropTypes from "prop-types";
+import * as API from "api";
 
-import { IMAGE_EXTENSIONS } from 'constants';
-import * as genericUtils from 'utils/generic';
-import Loader from 'components/UI/Loader';
-import Icon from 'components/UI/Icon';
-import PlusIcon from 'icons/plus.svg';
-import TrashIcon from 'icons/trash.svg';
-import PlaceholderIcon from 'icons/placeholder.svg';
-import styles from './File.scss';
+import { IMAGE_EXTENSIONS } from "constants";
+import * as genericUtils from "utils/generic";
+import Loader from "components/UI/Loader";
+import Icon from "components/UI/Icon";
+import PlusIcon from "icons/plus.svg";
+import TrashIcon from "icons/trash.svg";
+import PlaceholderIcon from "icons/placeholder.svg";
+import styles from "./File.scss";
 
-import FilePlaceholder from './components/FilePlaceholder';
-import ImagePlaceholder from './components/ImagePlaceholder';
-import ImageProgressBar from './components/ImageProgressBar';
+import FilePlaceholder from "./components/FilePlaceholder";
+import ImagePlaceholder from "./components/ImagePlaceholder";
+import ImageProgressBar from "./components/ImageProgressBar";
 
 // eslint-disable-next-line max-len
-const FILE_ACCEPT_TYPES =  'image/png, image/jpg, image/jpeg, application/pdf, application/ vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword';
-const IMAGE_ACCEPT_TYPES = 'image/png, image/jpg, image/jpeg';
+const FILE_ACCEPT_TYPES =
+  "image/png, image/jpg, image/jpeg, application/pdf, application/ vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword";
+const IMAGE_ACCEPT_TYPES = "image/png, image/jpg, image/jpeg";
 
 export default class Image extends React.Component {
   static propTypes = {
@@ -40,20 +41,20 @@ export default class Image extends React.Component {
     type: PropTypes.string,
     /** Size of the file allowed in MBs */
     size: PropTypes.number,
-    /** Dimensions of the file to upload */
+    /** Dimensions of the file to upload (Doesn't work with type 'file') */
     dimensions: PropTypes.string,
   };
 
   static defaultProps = {
-    value: '',
+    value: "",
     onChange: () => {},
     multiple: false,
-    ratio: '',
+    ratio: "",
     baseWidth: 290,
-    className: '',
-    prefixClassName: '',
-    type: '',
-    dimensions: '',
+    className: "",
+    prefixClassName: "",
+    type: "",
+    dimensions: "",
   };
 
   _newUploadItem = {
@@ -69,9 +70,7 @@ export default class Image extends React.Component {
   };
 
   render() {
-    const {
- value, multiple, className, prefixClassName 
-} = this.props;
+    const { value, multiple, className, prefixClassName } = this.props;
     let values = [];
     if (value) {
       values = multiple ? this._transform(value) : this._transform([value]);
@@ -79,9 +78,9 @@ export default class Image extends React.Component {
 
     let { type } = this.props;
 
-    if (type === 'file') {
+    if (type === "file") {
       type = FILE_ACCEPT_TYPES;
-    } else if (type === 'image') {
+    } else if (type === "image") {
       type = IMAGE_ACCEPT_TYPES;
     }
 
@@ -97,7 +96,7 @@ export default class Image extends React.Component {
   }
 
   _renderPlaceholder = () => {
-    if (this.props.type === 'file') {
+    if (this.props.type === "file") {
       return (
         <FilePlaceholder
           prefixClassName={this.props.prefixClassName}
@@ -148,14 +147,12 @@ export default class Image extends React.Component {
   );
 
   _renderPreview = (upload, i) => {
-    if (upload.fileType === 'FILE') return this._renderFilePreview(upload, i);
+    if (upload.fileType === "FILE") return this._renderFilePreview(upload, i);
     return this._renderImagePreview(upload, i);
   };
 
   _renderImagePreview = (upload, i) => {
-    const {
- isUploading, uploadedPercent, previewURL, value 
-} = upload;
+    const { isUploading, uploadedPercent, previewURL, value } = upload;
     const imageRatio = this.props.ratio || 1.77;
     const width = this.props.baseWidth || 290;
     const minWidth = width;
@@ -175,9 +172,7 @@ export default class Image extends React.Component {
   };
 
   _renderFilePreview = (upload, i) => {
-    const {
- isUploading, uploadedPercent, previewURL, value 
-} = upload;
+    const { isUploading, uploadedPercent, previewURL, value } = upload;
     const URL = value || previewURL;
     return (
       <div
@@ -196,7 +191,7 @@ export default class Image extends React.Component {
   };
 
   _renderImage = (previewURL, isUploading, index) => {
-    const isUploadingClassName = isUploading ? styles.isUploading : '';
+    const isUploadingClassName = isUploading ? styles.isUploading : "";
 
     if (!genericUtils.isValidURL(previewURL)) {
       return (
@@ -234,7 +229,7 @@ export default class Image extends React.Component {
   };
 
   _renderFile = (previewURL, value, isUploading, index) => {
-    const isUploadingClassName = isUploading ? styles.isUploading : '';
+    const isUploadingClassName = isUploading ? styles.isUploading : "";
     return (
       <div
         className={`${styles.filePreview} ${isUploadingClassName} ${this.props.prefixClassName}-preview`}
@@ -245,7 +240,7 @@ export default class Image extends React.Component {
           rel="noopener noreferrer"
           className={`${styles.filePreviewTitle} ${this.props.prefixClassName}-file-title`}
         >
-          {this.state.filenames[index] || 'Attachment'}
+          {this.state.filenames[index] || "Attachment"}
         </a>
         <div
           onClick={() => this._deleteFile(index)}
@@ -260,8 +255,8 @@ export default class Image extends React.Component {
     );
   };
 
-  _renderLoader = (isUploading) => {
-    const isUploadingClassName = isUploading ? styles.isUploading : '';
+  _renderLoader = isUploading => {
+    const isUploadingClassName = isUploading ? styles.isUploading : "";
     return (
       <div
         className={`${styles.loader} ${isUploadingClassName} ${this.props.prefixClassName}-loader`}
@@ -271,23 +266,23 @@ export default class Image extends React.Component {
     );
   };
 
-  _transform = (values) => {
-    return values.map((value) => {
+  _transform = values => {
+    return values.map(value => {
       const extenstionRegex = /(?:\.([^.]+))?$/;
-      const fileExtension = extenstionRegex.exec(value.split('?')[0])[1];
+      const fileExtension = extenstionRegex.exec(value.split("?")[0])[1];
       const isImage = IMAGE_EXTENSIONS.includes(fileExtension);
       return {
         isUploading: false,
         uploadedPercent: 0,
-        fileType: isImage ? 'IMAGE' : 'FILE',
+        fileType: isImage ? "IMAGE" : "FILE",
         previewURL: value,
         value,
       };
     });
   };
 
-  _deleteFile = (index) => {
-    let value = '';
+  _deleteFile = index => {
+    let value = "";
     if (this.props.multiple) {
       value = this.props.value.filter((_, i) => i !== index);
     }
@@ -295,7 +290,7 @@ export default class Image extends React.Component {
     this.props.onChange(value);
   };
 
-  _handleFile = (e) => {
+  _handleFile = e => {
     const files = e.target.files;
     if (!this._areFilesValid(files)) return;
     const filenames = [];
@@ -308,7 +303,7 @@ export default class Image extends React.Component {
       return {
         ...this._newUploadItem,
         previewURL: URL.createObjectURL(file),
-        fileType: isImage ? 'IMAGE' : 'FILE',
+        fileType: isImage ? "IMAGE" : "FILE",
       };
     });
     this.setState({ uploads, filenames });
@@ -323,7 +318,7 @@ export default class Image extends React.Component {
   };
 
   _onUploadProgress = (uploadedPercent, index) => {
-    this.setState((prevState) => {
+    this.setState(prevState => {
       const uploads = prevState.uploads;
       uploads[index].uploadedPercent = uploadedPercent;
       return { uploads };
@@ -334,7 +329,7 @@ export default class Image extends React.Component {
     const value = this.props.value || [];
     const uploadsCompleted = this.state.uploads;
     this.setState(
-      (prevState) => {
+      prevState => {
         const uploadsCompleted = prevState.uploadsCompleted + 1;
         const uploads = prevState.uploads;
         uploads[index].isUploading = false;
@@ -361,13 +356,13 @@ export default class Image extends React.Component {
     );
   };
 
-  _areFilesValid = (files) => {
+  _areFilesValid = files => {
     let isValid = true;
     const errorMessages = [];
-    [...files].map((file) => {
+    [...files].map(file => {
       if (
-        this.props.type !== 'file'
-        && file.size > 1024 * 1024 * (this.props.size ? this.props.size : 1)
+        this.props.type !== "file" &&
+        file.size > 1024 * 1024 * (this.props.size ? this.props.size : 1)
       ) {
         errorMessages.push(
           `File: ${file.name} must be less than ${
@@ -376,8 +371,8 @@ export default class Image extends React.Component {
         );
         isValid = false;
       } else if (
-        this.props.type === 'file'
-        && file.size > 1024 * 1024 * (this.props.size ? this.props.size : 2)
+        this.props.type === "file" &&
+        file.size > 1024 * 1024 * (this.props.size ? this.props.size : 2)
       ) {
         errorMessages.push(
           `File: ${file.name} must be less than ${
@@ -389,7 +384,7 @@ export default class Image extends React.Component {
     });
 
     if (errorMessages.length > 0) {
-      alert(errorMessages.join('\n'));
+      alert(errorMessages.join("\n"));
     }
 
     return isValid;
@@ -397,22 +392,22 @@ export default class Image extends React.Component {
 }
 
 File.classNames = {
-  $prefix: 'Outermost element',
-  '$prefix-holder': 'Label element',
-  '$prefix-icon': 'Inner element that wraps the toggle',
-  '$prefix-wrapper': 'Knob element inside the wrapper',
-  '$prefix-title': 'Knob element inside the wrapper',
-  '$prefix-sub': 'Knob element inside the wrapper',
-  '$prefix-sub-2': 'Knob element inside the wrapper',
-  '$prefix-sub-3': 'Knob element inside the wrapper',
-  '$prefix-extra': 'Knob element inside the wrapper',
-  '$prefix-add': 'Add button for more files',
-  '$prefix-text': 'Add button for more files',
-  '$prefix-input': 'Add button for more files',
-  '$prefix-preview': 'Add button for more files',
-  '$prefix-preview-del': 'Add button for more files',
-  '$prefix-image': 'Add button for more files',
-  '$prefix-file-title': 'Add button for more files',
-  '$prefix-file-preview': 'Add button for more files',
-  '$prefix-loader': 'Add button for more files',
+  $prefix: "Outermost element",
+  "$prefix-holder": "Label element",
+  "$prefix-icon": "Inner element that wraps the toggle",
+  "$prefix-wrapper": "Knob element inside the wrapper",
+  "$prefix-title": "Knob element inside the wrapper",
+  "$prefix-sub": "Knob element inside the wrapper",
+  "$prefix-sub-2": "Knob element inside the wrapper",
+  "$prefix-sub-3": "Knob element inside the wrapper",
+  "$prefix-extra": "Knob element inside the wrapper",
+  "$prefix-add": "Add button for more files",
+  "$prefix-text": "Add button for more files",
+  "$prefix-input": "Add button for more files",
+  "$prefix-preview": "Add button for more files",
+  "$prefix-preview-del": "Add button for more files",
+  "$prefix-image": "Add button for more files",
+  "$prefix-file-title": "Add button for more files",
+  "$prefix-file-preview": "Add button for more files",
+  "$prefix-loader": "Add button for more files",
 };

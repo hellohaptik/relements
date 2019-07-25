@@ -24,10 +24,21 @@ import File from './File';
 </CodeBlock>
 
 <CodeBlock title="Type: Mutiple">
-  <File type="file" multiple={true} />
+  <File multiple={true} />
+</CodeBlock>
+
+<CodeBlock title="Type: Custom Class name and Prefix class name">
+  <File className="test" prefixClassName="pretest" />
 </CodeBlock>
 
 <CodeBlock title="Type: Custom Extension">
-  <File type="file" type="image/png" />
+  <File type="image/png" />
 </CodeBlock>
 
+<CodeBlock title="Type: Value & Ratio already present">
+  <File value="test.jpg" ratio="1.1" />
+</CodeBlock>
+
+<CodeBlock title="Type: Size limit">
+  <File size={5} />
+</CodeBlock>
