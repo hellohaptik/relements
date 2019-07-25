@@ -1,0 +1,48 @@
+import { CodeBlock, ConfigBlock } from '@src/helpers/DocBlocks';
+import Toggle from './Toggle';
+
+# Toggle
+
+> A clickable UI element with active and hover states. Indicates to the user that it's clickable.
+
+<CodeBlock>
+  <Toggle />
+</CodeBlock>
+
+## Configuration
+
+<ConfigBlock of={Toggle} />
+
+## Examples
+
+<CodeBlock title="Type: Primary False">
+  <Toggle value={false}/>
+</CodeBlock>
+
+<CodeBlock title="Type: Primary False with label">
+  <Toggle label="Label" value={false} />
+</CodeBlock>
+
+<CodeBlock title="Type: Primary with className and prefixClassName">
+  <Toggle className={'toggle'} prefixClassName={'retoggle'} value={false}/>
+</CodeBlock>
+
+<CodeBlock title="Type: Primary True">
+  <Toggle value={true} />
+</CodeBlock>
+
+<CodeBlock title="Type: RedGreen False">
+  <Toggle redGreen={true} value={false} />
+</CodeBlock>
+
+<CodeBlock title="Type: RedGreen True">
+  <Toggle redGreen={true} value={true} />
+</CodeBlock>
+
+<CodeBlock title="Type: Error">
+  <Toggle label="Label" error={true} value={false} />
+</CodeBlock>
+
+<CodeBlock title="Type: Disabled">
+  <Toggle disabled={true} value={false} />
+</CodeBlock>

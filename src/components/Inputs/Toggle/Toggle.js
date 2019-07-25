@@ -1,36 +1,63 @@
-import React, { useRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { useRef } from "react";
+import PropTypes from "prop-types";
+import cc from "classcat";
 
-import { useInput } from '../_common/hooks/useInput';
-import { Label } from '../_common/Label';
-import styles from './Toggle.scss';
+import { useInput } from "../_common/hooks/useInput";
+import { Label } from "../_common/Label";
+import styles from "./Toggle.scss";
 
 const Toggle = ({
-  label, prefixClassName, className, value, onChange, redGreen, onFocus, onBlur, error, disabled,
+  label,
+  prefixClassName,
+  className,
+  value,
+  onChange,
+  redGreen,
+  onFocus,
+  onBlur,
+  error,
+  disabled,
 }) => {
-  const activeClassName = value ? styles.active : '';
-  const disabledClassName = disabled ? styles.disabled : '';
+  const activeClassName = value ? styles.active : "";
+  const disabledClassName = disabled ? styles.disabled : "";
   const _TextInputDOM = useRef();
-  const { focused, handleFocus, handleBlur } = useInput(_TextInputDOM, onFocus, onBlur);
+  const { focused, handleFocus, handleBlur } = useInput(
+    _TextInputDOM,
+    onFocus,
+    onBlur,
+  );
 
-  const redGreenClassName = redGreen ? styles.redGreen : '';
+  const redGreenClassName = redGreen ? styles.redGreen : "";
+  const classNames = {
+    main: cc([
+      styles.toggleInput,
+      redGreenClassName,
+      activeClassName,
+      disabledClassName,
+    ]),
+  };
   return (
     <div
+      data-testid="toggle"
       className={`${styles.toggle} ${redGreenClassName} ${prefixClassName} ${className}`}
       onClick={() => onChange(!value)}
     >
-      <Label focused={focused} error={error} className={`${styles.dropdownLabel} ${prefixClassName}-label`}>
+      <Label
+        focused={focused}
+        error={error}
+        className={`${styles.dropdownLabel} ${prefixClassName}-label`}
+      >
         {label}
       </Label>
       <div
+        data-testid="toggle-toggle"
         tabIndex="0"
         onFocus={handleFocus}
         onBlur={handleBlur}
-        className={`${
-          styles.toggleInput
-        } ${redGreenClassName}  ${prefixClassName}-toggle ${activeClassName} ${disabledClassName}`}
+        className={`${classNames.main} ${prefixClassName}-toggle`}
       >
         <div
+          data-testid="toggle-knob"
           className={`${styles.toggleInputKnob} ${redGreenClassName} ${prefixClassName}-toggle-knob ${activeClassName}`}
         />
       </div>
@@ -39,22 +66,32 @@ const Toggle = ({
 };
 
 Toggle.propTypes = {
+  /** Label for toggle  */
   label: PropTypes.string,
+  /** prefix to be appended to the child elements */
   prefixClassName: PropTypes.string,
+  /** The classname to be appended to the outermost element */
   className: PropTypes.string,
+  /** Boolean value true or false */
   value: PropTypes.bool,
+  /** Changes toggle to red and green style */
   redGreen: PropTypes.bool,
+  /** On toggle change function */
   onChange: PropTypes.func,
+  /** On focus function */
   onFocus: PropTypes.func,
+  /** On blur function */
   onBlur: PropTypes.func,
+  /** Error class enable or disable on toggle label  */
   error: PropTypes.bool,
+  /** Disables the toggle  */
   disabled: PropTypes.bool,
 };
 
 Toggle.defaultProps = {
-  label: '',
-  prefixClassName: '',
-  className: '',
+  label: "",
+  prefixClassName: "",
+  className: "",
   value: false,
   redGreen: false,
   onChange: () => {},

@@ -1,4 +1,4 @@
-@import 'constants/index.scss';
+@import "constants/index.scss";
 
 $knob-size: 24px;
 
@@ -24,6 +24,7 @@ $knob-size: 24px;
   border-radius: $knob-size;
   border: 1px solid $border-color;
   transition: 0.1s ease-out;
+  outline: none;
   &.active {
     background-color: rgba($primary-color, 0.2);
     border-color: rgba($primary-color, 1);
@@ -46,7 +47,7 @@ $knob-size: 24px;
   margin-left: 2px;
   border-radius: $knob-size / 2;
   background-color: $knob-color;
-  border: 1px solid #BBB;
+  border: 1px solid #bbb;
   transform: translate3d(0, 0, 0);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   transition: 0.1s ease-out;
@@ -64,4 +65,12 @@ $knob-size: 24px;
       border-color: darken($green-color, 4);
     }
   }
+}
+
+.disabled {
+  opacity: 0.4;
+}
+
+.active {
+  opacity: 1;
 }
