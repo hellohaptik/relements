@@ -15,16 +15,45 @@ import FilePlaceholder from './components/FilePlaceholder';
 import ImagePlaceholder from './components/ImagePlaceholder';
 import ImageProgressBar from './components/ImageProgressBar';
 
-const FILE_ACCEPT_TYPES = 'image/png, image/jpg, image/jpeg, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword';
+// eslint-disable-next-line max-len
+const FILE_ACCEPT_TYPES =  'image/png, image/jpg, image/jpeg, application/pdf, application/ vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword';
 const IMAGE_ACCEPT_TYPES = 'image/png, image/jpg, image/jpeg';
 
 export default class Image extends React.Component {
   static propTypes = {
+    /** Names of already choosen file/files */
     value: PropTypes.string,
+    /** on change function for input */
     onChange: PropTypes.func,
+    /** Boolean value to allow multiple files */
     multiple: PropTypes.bool,
+    /** ratio of the preview image to be generated */
     ratio: PropTypes.string,
+    /** Base width for the preview image */
     baseWidth: PropTypes.number,
+    /** The classname to be appended to the outermost element */
+    className: PropTypes.string,
+    /** Prefix to be appended before classname to the outermost element and
+     *  variation of prefix gets appended to child elements */
+    prefixClassName: PropTypes.string,
+    /** Type of file to accept (file or image) or you can pass your own custom formats as a string */
+    type: PropTypes.string,
+    /** Size of the file allowed in MBs */
+    size: PropTypes.number,
+    /** Dimensions of the file to upload */
+    dimensions: PropTypes.string,
+  };
+
+  static defaultProps = {
+    value: '',
+    onChange: () => {},
+    multiple: false,
+    ratio: '',
+    baseWidth: 290,
+    className: '',
+    prefixClassName: '',
+    type: '',
+    dimensions: '',
   };
 
   _newUploadItem = {
@@ -40,48 +69,81 @@ export default class Image extends React.Component {
   };
 
   render() {
-    const { value, multiple } = this.props;
+    const {
+ value, multiple, className, prefixClassName 
+} = this.props;
     let values = [];
     if (value) {
       values = multiple ? this._transform(value) : this._transform([value]);
     }
 
+    let { type } = this.props;
+
+    if (type === 'file') {
+      type = FILE_ACCEPT_TYPES;
+    } else if (type === 'image') {
+      type = IMAGE_ACCEPT_TYPES;
+    }
+
     const uploads = values.concat(this.state.uploads);
     return (
-      <div className={`${styles.files}`}>
-        {uploads.length === 0 ? this._renderPlaceholder() : this._renderFiles(uploads)}
-        {uploads.length === 0 ? this._renderInput(multiple) : null}
+      <div className={`${styles.files} ${className} ${prefixClassName}`}>
+        {uploads.length === 0
+          ? this._renderPlaceholder()
+          : this._renderFiles(uploads, type)}
+        {uploads.length === 0 ? this._renderInput(type) : null}
       </div>
     );
   }
 
   _renderPlaceholder = () => {
-    if (this.props.type === 'file') return <FilePlaceholder />;
-    return <ImagePlaceholder />;
+    if (this.props.type === 'file') {
+      return (
+        <FilePlaceholder
+          prefixClassName={this.props.prefixClassName}
+          size={this.props.size}
+        />
+      );
+    }
+    return (
+      <ImagePlaceholder
+        prefixClassName={this.props.prefixClassName}
+        size={this.props.size}
+        type={this.props.type}
+        dimensions={this.props.dimensions}
+      />
+    );
   };
 
-  _renderFiles = uploads => (
-    <div className={styles.filesList}>
+  _renderFiles = (uploads, type) => (
+    <div className={`${styles.filesList} ${this.props.prefixClassName}-holder`}>
       {uploads.map(this._renderPreview)}
-      {this.props.multiple ? this._renderAddMoreButton() : null}
+      {this.props.multiple ? this._renderAddMoreButton(type) : null}
     </div>
   );
 
-  _renderAddMoreButton = () => (
-    <div className={styles.addNewFile}>
-      <Icon src={PlusIcon} className={styles.addNewFileIcon} />
-      <span className={styles.addNewFileText}>Add more images</span>
-      {this._renderInput(this.props.multiple)}
+  _renderAddMoreButton = type => (
+    <div className={`${styles.addNewFile} ${this.props.prefixClassName}-extra`}>
+      <Icon
+        src={PlusIcon}
+        className={`${styles.addNewFileIcon} ${this.props.prefixClassName}-add`}
+      />
+      <span
+        className={`${styles.addNewFileText} ${this.props.prefixClassName}-text`}
+      >
+        Add more images
+      </span>
+      {this._renderInput(type)}
     </div>
   );
 
-  _renderInput = multiple => (
+  _renderInput = type => (
     <input
-      className={styles.fileInput}
+      className={`${styles.fileInput} ${this.props.prefixClassName}-input`}
       onChange={this._handleFile}
       type="file"
-      multiple={multiple}
-      accept={this.props.type === 'file' ? FILE_ACCEPT_TYPES : IMAGE_ACCEPT_TYPES}
+      accept={type}
+      multiple={this.props.multiple}
     />
   );
 
@@ -92,15 +154,19 @@ export default class Image extends React.Component {
 
   _renderImagePreview = (upload, i) => {
     const {
-      isUploading, uploadedPercent, previewURL, value,
-    } = upload;
+ isUploading, uploadedPercent, previewURL, value 
+} = upload;
     const imageRatio = this.props.ratio || 1.77;
     const width = this.props.baseWidth || 290;
     const minWidth = width;
     const height = width / imageRatio;
     const URL = value || previewURL;
     return (
-      <div key={i} className={styles.imageInputWrapper} style={{ width, height, minWidth }}>
+      <div
+        key={i}
+        className={`${styles.imageInputWrapper} ${this.props.prefixClassName}-wrapper`}
+        style={{ width, height, minWidth }}
+      >
         {this._renderImage(URL, isUploading, i)}
         {this._renderLoader(isUploading)}
         <ImageProgressBar complete={uploadedPercent} active={isUploading} />
@@ -110,14 +176,21 @@ export default class Image extends React.Component {
 
   _renderFilePreview = (upload, i) => {
     const {
-      isUploading, uploadedPercent, previewURL, value,
-    } = upload;
+ isUploading, uploadedPercent, previewURL, value 
+} = upload;
     const URL = value || previewURL;
     return (
-      <div key={i} className={styles.filePreviewWrapper}>
+      <div
+        key={i}
+        className={`${styles.filePreviewWrapper} ${this.props.prefixClassName}-wrapper`}
+      >
         {this._renderFile(URL, value, isUploading, i)}
         {this._renderLoader(isUploading)}
-        <ImageProgressBar complete={uploadedPercent} active={isUploading} />
+        <ImageProgressBar
+          prefixClassName={this.props.prefixClassName}
+          complete={uploadedPercent}
+          active={isUploading}
+        />
       </div>
     );
   };
@@ -127,18 +200,34 @@ export default class Image extends React.Component {
 
     if (!genericUtils.isValidURL(previewURL)) {
       return (
-        <div className={styles.customKeyImage}>
-          <Icon className={styles.carouselImagePlaceholderIcon} src={PlaceholderIcon} />
+        <div
+          className={`${styles.customKeyImage} ${this.props.prefixClassName}-preview`}
+        >
+          <Icon
+            className={`${styles.carouselImagePlaceholderIcon} ${this.props.prefixClassName}-icon`}
+            src={PlaceholderIcon}
+          />
           {previewURL}
         </div>
       );
     }
 
     return (
-      <div className={styles.imageInputPreviewWrapper}>
-        <img src={previewURL} className={`${styles.imageInputPreview} ${isUploadingClassName}`} />
-        <div onClick={() => this._deleteFile(index)} className={styles.imageInputPreviewDelete}>
-          <Icon src={TrashIcon} className={styles.imageInputPreviewDeleteIcon} />
+      <div
+        className={`${styles.imageInputPreviewWrapper} ${this.props.prefixClassName}-preview`}
+      >
+        <img
+          src={previewURL}
+          className={`${styles.imageInputPreview} ${isUploadingClassName} ${this.props.prefixClassName}-image`}
+        />
+        <div
+          onClick={() => this._deleteFile(index)}
+          className={`${styles.imageInputPreviewDelete} ${this.props.prefixClassName}-preview-del`}
+        >
+          <Icon
+            src={TrashIcon}
+            className={`${styles.imageInputPreviewDeleteIcon} ${this.props.prefixClassName}-icon`}
+          />
         </div>
       </div>
     );
@@ -147,12 +236,25 @@ export default class Image extends React.Component {
   _renderFile = (previewURL, value, isUploading, index) => {
     const isUploadingClassName = isUploading ? styles.isUploading : '';
     return (
-      <div className={`${styles.filePreview} ${isUploadingClassName}`}>
-        <a href={value} target="_blank" className={styles.filePreviewTitle}>
+      <div
+        className={`${styles.filePreview} ${isUploadingClassName} ${this.props.prefixClassName}-preview`}
+      >
+        <a
+          href={value}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`${styles.filePreviewTitle} ${this.props.prefixClassName}-file-title`}
+        >
           {this.state.filenames[index] || 'Attachment'}
         </a>
-        <div onClick={() => this._deleteFile(index)} className={styles.filePreview}>
-          <Icon src={TrashIcon} className={styles.filePreviewDeleteIcon} />
+        <div
+          onClick={() => this._deleteFile(index)}
+          className={`${styles.filePreview} ${this.props.prefixClassName}-file-preview`}
+        >
+          <Icon
+            src={TrashIcon}
+            className={`${styles.filePreviewDeleteIcon} ${this.props.prefixClassName}-icon`}
+          />
         </div>
       </div>
     );
@@ -161,7 +263,9 @@ export default class Image extends React.Component {
   _renderLoader = (isUploading) => {
     const isUploadingClassName = isUploading ? styles.isUploading : '';
     return (
-      <div className={`${styles.loader} ${isUploadingClassName}`}>
+      <div
+        className={`${styles.loader} ${isUploadingClassName} ${this.props.prefixClassName}-loader`}
+      >
         <Loader />
       </div>
     );
@@ -201,7 +305,11 @@ export default class Image extends React.Component {
       const extenstionRegex = /(?:\.([^.]+))?$/;
       const fileExtension = extenstionRegex.exec(file.name)[1];
       const isImage = IMAGE_EXTENSIONS.includes(fileExtension);
-      return { ...this._newUploadItem, previewURL: URL.createObjectURL(file), fileType: isImage ? 'IMAGE' : 'FILE' };
+      return {
+        ...this._newUploadItem,
+        previewURL: URL.createObjectURL(file),
+        fileType: isImage ? 'IMAGE' : 'FILE',
+      };
     });
     this.setState({ uploads, filenames });
   };
@@ -210,44 +318,72 @@ export default class Image extends React.Component {
     API.uploadFile(
       file,
       uploadedPercent => this._onUploadProgress(uploadedPercent, index),
-      fileURL => this._onUploadComplete(fileURL, index, numFiles)
+      fileURL => this._onUploadComplete(fileURL, index, numFiles),
     );
   };
 
   _onUploadProgress = (uploadedPercent, index) => {
-    const uploads = this.state.uploads;
-    uploads[index].uploadedPercent = uploadedPercent;
-    this.setState({ uploads });
+    this.setState((prevState) => {
+      const uploads = prevState.uploads;
+      uploads[index].uploadedPercent = uploadedPercent;
+      return { uploads };
+    });
   };
 
-  _onUploadComplete = (fileURL, index, numFiles) => {
-    const uploads = this.state.uploads;
+  _onUploadComplete = (uploads, fileURL, index, numFiles) => {
     const value = this.props.value || [];
-    const uploadsCompleted = this.state.uploadsCompleted + 1;
-    uploads[index].isUploading = false;
-    uploads[index].uploadedPercent = 0;
-    uploads[index].value = fileURL;
-    this.setState({ uploads, uploadsCompleted }, () => {
-      if (this.props.onChange && uploadsCompleted >= numFiles) {
-        if (this.props.multiple) {
-          this.props.onChange(value.concat(uploads.map(upload => upload.value)));
-        } else {
-          this.props.onChange(uploads[0].value);
+    const uploadsCompleted = this.state.uploads;
+    this.setState(
+      (prevState) => {
+        const uploadsCompleted = prevState.uploadsCompleted + 1;
+        const uploads = prevState.uploads;
+        uploads[index].isUploading = false;
+        uploads[index].uploadedPercent = 0;
+        uploads[index].value = fileURL;
+
+        return { uploads, uploadsCompleted };
+      },
+      () => {
+        if (this.props.onChange && uploadsCompleted >= numFiles) {
+          if (this.props.multiple) {
+            this.props.onChange(
+              value.concat(uploads.map(upload => upload.value)),
+            );
+          } else {
+            this.props.onChange(uploads[0].value);
+          }
+          setTimeout(
+            () => this.setState({ uploads: [], uploadsCompleted: 0 }),
+            0,
+          );
         }
-        setTimeout(() => this.setState({ uploads: [], uploadsCompleted: 0 }), 0);
-      }
-    });
+      },
+    );
   };
 
   _areFilesValid = (files) => {
     let isValid = true;
     const errorMessages = [];
     [...files].map((file) => {
-      if (this.props.type !== 'file' && file.size > 1024 * 1024) {
-        errorMessages.push(`File: ${file.name} must be less than 1MB`);
+      if (
+        this.props.type !== 'file'
+        && file.size > 1024 * 1024 * (this.props.size ? this.props.size : 1)
+      ) {
+        errorMessages.push(
+          `File: ${file.name} must be less than ${
+            this.props.size ? this.props.size : 1
+          }MB`,
+        );
         isValid = false;
-      } else if (this.props.type === 'file' && file.size > 1024 * 1024 * 2) {
-        errorMessages.push(`File: ${file.name} must be less than 2MB`);
+      } else if (
+        this.props.type === 'file'
+        && file.size > 1024 * 1024 * (this.props.size ? this.props.size : 2)
+      ) {
+        errorMessages.push(
+          `File: ${file.name} must be less than ${
+            this.props.size ? this.props.size : 2
+          }MB`,
+        );
         isValid = false;
       }
     });
@@ -259,3 +395,24 @@ export default class Image extends React.Component {
     return isValid;
   };
 }
+
+File.classNames = {
+  $prefix: 'Outermost element',
+  '$prefix-holder': 'Label element',
+  '$prefix-icon': 'Inner element that wraps the toggle',
+  '$prefix-wrapper': 'Knob element inside the wrapper',
+  '$prefix-title': 'Knob element inside the wrapper',
+  '$prefix-sub': 'Knob element inside the wrapper',
+  '$prefix-sub-2': 'Knob element inside the wrapper',
+  '$prefix-sub-3': 'Knob element inside the wrapper',
+  '$prefix-extra': 'Knob element inside the wrapper',
+  '$prefix-add': 'Add button for more files',
+  '$prefix-text': 'Add button for more files',
+  '$prefix-input': 'Add button for more files',
+  '$prefix-preview': 'Add button for more files',
+  '$prefix-preview-del': 'Add button for more files',
+  '$prefix-image': 'Add button for more files',
+  '$prefix-file-title': 'Add button for more files',
+  '$prefix-file-preview': 'Add button for more files',
+  '$prefix-loader': 'Add button for more files',
+};

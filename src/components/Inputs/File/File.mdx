@@ -1,0 +1,33 @@
+import { CodeBlock, ConfigBlock } from '@src/helpers/DocBlocks';
+import File from './File';
+
+# File
+
+> Input file field with wrapper, predefined extensions and ability to customize
+
+<CodeBlock>
+  <File />
+</CodeBlock>
+
+## Configuration
+
+<ConfigBlock of={File} />
+
+## Examples
+
+<CodeBlock title="Type: Image">
+  <File type="image" />
+</CodeBlock>
+
+<CodeBlock title="Type: File">
+  <File type="file" />
+</CodeBlock>
+
+<CodeBlock title="Type: Mutiple">
+  <File type="file" multiple={true} />
+</CodeBlock>
+
+<CodeBlock title="Type: Custom Extension">
+  <File type="file" type="image/png" />
+</CodeBlock>
+
