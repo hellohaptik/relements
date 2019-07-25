@@ -1,0 +1,23 @@
+import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
+import { TestComponent } from "./useLoader.storybook.js";
+
+# useLoader
+
+> Helper hook to add a loader to your component, by default it covers the entire component (width: 100%; height: 100%)
+
+<CodeBlock>
+  <TestComponent />
+</CodeBlock>
+
+## Usage
+
+Use the hook in the component you want to add a loader to like this:
+
+```
+const { renderLoader, activateLoader, deactivateLoader } = useLoader(initialValue);
+```
+
+- Where `initialValue` is the initial loading state (boolean)
+- @param renderLoader {func} Place this inside your component
+- @param activateLoader {func} To activate the loader
+- @param deactivateLoader {func} To deactivate the loader
