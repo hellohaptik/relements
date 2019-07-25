@@ -1,0 +1,22 @@
+import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
+import { TestComponent } from "./useActivify.storybook.js";
+
+# useActivify
+
+> Useful for enabling/disabling elements with transition. Removes from dom when disabled
+
+<CodeBlock>
+  <TestComponent />
+</CodeBlock>
+
+## Usage
+
+Use the hook in the component you want to activify like this:
+
+```
+  const { visible, enabled } = useActivify(active);
+```
+
+- Where `active` is the prop being passed to the component. (The value on the basis of which activify will enable/disable)
+- `visible` is `true` when the component is being showed (set the className based on this)
+- `enabled` is `false` when the component can be removed from the dom. Return null based on this
