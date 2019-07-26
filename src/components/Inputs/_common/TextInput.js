@@ -21,11 +21,10 @@ export const TextInput = ({
   prefixComponent,
   postfixComponent,
 }) => {
-  const focusedClassName = !disabled && focused ? styles.focused : '';
-  const focusedClassNameString = focused ? 'focused' : '';
-  const errorClassName = error ? styles.error : '';
+  const focusedClassName = !disabled && focused ? styles.focused : "";
+  const focusedClassNameString = focused ? "focused" : "";
+  const errorClassName = error ? styles.error : "";
   const [textValue, setTextValue] = useState();
-
   const handleChange = e => {
     onChange(e.target.value);
     setTextValue(e.target.value);
