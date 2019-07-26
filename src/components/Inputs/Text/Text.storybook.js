@@ -1,13 +1,13 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-import Docs from './Text.mdx';
+import React from "react";
+import { storiesOf } from "@storybook/react";
+import Docs from "./Text.mdx";
 
 import Text from "./Text";
 
 const VALUE = "";
 
-storiesOf('Inputs/Text', module)
-  .add('Single', () => {
+storiesOf("Components|Inputs/Text", module)
+  .add("Single", () => {
     const story = (
       <div>
         <Text label="Sample Input" value={VALUE} onChange={console.log} />
@@ -15,4 +15,4 @@ storiesOf('Inputs/Text', module)
     );
     return story;
   })
-  .add('Documentation', () => <Docs />);
+  .add("Documentation", () => <Docs />);
