@@ -37,5 +37,9 @@
       color: #000;
       opacity: 0.3;
     }
+    &.error {
+      border-color: #F44336;
+      background-color: rgba(244, 67, 54, 0);
+    }
   }
 }
