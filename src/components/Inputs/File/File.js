@@ -57,6 +57,27 @@ export default class Image extends React.Component {
     dimensions: "",
   };
 
+  static classNames = {
+    $prefix: "Outermost element",
+    "$prefix-holder": "Label element",
+    "$prefix-icon": "Inner element that wraps the toggle",
+    "$prefix-wrapper": "Knob element inside the wrapper",
+    "$prefix-title": "Knob element inside the wrapper",
+    "$prefix-sub": "Knob element inside the wrapper",
+    "$prefix-sub-2": "Knob element inside the wrapper",
+    "$prefix-sub-3": "Knob element inside the wrapper",
+    "$prefix-extra": "Knob element inside the wrapper",
+    "$prefix-add": "Add button for more files",
+    "$prefix-text": "Add button for more files",
+    "$prefix-input": "Add button for more files",
+    "$prefix-preview": "Add button for more files",
+    "$prefix-preview-del": "Add button for more files",
+    "$prefix-image": "Add button for more files",
+    "$prefix-file-title": "Add button for more files",
+    "$prefix-file-preview": "Add button for more files",
+    "$prefix-loader": "Add button for more files",
+  };
+
   _newUploadItem = {
     isUploading: true,
     uploadedPercent: 25,
@@ -73,7 +94,7 @@ export default class Image extends React.Component {
     const { value, multiple, className, prefixClassName } = this.props;
     let values = [];
     if (value) {
-      values = multiple ? this._transform(value) : this._transform([value]);
+      values = multiple ? this._transform([value]) : this._transform(value);
     }
 
     let { type } = this.props;
@@ -86,7 +107,10 @@ export default class Image extends React.Component {
 
     const uploads = values.concat(this.state.uploads);
     return (
-      <div className={`${styles.files} ${className} ${prefixClassName}`}>
+      <div
+        data-testid="file"
+        className={`${styles.files} ${className} ${prefixClassName}`}
+      >
         {uploads.length === 0
           ? this._renderPlaceholder()
           : this._renderFiles(uploads, type)}
@@ -390,24 +414,3 @@ export default class Image extends React.Component {
     return isValid;
   };
 }
-
-File.classNames = {
-  $prefix: "Outermost element",
-  "$prefix-holder": "Label element",
-  "$prefix-icon": "Inner element that wraps the toggle",
-  "$prefix-wrapper": "Knob element inside the wrapper",
-  "$prefix-title": "Knob element inside the wrapper",
-  "$prefix-sub": "Knob element inside the wrapper",
-  "$prefix-sub-2": "Knob element inside the wrapper",
-  "$prefix-sub-3": "Knob element inside the wrapper",
-  "$prefix-extra": "Knob element inside the wrapper",
-  "$prefix-add": "Add button for more files",
-  "$prefix-text": "Add button for more files",
-  "$prefix-input": "Add button for more files",
-  "$prefix-preview": "Add button for more files",
-  "$prefix-preview-del": "Add button for more files",
-  "$prefix-image": "Add button for more files",
-  "$prefix-file-title": "Add button for more files",
-  "$prefix-file-preview": "Add button for more files",
-  "$prefix-loader": "Add button for more files",
-};
