@@ -2,15 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./ImageProgressBar.scss";
 
-const ImageProgressBar = ({ complete, active, prefixClassName }) => (
+const ImageProgressBar = props => (
   <div
-    className={`${styles.progressBar} ${
-      active ? styles.active : ""
-    } ${prefixClassName}-bar`}
+    className={`${styles.progressBar} ${props.active ? styles.active : ""} ${
+      props.prefixClassName
+    }-bar`}
   >
     <div
-      className={`${styles.progressBarInner} ${prefixClassName}-bar-inner`}
-      style={{ width: `${complete}%` }}
+      className={`${styles.progressBarInner} ${props.prefixClassName}-bar-inner`}
+      style={{ width: `${props.complete}%` }}
     />
   </div>
 );
