@@ -5,13 +5,13 @@ import PlaceholderIcon from "icons/file_placeholder.svg";
 import styles from "./FilePlaceholder.scss";
 
 const FilePlaceholder = props => (
-  <div className={`${styles.filePlaceholder} ${props.prefixClassName}-holder`}>
+  <div className={`${styles.filePlaceholder} ${props.prefixClassName}-wrapper`}>
     <Icon
       className={`${styles.filePlaceholderIcon} ${props.prefixClassName}-icon`}
       src={PlaceholderIcon}
     />
     <div
-      className={`${styles.filePlaceholderText} ${props.prefixClassName}-wrapper`}
+      className={`${styles.filePlaceholderText} ${props.prefixClassName}-text-wrapper`}
     >
       <span
         className={`${styles.filePlaceholderTextTitle} ${props.prefixClassName}-title`}
@@ -19,12 +19,12 @@ const FilePlaceholder = props => (
         Upload / Drag & Drop File
       </span>
       <span
-        className={`${styles.filePlaceholderTextSubtitle} ${props.prefixClassName}-sub`}
+        className={`${styles.filePlaceholderTextSubtitle} ${props.prefixClassName}-filesize`}
       >
         {`Max File Size: ${props.size ? props.size : 2}MB`}
       </span>
       <span
-        className={`${styles.filePlaceholderTextSubtitle} ${props.prefixClassName}-sub-2`}
+        className={`${styles.filePlaceholderTextSubtitle} ${props.prefixClassName}-format`}
       >
         Supported Formats: .jpg, .png, .pdf, .docx
       </span>

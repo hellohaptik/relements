@@ -6,10 +6,10 @@ const ImageProgressBar = props => (
   <div
     className={`${styles.progressBar} ${props.active ? styles.active : ""} ${
       props.prefixClassName
-    }-bar`}
+    }-wrapper`}
   >
     <div
-      className={`${styles.progressBarInner} ${props.prefixClassName}-bar-inner`}
+      className={`${styles.progressBarInner} ${props.prefixClassName}-bar`}
       style={{ width: `${props.complete}%` }}
     />
   </div>

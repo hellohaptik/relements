@@ -18,61 +18,76 @@ test("Custom class", async () => {
   expect(getByTestId("file")).toHaveClass("test");
 });
 
-test("Prefix Holder Class", async () => {
-  const classNamesAllowed = [
-    "test",
-    "test-holder",
-    "test-icon",
-    "test-wrapper",
-    "test-title",
-    "test-sub",
-    "test-sub-2",
-    "test-sub-3",
-    "test-input",
+test("Prefix Placeholder Class", async () => {
+  const placeholderClassNamesNotAllowed = [
+    "test-placeholder-wrapper",
+    "test-placeholder-icon",
+    "test-placeholder-text-wrapper",
+    "test-placeholder-title",
+    "test-placeholder-filesize",
+    "test-placeholder-format",
+    "test-placeholder-image-dimensions",
+    "test-file-wrapper",
+    "test-file-preview",
+    "test-file-preview-title",
+    "test-file-preview-delete-wrapper",
+    "test-file-preview-delete-icon",
+    "test-image-preview-image",
+    "test-image-preview-delete",
+    "test-image-preview-delete-icon",
   ];
-  const classNames = Object.keys(File.classNames)
-    .filter(className => classNamesAllowed.includes(className))
-    .map(className => className.replace("$prefix", "test"));
 
-  const { container } = render(<File prefixClassName="test" />);
-
-  classNames.forEach(className => {
-    expect(
-      document.getElementsByClassName(className).length,
-      className,
-    ).toBeGreaterThanOrEqual(1);
-  });
-});
-
-test("Prefix Image Class", async () => {
-  const classNamesAllowed = [
-    "test",
-    "test-holder",
-    "test-icon",
-    "test-preview",
-    "test-preview-del",
+  const previewClassNamesNotAllowed = [
     "test-wrapper",
-    "test-image",
+    "test-file-wrapper",
+    "test-file-preview",
+    "test-file-preview-title",
+    "test-file-preview-delete-wrapper",
+    "test-file-preview-delete-icon",
     "test-loader",
-    "test-input",
-    "test-extra",
-    "test-add",
-    "test-text",
+    "test-progressbar-wrapper",
+    "test-progressbar-bar",
+    "test-addmore-wrapper",
+    "test-addmore-text",
+    "test-addmore-icon",
+    "test-add-icon",
+    "test-add-text",
+    "test-add-wrapper",
+    "test-image-wrapper",
+    "test-image-preview",
+    "test-image-preview-icon",
+    "test-image-preview-image",
+    "test-image-preview-delete",
+    "test-image-preview-delete-icon",
   ];
-  const classNames = Object.keys(File.classNames)
-    .filter(className => classNamesAllowed.includes(className))
-    .map(className => className.replace("$prefix", "test"));
 
-  const { container } = render(
-    <File value={["test.png"]} prefixClassName="test" multple={true} />,
+  const classNames = Object.keys(File.classNames).map(className =>
+    className.replace("$prefix", "test"),
   );
 
-  classNames.forEach(className => {
-    expect(
-      document.getElementsByClassName(className).length,
-      className,
-    ).toBeGreaterThanOrEqual(1);
-  });
+  const { rerender } = render(<File prefixClassName="test" />);
+
+  classNames
+    .filter(className => !previewClassNamesNotAllowed.includes(className))
+    .forEach(className => {
+      expect(
+        document.getElementsByClassName(className).length,
+        className,
+      ).toBeGreaterThanOrEqual(1);
+    });
+
+  rerender(
+    <File prefixClassName="test" type="image" value="hi.jpg" multiple={true} />,
+  );
+
+  classNames
+    .filter(className => !placeholderClassNamesNotAllowed.includes(className))
+    .forEach(className => {
+      expect(
+        document.getElementsByClassName(className).length,
+        className,
+      ).toBeGreaterThanOrEqual(1);
+    });
 });
 
 test("On change test", async () => {

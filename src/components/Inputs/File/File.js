@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import * as API from "api";
+import cc from "classcat";
 
 import { IMAGE_EXTENSIONS } from "constants";
 import * as genericUtils from "utils/generic";
@@ -20,64 +21,7 @@ const FILE_ACCEPT_TYPES =
   "image/png, image/jpg, image/jpeg, application/pdf, application/ vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword";
 const IMAGE_ACCEPT_TYPES = "image/png, image/jpg, image/jpeg";
 
-export default class Image extends React.Component {
-  static propTypes = {
-    /** Names of already choosen file/files */
-    value: PropTypes.string,
-    /** on change function for input */
-    onChange: PropTypes.func,
-    /** Boolean value to allow multiple files */
-    multiple: PropTypes.bool,
-    /** ratio of the preview image to be generated */
-    ratio: PropTypes.string,
-    /** Base width for the preview image */
-    baseWidth: PropTypes.number,
-    /** The classname to be appended to the outermost element */
-    className: PropTypes.string,
-    /** Prefix to be appended before classname to the outermost element and
-     *  variation of prefix gets appended to child elements */
-    prefixClassName: PropTypes.string,
-    /** Type of file to accept (file or image) or you can pass your own custom formats as a string */
-    type: PropTypes.string,
-    /** Size of the file allowed in MBs */
-    size: PropTypes.number,
-    /** Dimensions of the file to upload (Doesn't work with type 'file') */
-    dimensions: PropTypes.string,
-  };
-
-  static defaultProps = {
-    value: "",
-    onChange: () => {},
-    multiple: false,
-    ratio: "",
-    baseWidth: 290,
-    className: "",
-    prefixClassName: "",
-    type: "",
-    dimensions: "",
-  };
-
-  static classNames = {
-    $prefix: "Outermost element",
-    "$prefix-holder": "Label element",
-    "$prefix-icon": "Inner element that wraps the toggle",
-    "$prefix-wrapper": "Knob element inside the wrapper",
-    "$prefix-title": "Knob element inside the wrapper",
-    "$prefix-sub": "Knob element inside the wrapper",
-    "$prefix-sub-2": "Knob element inside the wrapper",
-    "$prefix-sub-3": "Knob element inside the wrapper",
-    "$prefix-extra": "Knob element inside the wrapper",
-    "$prefix-add": "Add button for more files",
-    "$prefix-text": "Add button for more files",
-    "$prefix-input": "Add button for more files",
-    "$prefix-preview": "Add button for more files",
-    "$prefix-preview-del": "Add button for more files",
-    "$prefix-image": "Add button for more files",
-    "$prefix-file-title": "Add button for more files",
-    "$prefix-file-preview": "Add button for more files",
-    "$prefix-loader": "Add button for more files",
-  };
-
+class File extends React.Component {
   _newUploadItem = {
     isUploading: true,
     uploadedPercent: 25,
@@ -94,7 +38,7 @@ export default class Image extends React.Component {
     const { value, multiple, className, prefixClassName } = this.props;
     let values = [];
     if (value) {
-      values = multiple ? this._transform([value]) : this._transform(value);
+      values = multiple ? this._transform([value]) : this._transform([value]);
     }
 
     let { type } = this.props;
@@ -123,14 +67,14 @@ export default class Image extends React.Component {
     if (this.props.type === "file") {
       return (
         <FilePlaceholder
-          prefixClassName={this.props.prefixClassName}
+          prefixClassName={`${this.props.prefixClassName}-placeholder`}
           size={this.props.size}
         />
       );
     }
     return (
       <ImagePlaceholder
-        prefixClassName={this.props.prefixClassName}
+        prefixClassName={`${this.props.prefixClassName}-placeholder`}
         size={this.props.size}
         type={this.props.type}
         dimensions={this.props.dimensions}
@@ -139,20 +83,24 @@ export default class Image extends React.Component {
   };
 
   _renderFiles = (uploads, type) => (
-    <div className={`${styles.filesList} ${this.props.prefixClassName}-holder`}>
+    <div
+      className={`${styles.filesList} ${this.props.prefixClassName}-wrapper`}
+    >
       {uploads.map(this._renderPreview)}
       {this.props.multiple ? this._renderAddMoreButton(type) : null}
     </div>
   );
 
   _renderAddMoreButton = type => (
-    <div className={`${styles.addNewFile} ${this.props.prefixClassName}-extra`}>
+    <div
+      className={`${styles.addNewFile} ${this.props.prefixClassName}-addmore-wrapper`}
+    >
       <Icon
         src={PlusIcon}
-        className={`${styles.addNewFileIcon} ${this.props.prefixClassName}-add`}
+        className={`${styles.addNewFileIcon} ${this.props.prefixClassName}-addmore-icon`}
       />
       <span
-        className={`${styles.addNewFileText} ${this.props.prefixClassName}-text`}
+        className={`${styles.addNewFileText} ${this.props.prefixClassName}-addmore-text`}
       >
         Add more images
       </span>
@@ -185,12 +133,16 @@ export default class Image extends React.Component {
     return (
       <div
         key={i}
-        className={`${styles.imageInputWrapper} ${this.props.prefixClassName}-wrapper`}
+        className={`${styles.imageInputWrapper} ${this.props.prefixClassName}-image-wrapper`}
         style={{ width, height, minWidth }}
       >
         {this._renderImage(URL, isUploading, i)}
         {this._renderLoader(isUploading)}
-        <ImageProgressBar complete={uploadedPercent} active={isUploading} />
+        <ImageProgressBar
+          prefixClassName={`${this.props.prefixClassName}-progressbar`}
+          complete={uploadedPercent}
+          active={isUploading}
+        />
       </div>
     );
   };
@@ -201,12 +153,12 @@ export default class Image extends React.Component {
     return (
       <div
         key={i}
-        className={`${styles.filePreviewWrapper} ${this.props.prefixClassName}-wrapper`}
+        className={`${styles.filePreviewWrapper} ${this.props.prefixClassName}-file-wrapper`}
       >
         {this._renderFile(URL, value, isUploading, i)}
         {this._renderLoader(isUploading)}
         <ImageProgressBar
-          prefixClassName={this.props.prefixClassName}
+          prefixClassName={`${this.props.prefixClassName}-progressbar`}
           complete={uploadedPercent}
           active={isUploading}
         />
@@ -220,10 +172,10 @@ export default class Image extends React.Component {
     if (!genericUtils.isValidURL(previewURL)) {
       return (
         <div
-          className={`${styles.customKeyImage} ${this.props.prefixClassName}-preview`}
+          className={`${styles.customKeyImage} ${this.props.prefixClassName}-image-preview`}
         >
           <Icon
-            className={`${styles.carouselImagePlaceholderIcon} ${this.props.prefixClassName}-icon`}
+            className={`${styles.carouselImagePlaceholderIcon} ${this.props.prefixClassName}-image-preview-icon`}
             src={PlaceholderIcon}
           />
           {previewURL}
@@ -231,21 +183,25 @@ export default class Image extends React.Component {
       );
     }
 
+    const classNames = {
+      main: cc([styles.imageInputPreview, isUploadingClassName]),
+    };
+
     return (
       <div
-        className={`${styles.imageInputPreviewWrapper} ${this.props.prefixClassName}-preview`}
+        className={`${styles.imageInputPreviewWrapper} ${this.props.prefixClassName}-image-preview`}
       >
         <img
           src={previewURL}
-          className={`${styles.imageInputPreview} ${isUploadingClassName} ${this.props.prefixClassName}-image`}
+          className={`${classNames.main} ${this.props.prefixClassName}-image-preview-image`}
         />
         <div
           onClick={() => this._deleteFile(index)}
-          className={`${styles.imageInputPreviewDelete} ${this.props.prefixClassName}-preview-del`}
+          className={`${styles.imageInputPreviewDelete} ${this.props.prefixClassName}-image-preview-delete`}
         >
           <Icon
             src={TrashIcon}
-            className={`${styles.imageInputPreviewDeleteIcon} ${this.props.prefixClassName}-icon`}
+            className={`${styles.imageInputPreviewDeleteIcon} ${this.props.prefixClassName}-image-preview-delete-icon`}
           />
         </div>
       </div>
@@ -256,23 +212,23 @@ export default class Image extends React.Component {
     const isUploadingClassName = isUploading ? styles.isUploading : "";
     return (
       <div
-        className={`${styles.filePreview} ${isUploadingClassName} ${this.props.prefixClassName}-preview`}
+        className={`${styles.filePreview} ${isUploadingClassName} ${this.props.prefixClassName}-file-preview`}
       >
         <a
           href={value}
           target="_blank"
           rel="noopener noreferrer"
-          className={`${styles.filePreviewTitle} ${this.props.prefixClassName}-file-title`}
+          className={`${styles.filePreviewTitle} ${this.props.prefixClassName}-file-preview-title`}
         >
           {this.state.filenames[index] || "Attachment"}
         </a>
         <div
           onClick={() => this._deleteFile(index)}
-          className={`${styles.filePreview} ${this.props.prefixClassName}-file-preview`}
+          className={`${styles.filePreview} ${this.props.prefixClassName}-file-preview-delete-wrapper`}
         >
           <Icon
             src={TrashIcon}
-            className={`${styles.filePreviewDeleteIcon} ${this.props.prefixClassName}-icon`}
+            className={`${styles.filePreviewDeleteIcon} ${this.props.prefixClassName}-file-preview-delete-icon`}
           />
         </div>
       </div>
@@ -414,3 +370,73 @@ export default class Image extends React.Component {
     return isValid;
   };
 }
+
+File.propTypes = {
+  /** Names of already choosen file/files */
+  value: PropTypes.string,
+  /** on change function for input */
+  onChange: PropTypes.func,
+  /** Boolean value to allow multiple files */
+  multiple: PropTypes.bool,
+  /** ratio of the preview image to be generated */
+  ratio: PropTypes.string,
+  /** Base width for the preview image */
+  baseWidth: PropTypes.number,
+  /** The classname to be appended to the outermost element */
+  className: PropTypes.string,
+  /** Prefix to be appended before classname to the outermost element and
+   *  variation of prefix gets appended to child elements */
+  prefixClassName: PropTypes.string,
+  /** Type of file to accept (file or image) or you can pass your own custom formats as a string */
+  type: PropTypes.string,
+  /** Size of the file allowed in MBs */
+  size: PropTypes.number,
+  /** Dimensions of the file to upload (Doesn't work with type 'file') */
+  dimensions: PropTypes.string,
+};
+
+File.defaultProps = {
+  value: "",
+  onChange: () => {},
+  multiple: false,
+  ratio: "",
+  baseWidth: 290,
+  className: "",
+  prefixClassName: "",
+  type: "",
+  dimensions: "",
+};
+
+File.classNames = {
+  $prefix: "Outermost element",
+  "$prefix-placeholder-wrapper": "Outermost element of placeholder",
+  "$prefix-placeholder-icon": "Icon element of placeholder",
+  "$prefix-placeholder-text-wrapper":
+    "Wraps all the elements containing text inside placeholder",
+  "$prefix-placeholder-title": "Title of placeholder",
+  "$prefix-placeholder-filesize": "Filesize warning inside placeholder",
+  "$prefix-placeholder-format": "Filesize warning inside placeholder",
+  "$prefix-placeholder-image-dimensions": "Dimensions text inside placeholder",
+  "$prefix-wrapper": "Wrapper of the files",
+  "$prefix-file-wrapper": "Wrapper of individual file divs",
+  "$prefix-file-preview": "Preview individual file wrapper",
+  "$prefix-file-preview-title": "Title of the file in the preview",
+  "$prefix-file-preview-delete-wrapper": "Delete icon wrapper over the preview",
+  "$prefix-file-preview-delete-icon": "File delete icon",
+  "$prefix-loader": "Loader for the file component",
+  "$prefix-progressbar-wrapper": "Wrapper for the progress bar",
+  "$prefix-progressbar-bar": "Progress bar inside the wrapper",
+  "$prefix-image-wrapper": "Wrapper of individual image divs",
+  "$prefix-image-preview": "Wrapper of individual image divs",
+  "$prefix-image-preview-icon": "Preview icon for image wrapper",
+  "$prefix-image-preview-image": "Image inside wrapper",
+  "$prefix-image-preview-delete": "Delete wrapper inside image preview",
+  "$prefix-image-preview-delete-icon":
+    "Delete icon inside a wrapper image preview",
+  "$prefix-input": "Input field",
+  "$prefix-addmore-wrapper": "Wrapper for add more button",
+  "$prefix-addmore-icon": "Add more button icon",
+  "$prefix-addmore-text": "Add more button text",
+};
+
+export default File;
