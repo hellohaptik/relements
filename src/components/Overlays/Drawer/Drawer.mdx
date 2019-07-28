@@ -24,3 +24,87 @@ import Drawer from './Drawer';
 <ConfigBlock of={Drawer} />
 
 ## Examples
+
+<CodeBlock title='Type: Default'>
+  {(value, setValue) => (
+    <div>
+      <Button onClick={() => setValue(true)}> Open Drawer </Button>
+      <Drawer onClose={() => setValue(false)} active={value}>
+        <Drawer.Header onClose={() => setValue(false)}>Hello, world!</Drawer.Header>
+        <div style={{ padding: 24 }}>This is a modal</div>
+      </Drawer>
+    </div>
+  )}
+</CodeBlock>
+
+<CodeBlock title='Type: No Overlay'>
+  {(value, setValue) => (
+    <div>
+      <Button onClick={() => setValue(true)}> Open Drawer </Button>
+      <Drawer onClose={() => setValue(false)} active={value} noOverlay>
+        <Drawer.Header onClose={() => setValue(false)}>Hello, world!</Drawer.Header>
+        <div style={{ padding: 24 }}>This is a modal</div>
+      </Drawer>
+    </div>
+  )}
+</CodeBlock>
+
+<CodeBlock title='Type: Custom OffSet'>
+  {(value, setValue) => (
+    <div>
+      <Button onClick={() => setValue(true)}> Open Drawer </Button>
+      <Drawer onClose={() => setValue(false)} active={value} offset='50px' >
+        <Drawer.Header onClose={() => setValue(false)}>Hello, world!</Drawer.Header>
+        <div style={{ padding: 24 }}>This is a modal</div>
+      </Drawer>
+    </div>
+  )}
+</CodeBlock>
+
+<CodeBlock title='Type: Custom Z-Index'>
+  {(value, setValue) => (
+    <div>
+      <Button onClick={() => setValue(true)}> Open Drawer </Button>
+      <Drawer onClose={() => setValue(false)} active={value} zIndex='10' >
+        <Drawer.Header onClose={() => setValue(false)}>Hello, world!</Drawer.Header>
+        <div style={{ padding: 24 }}>This is a modal</div>
+      </Drawer>
+    </div>
+  )}
+</CodeBlock>
+
+<CodeBlock title='Type: Custom Width'>
+  {(value, setValue) => (
+    <div>
+      <Button onClick={() => setValue(true)}> Open Drawer </Button>
+      <Drawer onClose={() => setValue(false)} active={value} width='450px' >
+        <Drawer.Header onClose={() => setValue(false)}>Hello, world!</Drawer.Header>
+        <div style={{ padding: 24 }}>This is a modal</div>
+      </Drawer>
+    </div>
+  )}
+</CodeBlock>
+
+<CodeBlock title='Type: No Disable'>
+  {(value, setValue) => (
+    <div>
+      <Button onClick={() => setValue(true)}> Open Drawer </Button>
+      <Drawer onClose={() => setValue(false)} active={value} noDisable>
+        <Drawer.Header onClose={() => setValue(false)}>Hello, world!</Drawer.Header>
+        <div style={{ padding: 24 }}>This is a modal</div>
+      </Drawer>
+    </div>
+  )}
+</CodeBlock>
+
+<CodeBlock title='Type: Positon Left'>
+  {(value, setValue) => (
+    <div>
+      <Button onClick={() => setValue(true)}> Open Drawer </Button>
+      <Drawer onClose={() => setValue(false)} active={value} position='LEFT'>
+        <Drawer.Header onClose={() => setValue(false)}>Hello, world!</Drawer.Header>
+        <div style={{ padding: 24 }}>This is a modal</div>
+      </Drawer>
+    </div>
+  )}
+</CodeBlock>
