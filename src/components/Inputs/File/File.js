@@ -41,14 +41,6 @@ class File extends React.Component {
       values = multiple ? this._transform([value]) : this._transform([value]);
     }
 
-    let { type } = this.props;
-
-    if (type === "file") {
-      type = FILE_ACCEPT_TYPES;
-    } else if (type === "image") {
-      type = IMAGE_ACCEPT_TYPES;
-    }
-
     const uploads = values.concat(this.state.uploads);
     return (
       <div
@@ -57,8 +49,8 @@ class File extends React.Component {
       >
         {uploads.length === 0
           ? this._renderPlaceholder()
-          : this._renderFiles(uploads, type)}
-        {uploads.length === 0 ? this._renderInput(type) : null}
+          : this._renderFiles(uploads)}
+        {uploads.length === 0 ? this._renderInput() : null}
       </div>
     );
   }
@@ -82,12 +74,12 @@ class File extends React.Component {
     );
   };
 
-  _renderFiles = (uploads, type) => (
+  _renderFiles = uploads => (
     <div
       className={`${styles.filesList} ${this.props.prefixClassName}-wrapper`}
     >
       {uploads.map(this._renderPreview)}
-      {this.props.multiple ? this._renderAddMoreButton(type) : null}
+      {this.props.multiple ? this._renderAddMoreButton() : null}
     </div>
   );
 
@@ -108,18 +100,28 @@ class File extends React.Component {
     </div>
   );
 
-  _renderInput = type => (
-    <input
-      className={`${styles.fileInput} ${this.props.prefixClassName}-input`}
-      onChange={this._handleFile}
-      type="file"
-      accept={type}
-      multiple={this.props.multiple}
-    />
-  );
+  _renderInput = () => {
+    let { type } = this.props;
+
+    if (type === "file") {
+      type = FILE_ACCEPT_TYPES;
+    } else if (type === "image") {
+      type = IMAGE_ACCEPT_TYPES;
+    }
+
+    return (
+      <input
+        className={`${styles.fileInput} ${this.props.prefixClassName}-input`}
+        onChange={this._handleFile}
+        type="file"
+        accept={type}
+        multiple={this.props.multiple}
+      />
+    );
+  };
 
   _renderPreview = (upload, i) => {
-    if (upload.fileType === "FILE") return this._renderFilePreview(upload, i);
+    if (upload.fileType === "file") return this._renderFilePreview(upload, i);
     return this._renderImagePreview(upload, i);
   };
 
@@ -254,7 +256,7 @@ class File extends React.Component {
       return {
         isUploading: false,
         uploadedPercent: 0,
-        fileType: isImage ? "IMAGE" : "FILE",
+        fileType: isImage ? "image" : "file",
         previewURL: value,
         value,
       };
@@ -283,7 +285,7 @@ class File extends React.Component {
       return {
         ...this._newUploadItem,
         previewURL: URL.createObjectURL(file),
-        fileType: isImage ? "IMAGE" : "FILE",
+        fileType: isImage ? "image" : "file",
       };
     });
     this.setState({ uploads, filenames });
