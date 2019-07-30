@@ -23,18 +23,20 @@ const Drawer = ({
   noOverlay,
 }) => {
   const { enabled, visible } = useActivify(active);
-  const activeClassName = visible ? styles.drawerActive : "";
+  const activeClassName = visible || noDisable ? styles.drawerActive : "";
   const placementClassName = position === "LEFT" ? styles.left : "";
   const noDisableClassName = noDisable ? styles.noDisable : "";
   const transformAmount =
     position === "LEFT" ? -1 * (width + offset) : width + offset;
+
   const style = {};
   style.zIndex = zIndex;
   style.left = position === "LEFT" ? offset : "auto";
   style.right = position === "LEFT" ? "auto" : offset;
+
   useEscapeKey(onClose);
 
-  if (!enabled) return null;
+  if (!enabled && !noDisable) return null;
 
   return (
     <Portal node={document && attachTo && document.getElementById(attachTo)}>

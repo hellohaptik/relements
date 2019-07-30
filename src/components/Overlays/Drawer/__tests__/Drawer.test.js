@@ -51,19 +51,17 @@ test("ClassName", async () => {
   expect(queryAllByTestId("drawer")[0]).toHaveClass("demo");
 });
 
-// test("No Disable", async () => {
-//   const { queryAllByTestId, container } = render(
-//     component({ noDisable: true }),
-//   );
-//   expect(document.getElementsByClassName("test-drawer").length).toBeGreaterThanOrEqual(0);
-// });
+test("Position : Left", async () => {
+  const { queryAllByTestId } = render(component({ position: "LEFT" }));
+  expect(queryAllByTestId("drawer")[0]).toHaveStyle("left: 0px;");
+});
 
-// test("Position Left", async () => {
-//     const { queryAllByTestId } = render(
-//       component({ position: "LEFT" }),
-//     );
-//   expect(queryAllByTestId("drawer").length).toBeGreaterThanOrEqual(0);
-// });
+test("No Disable", async () => {
+  const { queryAllByTestId, container } = render(
+    component({ active: false, noDisable: true }),
+  );
+  expect(queryAllByTestId("drawer").length).toBeGreaterThanOrEqual(1);
+});
 
 test("Prefix Class", async () => {
   const classNames = Object.keys(Drawer.classNames).map(className =>
