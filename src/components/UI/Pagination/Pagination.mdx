@@ -15,3 +15,14 @@ import { IconSheet } from './Pagination.storybook.js';
 <ConfigBlock of={Pagination} />
 
 ## Examples
+<CodeBlock title="Type: Primary">
+  <Pagination />
+</CodeBlock>
+
+<CodeBlock title="Type: Custom classname and prefixClassName">
+  <Pagination className="main" prefixClassName="pre" />
+</CodeBlock>
+
+<CodeBlock title="Type: Custom pages and page selection">
+  <Pagination numPages={5} page={2} />
+</CodeBlock>
