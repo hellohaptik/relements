@@ -101,6 +101,7 @@ test("On change function", async () => {
   );
 
   tabs = document.getElementsByClassName("test-option")[0];
+
   fireEvent.click(tabs);
   expect(mockFn).toHaveBeenCalledTimes(2);
 });
