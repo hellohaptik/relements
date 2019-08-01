@@ -1,6 +1,6 @@
-import { CodeBlock, ConfigBlock } from '@src/helpers/DocBlocks';
-import Button from 'components/UI/Button';
-import Modal from './Modal';
+import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
+import Button from "components/UI/Button";
+import Modal from "./Modal";
 // import { ContextMenuTest } from './Modal.storybook.js';
 
 # Modal
@@ -12,7 +12,9 @@ import Modal from './Modal';
     <div>
       <Button onClick={() => setValue(true)}> Open Modal </Button>
       <Modal onClose={() => setValue(false)} active={value}>
-        <Modal.Header onClose={() => setValue(false)}>Hello, world!</Modal.Header>
+        <Modal.Header onClose={() => setValue(false)}>
+          Hello, world!
+        </Modal.Header>
         <div style={{ padding: 24 }}>This is a modal</div>
       </Modal>
     </div>
@@ -24,3 +26,28 @@ import Modal from './Modal';
 <ConfigBlock of={Modal} />
 
 ## Examples
+
+<CodeBlock title="With Primary CTA">
+  {(value, setValue) => (
+    <div>
+      <Button onClick={() => setValue(true)}> Open Modal </Button>
+      <Modal onClose={() => setValue(false)} active={value}>
+        <Modal.Header onClose={() => setValue(false)} withSave>
+          Hello, world!
+        </Modal.Header>
+        <div style={{ padding: 24 }}>This is a modal</div>
+      </Modal>
+    </div>
+  )}
+</CodeBlock>
+
+<CodeBlock title="Without Header">
+  {(value, setValue) => (
+    <div>
+      <Button onClick={() => setValue(true)}> Open Modal </Button>
+      <Modal onClose={() => setValue(false)} active={value}>
+        <div style={{ padding: 24 }}>This is a modal</div>
+      </Modal>
+    </div>
+  )}
+</CodeBlock>
