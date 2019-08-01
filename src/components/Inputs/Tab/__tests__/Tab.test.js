@@ -79,7 +79,7 @@ test("Testing on blur", async () => {
 test("On change function", async () => {
   const mockFn = jest.fn();
 
-  const { getByTestId } = render(
+  const { rerender } = render(
     <Tab
       onChange={mockFn}
       options={["first", "second"]}
@@ -88,7 +88,21 @@ test("On change function", async () => {
     />,
   );
 
-  const tabs = document.getElementsByClassName("test-option")[0];
+  let tabs = document.getElementsByClassName("test-option")[0];
   fireEvent.click(tabs);
-  expect(mockFn).toHaveBeenCalled();
+  // expect(mockFn).toHaveBeenCalledTimes(1);
+
+  rerender(
+    <Tab
+      onChange={mockFn}
+      options={[{ name: "first" }, { name: "second" }]}
+      value="second"
+      optionKey="name"
+      prefixClassName="test"
+    />,
+  );
+
+  tabs = document.getElementsByClassName("test-option")[0];
+  fireEvent.click(tabs);
+  expect(mockFn).toHaveBeenCalledTimes(2);
 });
