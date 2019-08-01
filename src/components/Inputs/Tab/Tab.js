@@ -1,11 +1,11 @@
-import React, { useRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { useRef } from "react";
+import PropTypes from "prop-types";
 
-import { useTabs } from '../_common/hooks/useTabs';
-import { useInput } from '../_common/hooks/useInput';
-import { Label } from '../_common/Label';
-import TabOption from './components/TabOption';
-import styles from './Tab.scss';
+import { useTabs } from "../_common/hooks/useTabs";
+import { useInput } from "../_common/hooks/useInput";
+import { Label } from "../_common/Label";
+import TabOption from "./components/TabOption";
+import styles from "./Tab.scss";
 
 function Tab({
   className,
@@ -21,64 +21,110 @@ function Tab({
   optionKey,
 }) {
   const {
-    handleChange, handleRef, width, offset, activeIndex, displayOptions,
-  } = useTabs(
-    value,
-    onChange,
-    options,
-    optionKey
-  );
+    handleChange,
+    handleRef,
+    width,
+    offset,
+    activeIndex,
+    displayOptions,
+  } = useTabs(value, onChange, options, optionKey);
   const _TextInputDOM = useRef();
-  const { focused, handleFocus, handleBlur } = useInput(_TextInputDOM, onFocus, onBlur);
-  const disabledClassName = disabled ? styles.disabled : '';
-
+  const { focused, handleFocus, handleBlur } = useInput(
+    _TextInputDOM,
+    onFocus,
+    onBlur,
+  );
+  const disabledClassName = disabled ? styles.disabled : "";
   return (
-    <div tabIndex="0" onFocus={handleFocus} onBlur={handleBlur} className={`${styles.tab} ${className}`}>
-      <Label focused={focused} error={error} className={`${styles.dropdownLabel} ${prefixClassName}-label`}>
+    <div
+      data-testid="tab"
+      tabIndex="0"
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      className={`${styles.tab} ${className} ${prefixClassName}`}
+    >
+      <Label
+        focused={focused}
+        error={error}
+        className={`${styles.dropdownLabel} ${prefixClassName}-label`}
+      >
         {label}
       </Label>
-      <div className={`${styles.tabOptionsWrapper} ${disabledClassName}`}>
-        <div className={styles.tabOptions}>
+      <div
+        className={`${styles.tabOptionsWrapper} ${disabledClassName} ${prefixClassName}-options-wrapper`}
+      >
+        <div className={`${styles.tabOptions} ${prefixClassName}-options`}>
           {displayOptions.map((displayOption, i) => {
             return (
-              <TabOption innerRef={handleRef(i)} onClick={handleChange(i)} selected={activeIndex === i}>
+              <TabOption
+                innerRef={handleRef(i)}
+                onClick={handleChange(i)}
+                selected={activeIndex === i}
+                prefixClassName={prefixClassName}
+              >
                 {displayOption}
               </TabOption>
             );
           })}
         </div>
-        <div className={styles.tabOptionsBG} style={{ width, left: offset }} />
+        <div
+          className={`${styles.tabOptionsBG} ${prefixClassName}-selected`}
+          style={{ width, left: offset }}
+        />
       </div>
     </div>
   );
 }
 
 Tab.propTypes = {
+  /** The classname to be appended to the outermost element */
   className: PropTypes.string,
-  disabled: PropTypes.bool,
-  error: PropTypes.string,
-  label: PropTypes.string,
-  onBlur: PropTypes.func,
-  onChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  optionKey: PropTypes.string,
-  options: PropTypes.array,
+  /** prefix to be appended to the child elements */
   prefixClassName: PropTypes.string,
+  /** Disables the Tabs  */
+  disabled: PropTypes.bool,
+  /** If error occurs, pass on the error */
+  error: PropTypes.string,
+  /** Label for Tabs  */
+  label: PropTypes.string,
+  /** On blur function */
+  onBlur: PropTypes.func,
+  /** On Tab change function */
+  onChange: PropTypes.func,
+  /** On focus function */
+  onFocus: PropTypes.func,
+  /** If array of object is passed, the key which is too be displayed */
+  optionKey: PropTypes.string,
+  /** Array of strings or objects to be passed as options */
+  options: PropTypes.array,
+  /** Current tab selected */
   value: PropTypes.string,
 };
 
 Tab.defaultProps = {
-  className: '',
+  className: "",
+  prefixClassName: "",
   disabled: false,
-  error: '',
-  label: '',
+  error: "",
+  label: "",
   onBlur: () => {},
   onChange: () => {},
   onFocus: () => {},
-  optionKey: '',
+  optionKey: "",
   options: [],
-  prefixClassName: '',
-  value: '',
+  value: "",
+};
+
+Tab.classNames = {
+  $prefix: "Outermost element",
+  "$prefix-label": "Label element",
+  "$prefix-options-wrapper": "Wrapper around options tab",
+  "$prefix-options": "Container holding all the options",
+  "$prefix-option": "Individual option",
+  "$prefix-option-text": "Text inside individual option",
+  "$prefix-selected": "Background above selected option",
+  "$prefix-option-selected": "Selected option div",
+  "$prefix-option-selected-text": "Selected option text",
 };
 
 export default Tab;
