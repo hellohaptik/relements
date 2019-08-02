@@ -31,6 +31,7 @@ const ContextMenuPortal = ({
   return (
     <Portal>
       <div
+        data-testid="context-menu"
         className={`${styles.contextMenuWrapper} ${className} ${prefixClassName}`}
       >
         <div

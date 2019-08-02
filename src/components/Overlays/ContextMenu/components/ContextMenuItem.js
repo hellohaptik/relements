@@ -20,6 +20,7 @@ const ContextMenuItem = ({
   const Tag = href ? "a" : "div";
   return (
     <Tag
+      data-testid="context-menu-item"
       href={href}
       target="_blank"
       onClick={onClick}
