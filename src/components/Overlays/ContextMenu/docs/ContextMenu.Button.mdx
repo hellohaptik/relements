@@ -1,0 +1,20 @@
+import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
+import ContextMenu from "../ContextMenu";
+import { ContextMenuTest } from "../ContextMenu.storybook.js";
+import SampleIcon from "icons/active.svg";
+
+# ContextMenu.Button
+
+> A context menu helper which binds the context menu to a prebuilt icon removing the need to pass around refs
+
+<CodeBlock>
+  <ContextMenu.Button title="This is a button" offset={{ left: -120, top: 32 }}>
+    <ContextMenu.Item icon={SampleIcon} iconSize={18} title="Hello" />
+    <ContextMenu.Item disabled icon={SampleIcon} iconSize={18} title="Hello" />
+    <ContextMenu.Item icon={SampleIcon} iconSize={18} title="Hello" />
+  </ContextMenu.Button>
+</CodeBlock>
+
+## Configuration
+
+<ConfigBlock of={ContextMenu} />

@@ -1,20 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import Button from 'components/UI/Button';
-import Icon from 'components/UI/Icon';
+import Button from "components/UI/Button";
+import Icon from "components/UI/Icon";
 
-import ContextMenuPortal from './ContextMenuPortal';
-import styles from './ContextMenuButton.scss';
+import ContextMenuPortal from "./ContextMenuPortal";
+import styles from "./ContextMenuButton.scss";
 
-export default class ContextMenuIcon extends React.Component {
+class ContextMenuButton extends React.Component {
   state = {
     active: false,
   };
 
   render() {
     const {
-      className, offset, children, title, size,
+      className,
+      offset,
+      children,
+      title,
+      size,
+      prefixClassName,
     } = this.props;
     return (
       <React.Fragment>
@@ -22,54 +27,79 @@ export default class ContextMenuIcon extends React.Component {
           active={this.state.active}
           attachTo={this._contextMenuIcon}
           offset={offset}
-          onOverlayClick={this._handleOverlayClick}
+          onClose={this.handleClose}
+          prefixClassName={`${prefixClassName}-portal`}
         >
-          {typeof children === 'function' ? children(this._handleOverlayClick) : children}
+          {typeof children === "function"
+            ? children(this.handleClose)
+            : children}
         </ContextMenuPortal>
         <Button
           size={size}
-          style={{ cursor: 'pointer' }}
+          style={{ cursor: "pointer" }}
           onClick={this._handleClick}
-          className={className}
-          innerRef={(DOMElement) => {
+          className={`${prefixClassName} ${className}`}
+          innerRef={DOMElement => {
             this._contextMenuIcon = DOMElement;
           }}
         >
           {title}
-          {' '}
-          <Icon className={styles.contextMenuButtonIcon} src="angle-down" />
+          <Icon
+            prefixClassName={`${prefixClassName}-icon`}
+            className={styles.contextMenuButtonIcon}
+            src="angle-down"
+          />
         </Button>
       </React.Fragment>
     );
   }
 
-  _handleClick = (e) => {
+  _handleClick = e => {
     e.preventDefault();
     e.stopPropagation();
     this.setState({ active: true });
   };
 
-  _handleOverlayClick = (e) => {
+  handleClose = e => {
     e.preventDefault();
     e.stopPropagation();
     this.setState({ active: false });
   };
 }
 
-ContextMenuIcon.propTypes = {
+ContextMenuButton.propTypes = {
+  /** Outermost className */
   className: PropTypes.string,
-  onOverlayClick: PropTypes.func,
+  /** className appended to each of the elements */
+  prefixClassName: PropTypes.string,
+  /** What needs to be rendered inside the context menu */
   children: PropTypes.node,
+  /** Offset prop to adjust the element's position */
   offset: PropTypes.shape({
     left: PropTypes.number,
     top: PropTypes.number,
   }),
+  /** The size of the button */
+  size: PropTypes.number,
+  /** The title of the button */
+  title: PropTypes.string,
 };
 
-ContextMenuIcon.defaultProps = {
-  offset: {
-    left: 0,
-    top: 0,
-  },
-  onOverlayClick: () => {},
+ContextMenuButton.defaultProps = {
+  className: "",
+  prefixClassName: "",
+  offset: null,
+  size: 0,
+  title: "",
 };
+
+ContextMenuButton.classNames = {
+  $prefix: "Outermost className (button)",
+  "$prefix-icon": "the down arrow on the button",
+  "$prefix-portal": "className for the portal",
+  "$prefix-portal-overlay": "overlay",
+  "$prefix-portal-context-menu": "wrapping content div",
+  "$prefix-portal-context-menu-content": "the actual content div",
+};
+
+export default ContextMenuButton;

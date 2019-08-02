@@ -1,0 +1,38 @@
+import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
+import ContextMenu from "../ContextMenu";
+import { ContextMenuTest } from "../ContextMenu.storybook.js";
+import SampleIcon from "icons/active.svg";
+
+# ContextMenu
+
+> A clickable UI element with active and hover states. Indicates to the user that it's clickable.
+
+<CodeBlock>
+  <ContextMenu.Icon offset={{ left: -24, top: 0 }}>
+    <ContextMenu.Item icon={SampleIcon} iconSize={18} title="Hello" />
+    <ContextMenu.Item disabled icon={SampleIcon} iconSize={18} title="Hello" />
+    <ContextMenu.Item icon={SampleIcon} iconSize={18} title="Hello" />
+  </ContextMenu.Icon>
+</CodeBlock>
+
+## Configuration
+
+<ConfigBlock of={ContextMenu} />
+
+## Examples
+
+<CodeBlock title="Context Menu Button">
+  <ContextMenu.Button title="This is a button" offset={{ left: -120, top: 32 }}>
+    <ContextMenu.Item icon={SampleIcon} iconSize={18} title="Hello" />
+    <ContextMenu.Item disabled icon={SampleIcon} iconSize={18} title="Hello" />
+    <ContextMenu.Item icon={SampleIcon} iconSize={18} title="Hello" />
+  </ContextMenu.Button>
+</CodeBlock>
+
+<CodeBlock title="Context Menu Icon">
+  <ContextMenu.Icon offset={{ left: -24, top: 0 }}>
+    <ContextMenu.Item icon={SampleIcon} iconSize={18} title="Hello" />
+    <ContextMenu.Item disabled icon={SampleIcon} iconSize={18} title="Hello" />
+    <ContextMenu.Item icon={SampleIcon} iconSize={18} title="Hello" />
+  </ContextMenu.Icon>
+</CodeBlock>
