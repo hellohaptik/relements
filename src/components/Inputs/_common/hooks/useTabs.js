@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export function useTabs(value, onChange, options, optionKey) {
   const [DOMRects, setDOMRects] = useState([]);
@@ -18,7 +18,7 @@ export function useTabs(value, onChange, options, optionKey) {
     return { width, offset };
   };
 
-  const handleRef = index => (DOMElement) => {
+  const handleRef = index => DOMElement => {
     if (DOMElement) {
       const DOMElementRect = DOMElement.getBoundingClientRect();
       const currentRect = DOMRects[index];
@@ -31,12 +31,21 @@ export function useTabs(value, onChange, options, optionKey) {
   };
 
   const handleChange = index => () => onChange(options[index]);
-  const getOption = option => (typeof option !== 'object' ? option : option[optionKey || 'name']);
+  const getOption = option =>
+    typeof option !== "object" ? option : option[optionKey || "name"];
   const displayOptions = options.map(option => getOption(option));
   const { width, offset } = getPosition();
 
   useEffect(() => {
-    setActiveIndex(1);
+    let index;
+
+    if (typeof options[0] !== "object") {
+      index = options.indexOf(value);
+    } else {
+      index = options.findIndex(item => item[optionKey] === value);
+    }
+
+    setActiveIndex(index);
   }, [value]);
 
   return {

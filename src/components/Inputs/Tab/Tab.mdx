@@ -1,0 +1,40 @@
+import { CodeBlock, ConfigBlock } from '@src/helpers/DocBlocks';
+import Tab from './Tab';
+
+# Tab
+
+> A clickable UI element with active and hover states. Indicates to the user that it's clickable.
+
+<CodeBlock>
+  <Tab options={['first', 'second']} value="second"/>
+</CodeBlock>
+
+## Configuration
+
+<ConfigBlock of={Tab} />
+
+## Examples
+
+<CodeBlock title="Type: Options as array">
+  <Tab options={['first', 'second']} value={'first'} />
+</CodeBlock>
+
+<CodeBlock title="Type: Options as object">
+  <Tab options={[{name: 'first', second: 'last'}, {name: 'second', second: 'last'}]} value='second' optionKey={'name'} />
+</CodeBlock>
+
+<CodeBlock title="Type: Custom classnames and prefixClassNames">
+  <Tab className="test" prefixClassName="pre" options={['first', 'second']} value={'first'} />
+</CodeBlock>
+
+<CodeBlock title="Type: With Label">
+  <Tab label="With label" options={['first', 'second']} value={'first'} />
+</CodeBlock>
+
+<CodeBlock title="Type: With Error">
+  <Tab label="Some label" error="Some error occurred" options={['first', 'second']} value={'first'} />
+</CodeBlock>
+
+<CodeBlock title="Type: Disabled tabs">
+  <Tab label="Some label" options={['first', 'second']} value={'first'} disabled={true} />
+</CodeBlock>
