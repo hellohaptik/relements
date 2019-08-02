@@ -77,8 +77,8 @@ test("Prefix class", async () => {
   const classNames = Object.keys(ContextMenu.classNames).map(className =>
     className.replace("$prefix", "test"),
   );
-  const classNames2 = Object.keys(ContextMenu.Item.classNames).map(className =>
-    className.replace("$prefix", "test-item"),
+  const itemClassNames = Object.keys(ContextMenu.Item.classNames).map(
+    className => className.replace("$prefix", "test-item"),
   );
   render(<Component active prefixClassName="test" />);
 
@@ -89,7 +89,7 @@ test("Prefix class", async () => {
     ).toBeGreaterThanOrEqual(1);
   });
 
-  classNames2.forEach(className => {
+  itemClassNames.forEach(className => {
     expect(
       document.getElementsByClassName(className).length,
       className,

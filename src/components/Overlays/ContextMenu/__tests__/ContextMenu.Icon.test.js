@@ -53,25 +53,25 @@ test("Custom class", async () => {
 });
 
 test("Prefix class", async () => {
-  const classNames = Object.keys(ContextMenu.Icon.classNames).map(className =>
-    className.replace("$prefix", "test"),
+  const iconClassNames = Object.keys(ContextMenu.Icon.classNames).map(
+    className => className.replace("$prefix", "test"),
   );
-  const classNames2 = Object.keys(ContextMenu.Item.classNames).map(className =>
-    className.replace("$prefix", "test-item"),
+  const itemClassNames = Object.keys(ContextMenu.Item.classNames).map(
+    className => className.replace("$prefix", "test-item"),
   );
 
   const { getByTestId } = render(<Component prefixClassName="test" />);
 
   fireEvent.click(getByTestId("icon"));
 
-  classNames.forEach(className => {
+  iconClassNames.forEach(className => {
     expect(
       document.getElementsByClassName(className).length,
       className,
     ).toBeGreaterThanOrEqual(1);
   });
 
-  classNames2.forEach(className => {
+  itemClassNames.forEach(className => {
     expect(
       document.getElementsByClassName(className).length,
       className,
