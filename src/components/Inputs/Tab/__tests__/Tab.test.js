@@ -89,13 +89,17 @@ test("On change function", async () => {
   );
 
   let tabs = document.getElementsByClassName("test-option")[0];
+
   fireEvent.click(tabs);
+  expect(mockFn).toHaveBeenCalledTimes(1);
+
   rerender(
     <Tab
       onChange={mockFn}
       options={[{ name: "first" }, { name: "second" }]}
       value="second"
       optionKey="name"
+      disabled={true}
       prefixClassName="test"
     />,
   );
