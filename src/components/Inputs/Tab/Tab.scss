@@ -1,8 +1,9 @@
-@import 'constants/index.scss';
+@import "constants/index.scss";
 
 .tab {
   position: relative;
   margin-bottom: 24px;
+  outline: none;
 }
 
 .tabLabel {
