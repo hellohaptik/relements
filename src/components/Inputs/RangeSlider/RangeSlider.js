@@ -1,10 +1,10 @@
-import React, { useRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { useRef } from "react";
+import PropTypes from "prop-types";
 
-import { useRangeSlider } from './hooks/useRangeSlider';
-import { useInput } from '../_common/hooks/useInput';
-import { Label } from '../_common/Label';
-import styles from './RangeSlider.scss';
+import { useRangeSlider } from "./hooks/useRangeSlider";
+import { useInput } from "../_common/hooks/useInput";
+import { Label } from "../_common/Label";
+import styles from "./RangeSlider.scss";
 
 function RangeSlider({
   className,
@@ -24,10 +24,12 @@ function RangeSlider({
 }) {
   const _TextInputDOM = useRef();
   const _TrackDOM = useRef();
-  const { focused, handleFocus, handleBlur } = useInput(_TextInputDOM, onFocus, onBlur);
-  const {
-    trackWidth, trackOffset, renderKnob, renderInput,
-  } = useRangeSlider({
+  const { focused, handleFocus, handleBlur } = useInput(
+    _TextInputDOM,
+    onFocus,
+    onBlur,
+  );
+  const { trackWidth, trackOffset, renderKnob, renderInput } = useRangeSlider({
     value,
     start,
     end,
@@ -40,56 +42,89 @@ function RangeSlider({
   });
 
   return (
-    <div tabIndex="0" onFocus={handleFocus} onBlur={handleBlur} className={`${styles.slider} ${className}`}>
-      <Label focused={focused} error={error} className={`${styles.sliderLabel} ${prefixClassName}-label`}>
+    <div
+      tabIndex="0"
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      className={`${styles.slider} ${className}`}
+    >
+      <Label
+        focused={focused}
+        error={error}
+        className={`${styles.sliderLabel} ${prefixClassName}-label`}
+      >
         {label}
       </Label>
       <div className={styles.sliderInput}>
         <div className={styles.sliderTrack} ref={_TrackDOM}>
-          <div className={styles.sliderFilled} style={{ width: `${trackWidth}%`, left: `${trackOffset}%` }} />
-          {single ? null : renderKnob('start')}
-          {renderKnob('end')}
+          <div
+            className={styles.sliderFilled}
+            style={{ width: `${trackWidth}%`, left: `${trackOffset}%` }}
+          />
+          {single ? null : renderKnob("start")}
+          {renderKnob("end")}
         </div>
       </div>
       <div className={styles.sliderTextInputs}>
-        {single ? null : renderInput('start')}
-        {renderInput('end')}
+        {single ? null : renderInput("start")}
+        {renderInput("end")}
       </div>
     </div>
   );
 }
 
 RangeSlider.propTypes = {
+  /** The classname to appended to the outermost element */
   className: PropTypes.string,
-  end: PropTypes.number,
-  error: PropTypes.bool,
-  label: PropTypes.string,
-  placeholder: PropTypes.string,
-  onBlur: PropTypes.func,
-  onChange: PropTypes.func,
-  onDrag: PropTypes.func,
-  onFocus: PropTypes.func,
-  prefixClassName: PropTypes.string,
-  single: PropTypes.bool,
+  /** Value of the slider input in case of single. In case of multiple, it's the end value */
   start: PropTypes.number,
+  /** Value of the slider input in case of single. In case of multiple, it's the end value */
+  end: PropTypes.number,
+  /** If the input slider has an error, pass on the message. */
+  error: PropTypes.string,
+  /** Label text */
+  label: PropTypes.string,
+  /** Placeholder text for value indicated below the slider widget */
+  placeholder: PropTypes.string,
+  /** Method fired onBlur event */
+  onBlur: PropTypes.func,
+  /** Method fired on changing range value */
+  onChange: PropTypes.func,
+  /** Method fired on dragging the knob event */
+  onDrag: PropTypes.func,
+  /** Method fired on focusing on the slider */
+  onFocus: PropTypes.func,
+  /** The prefix classname prepended to all elements */
+  prefixClassName: PropTypes.string,
+  /** Defines the type of slider. Whether it will have a range or a single knob */
+  single: PropTypes.bool,
+  /** The difference with which the value will be increased or decreased */
   step: PropTypes.number,
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)]),
+  /** Array of two numbers in case of multiple type slider. Only a number in case of single type slider. */
+  value: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.arrayOf(PropTypes.number),
+  ]),
 };
 
 RangeSlider.defaultProps = {
-  className: '',
-  placeholder: '',
+  className: "",
+  placeholder: "",
   end: 0,
-  error: false,
-  label: '',
+  error: "",
+  label: "",
   onBlur: () => {},
   onChange: () => {},
   onDrag: () => {},
   onFocus: () => {},
-  prefixClassName: '',
+  prefixClassName: "",
   single: false,
   start: 0,
   step: 0,
+};
+
+RangeSlider.classNames = {
+  "$prefix-label": "Label of the Range slider",
 };
 
 export default RangeSlider;
