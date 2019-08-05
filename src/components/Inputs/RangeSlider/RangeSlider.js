@@ -63,13 +63,13 @@ function RangeSlider({
             className={styles.sliderFilled}
             style={{ width: `${trackWidth}%`, left: `${trackOffset}%` }}
           />
-          {single ? null : renderKnob("start")}
-          {renderKnob("end")}
+          {single ? null : renderKnob("start", testId)}
+          {renderKnob("end", testId)}
         </div>
       </div>
       <div className={styles.sliderTextInputs}>
-        {single ? null : renderInput("start")}
-        {renderInput("end")}
+        {single ? null : renderInput("start", testId)}
+        {renderInput("end", testId)}
       </div>
     </div>
   );

@@ -5,13 +5,16 @@ import "jest-dom/extend-expect";
 import { render, fireEvent, cleanup } from "@testing-library/react";
 
 import RangeSlider from "../RangeSlider";
+import { toPosition, fromPosition } from "../hooks/useRangeSlider";
+import { KEY_CODES } from "constants";
 
 afterEach(cleanup);
-
+const defaultStart = 0,
+  defaultEnd = 1000;
 const Component = ({ value, onChange, className, prefixClassName }) => (
   <RangeSlider
-    start={0}
-    end={1000}
+    start={defaultStart}
+    end={defaultEnd}
     step={100}
     value={value}
     onChange={onChange}
@@ -55,4 +58,55 @@ test("Prefix class", async () => {
 
 // increment decrement test - onChange
 // edit text input test
-// error messge test
+test("On change input value for start and end", async () => {
+  const { container } = render(
+    <Component value={[100, 300]} testId="range-slider" />,
+  );
+
+  const inputStart = container.querySelector(
+    "input[data-testid=range-slider-start-input]",
+  );
+  const knobStart = container.querySelector(
+    "div[data-testid=range-slider-start-knob]",
+  );
+
+  const inputEnd = container.querySelector(
+    "input[data-testid=range-slider-end-input]",
+  );
+  const knobEnd = container.querySelector(
+    "div[data-testid=range-slider-end-knob]",
+  );
+  const translateFromPosition = fromPosition(defaultStart, defaultEnd);
+
+  // within range test
+  let newStart = 200;
+  fireEvent.change(inputStart, { target: { value: newStart } });
+  fireEvent.keyDown(inputStart, { key: "enter", keyCode: KEY_CODES.ENTER });
+  let startLeft = translateFromPosition(newStart);
+  expect(inputStart.value).toBe(newStart.toString());
+  expect(knobStart.style.left).toBe(`${startLeft}%`);
+
+  let newEnd = 500;
+  fireEvent.change(inputEnd, { target: { value: newEnd } });
+  fireEvent.keyDown(inputEnd, { key: "enter", keyCode: KEY_CODES.ENTER });
+  let endLeft = translateFromPosition(newEnd);
+  expect(inputEnd.value).toBe(newEnd.toString());
+  expect(knobEnd.style.left).toBe(`${endLeft}%`);
+
+  // out of range
+  newStart = -1;
+  fireEvent.change(inputStart, { target: { value: newStart } });
+  fireEvent.keyDown(inputStart, { key: "enter", keyCode: KEY_CODES.ENTER });
+  startLeft = translateFromPosition(newStart);
+  expect(inputStart.value).toBe(newStart.toString());
+  expect(knobStart.style.left).toBe(`0%`);
+
+  newEnd = 1001;
+  fireEvent.change(inputEnd, { target: { value: newEnd } });
+  fireEvent.keyDown(inputEnd, { key: "enter", keyCode: KEY_CODES.ENTER });
+  endLeft = translateFromPosition(newEnd);
+  expect(inputEnd.value).toBe(newEnd.toString());
+  expect(knobEnd.style.left).toBe(`100%`);
+});
+
+// todo : error messge test
