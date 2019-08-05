@@ -21,6 +21,7 @@ function RangeSlider({
   start,
   end,
   step,
+  testId,
 }) {
   const _TextInputDOM = useRef();
   const _TrackDOM = useRef();
@@ -43,6 +44,7 @@ function RangeSlider({
 
   return (
     <div
+      data-testid={testId}
       tabIndex="0"
       onFocus={handleFocus}
       onBlur={handleBlur}
@@ -105,6 +107,8 @@ RangeSlider.propTypes = {
     PropTypes.number,
     PropTypes.arrayOf(PropTypes.number),
   ]),
+  /** For testing purpose */
+  testId: PropTypes.string,
 };
 
 RangeSlider.defaultProps = {
