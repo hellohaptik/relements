@@ -41,11 +41,12 @@ test("Custom class", async () => {
 });
 
 test("Prefix class", async () => {
+  const prefixClassName = "range-slider";
   const classNames = Object.keys(RangeSlider.classNames).map(className =>
-    className.replace("$prefix", "prefix-class"),
+    className.replace("$prefix", prefixClassName),
   );
   const { container } = render(
-    <Component value={[100, 200]} prefixClassName="prefix-class" />,
+    <Component value={[100, 200]} prefixClassName={prefixClassName} />,
   );
 
   classNames.forEach(className => {
@@ -60,21 +61,21 @@ test("Prefix class", async () => {
 // edit text input test
 test("On change input value for start and end", async () => {
   const { container } = render(
-    <Component value={[100, 300]} testId="range-slider" />,
+    <Component value={[100, 300]} prefixClassName="range-slider" />,
   );
 
   const inputStart = container.querySelector(
-    "input[data-testid=range-slider-start-input]",
+    ".range-slider .range-slider-start-input",
   );
   const knobStart = container.querySelector(
-    "div[data-testid=range-slider-start-knob]",
+    ".range-slider .range-slider-start-knob",
   );
 
   const inputEnd = container.querySelector(
-    "input[data-testid=range-slider-end-input]",
+    ".range-slider .range-slider-end-input",
   );
   const knobEnd = container.querySelector(
-    "div[data-testid=range-slider-end-knob]",
+    ".range-slider .range-slider-end-knob",
   );
   const translateFromPosition = fromPosition(defaultStart, defaultEnd);
 
@@ -109,4 +110,16 @@ test("On change input value for start and end", async () => {
   expect(knobEnd.style.left).toBe(`100%`);
 });
 
-// todo : error messge test
+// Error messge test
+test("Show error message", async () => {
+  const prefixClassName = "range-slider";
+  const errorMsg = "Error message";
+  const { queryAllByLabelText } = render(
+    <Component
+      value={[100, 300]}
+      prefixClassName={prefixClassName}
+      error={errorMsg}
+    />,
+  );
+  expect(queryAllByLabelText(errorMsg)).toBeDefined();
+});

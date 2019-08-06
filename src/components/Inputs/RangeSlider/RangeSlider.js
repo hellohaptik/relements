@@ -48,7 +48,7 @@ function RangeSlider({
       tabIndex="0"
       onFocus={handleFocus}
       onBlur={handleBlur}
-      className={`${styles.slider} ${className}`}
+      className={`${styles.slider} ${className} ${prefixClassName}`}
     >
       <Label
         focused={focused}
@@ -58,18 +58,21 @@ function RangeSlider({
         {label}
       </Label>
       <div className={styles.sliderInput}>
-        <div className={styles.sliderTrack} ref={_TrackDOM}>
+        <div
+          className={`${styles.sliderTrack} ${prefixClassName}-track`}
+          ref={_TrackDOM}
+        >
           <div
             className={styles.sliderFilled}
             style={{ width: `${trackWidth}%`, left: `${trackOffset}%` }}
           />
-          {single ? null : renderKnob("start", testId)}
-          {renderKnob("end", testId)}
+          {single ? null : renderKnob("start", prefixClassName)}
+          {renderKnob("end", prefixClassName)}
         </div>
       </div>
-      <div className={styles.sliderTextInputs}>
-        {single ? null : renderInput("start", testId)}
-        {renderInput("end", testId)}
+      <div className={`${styles.sliderTextInputs}`}>
+        {single ? null : renderInput("start", prefixClassName)}
+        {renderInput("end", prefixClassName)}
       </div>
     </div>
   );
@@ -128,7 +131,13 @@ RangeSlider.defaultProps = {
 };
 
 RangeSlider.classNames = {
+  $prefix: "Range slider wrapper class",
   "$prefix-label": "Label of the Range slider",
+  "$prefix-track": "Track of the Range slider",
+  "$prefix-start-input": "Start input field of the Range slider",
+  "$prefix-end-input": "End input field of the Range slider",
+  "$prefix-start-knob": "Start draggable knob of the Range slider",
+  "$prefix-end-knob": "End draggable knob of the Range slider",
 };
 
 export default RangeSlider;

@@ -108,15 +108,16 @@ export function useRangeSlider({
     }
   };
 
-  const renderKnob = (knobType, testId) => {
+  const renderKnob = (knobType, prefixClassName) => {
     const knobPosition =
       knobType === "start" ? startPosition.exact : endPosition.exact;
-    const dataTestId = testId ? `${testId}-${knobType}-knob` : "";
+    const className = prefixClassName
+      ? `${prefixClassName}-${knobType}-knob`
+      : "";
     return (
       <div
         style={{ left: `${knobPosition}%` }}
-        className={styles.sliderKnobWrapper}
-        data-testid={dataTestId}
+        className={`${styles.sliderKnobWrapper} ${className}`}
       >
         <div
           style={{ left: pointerX }}
@@ -131,7 +132,7 @@ export function useRangeSlider({
     );
   };
 
-  const renderInput = (knobType, testId) => {
+  const renderInput = (knobType, prefixClassName) => {
     let inputValue;
     let knobPositionRounded;
     let setter;
@@ -148,7 +149,9 @@ export function useRangeSlider({
       inputValue || (!knobPositionRounded && knobPositionRounded !== 0)
         ? inputValue
         : translateToPosition(knobPositionRounded);
-    const dataTestId = testId ? `${testId}-${knobType}-input` : "";
+    const className = prefixClassName
+      ? `${prefixClassName}-${knobType}-input`
+      : "";
     return (
       <div className={styles.sliderTextInput}>
         <div className={styles.sliderTextInputLabel}>{knobType}</div>
@@ -157,7 +160,7 @@ export function useRangeSlider({
           placeholder={placeholder || "enter..."}
           value={value}
           onKeyDown={handleKeyDown(knobType)}
-          data-testid={dataTestId}
+          className={className}
           onChange={e => {
             setter({ value: e.target.value });
           }}
