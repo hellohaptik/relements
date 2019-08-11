@@ -1,12 +1,15 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
+import Docs from "./NumberCounter.mdx";
 
 import NumberCounter from "./NumberCounter";
 
-storiesOf("Components|Inputs/NumberCounter", module).add("Single", () => {
-  const story = <NumberCounterWrapper />;
-  return story;
-});
+storiesOf("Components|Inputs/NumberCounter", module)
+  .add("Single", () => {
+    const story = <NumberCounterWrapper />;
+    return story;
+  })
+  .add("Documentation", () => <Docs />);
 
 class NumberCounterWrapper extends React.Component {
   state = {

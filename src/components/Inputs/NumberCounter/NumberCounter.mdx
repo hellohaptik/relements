@@ -1,0 +1,49 @@
+import { CodeBlock, ConfigBlock } from '@src/helpers/DocBlocks';
+import NumberCounter from './NumberCounter';
+
+# NumberCounter
+
+> A regular input element where user inputs a Number
+
+<CodeBlock>
+  <NumberCounter label="Demo Label" value={0}/>
+</CodeBlock>
+
+## Configuration
+
+<ConfigBlock of={NumberCounter} />
+
+## Examples
+
+<CodeBlock title='Type : Default'>
+{
+    (value=0, setValue) => (
+        <NumberCounter value={value} onChange={value => setValue(value)}/>
+    )
+}
+</CodeBlock>
+
+<CodeBlock title='Type : With Label'>
+{
+    (value=0, setValue) => (
+        <NumberCounter label="Demo Label" value={value} onChange={value => setValue(value)}/>
+    )
+}
+</CodeBlock>
+
+
+<CodeBlock title='Type : With Custom Max Value (5)'>
+{
+    (value=0, setValue) => (
+        <NumberCounter label="Demo Label" value={value} onChange={value => setValue(value)} max={5}/>
+    )
+}
+</CodeBlock>
+
+<CodeBlock title='Type : With Error'>
+{
+    (value=0, setValue) => (
+        <NumberCounter label="Error Label" value={value} onChange={value => setValue(value)} error={true}/>
+    )
+}
+</CodeBlock>
