@@ -79,7 +79,7 @@ test("On change input value for start and end", async () => {
   // within range test
   let newStart = 200;
   fireEvent.change(inputStart, { target: { value: newStart } });
-  fireEvent.keyDown(inputStart, { key: "enter", keyCode: KEY_CODES.ENTER });
+  fireEvent.keyDown(inputStart, { key: "tab", keyCode: KEY_CODES.TAB });
   let startLeft = translateFromPosition(newStart);
   expect(inputStart.value).toBe(newStart.toString());
   expect(knobStart.style.left).toBe(`${startLeft}%`);
@@ -94,7 +94,7 @@ test("On change input value for start and end", async () => {
   // out of range
   newStart = -1;
   fireEvent.change(inputStart, { target: { value: newStart } });
-  fireEvent.keyDown(inputStart, { key: "enter", keyCode: KEY_CODES.ENTER });
+  fireEvent.keyDown(inputStart, { key: "tab", keyCode: KEY_CODES.TAB });
   startLeft = translateFromPosition(newStart);
   expect(inputStart.value).toBe(newStart.toString());
   expect(knobStart.style.left).toBe(`0%`);
@@ -121,8 +121,7 @@ test("Show error message", async () => {
   expect(queryAllByLabelText(errorMsg)).toBeDefined();
 });
 
-// drag test
-test("Drag knob", async () => {
+test("Drag start knob", async () => {
   const { container } = render(
     <Component value={[300, 400]} prefixClassName="range-slider" />,
   );
@@ -148,4 +147,32 @@ test("Drag knob", async () => {
   fireEvent.dragEnd(knobStart);
 
   expect(inputStart.value).toBe(newVal.toString());
+});
+
+test("Drag end knob", async () => {
+  const { container } = render(
+    <Component value={[300, 400]} prefixClassName="range-slider" />,
+  );
+
+  const knobEnd = container.querySelector(".range-slider-end-knob > div");
+  const inputEnd = container.querySelector(".range-slider-end-input");
+  const pageX = 400;
+  const trackRect = { left: 0, width: 0 };
+  let knobPosition = getKnobPosition({ pageX, trackRect });
+  const newVal = toPosition(defaultStart, defaultEnd, defaultStep)(
+    knobPosition,
+  );
+
+  fireEvent.dragStart(knobEnd);
+
+  fireEvent.drag(knobEnd, {
+    target: {
+      pageX,
+      dragTest: true,
+    },
+  });
+
+  fireEvent.dragEnd(knobEnd);
+
+  expect(inputEnd.value).toBe(newVal.toString());
 });
