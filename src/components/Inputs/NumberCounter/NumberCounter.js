@@ -40,13 +40,17 @@ class NumberCounter extends React.Component {
             {label}
           </span>
         )}
-        <div className={`${styles.counter} ${isZeroClassName}`}>
+        <div
+          className={`${prefixClassName}-wrapper ${styles.counter} ${isZeroClassName}`}
+        >
           <Icon
             onClick={this._handleChange(-1)}
             src="minus"
             className={`${prefixClassName}-subtract ${styles.counterButton} ${minusDisabledClassName}`}
           />
-          <Odometer>{value.toString()}</Odometer>
+          <Odometer className={`${prefixClassName}-odometer`}>
+            {value.toString()}
+          </Odometer>
           <Icon
             onClick={this._handleChange(1)}
             src="plus2"
@@ -117,8 +121,11 @@ NumberCounter.defaultProps = {
 NumberCounter.classNames = {
   $prefix: "Prefix ClassName added to the Parent",
   "$prefix-label": "Added to the Label Component",
+  "$prefix-wrapper": "Added to the Wrapper for Icons+Odometer",
   "$prefix-subtract": "Added to the Subtract Button",
   "$prefix-add": "Added to the Add Button",
+  "$prefix-odometer": "Added to the Odometer",
+  "$prefix-error": "Added to the Error Element",
 };
 
 export default NumberCounter;
