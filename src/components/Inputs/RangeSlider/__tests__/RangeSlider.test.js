@@ -5,12 +5,17 @@ import "jest-dom/extend-expect";
 import { render, fireEvent, cleanup } from "@testing-library/react";
 
 import RangeSlider from "../RangeSlider";
-import { toPosition, fromPosition } from "../hooks/useRangeSlider";
+import {
+  toPosition,
+  fromPosition,
+  getKnobPosition,
+} from "../hooks/useRangeSlider";
 import { KEY_CODES } from "constants";
 
 afterEach(cleanup);
 const defaultStart = 0,
-  defaultEnd = 1000;
+  defaultEnd = 1000,
+  defaultStep = 1;
 const Component = ({ value, onChange, className, prefixClassName }) => (
   <RangeSlider
     start={defaultStart}
@@ -64,19 +69,11 @@ test("On change input value for start and end", async () => {
     <Component value={[100, 300]} prefixClassName="range-slider" />,
   );
 
-  const inputStart = container.querySelector(
-    ".range-slider .range-slider-start-input",
-  );
-  const knobStart = container.querySelector(
-    ".range-slider .range-slider-start-knob",
-  );
+  const inputStart = container.querySelector(".range-slider-start-input");
+  const knobStart = container.querySelector(".range-slider-start-knob");
 
-  const inputEnd = container.querySelector(
-    ".range-slider .range-slider-end-input",
-  );
-  const knobEnd = container.querySelector(
-    ".range-slider .range-slider-end-knob",
-  );
+  const inputEnd = container.querySelector(".range-slider-end-input");
+  const knobEnd = container.querySelector(".range-slider-end-knob");
   const translateFromPosition = fromPosition(defaultStart, defaultEnd);
 
   // within range test
@@ -122,4 +119,33 @@ test("Show error message", async () => {
     />,
   );
   expect(queryAllByLabelText(errorMsg)).toBeDefined();
+});
+
+// drag test
+test("Drag knob", async () => {
+  const { container } = render(
+    <Component value={[300, 400]} prefixClassName="range-slider" />,
+  );
+
+  const knobStart = container.querySelector(".range-slider-start-knob > div");
+  const inputStart = container.querySelector(".range-slider-start-input");
+  const pageX = 50;
+  const trackRect = { left: 0, width: 0 };
+  let knobPosition = getKnobPosition({ pageX, trackRect });
+  const newVal = toPosition(defaultStart, defaultEnd, defaultStep)(
+    knobPosition,
+  );
+
+  fireEvent.dragStart(knobStart);
+
+  fireEvent.drag(knobStart, {
+    target: {
+      pageX,
+      dragTest: true,
+    },
+  });
+
+  fireEvent.dragEnd(knobStart);
+
+  expect(inputStart.value).toBe(newVal.toString());
 });

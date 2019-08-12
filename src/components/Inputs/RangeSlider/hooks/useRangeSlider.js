@@ -10,6 +10,13 @@ export const fromPosition = (start, end) => position => {
   return (100 * (position - start)) / (end - start);
 };
 
+export const getKnobPosition = ({ pageX, trackRect }) => {
+  let knobPosition = ((pageX - trackRect.left) / trackRect.width) * 100;
+  knobPosition = knobPosition < 0 ? 0 : knobPosition;
+  knobPosition = knobPosition > 100 ? 100 : knobPosition;
+  return knobPosition;
+};
+
 export function useRangeSlider({
   value,
   start,
@@ -32,16 +39,17 @@ export function useRangeSlider({
   const startDragging = () => () => setDragging(true);
 
   const handleDrag = knobType => e => {
-    const { pageX } = e;
+    let pageX;
+    if (e.target.dragTest) {
+      pageX = e.target.pageX;
+    } else {
+      pageX = e.pageX;
+    }
     const trackRect = trackRef.current.getBoundingClientRect();
 
     if (pageX <= 0) return;
 
-    let knobPosition = ((pageX - trackRect.left) / trackRect.width) * 100;
-    knobPosition = knobPosition < 0 ? 0 : knobPosition;
-    knobPosition = knobPosition > 100 ? 100 : knobPosition;
-
-    // const knobPositionRounded = Math.ceil(knobPosition / this.props.step) * this.props.step;
+    const knobPosition = getKnobPosition({ pageX, trackRect });
     const knobPositionRounded = knobPosition;
 
     if (knobType === "start" && knobPosition > endPosition.exact - 1) {
