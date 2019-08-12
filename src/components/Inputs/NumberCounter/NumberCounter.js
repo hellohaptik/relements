@@ -33,11 +33,13 @@ class NumberCounter extends React.Component {
         className={`${styles.numberCounter} ${errorClassName} ${prefixClassName} ${className}`}
         data-testid="numberCounter"
       >
-        <span
-          className={`${prefixClassName}-label ${errorClassName} ${styles.numberCounterLabel} ${focusedClassName}`}
-        >
-          {label}
-        </span>
+        {label && (
+          <span
+            className={`${prefixClassName}-label ${errorClassName} ${styles.numberCounterLabel} ${focusedClassName}`}
+          >
+            {label}
+          </span>
+        )}
         <div className={`${styles.counter} ${isZeroClassName}`}>
           <Icon
             onClick={this._handleChange(-1)}
@@ -53,7 +55,7 @@ class NumberCounter extends React.Component {
         </div>
         {error && (
           <div
-            className={`${errorMsgClassName} ${styles.numberCounterInputWrapper}`}
+            className={`${prefixClassName}-error ${errorMsgClassName} ${styles.numberCounterInputWrapper}`}
           >
             {this._renderError(errorMessage)}
           </div>
@@ -73,10 +75,8 @@ class NumberCounter extends React.Component {
   _handleChange = change => () => {
     const max = this.props.max || 100000;
     const value = this.props.value + change;
-
     if (value < 0) return;
     if (value > max) return;
-
     this.props.onChange(value);
   };
 }

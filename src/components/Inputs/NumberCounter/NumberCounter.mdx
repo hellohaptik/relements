@@ -35,7 +35,7 @@ import NumberCounter from './NumberCounter';
 <CodeBlock title='Type : With Custom Max Value (5)'>
 {
     (value=0, setValue) => (
-        <NumberCounter label="Demo Label" value={value} onChange={value => setValue(value)} max={5}/>
+        <NumberCounter prefixClassName="test" label="Demo Label" value={value} onChange={value => setValue(value)} max={5}/>
     )
 }
 </CodeBlock>
