@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 import PropTypes from "prop-types";
 
@@ -38,10 +38,13 @@ const Dropdown = ({
   withCreate = false,
   withMultiple = false,
 }) => {
-  const disabled = withMultiple || withSearch ? true : false;
+  const disabled = withMultiple ? true : false;
   const valueArray = Array.isArray(value) ? value : [value];
   const _InputDOM = useRef();
   const _InputWrapperDOM = useRef();
+  // const [updatedOptions, setUpdatedOptions] = useState(options);
+
+  // useEffect(() => console.log('updatedoptions', updatedOptions));
 
   const [searchTerm, searchResults, handleSearch] = useSearch(options, [
     optionKey,
@@ -61,6 +64,8 @@ const Dropdown = ({
     return valueArray[0] ? valueArray[0][optionKey] : "";
   };
 
+
+  useEffect(() => console.log("chakloooo", searchResults, useDropdownProps, getInputValue()));
   const [dropdownOptions] = useDropdown(...useDropdownProps);
   console.log(dropdownOptions);
   const [
@@ -81,13 +86,19 @@ const Dropdown = ({
     _InputWrapperDOM.current.getBoundingClientRect().bottom + 64 >
       window.innerHeight;
 
-  const handleChange = valueToChange => {
+  const handleChange = (valueToChange) => {
     const newValue = withMultiple ? [...value, valueToChange] : valueToChange;
+    // const flatValue = updatedOptions.map(valueItem => valueItem[optionKey]);
+    // const indexFound = flatValue.indexOf(newValue[optionKey]) > -1 ? true : false;
+    // if (!indexFound && !withMultiple) {
+    //   setUpdatedOptions([...updatedOptions, newValue]);
+    // }
+
     onChange(newValue);
   };
 
-  const handleChipDelete = valueToChange => {
-    const newValue = valueToChange.map(value => {
+  const handleChipDelete = (valueToChange) => {
+    const newValue = valueToChange.map((value) => {
       return { text: value };
     });
     onChange(newValue);
@@ -161,37 +172,22 @@ const Dropdown = ({
 };
 
 Dropdown.propTypes = {
-  /** Placeholder Text for the Dropdown */
   placeholder: PropTypes.string,
-  /** ClassName for the Dropdown element */
   className: PropTypes.string,
-  /** Value of the Dropdown Input */
   value: PropTypes.string,
-  /** Label for the Dropdown */
   label: PropTypes.string,
-  /** Text to be shown if there are no options */
   noOptionsText: PropTypes.string,
-  /** Error for Dropdown */
   error: PropTypes.string,
-  /** Key to sort for option */
   optionKey: PropTypes.string,
-  /** onChange Callback */
   onChange: PropTypes.func,
-  /** Options for The Dropdown */
   options: PropTypes.array,
-  /** PrefixClassName for The Dropdown */
   prefixClassName: PropTypes.string,
 
-  /** onFocus Callback */
   onFocus: PropTypes.func,
-  /** onBlur Callback */
   onBlur: PropTypes.func,
 
-  /** Dropdown with Search Enabled */
   withSearch: PropTypes.bool,
-  /**  Dropdown with Creating new Options Enabled */
   withCreate: PropTypes.bool,
-  /**  Dropdown with Multiple Inputs Enabled */
   withMultiple: PropTypes.bool,
 };
 

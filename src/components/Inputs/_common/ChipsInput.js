@@ -1,48 +1,60 @@
-import React, { useState, useEffect } from 'react';
-import AutosizeInput from 'react-input-autosize';
-import PropTypes from 'prop-types';
-import Icon from 'components/UI/Icon';
-import CrossIcon from 'icons/close.svg';
-import styles from './ChipsInput.scss';
-import { useChips } from './hooks/useChips';
+import React, { useState } from "react";
+import AutosizeInput from "react-input-autosize";
+import PropTypes from "prop-types";
+import Icon from "components/UI/Icon";
+import CrossIcon from "icons/close.svg";
+import styles from "./ChipsInput.scss";
+import { useChips } from "./hooks/useChips";
 
 export const ChipsInput = ({
   className,
   onKeyDown,
   onFocus,
-  onBlur,
-  onMouseDown,
+  // onBlur,
+  // onMouseDown,
+  // handleChipDelete,
   innerRef,
   value,
   onChange,
   focused,
   error,
-  placeholder = 'Type here...',
+  placeholder = "Type here...",
   inputRef,
-  disabled,
+  disabled = false,
   onValueChange,
 }) => {
-  const focusedClassName = focused ? styles.focused : '';
-  const errorClassName = error ? styles.error : '';
+  const focusedClassName = focused ? styles.focused : "";
+  const errorClassName = error ? styles.error : "";
+  console.log("is disabled => ", disabled);
   const [inputValue, setInputValue] = useState();
-  const [onKeyDownChips, addChip, deleteChip] = useChips(value, inputValue, onChange, setInputValue);
-
+  const [onKeyDownChips, addChip, deleteChip] = useChips(
+    value,
+    inputValue,
+    onChange,
+    setInputValue,
+  );
+  console.log(addChip);
   const renderChip = (title, i) => {
     return (
       <div key={i} className={styles.chip}>
         {title}
-        {!disabled && <Icon onClick={() => deleteChip(title)} src={CrossIcon} className={styles.deleteChipIcon} />}
+        <Icon
+          onClick={() => deleteChip(title)}
+          src={CrossIcon}
+          className={styles.deleteChipIcon}
+        />
       </div>
     );
   };
 
-  const handleChange = (e) => {
+  const handleChange = e => {
+    console.log("autosizeinput handleChange called");
     const value = e.target.value;
     setInputValue(value);
     onValueChange(value);
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = e => {
     onKeyDownChips(e);
     onKeyDown(e);
   };
@@ -78,11 +90,12 @@ export const ChipsInput = ({
 ChipsInput.propTypes = {
   onKeyDown: PropTypes.func,
   onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-  onMouseDown: PropTypes.func,
+  // onBlur: PropTypes.func,
+  // onMouseDown: PropTypes.func,
   innerRef: PropTypes.object,
   className: PropTypes.string,
   value: PropTypes.string,
+  disabled: PropTypes.string,
   onChange: PropTypes.func,
   onValueChange: PropTypes.func,
   focused: PropTypes.bool,

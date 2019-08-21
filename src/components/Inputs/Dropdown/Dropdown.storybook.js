@@ -56,14 +56,16 @@ stories
   });
 
 const DropdownTest = props => {
-  // const options = defaultProps.options.map((option, i) => ({ text: text(`Option ${i + 1}`, option.text) }));
+  const options = defaultProps.options.map((option, i) => ({
+    text: text(`Option ${i + 1}`, option.text),
+  }));
   const [value, setValue] = React.useState();
   return (
     <Dropdown
       placeholder="Test placeholder"
       className="my-dropdown"
       prefixClassName="my-yoooo"
-      options={[]}
+      options={options}
       label="This is the label"
       onChange={setValue}
       value={value}
