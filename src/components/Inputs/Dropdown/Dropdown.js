@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 import PropTypes from "prop-types";
 
@@ -30,6 +30,7 @@ const Dropdown = ({
   options = [],
   onChange = () => {},
   placeholder = "",
+  createPrefix = "+ Create",
 
   onFocus = () => {},
   onBlur = () => {},
@@ -38,6 +39,7 @@ const Dropdown = ({
   withCreate = false,
   withMultiple = false,
 }) => {
+  const [updatedOptions, setUpdatedOptions] = useState(options);
   const disabled = withCreate || withSearch ? false : true;
   const valueArray = Array.isArray(value) ? value : [value];
   const _InputDOM = useRef();
@@ -50,7 +52,7 @@ const Dropdown = ({
     return valueArray[0] ? valueArray[0][optionKey] : "";
   };
 
-  const [searchTerm, searchResults, handleSearch] = useSearch(options, [
+  const [searchTerm, searchResults, handleSearch] = useSearch(updatedOptions, [
     optionKey,
   ]);
   const useDropdownProps = [
@@ -59,9 +61,11 @@ const Dropdown = ({
     optionKey,
     valueArray,
     withCreate,
+    createPrefix,
   ];
 
   const [dropdownOptions] = useDropdown(...useDropdownProps);
+  console.log("TCL: onBlur -> dropdownOptions", dropdownOptions);
   const [
     highlightIndex,
     handleKeyDown,
@@ -82,7 +86,30 @@ const Dropdown = ({
 
   const handleChange = valueToChange => {
     const newValue = withMultiple ? [...value, valueToChange] : valueToChange;
-    onChange(newValue);
+
+    if (withCreate) {
+      // cleaning the create prefix if it exists
+      const flatNewValue =
+        valueToChange[optionKey].indexOf(createPrefix) > -1
+          ? valueToChange[optionKey].slice(createPrefix.length + 1)
+          : valueToChange[optionKey];
+      console.log("TCL: handleChange -> flatNewValue", flatNewValue);
+
+      const flatExistingOptions = updatedOptions.map(option => {
+        return option[optionKey];
+      });
+
+      // if updatedOptions already has that value, we don't update updatedOptions
+      flatExistingOptions.indexOf(flatNewValue) < 0
+        ? setUpdatedOptions([...updatedOptions, { text: flatNewValue }])
+        : null;
+      onChange({ [optionKey]: flatNewValue });
+      console.log("obj", { [optionKey]: flatNewValue.toString() });
+    } else {
+      onChange(newValue);
+    }
+    // removing '+ Create' option added when the option does not exist
+    dropdownOptions.splice(0, 1);
   };
 
   const handleChipDelete = valueToChange => {
@@ -117,7 +144,6 @@ const Dropdown = ({
 
   const reverseModeClassName = isReversed ? styles.reverse : "";
   const inputValue = getInputValue();
-  console.log(inputValue);
   const Input = withMultiple ? ChipsInput : TextInput;
   return (
     <div
@@ -141,7 +167,6 @@ const Dropdown = ({
         onBlur={handleBlur}
         onMouseDown={handleToggle}
         onChange={withMultiple ? handleChipDelete : handleSearch}
-        handleChipDelete={handleChipDelete}
         focused={focused}
         active={focused}
         value={inputValue}
@@ -185,6 +210,8 @@ Dropdown.propTypes = {
   options: PropTypes.array,
   /** PrefixClassName for The Dropdown */
   prefixClassName: PropTypes.string,
+  /** Text to prefix for Creating a new option */
+  createPrefix: PropTypes.string,
 
   /** onFocus Callback */
   onFocus: PropTypes.func,

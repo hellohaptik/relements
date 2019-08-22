@@ -29,10 +29,8 @@ export function useSearch(options, searchKeys) {
   };
 
   const handleSearch = searchTerm => {
-    console.log("handling search", searchTerm);
     setSearchTerm(searchTerm);
     if (searchTerm.length === 0) {
-      console.log("bhenchodo", options);
       setSearchResults(options);
     } else {
       setSearchResults(_fuse.current.search(searchTerm));
@@ -42,8 +40,6 @@ export function useSearch(options, searchKeys) {
   useEffect(() => {
     setupSearch();
   }, [options]);
-
-  console.log(searchResults);
 
   return [searchTerm, searchResults, handleSearch];
 }

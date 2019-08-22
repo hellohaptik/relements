@@ -18,6 +18,7 @@ const DropdownOption = ({
         selected ? styles.dropdownOptionSelected : ""
       }`}
       onClick={() => onClick(value)}
+      data-testid="dropdown-option"
     >
       <span
         className={`${styles.dropdownOptionText} ${
