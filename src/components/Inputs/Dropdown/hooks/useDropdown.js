@@ -11,12 +11,9 @@ export function useDropdown(
 ) {
   const getFilteredOptions = options => {
     const flatValue = value.map(valueItem => valueItem[optionKey]);
-    console.log("hello shabash flatvalue and createTerm", createTerm);
-    let filteredOptions =
-      createTerm.length > 0
-        ? options.filter(option => !flatValue.includes(option[optionKey]))
-        : options;
-    console.log(filteredOptions);
+    let filteredOptions = options.filter(
+      option => !flatValue.includes(option[optionKey]),
+    );
     if (allowCreate && createTerm) {
       filteredOptions = [
         {

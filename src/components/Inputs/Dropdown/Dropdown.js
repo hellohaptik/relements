@@ -20,28 +20,35 @@ import { ChipsInput } from "../_common/ChipsInput";
 import { useInput } from "../_common/hooks/useInput";
 
 const Dropdown = ({
-  className,
-  prefixClassName,
-  label,
-  noOptionsText,
-  error,
+  className = "",
+  prefixClassName = "",
+  label = "",
+  noOptionsText = "No options present",
+  error = "",
   optionKey = "text",
   value = [],
-  options,
-  onChange,
-  placeholder,
+  options = [],
+  onChange = () => {},
+  placeholder = "",
 
-  onFocus,
-  onBlur,
+  onFocus = () => {},
+  onBlur = () => {},
 
   withSearch = false,
   withCreate = false,
   withMultiple = false,
 }) => {
-  const disabled = withMultiple || withSearch ? true : false;
+  const disabled = withCreate || withSearch ? false : true;
   const valueArray = Array.isArray(value) ? value : [value];
   const _InputDOM = useRef();
   const _InputWrapperDOM = useRef();
+
+  const getInputValue = () => {
+    if (withMultiple) {
+      return valueArray.map(value => value[optionKey]);
+    }
+    return valueArray[0] ? valueArray[0][optionKey] : "";
+  };
 
   const [searchTerm, searchResults, handleSearch] = useSearch(options, [
     optionKey,
@@ -54,15 +61,7 @@ const Dropdown = ({
     withCreate,
   ];
 
-  const getInputValue = () => {
-    if (withMultiple) {
-      return valueArray.map(value => value[optionKey]);
-    }
-    return valueArray[0] ? valueArray[0][optionKey] : "";
-  };
-
   const [dropdownOptions] = useDropdown(...useDropdownProps);
-  console.log(dropdownOptions);
   const [
     highlightIndex,
     handleKeyDown,
@@ -105,6 +104,7 @@ const Dropdown = ({
     return dropdownOptions.map((option, i) => (
       <DropdownOption
         key={i}
+        className={`${prefixClassName}-option`}
         innerRef={_DropdownOptionDOMs.current[i]}
         selected={i === highlightIndex}
         onClick={handleChange}
@@ -120,18 +120,22 @@ const Dropdown = ({
   console.log(inputValue);
   const Input = withMultiple ? ChipsInput : TextInput;
   return (
-    <div className={`${styles.dropdown} ${prefixClassName} ${className}`}>
+    <div
+      className={`${styles.dropdown} ${prefixClassName} ${className}`}
+      data-testid="dropdown"
+    >
       <Label
         focused={focused}
         error={error}
-        className={`${styles.dropdownLabel} ${prefixClassName}-label`}
+        className={`${styles.dropdownLabel} ${prefixClassName}-label ${prefixClassName}-error`}
       >
         {label}
       </Label>
       <Input
         innerRef={_InputWrapperDOM}
         inputRef={_InputDOM}
-        className={`${styles.dropdownInput} ${reverseModeClassName}`}
+        className={`${styles.dropdownInput} ${prefixClassName}-input ${prefixClassName}-error ${reverseModeClassName}`}
+        error={error}
         onKeyDown={handleKeyDown}
         onFocus={handleFocus}
         onBlur={handleBlur}
@@ -151,7 +155,7 @@ const Dropdown = ({
         attachTo={_InputWrapperDOM}
         active={focused}
         focused={focused}
-        prefixClassName={`${prefixClassName}-options`}
+        className={`${prefixClassName}-options`}
         reverseMode={isReversed}
       >
         {renderOptions()}
@@ -193,6 +197,15 @@ Dropdown.propTypes = {
   withCreate: PropTypes.bool,
   /**  Dropdown with Multiple Inputs Enabled */
   withMultiple: PropTypes.bool,
+};
+
+Dropdown.classNames = {
+  $prefix: "Prefix ClassName",
+  "$prefix-label": "Prefix ClassName applied to the Label",
+  "$prefix-input": "Prefix ClassName applied to the input element",
+  "$prefix-error": "Prefix ClassName applied in case of error",
+  "$prefix-options": "Prefix ClassName applied to the options container",
+  "$prefix-option": "Prefix ClassName applied to the individual option",
 };
 
 export default Dropdown;

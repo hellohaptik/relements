@@ -8,6 +8,7 @@ import {
   boolean,
 } from "@storybook/addon-knobs";
 import Dropdown from "./Dropdown";
+import Docs from "./Dropdown.mdx";
 
 const stories = storiesOf("Components|Inputs/Dropdown", module);
 stories.addDecorator(withKnobs);
@@ -53,6 +54,9 @@ stories
   })
   .add("With Create", () => {
     return <DropdownTest withCreate />;
+  })
+  .add("Documentation", () => {
+    return <Docs />;
   });
 
 const DropdownTest = props => {
