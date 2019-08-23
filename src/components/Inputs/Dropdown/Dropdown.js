@@ -93,7 +93,6 @@ const Dropdown = ({
         valueToChange[optionKey].indexOf(createPrefix) > -1
           ? valueToChange[optionKey].slice(createPrefix.length + 1)
           : valueToChange[optionKey];
-      console.log("TCL: handleChange -> flatNewValue", flatNewValue);
 
       const flatExistingOptions = updatedOptions.map(option => {
         return option[optionKey];
@@ -104,12 +103,11 @@ const Dropdown = ({
         ? setUpdatedOptions([...updatedOptions, { text: flatNewValue }])
         : null;
       onChange({ [optionKey]: flatNewValue });
-      console.log("obj", { [optionKey]: flatNewValue.toString() });
+      // removing '+ Create' option added
+      dropdownOptions.splice(0, 1);
     } else {
       onChange(newValue);
     }
-    // removing '+ Create' option added when the option does not exist
-    dropdownOptions.splice(0, 1);
   };
 
   const handleChipDelete = valueToChange => {

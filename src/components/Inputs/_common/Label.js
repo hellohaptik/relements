@@ -16,7 +16,6 @@ export const Label = ({
   if (!children) return null;
   const focusedClassName = !disabled && focused ? styles.focused : "";
   const errorClassName = error ? styles.error : "";
-  console.log();
   return (
     <React.Fragment>
       <div className={`${styles.container}`}>

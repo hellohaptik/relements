@@ -97,3 +97,97 @@ test("On Blur", async () => {
   const dropdownOption = document.getElementsByClassName("test-option")[0];
   expect(mockFn).toHaveBeenCalled();
 });
+
+test("Searching options", async () => {
+  const mockFn = jest.fn();
+  const { container } = render(
+    component({ withSearch: true, onChange: mockFn }),
+  );
+
+  const inputElementWrapper = container.getElementsByClassName("test-input")[0];
+  // only input elements support change events, not their abstractions
+  const inputDOMElement = inputElementWrapper.children[0].children[0];
+
+  fireEvent.change(inputDOMElement, { target: { value: "1" } });
+  fireEvent.mouseDown(inputDOMElement);
+
+  // only one option should be present from default options ('Option text 1')
+  const options = document.getElementsByClassName("test-option");
+  expect(options.length).toBe(1);
+});
+
+test("Creating options", async () => {
+  const mockFn = jest.fn();
+  const { container } = render(component({ withCreate: true }));
+  const inputElementWrapper = container.getElementsByClassName("test-input")[0];
+  // only input elements support change events, not their abstractions
+  const inputDOMElement = inputElementWrapper.children[0].children[0];
+  fireEvent.change(inputDOMElement, { target: { value: "new option" } });
+  fireEvent.mouseDown(inputDOMElement);
+  // the option to create a new dropdown option
+  const createOption = document.getElementsByClassName("test-option")[0];
+  fireEvent.click(createOption);
+
+  // clearing the search to display all possible dropdown options
+  fireEvent.change(inputDOMElement, { target: { value: "" } });
+
+  // now dropdown options should have 5 options
+  const options = document.getElementsByClassName("test-option");
+  expect(options.length).toBe(5);
+
+  // confirming the option created has the right text
+  const newOption = document.getElementsByClassName("test-option")[4];
+  expect(newOption).toHaveTextContent("new option");
+});
+
+test("Adding Chips/Deleting Chips", async () => {
+  const mockFn = jest.fn();
+  const { container, getByTestId, rerender } = render(
+    component({ withMultiple: true, onChange: mockFn }),
+  );
+  const inputElementWrapper = document.getElementsByClassName("test-input")[0];
+  // only input elements support change events, not their abstractions
+  fireEvent.click(inputElementWrapper);
+
+  const options = document.getElementsByClassName("test-option");
+
+  fireEvent.click(options[0]);
+
+  expect(mockFn).toHaveBeenCalledTimes(1);
+
+  rerender(
+    component({
+      withMultiple: true,
+      value: mockFn.mock.calls[0][0],
+      onChange: mockFn,
+    }),
+  );
+
+  fireEvent.click(inputElementWrapper);
+
+  const updatedOptions = document.getElementsByClassName("test-option");
+  expect(updatedOptions.length).toBe(3);
+
+  // getting the updated DOM
+  const chips = document.getElementsByClassName("test-input")[0].children[0]
+    .children;
+  expect(chips.length).toBe(1);
+
+  const del = getByTestId("icon");
+  // delete icon for first chip
+  fireEvent.click(del);
+  expect(mockFn).toHaveBeenCalledTimes(2);
+
+  rerender(
+    component({
+      withMultiple: true,
+      value: mockFn.mock.calls[1][0],
+      onChange: mockFn,
+    }),
+  );
+  fireEvent.click(inputElementWrapper);
+
+  // checking if all options are available
+  const optionsAfterDelete = document.getElementsByClassName("test-option");
+  expect(optionsAfterDelete.length).toBe(4);
+});

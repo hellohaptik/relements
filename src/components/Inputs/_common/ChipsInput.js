@@ -12,7 +12,6 @@ export const ChipsInput = ({
   onFocus,
   // onBlur,
   // onMouseDown,
-  // handleChipDelete,
   innerRef,
   value,
   onChange,
@@ -27,13 +26,12 @@ export const ChipsInput = ({
   const errorClassName = error ? styles.error : "";
   console.log("is disabled => ", disabled);
   const [inputValue, setInputValue] = useState();
-  const [onKeyDownChips, addChip, deleteChip] = useChips(
+  const [onKeyDownChips, , deleteChip] = useChips(
     value,
     inputValue,
     onChange,
     setInputValue,
   );
-  console.log(addChip);
   const renderChip = (title, i) => {
     return (
       <div key={i} className={styles.chip}>
@@ -48,7 +46,6 @@ export const ChipsInput = ({
   };
 
   const handleChange = e => {
-    console.log("autosizeinput handleChange called");
     const value = e.target.value;
     setInputValue(value);
     onValueChange(value);
@@ -78,6 +75,8 @@ export const ChipsInput = ({
       onClick={onFocus}
       ref={innerRef}
       className={`${styles.chips} ${focusedClassName} ${errorClassName} ${className}-input`}
+      // onBlur={onBlur}
+      // onMouseDown={onMouseDown}
     >
       <div className={styles.chipsTrack}>
         {value.map(renderChip)}
