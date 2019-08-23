@@ -10,8 +10,8 @@ export const ChipsInput = ({
   className,
   onKeyDown,
   onFocus,
-  // onBlur,
-  // onMouseDown,
+  onBlur,
+  onMouseDown,
   innerRef,
   value,
   onChange,
@@ -75,8 +75,8 @@ export const ChipsInput = ({
       onClick={onFocus}
       ref={innerRef}
       className={`${styles.chips} ${focusedClassName} ${errorClassName} ${className}-input`}
-      // onBlur={onBlur}
-      // onMouseDown={onMouseDown}
+      onBlur={onBlur}
+      onMouseDown={onMouseDown}
     >
       <div className={styles.chipsTrack}>
         {value.map(renderChip)}
@@ -89,8 +89,8 @@ export const ChipsInput = ({
 ChipsInput.propTypes = {
   onKeyDown: PropTypes.func,
   onFocus: PropTypes.func,
-  // onBlur: PropTypes.func,
-  // onMouseDown: PropTypes.func,
+  onBlur: PropTypes.func,
+  onMouseDown: PropTypes.func,
   innerRef: PropTypes.object,
   className: PropTypes.string,
   value: PropTypes.string,
