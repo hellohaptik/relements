@@ -20,6 +20,13 @@ test("Custom Class", async () => {
   expect(getByTestId("dropdown-option")).toHaveClass("testClass");
 });
 
+test("Selected", async () => {
+  const { getByTestId } = render(
+    component({ className: "testClass", selected: true }),
+  );
+  expect(getByTestId("dropdown-option")).toHaveClass("testClass-selected");
+});
+
 test("On Click", async () => {
   const mockFn = jest.fn();
   const { getByTestId } = render(component({ onClick: mockFn }));

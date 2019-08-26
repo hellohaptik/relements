@@ -11,12 +11,13 @@ const DropdownOption = ({
   value,
   className,
 }) => {
+  const selectedClassName = selected ? `${className}-selected` : "";
   return (
     <div
       ref={innerRef}
       className={`${styles.dropdownOption} ${className} ${
         selected ? styles.dropdownOptionSelected : ""
-      }`}
+      } ${selectedClassName}`}
       onClick={() => onClick(value)}
       data-testid="dropdown-option"
     >

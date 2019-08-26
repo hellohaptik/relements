@@ -65,7 +65,6 @@ const Dropdown = ({
   ];
 
   const [dropdownOptions] = useDropdown(...useDropdownProps);
-  console.log("TCL: onBlur -> dropdownOptions", dropdownOptions);
   const [
     highlightIndex,
     handleKeyDown,

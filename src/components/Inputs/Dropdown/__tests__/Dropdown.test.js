@@ -3,6 +3,7 @@
 import React from "react";
 import "jest-dom/extend-expect";
 import { render, fireEvent, cleanup } from "@testing-library/react";
+import { KEY_CODES } from "constants";
 
 import Dropdown from "../Dropdown";
 
@@ -95,6 +96,22 @@ test("On Blur", async () => {
   const inputElement = container.getElementsByClassName("test-input")[0];
   fireEvent.blur(inputElement);
   const dropdownOption = document.getElementsByClassName("test-option")[0];
+  expect(mockFn).toHaveBeenCalled();
+});
+
+test("Handling Keydowns", async () => {
+  // scrollIntoView is not implemented in JSDOM, this bypasses the issue.
+  window.HTMLElement.prototype.scrollIntoView = function() {};
+
+  const mockFn = jest.fn();
+  const { container } = render(component({ onChange: mockFn }));
+  const inputElement = container.getElementsByClassName("test-input")[0];
+  fireEvent.mouseDown(inputElement);
+  const dropdownOption = document.getElementsByClassName("test-options")[0];
+  fireEvent.keyDown(inputElement, { key: "down", keyCode: KEY_CODES.DOWN });
+  fireEvent.keyDown(inputElement, { key: "down", keyCode: KEY_CODES.DOWN });
+  fireEvent.keyDown(inputElement, { key: "up", keyCode: KEY_CODES.UP });
+  fireEvent.keyDown(inputElement, { key: "enter", keyCode: KEY_CODES.ENTER });
   expect(mockFn).toHaveBeenCalled();
 });
 
