@@ -24,7 +24,6 @@ export const ChipsInput = ({
 }) => {
   const focusedClassName = focused ? styles.focused : "";
   const errorClassName = error ? styles.error : "";
-  console.log("is disabled => ", disabled);
   const [inputValue, setInputValue] = useState();
   const [onKeyDownChips, , deleteChip] = useChips(
     value,
