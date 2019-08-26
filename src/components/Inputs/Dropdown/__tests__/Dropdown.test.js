@@ -48,6 +48,22 @@ test("Options", () => {
   expect(document.getElementsByClassName("test-option").length).toBe(4);
 });
 
+test("Option Key", () => {
+  const newOptions = [{ title: "Option text 1" }, { title: "Option text 2" }];
+  const { container } = render(
+    component({
+      options: newOptions,
+      optionKey: "title",
+      error: "error",
+      label: "label",
+    }),
+  );
+  const inputElement = container.getElementsByClassName("test-input")[0];
+  fireEvent.mouseDown(inputElement);
+  const option = document.getElementsByClassName("test-option")[0];
+  expect(option).toHaveTextContent("Option text 1");
+});
+
 test("Prefix class", async () => {
   const classNames = Object.keys(Dropdown.classNames).map(className =>
     className.replace("$prefix", "test"),
