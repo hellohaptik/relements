@@ -23,7 +23,7 @@ jobs:
         - yarn semantic-release
       name: "Build & Deploy Relements"
     - script: yarn build:storybook
-      name: "Build & Deploy Documentation"
+      name: "Deploy documentation"
       deploy:
         provider: pages
         skip-cleanup: true
@@ -32,7 +32,16 @@ jobs:
         repo: hellohaptik/relements
         target_branch: gh-pages
         on:
-          branch: master
+          tags: true
+
+    - script: yarn build:storybook
+      name: "Deploy to npm"
+      deploy:
+        provider: npm
+        email: "pratham.agrawal92@gmail.com"
+        api_key: $NPM_TOKEN
+        on:
+          tags: true
 
 stages:
   - test
