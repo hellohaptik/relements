@@ -22,5 +22,5 @@ module.exports = {
           '@semantic-release/commit-analyzer',
           ['@semantic-release/npm', { npmPublish: false }],
         ],
-  release: { branch: branch === 'release' ? 'release' : 'master' },
+  release: { branch: branch === 'develop' ? 'develop' : 'master' },
 };
