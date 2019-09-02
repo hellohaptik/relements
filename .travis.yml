@@ -20,7 +20,7 @@ jobs:
       name: "Run Tests & Coverage"
     #########################################################################
 
-    #########################  PRE RELEASE (MASTER) #########################
+    #####################  PRE RELEASE (DEVELOP BRANCH) #####################
     # This only runs on the develop branch
     #
     # Phase - 1 : DOCUMENTATION
@@ -36,9 +36,16 @@ jobs:
     - script:
         - yarn build
         - yarn semantic-release
-      name: "Build & Deploy Relements"
+      name: "Release Relements@next"
+      deploy:
+        provider: npm
+        email: "pratham.agrawal92@gmail.com"
+        api_key: $NPM_TOKEN
+        on:
+          branch: develop
+          tag: next
     - script: yarn build:storybook:next
-      name: "Deploy documentation"
+      name: "Deploy documentation@next"
       deploy:
         provider: pages
         skip-cleanup: true
@@ -48,18 +55,9 @@ jobs:
         target_branch: gh-pages
         on:
           branch: develop
-    - script: yarn build
-      name: "Deploy to npm"
-      deploy:
-        provider: npm
-        email: "pratham.agrawal92@gmail.com"
-        api_key: $NPM_TOKEN
-        on:
-          branch: develop
-          tag: next
     #########################################################################
 
-    ###################  PUBLISH RELEASE (RELEASE BRANCH) ###################
+    ###################  PUBLISH RELEASE (MASTER BRANCH) ###################
     # This only runs on the release branch
     #
     # Phase - 1 : DOCUMENTATION
@@ -75,13 +73,19 @@ jobs:
     #   - Publishes release to github
     # Publish the new release to npm under the @next dist-tag
     #
-    - stage: release
+    - stage: master
     - script:
         - yarn build
         - yarn semantic-release
-      name: "Build & Deploy Relements"
+      name: "Release Relements@latest"
+      deploy:
+        provider: npm
+        email: "pratham.agrawal92@gmail.com"
+        api_key: $NPM_TOKEN
+        on:
+          branch: master
     - script: yarn build:storybook
-      name: "Deploy documentation"
+      name: "Deploy documentation@latest"
       deploy:
         provider: pages
         skip-cleanup: true
@@ -90,19 +94,11 @@ jobs:
         repo: hellohaptik/relements
         target_branch: gh-pages
         on:
-          branch: release
-    - script: yarn build
-      name: "Deploy to npm"
-      deploy:
-        provider: npm
-        email: "pratham.agrawal92@gmail.com"
-        api_key: $NPM_TOKEN
-        on:
-          branch: release
+          branch: master
 
 stages:
   - test
   - name: develop
     if: branch = develop
-  - name: release
-    if: branch = release
+  - name: master
+    if: branch = master
