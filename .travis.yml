@@ -19,7 +19,7 @@ jobs:
         - yarn coverage
       name: "Run Tests & Coverage"
     - script:
-        - curl -X POST -d {} https://api.netlify.com/build_hooks/5d6da296077dadf29be4f7c1?trigger_branch=$TRAVIS_PULL_REQUEST_BRANCH&trigger_title=Relements Preview
+        - curl -X POST -d {} https://api.netlify.com/build_hooks/5d6da296077dadf29be4f7c1?trigger_branch=$TRAVIS_PULL_REQUEST_BRANCH&trigger_title=RelementsPreview
       name: "Generate Netlify Preview"
       on:
         type: pull_request
