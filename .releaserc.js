@@ -1,4 +1,4 @@
-const { GIT_BRANCH: branch } = process.env;
+const { TRAVIS_BRANCH: branch } = process.env;
 
 console.log({
   plugins:
