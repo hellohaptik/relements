@@ -21,7 +21,7 @@ jobs:
     #########################################################################
 
     #########################  PRE RELEASE (MASTER) #########################
-    # This only runs on the master branch
+    # This only runs on the develop branch
     #
     # Phase - 1 : DOCUMENTATION
     # Generate the documentation [storybook] on /next
@@ -32,7 +32,7 @@ jobs:
     # Trigger the semantic-release script which bumps package versions according to commits
     # Publish the new release to npm under the @next dist-tag
     #
-    - stage: master
+    - stage: develop
     - script:
         - yarn build
         - yarn semantic-release
@@ -47,7 +47,7 @@ jobs:
         repo: hellohaptik/relements
         target_branch: gh-pages
         on:
-          branch: master
+          branch: develop
     - script: yarn build
       name: "Deploy to npm"
       deploy:
@@ -55,7 +55,7 @@ jobs:
         email: "pratham.agrawal92@gmail.com"
         api_key: $NPM_TOKEN
         on:
-          branch: master
+          branch: develop
           tag: next
     #########################################################################
 
@@ -102,7 +102,7 @@ jobs:
 
 stages:
   - test
-  - name: master
-    if: branch = master
+  - name: develop
+    if: branch = develop
   - name: release
     if: branch = release
