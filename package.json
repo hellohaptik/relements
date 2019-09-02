@@ -1,6 +1,6 @@
 {
-  "name": "@haptik/relements",
-  "version": "0.0.0-development",
+  "name": "relements",
+  "version": "2.0.1",
   "description": "UI Components Library for React",
   "main": "build/bundle.umd.js",
   "module": "build/bundle.mjs",
@@ -12,7 +12,7 @@
     "test": "NODE_ENV=test jest --coverage",
     "test:ui": "NODE_ENV=test majestic --coverage",
     "coverage": "codecov",
-    "semantic-release": "semantic-release",
+    "semantic-release": "GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD) semantic-release",
     "commit": "git cz"
   },
   "repository": {
@@ -120,7 +120,7 @@
     "webpack-cli": "^3.3.5"
   },
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   },
   "config": {
     "commitizen": {
