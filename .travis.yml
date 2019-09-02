@@ -41,9 +41,9 @@ jobs:
         provider: npm
         email: "pratham.agrawal92@gmail.com"
         api_key: $NPM_TOKEN
+        tag: next
         on:
           branch: develop
-          tag: next
     - script: yarn build:storybook:next
       name: "Deploy documentation@next"
       deploy:
