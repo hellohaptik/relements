@@ -1,4 +1,4 @@
-const { GIT_BRANCH: branch } = process.env;
+const { TRAVIS_BRANCH: branch } = process.env;
 
 module.exports = {
   plugins:
@@ -21,6 +21,14 @@ module.exports = {
       : [
           '@semantic-release/commit-analyzer',
           ['@semantic-release/npm', { npmPublish: false }],
+          [
+            '@semantic-release/git',
+            {
+              assets: ['package.json'],
+              message:
+                'chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
+            },
+          ],
         ],
-  branch: branch === 'develop' ? 'develop' : 'master',
+  branches: ['master', { name: 'develop', prerelease: true }],
 };

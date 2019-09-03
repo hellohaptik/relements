@@ -1,3 +1,30 @@
+# [2.0.0](https://github.com/hellohaptik/relements/compare/v1.0.0...v2.0.0) (2019-08-28)
+
+
+* Range-slider docs test (#25) ([dc69b46](https://github.com/hellohaptik/relements/commit/dc69b46)), closes [#25](https://github.com/hellohaptik/relements/issues/25) [#PE-564](https://github.com/hellohaptik/relements/issues/PE-564)
+
+
+### Features
+
+* **datepicker:** tests, documentation and fixes ([cccf36d](https://github.com/hellohaptik/relements/commit/cccf36d))
+* **datepicker:** tests, documentation and fixes ([#13](https://github.com/hellohaptik/relements/issues/13)) ([4c4509f](https://github.com/hellohaptik/relements/commit/4c4509f))
+* **NumberCounter:** tests + docs ([9d121ea](https://github.com/hellohaptik/relements/commit/9d121ea))
+
+
+### BREAKING CHANGES
+
+* use separate state for end and start input field
+
+* test(RangeSlider.test.js): add test case for on change of input field
+
+* test(RangeSlider.js RangeSlider.test.js): add prefix class, test for error message
+
+* add drag test
+
+test(RangeSlider.test.js, useRangeSlider.js): add test case for drag event
+
+* add drag test for end node
+
 # 1.0.0 (2019-08-06)
 
 
