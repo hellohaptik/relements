@@ -9,20 +9,20 @@ import styles from './ChipsInput.scss';
 import { useChips } from './hooks/useChips';
 
 export const ChipsInput = ({
-  className,
-  onKeyDown,
-  onFocus,
-  onBlur,
-  onMouseDown,
-  innerRef,
-  value,
-  onChange,
-  focused,
-  error,
-  placeholder = 'Type here...',
-  inputRef,
+  className = "",
+  onKeyDown = () => {},
+  onFocus = () => {},
+  onBlur = () => {},
+  onMouseDown = () => {},
+  innerRef = {},
+  value = [],
+  onChange = () => {},
+  focused = false,
+  error = "",
+  placeholder = "Type here...",
+  inputRef = {},
   disabled = false,
-  onValueChange,
+  onValueChange = () => {},
 }) => {
   const { primaryColor } = React.useContext(Context);
   const focusedStyle = focused ? { borderColor: primaryColor } : {};
@@ -36,7 +36,7 @@ export const ChipsInput = ({
   );
   const renderChip = (title, i) => {
     return (
-      <div key={i} className={styles.chip}>
+      <div key={i} className={`${styles.chip} chip`}>
         {title}
         <Icon
           onClick={() => deleteChip(title)}
@@ -82,7 +82,7 @@ export const ChipsInput = ({
       onMouseDown={onMouseDown}
     >
       <div className={styles.chipsTrack}>
-        {value.map(renderChip)}
+        {value ? value.map(renderChip) : null}
         {!disabled ? renderInput() : null}
       </div>
     </div>
