@@ -44,7 +44,7 @@ jobs:
         tag: next
         on:
           branch: develop
-    - script: yarn build:storybook:next
+    - script: yarn build:storybook
       name: "Deploy documentation@next"
       deploy:
         provider: pages
