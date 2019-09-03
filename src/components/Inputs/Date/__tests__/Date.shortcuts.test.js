@@ -2,7 +2,7 @@
 
 import React from "react";
 import dayjs from "dayjs";
-import "jest-dom/extend-expect";
+import "@testing-library/jest-dom/extend-expect";
 import { render, fireEvent, cleanup } from "@testing-library/react";
 
 import Date from "../Date";

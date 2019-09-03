@@ -23,9 +23,6 @@ module.exports = {
           },
           {
             loader: 'sass-loader',
-            options: {
-              includePaths: [path.join(__dirname, '../src/')],
-            },
           },
         ],
       },
@@ -40,13 +37,21 @@ module.exports = {
           },
         ],
       },
-      { test: /\.(png|woff|woff2|eot|ttf|gif)$/, loader: 'url-loader?limit=100000' },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|gif)$/,
+        loader: 'url-loader?limit=100000',
+      },
       {
         test: /\.svg/,
         loader: 'react-svg-loader',
         options: {
           svgo: {
-            plugins: [{ removeTitle: false }, { mergePaths: false }, { cleanupIDs: false }],
+            plugins: [
+              { removeTitle: false },
+              { mergePaths: false },
+              { cleanupIDs: false },
+              { removeViewBox: false },
+            ],
             floatPrecision: 2,
           },
         },
