@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Icon from "components/UI/Icon";
-import styles from "./ContextMenuItem.scss";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Icon from 'components/UI/Icon';
+import styles from './ContextMenuItem.scss';
 
 const ContextMenuItem = ({
   title,
@@ -16,8 +16,8 @@ const ContextMenuItem = ({
   className,
   prefixClassName,
 }) => {
-  const bigClassName = size === "big" ? styles.big : "";
-  const Tag = href ? "a" : "div";
+  const bigClassName = size === 'big' ? styles.big : '';
+  const Tag = href ? 'a' : 'div';
   return (
     <Tag
       data-testid="context-menu-item"
@@ -25,7 +25,7 @@ const ContextMenuItem = ({
       target="_blank"
       onClick={onClick}
       className={`${styles.contextMenuItem} ${
-        disabled ? styles.disabled : ""
+        disabled ? styles.disabled : ''
       } ${className} ${prefixClassName}`}
     >
       <Icon
@@ -68,23 +68,23 @@ ContextMenuItem.propTypes = {
 };
 
 ContextMenuItem.defaultProps = {
-  title: "",
-  iconType: "",
-  className: "",
-  prefixClassName: "",
+  title: '',
+  iconType: '',
+  className: '',
+  prefixClassName: '',
   icon: null,
   iconSize: 24,
   onClick: () => {},
   disabled: false,
   children: null,
-  size: "small",
+  size: 'small',
   href: null,
 };
 
 ContextMenuItem.classNames = {
-  $prefix: "Outermost element",
-  "$prefix-icon": "The icon",
-  "$prefix-text": "The text",
+  $prefix: 'Outermost element',
+  '$prefix-icon': 'The icon',
+  '$prefix-text': 'The text',
 };
 
 export default ContextMenuItem;

@@ -12,23 +12,9 @@
     background-color: #fafafa;
     cursor: pointer;
   }
-
-  &.dropdownOptionSelected {
-    background-color: rgba($primary-color, 0.1);
-  }
 }
 
 .dropdownOptionText {
   font-size: 12px;
   font-weight: 400;
-  &.dropdownOptionSelected {
-    color: $primary-color;
-  }
-
-  &.dropdownOptionTextCreate {
-    color: $primary-color;
-    em {
-      font-weight: 600;
-    }
-  }
 }

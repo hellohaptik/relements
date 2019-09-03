@@ -1,1 +1,1 @@
-export { default } from "./TimePickerInput";
+export { default } from './TimePickerInput';

@@ -5,7 +5,7 @@ import styles from './FilePlaceholder.scss';
 
 const FilePlaceholder = () => (
   <div className={styles.filePlaceholder}>
-    <Icon className={styles.filePlaceholderIcon} src={ PlaceholderIcon } />
+    <Icon className={styles.filePlaceholderIcon} src={PlaceholderIcon} />
     <div className={styles.filePlaceholderText}>
       <span className={styles.filePlaceholderTextTitle}>Upload / Drag & Drop File</span>
       <span className={styles.filePlaceholderTextSubtitle}>Max File Size: 2MB</span>

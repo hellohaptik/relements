@@ -1,13 +1,13 @@
-import React from "react";
-import { Portal } from "react-portal";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Portal } from 'react-portal';
+import PropTypes from 'prop-types';
 
-import useActivify from "@src/hooks/useActivify";
-import useEscapeKey from "@src/hooks/useEscapeKey";
-import useEnterKey from "@src/hooks/useEnterKey";
+import useActivify from '@src/hooks/useActivify';
+import useEscapeKey from '@src/hooks/useEscapeKey';
+import useEnterKey from '@src/hooks/useEnterKey';
 
-import styles from "./Modal.scss";
-import ModalHeader from "./components/ModalHeader";
+import styles from './Modal.scss';
+import ModalHeader from './components/ModalHeader';
 
 const Modal = ({
   onClose,
@@ -19,7 +19,7 @@ const Modal = ({
   prefixClassName,
 }) => {
   const { enabled, visible } = useActivify(active);
-  const activeClassName = visible ? styles.modalActive : "";
+  const activeClassName = visible ? styles.modalActive : '';
 
   useEscapeKey(onClose);
   useEnterKey(onEnter);
@@ -70,15 +70,15 @@ Modal.defaultProps = {
   onClose: () => {},
   onEnter: () => {},
   active: false,
-  className: "",
-  prefixClassName: "",
+  className: '',
+  prefixClassName: '',
   noOverlay: false,
 };
 
 Modal.classNames = {
-  $prefix: "The main wrapper inside the portal",
-  "$prefix-overlay": "The overlay covering the page",
-  "$prefix-body": "The actual modal itself",
+  $prefix: 'The main wrapper inside the portal',
+  '$prefix-overlay': 'The overlay covering the page',
+  '$prefix-body': 'The actual modal itself',
 };
 
 export default Modal;

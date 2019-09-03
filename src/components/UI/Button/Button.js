@@ -1,7 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import styles from "./Button.scss";
+import { rgba } from '@src/utils/generic';
+
+import styles from './Button.scss';
+import Context from '../../Context';
 
 /**
  * Button component. Renders a button
@@ -9,8 +12,8 @@ import styles from "./Button.scss";
  * to render the contents of the button.
  */
 const Button = ({
-  prefixClassName = "",
-  className = "",
+  prefixClassName = '',
+  className = '',
   type,
   size,
   disabled,
@@ -18,11 +21,13 @@ const Button = ({
   innerRef,
   children,
 }) => {
+  const { primaryColor } = React.useContext(Context);
+
   /**
    * Get the styles classname corresponding to the type prop
    * @returns {string} classname of the type styles to be applied
    */
-  const getTypeClassName = () => {
+  const getTypeClassName = React.useCallback(() => {
     switch (type) {
       case Button.TYPES.PRIMARY:
         return styles.primary;
@@ -37,15 +42,37 @@ const Button = ({
       case Button.TYPES.YELLOW:
         return styles.yellow;
       default:
-        return "";
+        return '';
     }
-  };
+  });
+
+  /**
+   * Get the styles corresponding to the type prop
+   * @returns {object} the styles object to be applied
+   */
+  const getColorStyles = React.useCallback(() => {
+    switch (type) {
+      case Button.TYPES.PRIMARY:
+        return {
+          backgroundColor: primaryColor,
+          borderColor: primaryColor,
+        };
+      case Button.TYPES.OUTLINE:
+        return {
+          color: primaryColor,
+          borderColor: primaryColor,
+          backgroundColor: rgba(primaryColor, 0.1),
+        };
+      default:
+        return {};
+    }
+  });
 
   /**
    * Get the styles classname corresponding to the size prop
    * @returns {string} classname of the size styles to be applied
    */
-  const getSizeClassName = () => {
+  const getSizeClassName = React.useCallback(() => {
     switch (size) {
       case Button.SIZES.BIG:
         return styles.big;
@@ -56,11 +83,11 @@ const Button = ({
       default:
         return styles.medium;
     }
-  };
+  });
 
-  const getDisabledClassName = () => {
-    return disabled ? styles.disabled : "";
-  };
+  const getDisabledClassName = React.useCallback(() => {
+    return disabled ? styles.disabled : '';
+  });
 
   return (
     <button
@@ -69,6 +96,7 @@ const Button = ({
       disabled={disabled}
       ref={innerRef}
       onClick={onClick}
+      style={getColorStyles()}
       className={`
         ${styles.button}
         ${prefixClassName}
@@ -84,19 +112,19 @@ const Button = ({
 };
 
 Button.SIZES = {
-  SMALL: "small",
-  MEDIUM: "medium",
-  BIG: "big",
+  SMALL: 'small',
+  MEDIUM: 'medium',
+  BIG: 'big',
 };
 
 Button.TYPES = {
-  DEFAULT: "default",
-  PRIMARY: "primary",
-  SECONDARY: "secondary",
-  OUTLINE: "outline",
-  GREY: "grey",
-  WARNING: "warning",
-  YELLOW: "yellow",
+  DEFAULT: 'default',
+  PRIMARY: 'primary',
+  SECONDARY: 'secondary',
+  OUTLINE: 'outline',
+  GREY: 'grey',
+  WARNING: 'warning',
+  YELLOW: 'yellow',
 };
 
 Button.propTypes = {
@@ -138,8 +166,8 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
-  prefixClassName: "",
-  className: "",
+  prefixClassName: 'relements-button',
+  className: '',
   type: Button.TYPES.DEFAULT,
   size: Button.SIZES.MEDIUM,
   disabled: false,
@@ -147,8 +175,8 @@ Button.defaultProps = {
 };
 
 Button.classNames = {
-  $prefix: "Outermost element",
-  "$prefix-child": "Child of the Main Button Component",
+  $prefix: 'Outermost element',
+  '$prefix-child': 'Child of the Main Button Component',
 };
 
 export default Button;

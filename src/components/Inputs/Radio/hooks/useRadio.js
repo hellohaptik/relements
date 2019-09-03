@@ -9,7 +9,7 @@ export function useRadio(value, onChange, options, optionKey) {
     return index;
   };
   const activeIndex = getIndex();
-  const handleChange = index => () => {
+  const handleChange = (index) => () => {
     onChange(options[index]);
   };
 

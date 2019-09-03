@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import dayjs from "dayjs";
+import React from 'react';
+import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
 
-import styles from "./Input.scss";
+import styles from './Input.scss';
 
 function Input({
   label,
@@ -14,9 +14,9 @@ function Input({
   compare,
   prefixClassName,
 }) {
-  const date = dayjs.isDayjs(value) ? dayjs(value).format("DD MMM, YYYY") : "";
-  const focusedClassName = focused ? styles.focused : "";
-  const compareClassName = compare ? styles.compare : "";
+  const date = dayjs.isDayjs(value) ? dayjs(value).format('DD MMM, YYYY') : '';
+  const focusedClassName = focused ? styles.focused : '';
+  const compareClassName = compare ? styles.compare : '';
   return (
     <div
       className={`${styles.input} ${className} ${compareClassName} ${focusedClassName} ${prefixClassName}`}
@@ -47,13 +47,13 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
-  className: "",
+  className: '',
   compare: false,
   disabled: false,
   focused: false,
-  label: "",
+  label: '',
   onFocus: () => {},
-  prefixClassName: "",
+  prefixClassName: '',
   value: {},
 };
 

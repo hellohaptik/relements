@@ -1,9 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import InfoIcon from "icons/info.svg";
-import styles from "./Label.scss";
-import WithTooltip from "../../Overlays/WithTooltip";
-import Icon from "../../UI/Icon";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Context from '@src/components/Context';
+import InfoIcon from '@src/icons/info.svg';
+import styles from './Label.scss';
+import WithTooltip from '../../Overlays/WithTooltip';
+import Icon from '../../UI/Icon';
 
 export const Label = ({
   children,
@@ -14,12 +15,14 @@ export const Label = ({
   tooltip,
 }) => {
   if (!children) return null;
-  const focusedClassName = !disabled && focused ? styles.focused : "";
-  const errorClassName = error ? styles.error : "";
+
+  const { primaryColor } = React.useContext(Context);
+  const focusedStyle = !disabled && focused ? { color: primaryColor } : {};
+  const errorClassName = error ? styles.error : '';
   return (
-    <React.Fragment>
+    <>
       <div className={`${styles.container}`}>
-        <span className={`${styles.label} ${className} ${focusedClassName}`}>
+        <span style={focusedStyle} className={`${styles.label} ${className}`}>
           {children}
           {tooltip ? (
             <WithTooltip className={`${styles.tooltip}`} tooltip={tooltip}>
@@ -33,7 +36,7 @@ export const Label = ({
           </span>
         ) : null}
       </div>
-    </React.Fragment>
+    </>
   );
 };
 

@@ -1,17 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
-import dayjs from "dayjs";
-import cc from "classcat";
-import customParseFormat from "dayjs/plugin/customParseFormat";
+import React from 'react';
+import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
+import cc from 'classcat';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 
-import Icon from "components/UI/Icon";
-import styles from "./Calendar.scss";
+import Icon from 'components/UI/Icon';
+import styles from './Calendar.scss';
 
-const LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 dayjs.extend(customParseFormat);
 
-const hexToRgb = hex => {
+const hexToRgb = (hex) => {
   const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
   hex = hex.replace(shorthandRegex, (m, r, g, b) => {
     return r + r + g + g + b + b;
@@ -20,10 +20,10 @@ const hexToRgb = hex => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
     ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16),
+    }
     : null;
 };
 
@@ -35,10 +35,10 @@ const hexToRgb = hex => {
  * day: <dayjs> : the dayjs object representing the day of the cell
  */
 const getTextForCell = (date, rowIndex, columnIndex) => {
-  const month = date.startOf("month");
+  const month = date.startOf('month');
   const cellNumber = rowIndex * 7 + columnIndex;
   const offset = month.day();
-  const day = month.add(cellNumber - offset, "d");
+  const day = month.add(cellNumber - offset, 'd');
   const invisible = day.month() !== month.month();
 
   return {
@@ -54,15 +54,15 @@ const getTextForCell = (date, rowIndex, columnIndex) => {
  */
 const isSelected = (date, from, to) => {
   return (
-    (date.isAfter(from, "d") && date.isBefore(to, "d")) ||
-    date.isSame(from, "d") ||
-    date.isSame(to, "d")
+    (date.isAfter(from, 'd') && date.isBefore(to, 'd'))
+    || date.isSame(from, 'd')
+    || date.isSame(to, 'd')
   );
 };
 
 const renderHeader = (date, ranges, { prefixClassName }) => {
-  const month = date.format("MMMM");
-  const year = date.format("YYYY");
+  const month = date.format('MMMM');
+  const year = date.format('YYYY');
   return (
     <div
       className={`${styles.calendarHeader} ${prefixClassName}-calendar-header`}
@@ -70,7 +70,9 @@ const renderHeader = (date, ranges, { prefixClassName }) => {
       <div
         className={`${styles.calendarHeaderMonth} ${prefixClassName}-calendar-header-text`}
       >
-        {month} <strong>{year}</strong>
+        {month}
+        {' '}
+        <strong>{year}</strong>
       </div>
     </div>
   );
@@ -109,20 +111,18 @@ const renderGridRow = (
     let hasRightEdgeBorder = false;
     let hasBottomEdgeBorder = false;
     let style = {};
-    let lastColor = "";
-    ranges.forEach(({ from, to, color = "#1b9cfc" }) => {
-      const adjacentCell = day.add(7, "d");
+    let lastColor = '';
+    ranges.forEach(({ from, to, color = '#1b9cfc' }) => {
+      const adjacentCell = day.add(7, 'd');
       const adjacentCellIsInThisMonth = adjacentCell.month() === day.month();
 
       lastColor = color;
 
       if (invisible) return;
-      if (adjacentCell.isSame(from, "d") && adjacentCellIsInThisMonth)
-        hasBottomEdgeBorder = true;
-      if (adjacentCell.isSame(to, "d") && adjacentCellIsInThisMonth)
-        hasBottomEdgeBorder = true;
-      if (day.isSame(from, "d")) hasLeftEdgeBorder = true;
-      if (day.isSame(to, "d")) hasRightEdgeBorder = true;
+      if (adjacentCell.isSame(from, 'd') && adjacentCellIsInThisMonth) hasBottomEdgeBorder = true;
+      if (adjacentCell.isSame(to, 'd') && adjacentCellIsInThisMonth) hasBottomEdgeBorder = true;
+      if (day.isSame(from, 'd')) hasLeftEdgeBorder = true;
+      if (day.isSame(to, 'd')) hasRightEdgeBorder = true;
       if (isSelected(day, from, to)) {
         selected = true;
         if (!style.backgroundColor) {
@@ -133,8 +133,8 @@ const renderGridRow = (
           };
         } else {
           style = {
-            borderLeftColor: "transparent",
-            borderRightColor: "transparent",
+            borderLeftColor: 'transparent',
+            borderRightColor: 'transparent',
             borderBottomColor: mergeColor,
             backgroundColor: `rgba(${Object.values(
               hexToRgb(mergeColor),
@@ -220,14 +220,14 @@ const Calendar = ({
   const [viewingMonth, setViewingMonth] = React.useState(dayjs());
 
   const viewNextMonth = React.useCallback(() => {
-    setViewingMonth(viewingMonth.add(1, "month"));
+    setViewingMonth(viewingMonth.add(1, 'month'));
   });
 
   const viewPreviousMonth = React.useCallback(() => {
-    setViewingMonth(viewingMonth.subtract(1, "month"));
+    setViewingMonth(viewingMonth.subtract(1, 'month'));
   });
 
-  const handleCellClick = React.useCallback(day => {
+  const handleCellClick = React.useCallback((day) => {
     onChange(day);
   });
 
@@ -254,13 +254,11 @@ const Calendar = ({
       />
       {new Array(numMonths)
         .fill(0)
-        .map((_, i) =>
-          renderCalendar(
-            viewingMonth.subtract(numMonths - i - 1, "months"),
-            ranges,
-            props,
-          ),
-        )}
+        .map((_, i) => renderCalendar(
+          viewingMonth.subtract(numMonths - i - 1, 'months'),
+          ranges,
+          props,
+        ),)}
     </div>
   );
 };
@@ -293,25 +291,25 @@ Calendar.defaultProps = {
   onChange: () => {},
   numMonths: 1,
   value: dayjs(),
-  mergeColor: "#F00",
-  className: "",
-  prefixClassName: "",
+  mergeColor: '#F00',
+  className: '',
+  prefixClassName: '',
 };
 
 Calendar.classNames = {
-  $prefix: "Outermost element",
-  "$prefix-arrow-left": "The left arrow",
-  "$prefix-arrow-right": "The right arrow",
-  "$prefix-calendar": "The calendar month",
-  "$prefix-calendar-header": "The calendar header",
-  "$prefix-calendar-header-text": "The calendar header's text (Month)",
-  "$prefix-labels": "The wrapper for labels for the days",
-  "$prefix-label": "The labels for the days (Sun, Mon, Tue, etc.)",
-  "$prefix-calendar-grid": "The main calendar grid div",
-  "$prefix-calendar-grid-row": "Each row of the calendar grid",
-  "$prefix-calendar-grid-row-item": "Each item of the grid (the square)",
-  "$prefix-calendar-grid-row-item-selected": "selected grid row item",
-  "$prefix-grid-row-item-text": "The label for each grid item (the day)",
+  $prefix: 'Outermost element',
+  '$prefix-arrow-left': 'The left arrow',
+  '$prefix-arrow-right': 'The right arrow',
+  '$prefix-calendar': 'The calendar month',
+  '$prefix-calendar-header': 'The calendar header',
+  '$prefix-calendar-header-text': "The calendar header's text (Month)",
+  '$prefix-labels': 'The wrapper for labels for the days',
+  '$prefix-label': 'The labels for the days (Sun, Mon, Tue, etc.)',
+  '$prefix-calendar-grid': 'The main calendar grid div',
+  '$prefix-calendar-grid-row': 'Each row of the calendar grid',
+  '$prefix-calendar-grid-row-item': 'Each item of the grid (the square)',
+  '$prefix-calendar-grid-row-item-selected': 'selected grid row item',
+  '$prefix-grid-row-item-text': 'The label for each grid item (the day)',
 };
 
 export default Calendar;

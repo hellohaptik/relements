@@ -1,18 +1,18 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import styles from "./Icon.scss";
-import { getIcon } from "./utils/getIcon";
-import WithTooltip from "../../Overlays/WithTooltip";
+import styles from './Icon.scss';
+import { getIcon } from './utils/getIcon';
+import WithTooltip from '../../Overlays/WithTooltip';
 
 /**
  * Icon component that renders an icon. It takes a string identifier
  * and renders the icon corresponding to that.
  */
 const Icon = ({
-  src = "",
-  prefixClassName = "",
-  className = "",
+  src = '',
+  prefixClassName = '',
+  className = '',
   size,
   onClick,
   innerRef,
@@ -34,7 +34,7 @@ const Icon = ({
     }
   };
 
-  const IconSvg = typeof src === "string" ? getIcon(src) : src;
+  const IconSvg = typeof src === 'string' ? getIcon(src) : src;
 
   return (
     <div
@@ -58,16 +58,16 @@ const Icon = ({
 };
 
 Icon.SIZES = {
-  SMALL: "small",
-  MEDIUM: "medium",
-  BIG: "big",
+  SMALL: 'small',
+  MEDIUM: 'medium',
+  BIG: 'big',
 };
 
 Icon.defaultProps = {
-  src: "",
-  className: "",
-  tooltip: "",
-  tooltipPosition: "",
+  src: '',
+  className: '',
+  tooltip: '',
+  tooltipPosition: '',
   size: Icon.SIZES.MEDIUM,
   onClick: () => {},
 };
@@ -92,9 +92,9 @@ Icon.propTypes = {
 };
 
 Icon.classNames = {
-  $prefix: "Outermost element",
-  "$prefix-tooltip": "Tooltip wrapping the Icon",
-  "$prefix-svg": "The SVG wrapped in icon element",
+  $prefix: 'Outermost element',
+  '$prefix-tooltip': 'Tooltip wrapping the Icon',
+  '$prefix-svg': 'The SVG wrapped in icon element',
 };
 
 export default Icon;

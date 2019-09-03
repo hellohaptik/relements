@@ -1,10 +1,10 @@
-import React, { useRef } from "react";
-import PropTypes from "prop-types";
+import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
 
-import { useRangeSlider } from "./hooks/useRangeSlider";
-import { useInput } from "../_common/hooks/useInput";
-import { Label } from "../_common/Label";
-import styles from "./RangeSlider.scss";
+import { useRangeSlider } from './hooks/useRangeSlider';
+import { useInput } from '../_common/hooks/useInput';
+import { Label } from '../_common/Label';
+import styles from './RangeSlider.scss';
 
 function RangeSlider({
   className,
@@ -30,7 +30,9 @@ function RangeSlider({
     onFocus,
     onBlur,
   );
-  const { trackWidth, trackOffset, renderKnob, renderInput } = useRangeSlider({
+  const {
+    trackWidth, trackOffset, renderKnob, renderInput,
+  } = useRangeSlider({
     value,
     start,
     end,
@@ -66,13 +68,13 @@ function RangeSlider({
             className={styles.sliderFilled}
             style={{ width: `${trackWidth}%`, left: `${trackOffset}%` }}
           />
-          {single ? null : renderKnob("start", prefixClassName)}
-          {renderKnob("end", prefixClassName)}
+          {single ? null : renderKnob('start', prefixClassName)}
+          {renderKnob('end', prefixClassName)}
         </div>
       </div>
       <div className={`${styles.sliderTextInputs}`}>
-        {single ? null : renderInput("start", prefixClassName)}
-        {renderInput("end", prefixClassName)}
+        {single ? null : renderInput('start', prefixClassName)}
+        {renderInput('end', prefixClassName)}
       </div>
     </div>
   );
@@ -115,29 +117,29 @@ RangeSlider.propTypes = {
 };
 
 RangeSlider.defaultProps = {
-  className: "",
-  placeholder: "",
+  className: '',
+  placeholder: '',
   end: 0,
-  error: "",
-  label: "",
+  error: '',
+  label: '',
   onBlur: () => {},
   onChange: () => {},
   onDrag: () => {},
   onFocus: () => {},
-  prefixClassName: "",
+  prefixClassName: '',
   single: false,
   start: 0,
   step: 0,
 };
 
 RangeSlider.classNames = {
-  $prefix: "Range slider wrapper class",
-  "$prefix-label": "Label of the Range slider",
-  "$prefix-track": "Track of the Range slider",
-  "$prefix-start-input": "Start input field of the Range slider",
-  "$prefix-end-input": "End input field of the Range slider",
-  "$prefix-start-knob": "Start draggable knob of the Range slider",
-  "$prefix-end-knob": "End draggable knob of the Range slider",
+  $prefix: 'Range slider wrapper class',
+  '$prefix-label': 'Label of the Range slider',
+  '$prefix-track': 'Track of the Range slider',
+  '$prefix-start-input': 'Start input field of the Range slider',
+  '$prefix-end-input': 'End input field of the Range slider',
+  '$prefix-start-knob': 'Start draggable knob of the Range slider',
+  '$prefix-end-knob': 'End draggable knob of the Range slider',
 };
 
 export default RangeSlider;

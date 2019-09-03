@@ -67,7 +67,7 @@ function AccordionItem({
     <div ref={wrapperRef} className={`${styles.accordionItem} ${activeClassName} ${prefixClassName} ${className}`}>
       <div
         className={`${styles.accordionItemHeader} ${prefixClassName}-header`}
-        onClick={e => onChange(index, e)}
+        onClick={(e) => onChange(index, e)}
         ref={headerRef}
       >
         {_renderHeader()}

@@ -1,12 +1,12 @@
-import React from "react";
-import { Portal } from "react-portal";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Portal } from 'react-portal';
+import PropTypes from 'prop-types';
 
-import useActivify from "@src/hooks/useActivify";
-import useEscapeKey from "@src/hooks/useEscapeKey";
+import useActivify from '@src/hooks/useActivify';
+import useEscapeKey from '@src/hooks/useEscapeKey';
 
-import DrawerHeader from "./components/DrawerHeader";
-import styles from "./Drawer.scss";
+import DrawerHeader from './components/DrawerHeader';
+import styles from './Drawer.scss';
 
 const Drawer = ({
   children,
@@ -23,16 +23,15 @@ const Drawer = ({
   noOverlay,
 }) => {
   const { enabled, visible } = useActivify(active);
-  const activeClassName = visible || noDisable ? styles.drawerActive : "";
-  const placementClassName = position === "LEFT" ? styles.left : "";
-  const noDisableClassName = noDisable ? styles.noDisable : "";
-  const transformAmount =
-    position === "LEFT" ? -1 * (width + offset) : width + offset;
+  const activeClassName = visible || noDisable ? styles.drawerActive : '';
+  const placementClassName = position === 'LEFT' ? styles.left : '';
+  const noDisableClassName = noDisable ? styles.noDisable : '';
+  const transformAmount = position === 'LEFT' ? -1 * (width + offset) : width + offset;
 
   const style = {};
   style.zIndex = zIndex;
-  style.left = position === "LEFT" ? offset : "auto";
-  style.right = position === "LEFT" ? "auto" : offset;
+  style.left = position === 'LEFT' ? offset : 'auto';
+  style.right = position === 'LEFT' ? 'auto' : offset;
 
   useEscapeKey(onClose);
 
@@ -112,17 +111,17 @@ Drawer.defaultProps = {
   noDisable: false,
   zIndex: 2,
   offset: 0,
-  className: "",
-  position: "RIGHT",
+  className: '',
+  position: 'RIGHT',
   noOverlay: false,
-  width: "360px",
+  width: '360px',
   attachTo: null,
 };
 
 Drawer.classNames = {
-  $prefix: "Applied to the Drawer Wrapper",
-  "$prefix-overlay": "Applied to the Overlay for Drawer",
-  "$prefix-drawer": "Applied to the Drawer Node",
+  $prefix: 'Applied to the Drawer Wrapper',
+  '$prefix-overlay': 'Applied to the Overlay for Drawer',
+  '$prefix-drawer': 'Applied to the Drawer Node',
 };
 
 export default Drawer;

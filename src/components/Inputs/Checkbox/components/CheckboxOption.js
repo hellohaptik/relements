@@ -1,11 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
-import cc from "classcat";
+import React from 'react';
+import PropTypes from 'prop-types';
+import cc from 'classcat';
 
-import TickIcon from "icons/checkmark.svg";
-import Icon from "components/UI/Icon";
+import Context from '@src/components/Context';
+import Icon from '@src/components/UI/Icon';
+import TickIcon from '@src/icons/checkmark.svg';
 
-import styles from "./CheckboxOption.scss";
+import styles from './CheckboxOption.scss';
 
 const CheckboxOption = ({
   label,
@@ -15,6 +16,7 @@ const CheckboxOption = ({
   className,
   prefixClassName,
 }) => {
+  const { primaryColor } = React.useContext(Context);
   const classNames = {
     main: cc([
       styles.checkboxOption,
@@ -23,21 +25,27 @@ const CheckboxOption = ({
       { [styles.selected]: value },
       { [styles.selected]: `${prefixClassName}-selected` },
     ]),
-    box: cc([
-      styles.checkboxOptionBox,
-      `${prefixClassName}-box`,
-      { [styles.selected]: value },
-    ]),
+    box: cc([styles.checkboxOptionBox, `${prefixClassName}-box`]),
     boxIcon: cc([
       styles.checkboxOptionBoxTick,
       `${prefixClassName}-box-tick`,
       { [styles.selected]: value },
     ]),
-    label: cc([
-      styles.checkboxOptionText,
-      `${prefixClassName}-text`,
-      { [styles.selected]: value },
-    ]),
+    label: cc([styles.checkboxOptionText, `${prefixClassName}-text`]),
+  };
+
+  const colorStyles = {
+    box: value
+      ? {
+        background: primaryColor,
+        borderColor: primaryColor,
+      }
+      : {},
+    label: value
+      ? {
+        color: primaryColor,
+      }
+      : {},
   };
 
   return (
@@ -45,12 +53,14 @@ const CheckboxOption = ({
       ref={innerRef}
       data-testid="checkbox-item"
       className={classNames.main}
-      onClick={e => onChange(!value, e)}
+      onClick={(e) => onChange(!value, e)}
     >
-      <div className={classNames.box}>
+      <div style={colorStyles.box} className={classNames.box}>
         <Icon className={classNames.boxIcon} src={TickIcon} />
       </div>
-      <span className={classNames.label}>{label}</span>
+      <span style={colorStyles.label} className={classNames.label}>
+        {label}
+      </span>
     </div>
   );
 };
@@ -71,19 +81,19 @@ CheckboxOption.propTypes = {
 };
 
 CheckboxOption.defaultProps = {
-  label: "",
-  className: "",
+  label: '',
+  className: '',
   onChange: () => {},
   value: false,
   innerRef: () => {},
-  prefixClassName: "",
+  prefixClassName: '',
 };
 
 CheckboxOption.classNames = {
-  $prefix: "Outermost element",
-  "$prefix-box": "Div wrapping the icon",
-  "$prefix-box-tick": "The icon div",
-  "$prefix-text": "The Text of each of the checkbox options",
+  $prefix: 'Outermost element',
+  '$prefix-box': 'Div wrapping the icon',
+  '$prefix-box-tick': 'The icon div',
+  '$prefix-text': 'The Text of each of the checkbox options',
 };
 
 export default CheckboxOption;

@@ -1,10 +1,13 @@
-import React, { useRef } from "react";
-import PropTypes from "prop-types";
-import cc from "classcat";
+import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
+import cc from 'classcat';
 
-import { useInput } from "../_common/hooks/useInput";
-import { Label } from "../_common/Label";
-import styles from "./Toggle.scss";
+import { rgba } from '@src/utils/generic';
+import Context from '@src/components/Context';
+
+import { useInput } from '../_common/hooks/useInput';
+import { Label } from '../_common/Label';
+import styles from './Toggle.scss';
 
 const Toggle = ({
   label,
@@ -18,8 +21,9 @@ const Toggle = ({
   error,
   disabled,
 }) => {
-  const activeClassName = value ? styles.active : "";
-  const disabledClassName = disabled ? styles.disabled : "";
+  const { primaryColor } = React.useContext(Context);
+  const activeClassName = value ? styles.active : '';
+  const disabledClassName = disabled ? styles.disabled : '';
   const _TextInputDOM = useRef();
   const { focused, handleFocus, handleBlur } = useInput(
     _TextInputDOM,
@@ -27,7 +31,7 @@ const Toggle = ({
     onBlur,
   );
 
-  const redGreenClassName = redGreen ? styles.redGreen : "";
+  const redGreenClassName = redGreen ? styles.redGreen : '';
   const classNames = {
     main: cc([
       styles.toggleInput,
@@ -36,6 +40,21 @@ const Toggle = ({
       disabledClassName,
     ]),
   };
+
+  const toggleStyle = value && !redGreen
+    ? {
+      backgoundColor: rgba(primaryColor, 0.2),
+      borderColor: primaryColor,
+    }
+    : {};
+
+  const toggleKnobStyle = value && !redGreen
+    ? {
+      backgoundColor: primaryColor,
+      borderColor: primaryColor,
+    }
+    : {};
+
   return (
     <div
       data-testid="toggle"
@@ -53,9 +72,11 @@ const Toggle = ({
         tabIndex="0"
         onFocus={handleFocus}
         onBlur={handleBlur}
+        style={toggleStyle}
         className={`${classNames.main} ${prefixClassName}-toggle`}
       >
         <div
+          style={toggleKnobStyle}
           className={`${styles.toggleInputKnob} ${redGreenClassName} ${prefixClassName}-toggle-knob ${activeClassName}`}
         />
       </div>
@@ -87,9 +108,9 @@ Toggle.propTypes = {
 };
 
 Toggle.defaultProps = {
-  label: "",
-  prefixClassName: "",
-  className: "",
+  label: '',
+  prefixClassName: '',
+  className: '',
   value: false,
   redGreen: false,
   onChange: () => {},
@@ -100,10 +121,10 @@ Toggle.defaultProps = {
 };
 
 Toggle.classNames = {
-  $prefix: "Outermost element",
-  "$prefix-label": "Label element",
-  "$prefix-toggle": "Inner element that wraps the toggle",
-  "$prefix-toggle-knob": "Knob element inside the wrapper",
+  $prefix: 'Outermost element',
+  '$prefix-label': 'Label element',
+  '$prefix-toggle': 'Inner element that wraps the toggle',
+  '$prefix-toggle-knob': 'Knob element inside the wrapper',
 };
 
 export default Toggle;

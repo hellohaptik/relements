@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
-import cc from "classcat";
-import PropTypes from "prop-types";
-import styles from "./TextInput.scss";
+import React, { useState, useEffect } from 'react';
+import cc from 'classcat';
+import PropTypes from 'prop-types';
+import Context from '@src/components/Context';
+
+import styles from './TextInput.scss';
 
 export const TextInput = ({
   className,
@@ -14,18 +16,19 @@ export const TextInput = ({
   onChange,
   focused,
   error,
-  placeholder = "Type here...",
+  placeholder = 'Type here...',
   inputRef,
   disabled = false,
   prefixClassName,
   prefixComponent,
   postfixComponent,
 }) => {
-  const focusedClassName = !disabled && focused ? styles.focused : "";
-  const focusedClassNameString = focused ? "focused" : "";
-  const errorClassName = error ? styles.error : "";
+  const { primaryColor } = React.useContext(Context);
+  const focusedStyle = !disabled && focused ? { borderColor: primaryColor } : {};
+  const focusedClassNameString = focused ? 'focused' : '';
+  const errorClassName = error ? styles.error : '';
   const [textValue, setTextValue] = useState();
-  const handleChange = e => {
+  const handleChange = (e) => {
     onChange(e.target.value);
     setTextValue(e.target.value);
   };
@@ -51,7 +54,6 @@ export const TextInput = ({
       styles.inputWrapper,
       className,
       prefixClassName,
-      focusedClassName,
       focusedClassNameString,
       errorClassName,
     ]),
@@ -66,6 +68,7 @@ export const TextInput = ({
       onBlur={onBlur}
       onMouseDown={onMouseDown}
       className={classNames.main}
+      style={focusedStyle}
     >
       {prefixComponent}
       <div className={`${styles.input} ${prefixClassName}-inner`}>
@@ -96,7 +99,7 @@ TextInput.propTypes = {
 };
 
 TextInput.defaultProps = {
-  className: "",
+  className: '',
   disabled: false,
   error: false,
   focused: false,
@@ -107,7 +110,7 @@ TextInput.defaultProps = {
   onFocus: () => {},
   onKeyDown: () => {},
   onMouseDown: () => {},
-  placeholder: "",
-  prefixClassName: "",
-  value: "",
+  placeholder: '',
+  prefixClassName: '',
+  value: '',
 };

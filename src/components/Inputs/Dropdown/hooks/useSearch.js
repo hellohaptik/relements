@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from "react";
-import Fuse from "fuse.js";
+import { useState, useRef, useEffect } from 'react';
+import Fuse from 'fuse.js';
 
 const defaultFuseOptions = {
   shouldSort: true,
@@ -11,12 +11,12 @@ const defaultFuseOptions = {
   distance: 50,
   maxPatternLength: 32,
   minMatchCharLength: 1,
-  keys: ["text"],
+  keys: ['text'],
 };
 
 export function useSearch(options, searchKeys) {
   const [searchResults, setSearchResults] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const _fuse = useRef();
 
   const setupSearch = () => {
@@ -28,7 +28,7 @@ export function useSearch(options, searchKeys) {
     setSearchResults(options);
   };
 
-  const handleSearch = searchTerm => {
+  const handleSearch = (searchTerm) => {
     setSearchTerm(searchTerm);
     if (searchTerm.length === 0) {
       setSearchResults(options);

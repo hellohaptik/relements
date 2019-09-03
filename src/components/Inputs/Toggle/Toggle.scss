@@ -25,11 +25,6 @@ $knob-size: 24px;
   border: 1px solid $border-color;
   transition: 0.1s ease-out;
   outline: none;
-  &.active {
-    background-color: rgba($primary-color, 0.2);
-    border-color: rgba($primary-color, 1);
-  }
-
   &.redGreen {
     background-color: rgba($red-color, 0.2);
     border-color: rgba($red-color, 1);
@@ -53,8 +48,6 @@ $knob-size: 24px;
   transition: 0.1s ease-out;
   &.active {
     transform: translate3d(60%, 0, 0);
-    background-color: $primary-color;
-    border-color: $primary-color;
   }
 
   &.redGreen {

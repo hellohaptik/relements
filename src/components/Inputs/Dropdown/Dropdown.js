@@ -1,36 +1,36 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState } from 'react';
 
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
-import Icon from "components/UI/Icon";
-import AngleDownIcon from "icons/angle-down.svg";
+import Icon from 'components/UI/Icon';
+import AngleDownIcon from 'icons/angle-down.svg';
 
-import DropdownOptions from "./components/DropdownOptions";
-import DropdownOption from "./components/DropdownOption";
+import DropdownOptions from './components/DropdownOptions';
+import DropdownOption from './components/DropdownOption';
 
-import { TextInput } from "../_common/TextInput";
-import { Label } from "../_common/Label";
+import { TextInput } from '../_common/TextInput';
+import { Label } from '../_common/Label';
 
-import { useKeyboardSelect } from "./hooks/useKeyboardSelect";
-import { useSearch } from "./hooks/useSearch";
-import { useDropdown } from "./hooks/useDropdown";
+import { useKeyboardSelect } from './hooks/useKeyboardSelect';
+import { useSearch } from './hooks/useSearch';
+import { useDropdown } from './hooks/useDropdown';
 
-import styles from "./Dropdown.scss";
-import { ChipsInput } from "../_common/ChipsInput";
-import { useInput } from "../_common/hooks/useInput";
+import styles from './Dropdown.scss';
+import { ChipsInput } from '../_common/ChipsInput';
+import { useInput } from '../_common/hooks/useInput';
 
 const Dropdown = ({
-  className = "",
-  prefixClassName = "",
-  label = "",
-  noOptionsText = "No options present",
-  error = "",
-  optionKey = "text",
+  className = '',
+  prefixClassName = '',
+  label = '',
+  noOptionsText = 'No options present',
+  error = '',
+  optionKey = 'text',
   value = [],
   options = [],
   onChange = () => {},
-  placeholder = "",
-  createPrefix = "+ Create",
+  placeholder = '',
+  createPrefix = '+ Create',
 
   onFocus = () => {},
   onBlur = () => {},
@@ -47,9 +47,9 @@ const Dropdown = ({
 
   const getInputValue = () => {
     if (withMultiple) {
-      return valueArray.map(value => value[optionKey]);
+      return valueArray.map((value) => value[optionKey]);
     }
-    return valueArray[0] ? valueArray[0][optionKey] : "";
+    return valueArray[0] ? valueArray[0][optionKey] : '';
   };
 
   const [searchTerm, searchResults, handleSearch] = useSearch(updatedOptions, [
@@ -70,7 +70,9 @@ const Dropdown = ({
     handleKeyDown,
     _DropdownOptionDOMs,
   ] = useKeyboardSelect(dropdownOptions, onChange);
-  const { focused, setFocused, handleFocus, handleBlur } = useInput(
+  const {
+    focused, setFocused, handleFocus, handleBlur,
+  } = useInput(
     _InputDOM,
     onFocus,
     onBlur,
@@ -78,22 +80,20 @@ const Dropdown = ({
 
   const handleToggle = () => setFocused(!focused);
 
-  const isReversed =
-    _InputWrapperDOM.current &&
-    _InputWrapperDOM.current.getBoundingClientRect().bottom + 64 >
-      window.innerHeight;
+  const isReversed = _InputWrapperDOM.current
+    && _InputWrapperDOM.current.getBoundingClientRect().bottom + 64
+      > window.innerHeight;
 
-  const handleChange = valueToChange => {
+  const handleChange = (valueToChange) => {
     const newValue = withMultiple ? [...value, valueToChange] : valueToChange;
 
     if (withCreate) {
       // cleaning the create prefix if it exists
-      const flatNewValue =
-        valueToChange[optionKey].indexOf(createPrefix) > -1
-          ? valueToChange[optionKey].slice(createPrefix.length + 1)
-          : valueToChange[optionKey];
+      const flatNewValue = valueToChange[optionKey].indexOf(createPrefix) > -1
+        ? valueToChange[optionKey].slice(createPrefix.length + 1)
+        : valueToChange[optionKey];
 
-      const flatExistingOptions = updatedOptions.map(option => {
+      const flatExistingOptions = updatedOptions.map((option) => {
         return option[optionKey];
       });
 
@@ -109,8 +109,8 @@ const Dropdown = ({
     }
   };
 
-  const handleChipDelete = valueToChange => {
-    const newValue = valueToChange.map(value => {
+  const handleChipDelete = (valueToChange) => {
+    const newValue = valueToChange.map((value) => {
       return { text: value };
     });
     onChange(newValue);
@@ -120,7 +120,7 @@ const Dropdown = ({
     if (!dropdownOptions.length) {
       return (
         <span className={styles.dropdownInputZeroState}>
-          {noOptionsText || "No options present"}
+          {noOptionsText || 'No options present'}
         </span>
       );
     }
@@ -139,7 +139,7 @@ const Dropdown = ({
     ));
   };
 
-  const reverseModeClassName = isReversed ? styles.reverse : "";
+  const reverseModeClassName = isReversed ? styles.reverse : '';
   const inputValue = getInputValue();
   const Input = withMultiple ? ChipsInput : TextInput;
   return (
@@ -224,12 +224,12 @@ Dropdown.propTypes = {
 };
 
 Dropdown.classNames = {
-  $prefix: "Prefix ClassName",
-  "$prefix-label": "Prefix ClassName applied to the Label",
-  "$prefix-input": "Prefix ClassName applied to the input element",
-  "$prefix-error": "Prefix ClassName applied in case of error",
-  "$prefix-options": "Prefix ClassName applied to the options container",
-  "$prefix-option": "Prefix ClassName applied to the individual option",
+  $prefix: 'Prefix ClassName',
+  '$prefix-label': 'Prefix ClassName applied to the Label',
+  '$prefix-input': 'Prefix ClassName applied to the input element',
+  '$prefix-error': 'Prefix ClassName applied in case of error',
+  '$prefix-options': 'Prefix ClassName applied to the options container',
+  '$prefix-option': 'Prefix ClassName applied to the individual option',
 };
 
 export default Dropdown;

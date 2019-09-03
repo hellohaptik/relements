@@ -11,7 +11,7 @@ export function useChips(value, inputValue, onChange, setInputValue) {
 
   const deleteChip = (deleteChipValue) => {
     if (value.includes(deleteChipValue) && deleteChipValue) {
-      const newValue = value.filter(item => item !== deleteChipValue);
+      const newValue = value.filter((item) => item !== deleteChipValue);
       onChange(newValue);
     }
   };

@@ -1,10 +1,10 @@
-import React, { useRef } from "react";
-import PropTypes from "prop-types";
+import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
 
-import { TextInput } from "../_common/TextInput";
-import { Label } from "../_common/Label";
-import styles from "./Text.scss";
-import { useInput } from "../_common/hooks/useInput";
+import { TextInput } from '../_common/TextInput';
+import { Label } from '../_common/Label';
+import styles from './Text.scss';
+import { useInput } from '../_common/hooks/useInput';
 
 const Text = ({
   value,
@@ -22,13 +22,15 @@ const Text = ({
   disabled,
 }) => {
   const _TextInputDOM = useRef();
-  const { focused, setFocused, handleFocus, handleBlur } = useInput(
+  const {
+    focused, setFocused, handleFocus, handleBlur,
+  } = useInput(
     _TextInputDOM,
     onFocus,
     onBlur,
   );
-  const errorClassName = error ? "error" : "";
-  const disabledClassName = disabled ? "disabled" : "";
+  const errorClassName = error ? 'error' : '';
+  const disabledClassName = disabled ? 'disabled' : '';
 
   return (
     <div
@@ -89,12 +91,12 @@ Text.propTypes = {
 };
 
 Text.defaultProps = {
-  placeholder: "",
-  className: "",
-  value: "",
-  label: "",
-  error: "",
-  tooltip: "",
+  placeholder: '',
+  className: '',
+  value: '',
+  label: '',
+  error: '',
+  tooltip: '',
   disabled: false,
   onChange: () => {},
   onFocus: () => {},
@@ -102,10 +104,10 @@ Text.defaultProps = {
 };
 
 Text.classNames = {
-  $prefix: "Prefix ClassName added to the Parent",
-  "$prefix-label": "Added to the Label Component",
-  "$prefix-textinput": "Added to the Text Input Component",
-  "$prefix-input": "Added to the input DOM Node",
+  $prefix: 'Prefix ClassName added to the Parent',
+  '$prefix-label': 'Added to the Label Component',
+  '$prefix-textinput': 'Added to the Text Input Component',
+  '$prefix-input': 'Added to the input DOM Node',
 };
 
 export default Text;

@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Icon from "@src/components/UI/Icon";
-import Button from "@src/components/UI/Button";
-import CloseIcon from "@src/icons/close.svg";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Icon from '@src/components/UI/Icon';
+import Button from '@src/components/UI/Button';
+import CloseIcon from '@src/icons/close.svg';
 
-import styles from "./ModalHeader.scss";
+import styles from './ModalHeader.scss';
 
 const ModalHeader = ({
   children,
@@ -35,7 +35,7 @@ const ModalHeader = ({
             onClick={onSave}
             className={`${prefixClassName}-cta`}
           >
-            {saveTitle || "Save"}
+            {saveTitle || 'Save'}
           </Button>
         </div>
       ) : null}
@@ -61,21 +61,21 @@ ModalHeader.propTypes = {
 };
 
 ModalHeader.defaultProps = {
-  children: "",
-  className: "",
+  children: '',
+  className: '',
   onClose: () => {},
   onSave: () => {},
-  prefixClassName: "",
-  saveTitle: "",
+  prefixClassName: '',
+  saveTitle: '',
   withSave: false,
 };
 
 ModalHeader.classNames = {
-  $prefix: "the outermost element",
-  "$prefix-column-left": "The left column of the header",
-  "$prefix-icon": "The cross button",
-  "$prefix-column-right": "The right column of the header",
-  "$prefix-cta": "The CTA on the right",
+  $prefix: 'the outermost element',
+  '$prefix-column-left': 'The left column of the header',
+  '$prefix-icon': 'The cross button',
+  '$prefix-column-right': 'The right column of the header',
+  '$prefix-cta': 'The CTA on the right',
 };
 
 export default ModalHeader;

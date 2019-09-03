@@ -17,7 +17,7 @@ export default function useSlider(children, { onChange, centerMode, initialSlide
   const numberOfElements = getNumChildren(children);
   const sliderElementRefs = new Array(numberOfElements).fill(0).map(() => React.createRef());
 
-  const slideTo = React.useCallback(index => (e) => {
+  const slideTo = React.useCallback((index) => (e) => {
     let slideToIndex = index;
 
     if (slideToIndex > numberOfElements - 1) {

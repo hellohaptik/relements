@@ -1,13 +1,13 @@
-import React from "react";
-import { Portal } from "react-portal";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Portal } from 'react-portal';
+import PropTypes from 'prop-types';
 
-import useActivify from "@src/hooks/useActivify";
-import useEscapeKey from "@src/hooks/useEscapeKey";
-import useEnterKey from "@src/hooks/useEnterKey";
-import usePositioner from "../hooks/usePositioner";
+import useActivify from '@src/hooks/useActivify';
+import useEscapeKey from '@src/hooks/useEscapeKey';
+import useEnterKey from '@src/hooks/useEnterKey';
+import usePositioner from '../hooks/usePositioner';
 
-import styles from "./ContextMenuPortal.scss";
+import styles from './ContextMenuPortal.scss';
 
 const ContextMenuPortal = ({
   active,
@@ -21,7 +21,7 @@ const ContextMenuPortal = ({
 }) => {
   const contextMenuDOM = React.useRef();
   const { enabled, visible } = useActivify(active);
-  const activeClassName = visible ? styles.contextMenuActive : "";
+  const activeClassName = visible ? styles.contextMenuActive : '';
   const position = usePositioner(attachTo, contextMenuDOM, offset);
 
   useEscapeKey(onClose);
@@ -40,7 +40,7 @@ const ContextMenuPortal = ({
         />
         <div
           className={`${activeClassName} ${styles.contextMenu} ${prefixClassName}-context-menu`}
-          ref={DOMNode => {
+          ref={(DOMNode) => {
             if (DOMNode && active) DOMNode.focus();
             contextMenuDOM.current = DOMNode;
           }}
@@ -48,7 +48,7 @@ const ContextMenuPortal = ({
         >
           <div
             className={`${styles.contextMenuContent} ${prefixClassName}-context-menu-content`}
-            style={{ maxHeight: maxHeight || "300px" }}
+            style={{ maxHeight: maxHeight || '300px' }}
           >
             {children}
           </div>

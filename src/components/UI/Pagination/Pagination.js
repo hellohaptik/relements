@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Icon from "components/UI/Icon";
-import AngleDownIcon from "icons/angle-down.svg";
-import styles from "./Pagination.scss";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Icon from 'components/UI/Icon';
+import AngleDownIcon from 'icons/angle-down.svg';
+import styles from './Pagination.scss';
 
 const renderDots = () => (
   <div className={`${styles.paginationSeparator}`}>
@@ -21,8 +21,8 @@ const Pagination = ({
 }) => {
   const NUM_PAGES = numPages;
   const PAGE = page - 1;
-  const leftDisabled = PAGE === 0 ? styles.disabled : "";
-  const rightDisabled = PAGE === NUM_PAGES - 1 ? styles.disabled : "";
+  const leftDisabled = PAGE === 0 ? styles.disabled : '';
+  const rightDisabled = PAGE === NUM_PAGES - 1 ? styles.disabled : '';
 
   const visiblePages = Array(NUM_PAGES)
     .fill(0)
@@ -55,8 +55,7 @@ const Pagination = ({
         page - 1,
       )}
       {visiblePages.map((page, i) => {
-        const paginationButtonActive =
-          PAGE === i ? `${styles.active} ${prefixClassName}-page-active` : "";
+        const paginationButtonActive = PAGE === i ? `${styles.active} ${prefixClassName}-page-active` : '';
         if (page === 0 && visiblePages[i - 1] !== 0) return renderDots();
         if (page === 0) return null;
         return (
@@ -91,20 +90,20 @@ Pagination.propTypes = {
 };
 
 Pagination.defaultProps = {
-  className: "",
-  prefixClassName: "",
+  className: '',
+  prefixClassName: '',
   onChange: () => {},
   numPages: 1,
   page: 1,
 };
 
 Pagination.classNames = {
-  $prefix: "Outermost element",
-  "$prefix-arrow": "Arrow element in pagination",
-  "$prefix-arrow-left": "Left Arrow element in pagination",
-  "$prefix-arrow-right": "Right Arrow element in pagination",
-  "$prefix-page-active": "Active page element in pagination",
-  "$prefix-page": "Page numbers displayed in pagination",
+  $prefix: 'Outermost element',
+  '$prefix-arrow': 'Arrow element in pagination',
+  '$prefix-arrow-left': 'Left Arrow element in pagination',
+  '$prefix-arrow-right': 'Right Arrow element in pagination',
+  '$prefix-page-active': 'Active page element in pagination',
+  '$prefix-page': 'Page numbers displayed in pagination',
 };
 
 export default Pagination;

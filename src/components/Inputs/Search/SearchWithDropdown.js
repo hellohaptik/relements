@@ -18,7 +18,7 @@ export default class SearchWithDropdown extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <>
         <Search
           {...this.props}
           onKeyDown={this._handleKeyDown}
@@ -35,7 +35,7 @@ export default class SearchWithDropdown extends React.Component {
             },
           }))}
         </SearchDropdown>
-      </React.Fragment>
+      </>
     );
   }
 

@@ -1,7 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Context from '@src/components/Context';
 
-import styles from "./TabOption.scss";
+import styles from './TabOption.scss';
 
 const TabOption = ({
   children,
@@ -10,21 +11,24 @@ const TabOption = ({
   innerRef,
   prefixClassName,
 }) => {
+  const { primaryColor } = React.useContext(Context);
   return (
     <div
+      style={{ borderRightColor: primaryColor }}
       ref={innerRef}
       className={`${styles.tabOption} ${
-        selected ? styles.selected : ""
+        selected ? styles.selected : ''
       } ${prefixClassName}-option ${
-        selected ? `${prefixClassName}-option-selected` : ""
+        selected ? `${prefixClassName}-option-selected` : ''
       }`}
       onClick={onClick}
     >
       <span
+        style={{ color: primaryColor }}
         className={`${styles.tabOptionText} ${
-          selected ? styles.selected : ""
+          selected ? styles.selected : ''
         } ${prefixClassName}-option-text ${
-          selected ? `${prefixClassName}-option-selected-text` : ""
+          selected ? `${prefixClassName}-option-selected-text` : ''
         }`}
       >
         {children}

@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Tooltip from "@src/components/Overlays/Tooltip";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Tooltip from '@src/components/Overlays/Tooltip';
 
-import styles from "./WithTooltip.scss";
+import styles from './WithTooltip.scss';
 
 function WithTooltip({
   children,
@@ -10,7 +10,7 @@ function WithTooltip({
   className,
   onClick,
   tooltip,
-  position = "TOP",
+  position = 'TOP',
 }) {
   const [tooltipActive, setTooltipActive] = React.useState();
   const DOMRef = React.useRef();
@@ -63,9 +63,9 @@ WithTooltip.propTypes = {
 
 WithTooltip.defaultProps = {
   children: null,
-  className: "",
-  tooltip: "",
-  position: "",
+  className: '',
+  tooltip: '',
+  position: '',
   onClick: () => {},
 };
 

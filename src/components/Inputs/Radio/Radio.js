@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import RadioOption from "./components/RadioOption";
-import styles from "./Radio.scss";
-import { Label } from "../_common/Label";
-import { useRadio } from "./hooks/useRadio";
+import RadioOption from './components/RadioOption';
+import styles from './Radio.scss';
+import { Label } from '../_common/Label';
+import { useRadio } from './hooks/useRadio';
 
 const Radio = ({
   value,
@@ -83,27 +83,27 @@ Radio.propTypes = {
 };
 
 Radio.defaultProps = {
-  className: "",
-  hint: "",
-  value: "",
-  label: "",
+  className: '',
+  hint: '',
+  value: '',
+  label: '',
   error: false,
   onChange: () => {},
-  prefixClassName: "",
+  prefixClassName: '',
   options: [],
   disabled: false,
-  tooltip: "",
-  optionKey: "title",
+  tooltip: '',
+  optionKey: 'title',
 };
 
 Radio.classNames = {
-  $prefix: "Outermost element",
-  "$prefix-label": "Label of the input",
-  "$prefix-options": "Div wrapping all the options",
-  "$prefix-option": "Div wrapping the option",
-  "$prefix-option-box": "Div wrapping the icon",
-  "$prefix-option-box-tick": "The icon div inside the box",
-  "$prefix-option-text": "The Text of each of the checkbox options",
+  $prefix: 'Outermost element',
+  '$prefix-label': 'Label of the input',
+  '$prefix-options': 'Div wrapping all the options',
+  '$prefix-option': 'Div wrapping the option',
+  '$prefix-option-box': 'Div wrapping the icon',
+  '$prefix-option-box-tick': 'The icon div inside the box',
+  '$prefix-option-text': 'The Text of each of the checkbox options',
 };
 
 Radio.Item = RadioOption;

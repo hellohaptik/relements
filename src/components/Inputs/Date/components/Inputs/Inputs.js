@@ -1,10 +1,10 @@
-import React from "react";
-import dayjs from "dayjs";
-import PropTypes from "prop-types";
+import React from 'react';
+import dayjs from 'dayjs';
+import PropTypes from 'prop-types';
 
-import Button from "components/UI/Button";
-import Input from "../Input";
-import styles from "./Inputs.scss";
+import Button from 'components/UI/Button';
+import Input from '../Input';
+import styles from './Inputs.scss';
 
 /**
  * Retrieves some stats for the given start and end date
@@ -13,16 +13,14 @@ import styles from "./Inputs.scss";
  */
 function getDateStats(startDate, endDate) {
   const today = dayjs();
-  const yesterday = dayjs().subtract(1, "d");
-  const isSame = startDate.isSame(endDate, "d");
-  const isToday = isSame && startDate.isSame(today, "d");
-  const isYesterday = isSame && startDate.isSame(yesterday, "d");
-  const isLast7Days =
-    startDate.subtract(7, "d").isSame(endDate, "d") &&
-    startDate.isSame(today, "d");
-  const isLast30Days =
-    startDate.subtract(30, "d").isSame(endDate, "d") &&
-    startDate.isSame(today, "d");
+  const yesterday = dayjs().subtract(1, 'd');
+  const isSame = startDate.isSame(endDate, 'd');
+  const isToday = isSame && startDate.isSame(today, 'd');
+  const isYesterday = isSame && startDate.isSame(yesterday, 'd');
+  const isLast7Days = startDate.subtract(7, 'd').isSame(endDate, 'd')
+    && startDate.isSame(today, 'd');
+  const isLast30Days = startDate.subtract(30, 'd').isSame(endDate, 'd')
+    && startDate.isSame(today, 'd');
 
   return {
     isToday,
@@ -32,49 +30,47 @@ function getDateStats(startDate, endDate) {
   };
 }
 
-function Shortcuts({ startDate, endDate, onChange, prefixClassName }) {
-  const { isToday, isYesterday, isLast7Days, isLast30Days } = getDateStats(
+function Shortcuts({
+  startDate, endDate, onChange, prefixClassName,
+}) {
+  const {
+    isToday, isYesterday, isLast7Days, isLast30Days,
+  } = getDateStats(
     startDate,
     endDate,
   );
 
-  const today = dayjs().startOf("day");
+  const today = dayjs().startOf('day');
   return (
     <div className={`${styles.inputsButtons} ${prefixClassName}`}>
       <Button
         primary={isToday}
         className={`${styles.inputsButton} ${prefixClassName}-button`}
-        onClick={() => onChange(today, today.endOf("day"))}
+        onClick={() => onChange(today, today.endOf('day'))}
       >
         Today
       </Button>
       <Button
         primary={isYesterday}
         className={`${styles.inputsButton} ${prefixClassName}-button`}
-        onClick={() =>
-          onChange(
-            today.subtract(1, "d").startOf("day"),
-            today.subtract(1, "d").endOf("day"),
-          )
-        }
+        onClick={() => onChange(
+          today.subtract(1, 'd').startOf('day'),
+          today.subtract(1, 'd').endOf('day'),
+        )}
       >
         Yesterday
       </Button>
       <Button
         primary={isLast7Days}
         className={`${styles.inputsButton} ${prefixClassName}-button`}
-        onClick={() =>
-          onChange(today.subtract(6, "d").startOf("day"), today.endOf("day"))
-        }
+        onClick={() => onChange(today.subtract(6, 'd').startOf('day'), today.endOf('day'))}
       >
         Last 7 Days
       </Button>
       <Button
         primary={isLast30Days}
         className={`${styles.inputsButton} ${prefixClassName}-button`}
-        onClick={() =>
-          onChange(today.subtract(29, "d").startOf("day"), today.endOf("day"))
-        }
+        onClick={() => onChange(today.subtract(29, 'd').startOf('day'), today.endOf('day'))}
       >
         Last 30 Days
       </Button>
@@ -109,8 +105,8 @@ function Inputs({
           label="Start"
           key="startDate"
           value={startDate}
-          onFocus={() => onFocus("startDate")}
-          focused={selectingKey === "startDate"}
+          onFocus={() => onFocus('startDate')}
+          focused={selectingKey === 'startDate'}
           prefixClassName={`${prefixClassName}-input-item`}
         />
         <Input
@@ -118,8 +114,8 @@ function Inputs({
           label="End"
           key="endDate"
           value={endDate}
-          onFocus={() => onFocus("endDate")}
-          focused={selectingKey === "endDate"}
+          onFocus={() => onFocus('endDate')}
+          focused={selectingKey === 'endDate'}
           prefixClassName={`${prefixClassName}-input-item`}
         />
       </div>
@@ -139,8 +135,8 @@ Inputs.propTypes = {
 Inputs.defaultProps = {
   onChange: () => {},
   onFocus: () => {},
-  prefixClassName: "",
-  selectingKey: "",
+  prefixClassName: '',
+  selectingKey: '',
 };
 
 Shortcuts.propTypes = {
@@ -152,7 +148,7 @@ Shortcuts.propTypes = {
 
 Shortcuts.defaultProps = {
   onChange: () => {},
-  prefixClassName: "",
+  prefixClassName: '',
 };
 
 export default Inputs;

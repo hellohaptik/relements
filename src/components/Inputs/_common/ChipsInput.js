@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import AutosizeInput from "react-input-autosize";
-import PropTypes from "prop-types";
-import Icon from "components/UI/Icon";
-import CrossIcon from "icons/close.svg";
-import styles from "./ChipsInput.scss";
-import { useChips } from "./hooks/useChips";
+import React, { useState } from 'react';
+import AutosizeInput from 'react-input-autosize';
+import PropTypes from 'prop-types';
+import Context from '@src/components/Context';
+import Icon from '@src/components/UI/Icon';
+import CrossIcon from '@src/icons/close.svg';
+
+import styles from './ChipsInput.scss';
+import { useChips } from './hooks/useChips';
 
 export const ChipsInput = ({
   className,
@@ -17,13 +19,14 @@ export const ChipsInput = ({
   onChange,
   focused,
   error,
-  placeholder = "Type here...",
+  placeholder = 'Type here...',
   inputRef,
   disabled = false,
   onValueChange,
 }) => {
-  const focusedClassName = focused ? styles.focused : "";
-  const errorClassName = error ? styles.error : "";
+  const { primaryColor } = React.useContext(Context);
+  const focusedStyle = focused ? { borderColor: primaryColor } : {};
+  const errorClassName = error ? styles.error : '';
   const [inputValue, setInputValue] = useState();
   const [onKeyDownChips, , deleteChip] = useChips(
     value,
@@ -44,13 +47,13 @@ export const ChipsInput = ({
     );
   };
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const value = e.target.value;
     setInputValue(value);
     onValueChange(value);
   };
 
-  const handleKeyDown = e => {
+  const handleKeyDown = (e) => {
     onKeyDownChips(e);
     onKeyDown(e);
   };
@@ -73,7 +76,8 @@ export const ChipsInput = ({
     <div
       onClick={onFocus}
       ref={innerRef}
-      className={`${styles.chips} ${focusedClassName} ${errorClassName} ${className}-input`}
+      style={focusedStyle}
+      className={`${styles.chips} ${errorClassName} ${className}-input`}
       onBlur={onBlur}
       onMouseDown={onMouseDown}
     >

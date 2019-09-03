@@ -1,11 +1,14 @@
-import React, { useRef } from "react";
-import PropTypes from "prop-types";
+import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
 
-import { useTabs } from "../_common/hooks/useTabs";
-import { useInput } from "../_common/hooks/useInput";
-import { Label } from "../_common/Label";
-import TabOption from "./components/TabOption";
-import styles from "./Tab.scss";
+import { rgba } from '@src/utils/generic';
+import Context from '@src/components/Context';
+
+import { useTabs } from '../_common/hooks/useTabs';
+import { useInput } from '../_common/hooks/useInput';
+import { Label } from '../_common/Label';
+import TabOption from './components/TabOption';
+import styles from './Tab.scss';
 
 function Tab({
   className,
@@ -28,13 +31,14 @@ function Tab({
     activeIndex,
     displayOptions,
   } = useTabs(value, onChange, options, optionKey);
+  const { primaryColor } = React.useContext(Context);
   const _TextInputDOM = useRef();
   const { focused, handleFocus, handleBlur } = useInput(
     _TextInputDOM,
     onFocus,
     onBlur,
   );
-  const disabledClassName = disabled ? styles.disabled : "";
+  const disabledClassName = disabled ? styles.disabled : '';
   return (
     <div
       data-testid="tab"
@@ -51,9 +55,13 @@ function Tab({
         {label}
       </Label>
       <div
+        style={{ borderColor: primaryColor }}
         className={`${styles.tabOptionsWrapper} ${disabledClassName} ${prefixClassName}-options-wrapper`}
       >
-        <div className={`${styles.tabOptions} ${prefixClassName}-options`}>
+        <div
+          style={{ backgroundColor: rgba(primaryColor, 0.2) }}
+          className={`${styles.tabOptions} ${prefixClassName}-options`}
+        >
           {displayOptions.map((displayOption, i) => {
             return (
               <TabOption
@@ -69,7 +77,7 @@ function Tab({
         </div>
         <div
           className={`${styles.tabOptionsBG} ${prefixClassName}-selected`}
-          style={{ width, left: offset }}
+          style={{ width, left: offset, backgroundColor: primaryColor }}
         />
       </div>
     </div>
@@ -102,29 +110,29 @@ Tab.propTypes = {
 };
 
 Tab.defaultProps = {
-  className: "",
-  prefixClassName: "",
+  className: '',
+  prefixClassName: '',
   disabled: false,
-  error: "",
-  label: "",
+  error: '',
+  label: '',
   onBlur: () => {},
   onChange: () => {},
   onFocus: () => {},
-  optionKey: "",
+  optionKey: '',
   options: [],
-  value: "",
+  value: '',
 };
 
 Tab.classNames = {
-  $prefix: "Outermost element",
-  "$prefix-label": "Label element",
-  "$prefix-options-wrapper": "Wrapper around options tab",
-  "$prefix-options": "Container holding all the options",
-  "$prefix-option": "Individual option",
-  "$prefix-option-text": "Text inside individual option",
-  "$prefix-selected": "Background above selected option",
-  "$prefix-option-selected": "Selected option div",
-  "$prefix-option-selected-text": "Selected option text",
+  $prefix: 'Outermost element',
+  '$prefix-label': 'Label element',
+  '$prefix-options-wrapper': 'Wrapper around options tab',
+  '$prefix-options': 'Container holding all the options',
+  '$prefix-option': 'Individual option',
+  '$prefix-option-text': 'Text inside individual option',
+  '$prefix-selected': 'Background above selected option',
+  '$prefix-option-selected': 'Selected option div',
+  '$prefix-option-selected-text': 'Selected option text',
 };
 
 export default Tab;

@@ -14,7 +14,7 @@ const renderArrow = (className, onClick) => (
 );
 
 const Slider = ({
-  className, centerMode, children, onChange, initialSlide, prefixClassName
+  className, centerMode, children, onChange, initialSlide, prefixClassName,
 }) => {
   const {
     left, offset, slide, sliderWrapperRef, sliderElementRefs, slideTo, numElements,
@@ -26,7 +26,7 @@ const Slider = ({
   const leftArrowDisabledClass = slide === 0 ? styles.disabled : '';
   const rightArrowDisabledClass = slide === numElements - 1 || numElements < 2 ? styles.disabled : '';
   const transformStyle = { transform: `translate3d(${-1 * (left - offset)}px, 0, 0)` };
-  
+
   return (
     <div data-testid="slider" ref={sliderWrapperRef} className={`${styles.componentSliderWrapper} ${className} ${prefixClassName}`}>
       {renderArrow(`${styles.left} ${prefixClassName}-arrow  ${prefixClassName}-arrow-left ${leftArrowDisabledClass}`, slideTo(slide - 1))}
@@ -64,6 +64,6 @@ Slider.defaultProps = {
   prefixClassName: '',
   onChange: () => {},
   initialSlide: 0,
-}
+};
 
 export default Slider;

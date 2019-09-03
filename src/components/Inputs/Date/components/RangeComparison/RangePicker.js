@@ -1,12 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
-import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
+import React from 'react';
+import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 
-import Calendar from "components/UI/Calendar";
-import Inputs from "../Inputs";
-import Comparison from "../Comparison";
-import styles from "./RangePicker.scss";
+import Calendar from 'components/UI/Calendar';
+import Inputs from '../Inputs';
+import Comparison from '../Comparison';
+import styles from './RangePicker.scss';
 
 export default class RangePicker extends React.Component {
   constructor(props) {
@@ -22,7 +22,7 @@ export default class RangePicker extends React.Component {
       compare: value.compare,
       comparisonStartDate: value.comparisonStartDate,
       comparisonEndDate: value.comparisonEndDate,
-      selectingKey: "startDate",
+      selectingKey: 'startDate',
     };
     dayjs.extend(customParseFormat);
   }
@@ -40,7 +40,7 @@ export default class RangePicker extends React.Component {
       value = value.concat({
         from: comparisonStartDate,
         to: comparisonEndDate,
-        color: "#f1c40f",
+        color: '#f1c40f',
       });
     }
 
@@ -67,7 +67,7 @@ export default class RangePicker extends React.Component {
             endDate={endDate}
             onChange={this._setDates}
             prefixClassName={`${prefixClassName}-column-inputs`}
-            onFocus={key => {
+            onFocus={(key) => {
               this.setState({ selectingKey: key });
             }}
           />
@@ -81,24 +81,22 @@ export default class RangePicker extends React.Component {
               toggled={this.state.compare}
               onChange={this._setComparisonDates}
               prefixClassName={`${prefixClassName}-column-comparison`}
-              onToggle={newCompare =>
-                this.setState({
-                  compare: newCompare,
-                  selectingKey: "comparisonStartDate",
-                  comparisonStartDate:
+              onToggle={(newCompare) => this.setState({
+                compare: newCompare,
+                selectingKey: 'comparisonStartDate',
+                comparisonStartDate:
                     newCompare && startDate && endDate
                       ? startDate.subtract(
-                          endDate.diff(startDate, "d") + 1,
-                          "d",
-                        )
+                        endDate.diff(startDate, 'd') + 1,
+                        'd',
+                      )
                       : null,
-                  comparisonEndDate:
+                comparisonEndDate:
                     newCompare && startDate && endDate
-                      ? startDate.subtract(1, "d")
+                      ? startDate.subtract(1, 'd')
                       : null,
-                })
-              }
-              onFocus={key => {
+              })}
+              onFocus={(key) => {
                 this.setState({ selectingKey: key });
               }}
             />
@@ -116,13 +114,13 @@ export default class RangePicker extends React.Component {
       comparisonEndDate,
     } = this.state;
     return {
-      startDate: startDate ? startDate.startOf("day").toDate() : startDate,
-      endDate: endDate ? endDate.endOf("day").toDate() : null,
+      startDate: startDate ? startDate.startOf('day').toDate() : startDate,
+      endDate: endDate ? endDate.endOf('day').toDate() : null,
       comparisonStartDate: comparisonStartDate
-        ? comparisonStartDate.startOf("day").toDate()
+        ? comparisonStartDate.startOf('day').toDate()
         : null,
       comparisonEndDate: comparisonEndDate
-        ? comparisonEndDate.endOf("day").toDate()
+        ? comparisonEndDate.endOf('day').toDate()
         : null,
     };
   };
@@ -133,22 +131,22 @@ export default class RangePicker extends React.Component {
    * So if the current selection is startDate, we start endDate selection and so on
    * We use this.state.selectingKey to track this
    */
-  _handleCellClick = day => {
+  _handleCellClick = (day) => {
     const { selectingKey } = this.state;
-    if (selectingKey === "startDate") {
+    if (selectingKey === 'startDate') {
       this.setState({
-        selectingKey: "endDate",
+        selectingKey: 'endDate',
         endDate: null,
       });
-    } else if (selectingKey === "comparisonStartDate") {
+    } else if (selectingKey === 'comparisonStartDate') {
       const { startDate, endDate } = this.state;
-      const numDays = endDate.diff(startDate, "d");
+      const numDays = endDate.diff(startDate, 'd');
       this.setState({
-        selectingKey: "comparisonStartDate",
-        comparisonEndDate: day.add(numDays, "d"),
+        selectingKey: 'comparisonStartDate',
+        comparisonEndDate: day.add(numDays, 'd'),
       });
     } else {
-      this.setState({ selectingKey: "startDate" });
+      this.setState({ selectingKey: 'startDate' });
     }
 
     this.setState({ [selectingKey]: day });
@@ -162,7 +160,7 @@ export default class RangePicker extends React.Component {
     this.setState({
       startDate,
       endDate,
-      selectingKey: "startDate",
+      selectingKey: 'startDate',
     });
   };
 
@@ -212,7 +210,7 @@ RangePicker.propTypes = {
 RangePicker.defaultProps = {
   withComparison: false,
   numMonths: 2,
-  prefixClassName: "",
+  prefixClassName: '',
   value: {
     startDate: dayjs(),
     endDate: dayjs(),

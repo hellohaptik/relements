@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Context from '@src/components/Context';
 import styles from './Loader.scss';
 
 const Loader = ({ size, className, prefixClassName }) => {
+  const { primaryColor } = React.useContext(Context);
   return (
     <div
       data-testid="loader"
@@ -11,13 +13,24 @@ const Loader = ({ size, className, prefixClassName }) => {
       style={{
         width: size,
         height: size,
-        clip: `rect(0, ${size}px, ${size}px, ${size / 2}px)`,
       }}
     >
-      <span
+      <svg
         data-testid="loader-inner"
         className={`${styles.loaderInner} ${prefixClassName}-inner`}
-      />
+        viewBox="25 25 50 50"
+      >
+        <circle
+          className="path"
+          cx="50"
+          cy="50"
+          r="20"
+          fill="none"
+          strokeWidth="2"
+          strokeMiterlimit="10"
+          stroke={primaryColor}
+        />
+      </svg>
     </div>
   );
 };

@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Icon from "components/UI/Icon";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Icon from 'components/UI/Icon';
 
-import ContextMenuPortal from "./ContextMenuPortal";
+import ContextMenuPortal from './ContextMenuPortal';
 
 class ContextMenuIcon extends React.Component {
   state = {
@@ -20,22 +20,22 @@ class ContextMenuIcon extends React.Component {
       prefixClassName,
     } = this.props;
     return (
-      <React.Fragment>
+      <>
         {iconComponent ? (
           React.cloneElement(iconComponent, {
             onClick: this._handleClick,
-            ref: DOMElement => {
+            ref: (DOMElement) => {
               this._contextMenuIcon = DOMElement;
             },
           })
         ) : (
           <Icon
             prefixClassName={`${prefixClassName}`}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: 'pointer' }}
             onClick={this._handleClick}
             src={iconType}
             className={className}
-            innerRef={DOMElement => {
+            innerRef={(DOMElement) => {
               this._contextMenuIcon = DOMElement;
             }}
           />
@@ -48,21 +48,21 @@ class ContextMenuIcon extends React.Component {
           maxHeight={maxHeight}
           prefixClassName={`${prefixClassName}-portal`}
         >
-          {typeof children === "function"
+          {typeof children === 'function'
             ? children(this._handleOverlayClick)
             : children}
         </ContextMenuPortal>
-      </React.Fragment>
+      </>
     );
   }
 
-  _handleClick = e => {
+  _handleClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
     this.setState({ active: true });
   };
 
-  _handleOverlayClick = e => {
+  _handleOverlayClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
     this.setState({ active: false });
@@ -95,19 +95,19 @@ ContextMenuIcon.defaultProps = {
     top: 0,
   },
   children: null,
-  className: "",
-  prefixClassName: "",
+  className: '',
+  prefixClassName: '',
   maxHeight: 200,
-  iconType: "circle-more",
+  iconType: 'circle-more',
   iconComponent: null,
 };
 
 ContextMenuIcon.classNames = {
-  $prefix: "Outermost className (icon)",
-  "$prefix-portal": "className for the portal",
-  "$prefix-portal-overlay": "overlay",
-  "$prefix-portal-context-menu": "wrapping content div",
-  "$prefix-portal-context-menu-content": "the actual content div",
+  $prefix: 'Outermost className (icon)',
+  '$prefix-portal': 'className for the portal',
+  '$prefix-portal-overlay': 'overlay',
+  '$prefix-portal-context-menu': 'wrapping content div',
+  '$prefix-portal-context-menu-content': 'the actual content div',
 };
 
 export default ContextMenuIcon;

@@ -60,7 +60,7 @@ export default class Image extends React.Component {
     return <ImagePlaceholder />;
   };
 
-  _renderFiles = uploads => (
+  _renderFiles = (uploads) => (
     <div className={styles.filesList}>
       {uploads.map(this._renderPreview)}
       {this.props.multiple ? this._renderAddMoreButton() : null}
@@ -75,7 +75,7 @@ export default class Image extends React.Component {
     </div>
   );
 
-  _renderInput = multiple => (
+  _renderInput = (multiple) => (
     <input
       className={styles.fileInput}
       onChange={this._handleFile}
@@ -209,8 +209,8 @@ export default class Image extends React.Component {
   _uploadFile = (file, index, numFiles) => {
     API.uploadFile(
       file,
-      uploadedPercent => this._onUploadProgress(uploadedPercent, index),
-      fileURL => this._onUploadComplete(fileURL, index, numFiles)
+      (uploadedPercent) => this._onUploadProgress(uploadedPercent, index),
+      (fileURL) => this._onUploadComplete(fileURL, index, numFiles)
     );
   };
 
@@ -230,7 +230,7 @@ export default class Image extends React.Component {
     this.setState({ uploads, uploadsCompleted }, () => {
       if (this.props.onChange && uploadsCompleted >= numFiles) {
         if (this.props.multiple) {
-          this.props.onChange(value.concat(uploads.map(upload => upload.value)));
+          this.props.onChange(value.concat(uploads.map((upload) => upload.value)));
         } else {
           this.props.onChange(uploads[0].value);
         }

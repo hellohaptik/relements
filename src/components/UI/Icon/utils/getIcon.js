@@ -171,11 +171,11 @@ export const ICON_MAP = {
   'imagePlaceholder': ImagePlaceholder,
   'filePlaceholder': FilePlaceholder,
   'analytics': AnalyticsIcon,
-}
+};
 
 
 /**
- * Based on the icon identifier (string), it returns the 
+ * Based on the icon identifier (string), it returns the
  * icon component.
  * @export
  * @param {string} iconType icon identifier

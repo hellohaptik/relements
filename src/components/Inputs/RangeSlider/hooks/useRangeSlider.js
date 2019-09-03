@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { KEY_CODES } from "constants";
-import styles from "./useRangeSlider.scss";
+import React, { useState, useEffect } from 'react';
+import { KEY_CODES } from 'constants';
+import styles from './useRangeSlider.scss';
 
-export const toPosition = (start, end, step) => knobValue => {
+export const toPosition = (start, end, step) => (knobValue) => {
   const value = start + (knobValue / 100) * (end - start);
   return Math.ceil(value / step) * step;
 };
-export const fromPosition = (start, end) => position => {
+export const fromPosition = (start, end) => (position) => {
   return (100 * (position - start)) / (end - start);
 };
 
@@ -31,14 +31,14 @@ export function useRangeSlider({
   const [startPosition, setStartPosition] = useState({});
   const [endPosition, setEndPosition] = useState({});
   const [pointerX, setPointerX] = useState();
-  const [startValue, setStartValue] = useState("");
-  const [endValue, setEndValue] = useState("");
+  const [startValue, setStartValue] = useState('');
+  const [endValue, setEndValue] = useState('');
   const [dragging, setDragging] = useState();
   const translateToPosition = toPosition(start, end, step);
   const translateFromPosition = fromPosition(start, end);
   const startDragging = () => () => setDragging(true);
 
-  const handleDrag = knobType => e => {
+  const handleDrag = (knobType) => (e) => {
     let pageX;
     if (e.target.dragTest) {
       pageX = e.target.pageX;
@@ -52,14 +52,14 @@ export function useRangeSlider({
     const knobPosition = getKnobPosition({ pageX, trackRect });
     const knobPositionRounded = knobPosition;
 
-    if (knobType === "start" && knobPosition > endPosition.exact - 1) {
+    if (knobType === 'start' && knobPosition > endPosition.exact - 1) {
       setPointerX(pageX);
       setStartPosition({ exact: knobPosition, rounded: knobPositionRounded });
       setEndPosition({
         exact: knobPosition + 1,
         rounded: knobPositionRounded + 1,
       });
-    } else if (knobType === "end" && knobPosition < startPosition.exact + 1) {
+    } else if (knobType === 'end' && knobPosition < startPosition.exact + 1) {
       setPointerX(pageX);
       setStartPosition({
         exact: knobPosition - 1,
@@ -68,7 +68,7 @@ export function useRangeSlider({
       setEndPosition({ exact: knobPosition, rounded: knobPositionRounded });
     } else {
       setPointerX(pageX);
-      const setter = knobType === "start" ? setStartPosition : setEndPosition;
+      const setter = knobType === 'start' ? setStartPosition : setEndPosition;
       setPointerX(pageX);
       setter({ exact: knobPosition, rounded: knobPositionRounded });
     }
@@ -78,15 +78,15 @@ export function useRangeSlider({
     }
   };
 
-  const endDrag = knobType => () => {
+  const endDrag = (knobType) => () => {
     const startValue = translateToPosition(startPosition.exact);
     const endValue = translateToPosition(endPosition.exact);
 
     if (single) onChange(endValue);
     else onChange([startValue, endValue]);
 
-    const setter = knobType === "start" ? setStartPosition : setEndPosition;
-    const currentPosition = knobType === "start" ? startPosition : endPosition;
+    const setter = knobType === 'start' ? setStartPosition : setEndPosition;
+    const currentPosition = knobType === 'start' ? startPosition : endPosition;
     setPointerX(0);
     setDragging(false);
     setter({
@@ -95,9 +95,9 @@ export function useRangeSlider({
     });
   };
 
-  const handleKeyDown = knobType => e => {
+  const handleKeyDown = (knobType) => (e) => {
     const changeKnobPosition = () => {
-      const setter = knobType === "start" ? setStartPosition : setEndPosition;
+      const setter = knobType === 'start' ? setStartPosition : setEndPosition;
       let knobPosition = translateFromPosition(e.target.value);
       if (knobPosition < 0) knobPosition = 0;
       if (knobPosition > 100) knobPosition = 100;
@@ -117,11 +117,10 @@ export function useRangeSlider({
   };
 
   const renderKnob = (knobType, prefixClassName) => {
-    const knobPosition =
-      knobType === "start" ? startPosition.exact : endPosition.exact;
+    const knobPosition = knobType === 'start' ? startPosition.exact : endPosition.exact;
     const className = prefixClassName
       ? `${prefixClassName}-${knobType}-knob`
-      : "";
+      : '';
     return (
       <div
         style={{ left: `${knobPosition}%` }}
@@ -144,32 +143,31 @@ export function useRangeSlider({
     let inputValue;
     let knobPositionRounded;
     let setter;
-    if (knobType === "start") {
+    if (knobType === 'start') {
       inputValue = startValue.value;
       knobPositionRounded = startPosition.rounded;
       setter = setStartValue;
-    } else if (knobType === "end") {
+    } else if (knobType === 'end') {
       inputValue = endValue.value;
       knobPositionRounded = endPosition.rounded;
       setter = setEndValue;
     }
-    const value =
-      inputValue || (!knobPositionRounded && knobPositionRounded !== 0)
-        ? inputValue
-        : translateToPosition(knobPositionRounded);
+    const value = inputValue || (!knobPositionRounded && knobPositionRounded !== 0)
+      ? inputValue
+      : translateToPosition(knobPositionRounded);
     const className = prefixClassName
       ? `${prefixClassName}-${knobType}-input`
-      : "";
+      : '';
     return (
       <div className={styles.sliderTextInput}>
         <div className={styles.sliderTextInputLabel}>{knobType}</div>
         <input
           type="text"
-          placeholder={placeholder || "enter..."}
+          placeholder={placeholder || 'enter...'}
           value={value}
           onKeyDown={handleKeyDown(knobType)}
           className={className}
-          onChange={e => {
+          onChange={(e) => {
             setter({ value: e.target.value });
           }}
         />

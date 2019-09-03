@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
+import React from 'react';
+import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 
-import Calendar from "@src/components/UI/Calendar";
-import styles from "./SinglePicker.scss";
+import Calendar from '@src/components/UI/Calendar';
+import styles from './SinglePicker.scss';
 
 export default class SinglePicker extends React.Component {
   constructor() {
@@ -33,7 +33,7 @@ export default class SinglePicker extends React.Component {
    * So if the current selection is startDate, we start endDate selection and so on
    * We use this.state.selectingKey to track this
    */
-  _handleCellClick = day => {
+  _handleCellClick = (day) => {
     this.props.onChange(day.toDate());
   };
 
@@ -52,5 +52,5 @@ SinglePicker.propTypes = {
 SinglePicker.defaultProps = {
   onChange: () => {},
   value: dayjs(),
-  prefixClassName: "",
+  prefixClassName: '',
 };
