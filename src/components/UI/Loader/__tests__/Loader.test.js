@@ -31,5 +31,4 @@ test("Size variations", async () => {
   const { getByTestId } = render(<Loader size={40} />);
   expect(getByTestId("loader")).toHaveStyle("width: 40px");
   expect(getByTestId("loader")).toHaveStyle("height: 40px");
-  expect(getByTestId("loader")).toHaveStyle("clip: rect(0, 40px, 40px, 20px)");
 });
