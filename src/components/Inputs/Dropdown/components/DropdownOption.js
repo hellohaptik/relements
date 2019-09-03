@@ -1,42 +1,41 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import styles from './DropdownOption.scss';
+import styles from "./DropdownOption.scss";
 
 const DropdownOption = ({
-  children, onClick, selected, innerRef, created, value,
+  children,
+  onClick,
+  selected,
+  innerRef,
+  value,
+  className,
 }) => {
+  const selectedClassName = selected ? `${className}-selected` : "";
   return (
     <div
       ref={innerRef}
-      className={`${styles.dropdownOption} ${selected ? styles.dropdownOptionSelected : ''}`}
+      className={`${styles.dropdownOption} ${className} ${
+        selected ? styles.dropdownOptionSelected : ""
+      } ${selectedClassName}`}
       onClick={() => onClick(value)}
+      data-testid="dropdown-option"
     >
-      {created ? (
-        <span
-          className={`${styles.dropdownOptionText} ${styles.dropdownOptionTextCreate} ${
-            selected ? styles.dropdownOptionSelected : ''
-          }`}
-        >
-          + Create
-          {' '}
-          <em>
-"
-            {children}
-"
-          </em>
-        </span>
-      ) : (
-        <span className={`${styles.dropdownOptionText} ${selected ? styles.dropdownOptionSelected : ''}`}>
-          {children}
-        </span>
-      )}
+      <span
+        className={`${styles.dropdownOptionText} ${
+          selected ? styles.dropdownOptionSelected : ""
+        }`}
+      >
+        {children}
+      </span>
     </div>
   );
 };
 
 DropdownOption.propTypes = {
+  value: PropTypes.string,
   children: PropTypes.string,
+  className: PropTypes.string,
   onClick: PropTypes.func,
   selected: PropTypes.bool,
   innerRef: PropTypes.func,

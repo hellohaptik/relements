@@ -27,7 +27,12 @@ const plugins = [
     decorators: getPath('src/decorators'),
     resolve: ['.js', '/index.js', '.scss', '.svg', '.css'],
   }),
-  reactSvg({ svgo: { plugins: [{ cleanupIDs: false }], multipass: true } }),
+  reactSvg({
+    svgo: {
+      plugins: [{ cleanupIDs: false }, { removeViewBox: false }],
+      multipass: false,
+    },
+  }),
   json(),
   postcss({
     modules: { globalModulePaths: ['node_modules/'] },
@@ -37,7 +42,12 @@ const plugins = [
   commonjs({
     include: 'node_modules/**',
     namedExports: {
-      'node_modules/react/react.js': ['Children', 'Component', 'PropTypes', 'createElement'],
+      'node_modules/react/react.js': [
+        'Children',
+        'Component',
+        'PropTypes',
+        'createElement',
+      ],
       'node_modules/react-dom/index.js': ['render', 'createPortal'],
     },
   }),
@@ -47,19 +57,32 @@ const plugins = [
 export default [
   {
     input: { index: 'src/index.js', ...chunkExports },
-    output: [{ dir: 'build/esm', format: 'esm', globals: {
-      react: 'React',
-      'react-dom': 'ReactDOM'
-    }}],
+    output: [
+      {
+        dir: 'build/esm',
+        format: 'esm',
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+        },
+      },
+    ],
     external: ['react', 'react-dom', 'react-proptypes'],
     plugins,
   },
   {
     input: 'src/index.js',
-    output: [{ name: 'Relements', file: 'build/bundle.umd.js', format: 'umd', globals: {
-      react: 'React',
-      'react-dom': 'ReactDOM'
-    }}],
+    output: [
+      {
+        name: 'Relements',
+        file: 'build/bundle.umd.js',
+        format: 'umd',
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+        },
+      },
+    ],
     external: ['react', 'react-dom', 'react-proptypes'],
     plugins: [...plugins, terser()],
   },

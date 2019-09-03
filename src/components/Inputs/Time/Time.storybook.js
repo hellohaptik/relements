@@ -15,7 +15,6 @@ export class TimeWrapper extends React.Component {
   };
 
   render() {
-    console.log("VALUE", this.state.value);
     return (
       <Time
         label="Select Time"
