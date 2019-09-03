@@ -2,7 +2,9 @@ import { KEY_CODES } from 'constants';
 
 export function useChips(value, inputValue, onChange, setInputValue) {
   const addChip = (newChipValue) => {
+    console.log('add chip called')
     if (!value.includes(newChipValue) && newChipValue) {
+      console.log('inside add chip', newChipValue);
       const newValue = value.concat([newChipValue]);
       onChange(newValue);
       setInputValue('');

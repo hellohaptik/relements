@@ -8,7 +8,7 @@ import { useChips } from "./hooks/useChips";
 
 export const ChipsInput = ({
   className,
-  onKeyDown,
+  onKeyDown = () => {},
   onFocus,
   onBlur,
   onMouseDown,
@@ -20,7 +20,7 @@ export const ChipsInput = ({
   placeholder = "Type here...",
   inputRef,
   disabled = false,
-  onValueChange,
+  onValueChange = () => {},
 }) => {
   const focusedClassName = focused ? styles.focused : "";
   const errorClassName = error ? styles.error : "";
@@ -33,7 +33,7 @@ export const ChipsInput = ({
   );
   const renderChip = (title, i) => {
     return (
-      <div key={i} className={styles.chip}>
+      <div key={i} className={`${styles.chip} chip`}>
         {title}
         <Icon
           onClick={() => deleteChip(title)}
@@ -73,12 +73,12 @@ export const ChipsInput = ({
     <div
       onClick={onFocus}
       ref={innerRef}
-      className={`${styles.chips} ${focusedClassName} ${errorClassName} ${className}-input`}
+      className={`${styles.chips} ${focusedClassName} ${errorClassName} ${className}`}
       onBlur={onBlur}
       onMouseDown={onMouseDown}
     >
       <div className={styles.chipsTrack}>
-        {value.map(renderChip)}
+        {value ? value.map(renderChip) : null}
         {!disabled ? renderInput() : null}
       </div>
     </div>

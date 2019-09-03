@@ -7,32 +7,42 @@ import styles from './Chips.scss';
 import { useInput } from '../_common/hooks/useInput';
 
 const Text = ({
-  value,
-  onChange,
+  value = "",
+  onChange = () => {},
 
-  label,
-  placeholder,
-  className,
-  prefixClassName,
-  error,
+  label = "",
+  placeholder = "",
+  className = "",
+  prefixClassName = "",
+  error = "",
 
-  onFocus,
-  onBlur,
-  disabled,
+  onFocus = () => {},
+  onBlur = () => {},
+  disabled = false,
 
-  innerRef,
+  innerRef = {},
 }) => {
   const _TextInputDOM = useRef();
-  const {
-    focused, setFocused, handleFocus, handleBlur,
-  } = useInput(_TextInputDOM, onFocus, onBlur);
-
+  const { focused, setFocused, handleFocus, handleBlur } = useInput(
+    _TextInputDOM,
+    onFocus,
+    onBlur,
+  );
+  const errorClassName = error ? `${prefixClassName}-error` : "";
   return (
-    <div className={`${styles.text} ${prefixClassName} ${className}`}>
-      <Label focused={focused} error={error} className={`${styles.dropdownLabel} ${prefixClassName}-label`}>
+    <div
+      className={`${styles.text} ${prefixClassName} ${className}`}
+      data-testid="chips"
+    >
+      <Label
+        focused={focused}
+        error={error}
+        className={`${styles.dropdownLabel} ${prefixClassName}-label ${errorClassName}`}
+      >
         {label}
       </Label>
       <ChipsInput
+        className={`${prefixClassName}-chipsInput ${errorClassName}`}
         inputRef={_TextInputDOM}
         onFocus={handleFocus}
         onBlur={handleBlur}
@@ -49,15 +59,28 @@ const Text = ({
 };
 
 Text.propTypes = {
+  /** Placeholder for the Input */
   placeholder: PropTypes.string,
+  /** ClassName for the Chips element */
   className: PropTypes.string,
+  /** Value of the Chips Input */
   value: PropTypes.string,
+  /** Label for the Chips */
   label: PropTypes.string,
+  /** Error for Chips */
   error: PropTypes.string,
+  /** onChange Callback */
   onChange: PropTypes.func,
+  /** PrefixClassName for The Chips */
   prefixClassName: PropTypes.string,
+  /** onFocus Callback */
   onFocus: PropTypes.func,
+  /** onBlur Callback */
   onBlur: PropTypes.func,
+  /** Bool to toggle Enable/Disable */
+  disabled: PropTypes.bool,
+  /** Ref passed to Chips */
+  innerRef: PropTypes.object,
 };
 
 export default Text;

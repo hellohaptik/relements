@@ -7,6 +7,7 @@ export function useInput(inputDOM, onFocus, onBlur) {
     e.preventDefault();
     setFocused(true);
     inputDOM.current && inputDOM.current.focus();
+    console.log('calling focus');
     onFocus(e);
   };
 
