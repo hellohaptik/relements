@@ -1,7 +1,7 @@
 /* eslint-env jest */
 
 import React from "react";
-import "jest-dom/extend-expect";
+import "@testing-library/jest-dom/extend-expect";
 import { render, cleanup, fireEvent } from "@testing-library/react";
 
 import Toggle from "../Toggle";

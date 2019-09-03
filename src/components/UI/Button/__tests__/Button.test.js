@@ -1,61 +1,61 @@
 /* eslint-env jest */
 
-import React from 'react';
-import 'jest-dom/extend-expect';
-import { render, fireEvent, cleanup } from '@testing-library/react';
+import React from "react";
+import "@testing-library/jest-dom/extend-expect";
+import { render, fireEvent, cleanup } from "@testing-library/react";
 
-import Button from '../Button';
+import Button from "../Button";
 
 afterEach(cleanup);
 
-test('Smoke', async () => {
+test("Smoke", async () => {
   const { rerender, getByTestId } = render(<Button>Button</Button>);
-  expect(getByTestId('button')).toBeInTheDocument();
-  expect(getByTestId('button')).toHaveTextContent('Button');
+  expect(getByTestId("button")).toBeInTheDocument();
+  expect(getByTestId("button")).toHaveTextContent("Button");
   rerender(<Button>Button Changed</Button>);
-  expect(getByTestId('button')).toHaveTextContent('Button Changed');
+  expect(getByTestId("button")).toHaveTextContent("Button Changed");
 });
 
-test('Custom class', async () => {
+test("Custom class", async () => {
   const { getByTestId } = render(<Button className="test">Button</Button>);
-  expect(getByTestId('button')).toHaveClass('test');
+  expect(getByTestId("button")).toHaveClass("test");
 });
 
-test('Click', async () => {
+test("Click", async () => {
   const mockOnClick = jest.fn();
   const { getByTestId } = render(<Button onClick={mockOnClick}>Button</Button>);
-  fireEvent.click(getByTestId('button'));
+  fireEvent.click(getByTestId("button"));
   expect(mockOnClick).toHaveBeenCalledTimes(1);
 });
 
-test('Type variations', async () => {
+test("Type variations", async () => {
   const { getByTestId, rerender } = render(<Button>Button</Button>);
-  Object.keys(Button.TYPES).forEach((type) => {
+  Object.keys(Button.TYPES).forEach(type => {
     rerender(<Button type={Button.TYPES[type]}>Button</Button>);
-    expect(getByTestId('button')).toBeInTheDocument();
+    expect(getByTestId("button")).toBeInTheDocument();
   });
 });
 
-test('Size variations', async () => {
+test("Size variations", async () => {
   const { getByTestId, rerender } = render(<Button>Button</Button>);
-  Object.keys(Button.SIZES).forEach((type) => {
+  Object.keys(Button.SIZES).forEach(type => {
     rerender(<Button size={Button.SIZES[type]}>Button</Button>);
-    expect(getByTestId('button')).toBeInTheDocument();
+    expect(getByTestId("button")).toBeInTheDocument();
   });
 
   // invalid size
   rerender(<Button size="123">Button</Button>);
-  expect(getByTestId('button')).toBeInTheDocument();
+  expect(getByTestId("button")).toBeInTheDocument();
 });
 
-test('Disabled', async () => {
+test("Disabled", async () => {
   const { getByTestId } = render(<Button disabled>Button</Button>);
-  expect(getByTestId('button')).toBeInTheDocument();
+  expect(getByTestId("button")).toBeInTheDocument();
 });
 
-test('Ref', async () => {
+test("Ref", async () => {
   const mockRef = jest.fn();
   const { getByTestId } = render(<Button innerRef={mockRef}>Button</Button>);
-  fireEvent.click(getByTestId('button'));
+  fireEvent.click(getByTestId("button"));
   expect(mockRef).toHaveBeenCalledTimes(1);
 });
