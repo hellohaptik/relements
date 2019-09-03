@@ -50,6 +50,7 @@ module.exports = {
               { removeTitle: false },
               { mergePaths: false },
               { cleanupIDs: false },
+              { removeViewBox: false },
             ],
             floatPrecision: 2,
           },
