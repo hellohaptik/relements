@@ -55,7 +55,7 @@ export default class Digit extends React.Component {
           transform: `translateY(-${top}px)`,
           lineHeight: `${this.props.fontSize}px`,
         }}
-        className={`${styles.digit} ${animatingClassName}`}
+        className={`${styles.digit} ${animatingClassName} ${this.props.className}-wrapper`}
       >
         {new Array(30).fill(0).map((_, i) => {
           const active = i === this.props.children;
@@ -64,7 +64,7 @@ export default class Digit extends React.Component {
             <span
               data-testid={active ? "odometer-value" : undefined}
               key={i}
-              className={`${styles.digitNumber} ${activeClassName}`}
+              className={`${styles.digitNumber} ${activeClassName} ${this.props.className}-value`}
             >
               {i % 10}
             </span>
@@ -77,6 +77,12 @@ export default class Digit extends React.Component {
 
 Digit.propTypes = {
   children: PropTypes.node,
+  className: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   fontSize: PropTypes.number,
+};
+
+Digit.defaultProps = {
+  className: "",
+  fontSize: 16,
 };

@@ -3,7 +3,6 @@ import Toggle from "./Toggle";
 import Text from "./Text";
 import Dropdown from "./Dropdown";
 import File from "./File";
-import Popup from "./Popup";
 import Checkbox from "./Checkbox";
 import Radio from "./Radio";
 import Tab from "./Tab";
@@ -20,7 +19,6 @@ const Input = {
   Dropdown,
   File,
   Image: File,
-  Popup,
   Checkbox,
   Radio,
   Tab,

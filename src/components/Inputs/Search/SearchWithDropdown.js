@@ -1,8 +1,8 @@
-import React from 'react';
-
-import { KEY_CODES } from 'constants';
-import Search from './Search';
-import SearchDropdown from './SearchDropdown';
+import React from "react";
+import PropTypes from "prop-types";
+import { KEY_CODES } from "constants";
+import Search from "./Search";
+import SearchDropdown from "./SearchDropdown";
 
 export default class SearchWithDropdown extends React.Component {
   constructor(props) {
@@ -20,6 +20,7 @@ export default class SearchWithDropdown extends React.Component {
     return (
       <>
         <Search
+          // eslint-disable-next-line react/jsx-props-no-spreading
           {...this.props}
           onKeyDown={this._handleKeyDown}
           innerRef={this._Search}
@@ -28,18 +29,20 @@ export default class SearchWithDropdown extends React.Component {
           searchTerm={this.props.value}
         />
         <SearchDropdown ref={this._SearchDropdown} attachTo={this._Search}>
-          {React.Children.map(this.props.children, (child, i) => React.cloneElement(child, {
-            selected: i === this.state.activeIndex,
-            innerRef: (DOMNode) => {
-              this._dropdownOptionsDOMs[i] = DOMNode;
-            },
-          }))}
+          {React.Children.map(this.props.children, (child, i) =>
+            React.cloneElement(child, {
+              selected: i === this.state.activeIndex,
+              innerRef: DOMNode => {
+                this._dropdownOptionsDOMs[i] = DOMNode;
+              },
+            }),
+          )}
         </SearchDropdown>
       </>
     );
   }
 
-  _handleKeyDown = (e) => {
+  _handleKeyDown = e => {
     const activeIndex = this.state.activeIndex;
 
     switch (e.keyCode) {
@@ -57,7 +60,7 @@ export default class SearchWithDropdown extends React.Component {
     }
   };
 
-  _changeActiveIndex = (newIndex) => {
+  _changeActiveIndex = newIndex => {
     if (newIndex >= React.Children.count) {
       newIndex = 0;
     } else if (newIndex < 0) {
@@ -68,8 +71,8 @@ export default class SearchWithDropdown extends React.Component {
     this.setState({ activeIndex: newIndex });
   };
 
-  _calculateActiveIndex = (props) => {
-    const { options, optionKey = 'text', value } = props;
+  _calculateActiveIndex = props => {
+    const { options, optionKey = "text", value } = props;
     options.map((option, i) => {
       if (value && option[optionKey] === value[optionKey]) {
         this.setState({ activeIndex: i });
@@ -77,3 +80,10 @@ export default class SearchWithDropdown extends React.Component {
     });
   };
 }
+
+SearchWithDropdown.propTypes = {
+  children: PropTypes.node,
+  optionKey: PropTypes.string,
+  options: PropTypes.arrayOf(PropTypes.shape({})),
+  value: PropTypes.string,
+};

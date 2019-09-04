@@ -64,7 +64,8 @@
     "prefer-destructuring": 0,
     "jsx-a11y/alt-text": 0,
     "react/destructuring-assignment": 0,
-    "jsx-a11y/no-noninteractive-tabindex": 0
+    "jsx-a11y/no-noninteractive-tabindex": 0,
+    "jsx-a11y/no-autofocus": 0
   },
   "settings": {
     "import/resolver": {

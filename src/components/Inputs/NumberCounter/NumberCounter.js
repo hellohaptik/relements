@@ -1,20 +1,23 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import Icon from 'components/UI/Icon';
-import Odometer from 'components/UI/Odometer';
-import styles from './NumberCounter.scss';
+import Icon from "components/UI/Icon";
+import Odometer from "components/UI/Odometer";
+import styles from "./NumberCounter.scss";
 
 class NumberCounter extends React.Component {
-  state = {
-    focused: false,
-  };
+  constructor() {
+    super();
+    this.state = {
+      focused: false,
+    };
+  }
 
   render() {
     const {
       prefixClassName,
       className,
-      value = '',
+      value = "",
       label,
       error,
       errorMessage,
@@ -22,11 +25,11 @@ class NumberCounter extends React.Component {
       max = 100000,
     } = this.props;
 
-    const errorClassName = error ? styles.numberCounterError : '';
-    const focusedClassName = this.state.focused ? styles.focused : '';
-    const minusDisabledClassName = value === 0 ? styles.disabled : '';
-    const plusDisabledClassName = value >= max ? styles.disabled : '';
-    const isZeroClassName = value === 0 ? styles.isZero : '';
+    const errorClassName = error ? styles.numberCounterError : "";
+    const focusedClassName = this.state.focused ? styles.focused : "";
+    const minusDisabledClassName = value === 0 ? styles.disabled : "";
+    const plusDisabledClassName = value >= max ? styles.disabled : "";
+    const isZeroClassName = value === 0 ? styles.isZero : "";
 
     return (
       <div
@@ -68,7 +71,7 @@ class NumberCounter extends React.Component {
     );
   }
 
-  _renderError = (errorMessage) => {
+  _renderError = errorMessage => {
     return (
       <span className={styles.numberCounterInputWrapperError}>
         {errorMessage}
@@ -76,7 +79,7 @@ class NumberCounter extends React.Component {
     );
   };
 
-  _handleChange = (change) => () => {
+  _handleChange = change => () => {
     const max = this.props.max || 100000;
     const value = this.props.value + change;
     if (value < 0) return;
@@ -107,25 +110,25 @@ NumberCounter.propTypes = {
 };
 
 NumberCounter.defaultProps = {
-  prefixClassName: '',
-  className: '',
-  value: '',
-  label: '',
+  prefixClassName: "",
+  className: "",
+  value: "",
+  label: "",
   onChange: () => {},
   error: false,
-  errorMessage: 'There is an error',
-  errorMsgClassName: '',
+  errorMessage: "There is an error",
+  errorMsgClassName: "",
   max: 10000,
 };
 
 NumberCounter.classNames = {
-  $prefix: 'Prefix ClassName added to the Parent',
-  '$prefix-label': 'Added to the Label Component',
-  '$prefix-wrapper': 'Added to the Wrapper for Icons+Odometer',
-  '$prefix-subtract': 'Added to the Subtract Button',
-  '$prefix-add': 'Added to the Add Button',
-  '$prefix-odometer': 'Added to the Odometer',
-  '$prefix-error': 'Added to the Error Element',
+  $prefix: "Prefix ClassName added to the Parent",
+  "$prefix-label": "Added to the Label Component",
+  "$prefix-wrapper": "Added to the Wrapper for Icons+Odometer",
+  "$prefix-subtract": "Added to the Subtract Button",
+  "$prefix-add": "Added to the Add Button",
+  "$prefix-odometer": "Added to the Odometer",
+  "$prefix-error": "Added to the Error Element",
 };
 
 export default NumberCounter;
