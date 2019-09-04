@@ -38,7 +38,7 @@ export const ChipsInput = ({
         <Icon
           onClick={() => deleteChip(title)}
           src={CrossIcon}
-          className={styles.deleteChipIcon}
+          className={`${styles.deleteChipIcon} deleteChip`}
         />
       </div>
     );
@@ -60,7 +60,6 @@ export const ChipsInput = ({
       <AutosizeInput
         ref={inputRef}
         inputClassName={styles.newChip}
-        onFocus={onFocus}
         onKeyDown={handleKeyDown}
         onChange={handleChange}
         value={inputValue}
@@ -78,7 +77,7 @@ export const ChipsInput = ({
       onMouseDown={onMouseDown}
     >
       <div className={styles.chipsTrack}>
-        {value ? value.map(renderChip) : null}
+        {value.length > 0 ? value.map(renderChip) : null}
         {!disabled ? renderInput() : null}
       </div>
     </div>

@@ -1,24 +1,22 @@
-import { KEY_CODES } from 'constants';
+import { KEY_CODES } from "constants";
 
 export function useChips(value, inputValue, onChange, setInputValue) {
-  const addChip = (newChipValue) => {
-    console.log('add chip called')
+  const addChip = newChipValue => {
     if (!value.includes(newChipValue) && newChipValue) {
-      console.log('inside add chip', newChipValue);
       const newValue = value.concat([newChipValue]);
       onChange(newValue);
-      setInputValue('');
+      setInputValue("");
     }
   };
 
-  const deleteChip = (deleteChipValue) => {
+  const deleteChip = deleteChipValue => {
     if (value.includes(deleteChipValue) && deleteChipValue) {
       const newValue = value.filter(item => item !== deleteChipValue);
       onChange(newValue);
     }
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = e => {
     switch (e.keyCode) {
       case KEY_CODES.ENTER:
         addChip(e.target.value);

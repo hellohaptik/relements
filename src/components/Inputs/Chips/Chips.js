@@ -1,10 +1,10 @@
-import React, { useRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { useRef } from "react";
+import PropTypes from "prop-types";
 
-import { ChipsInput } from '../_common/ChipsInput';
-import { Label } from '../_common/Label';
-import styles from './Chips.scss';
-import { useInput } from '../_common/hooks/useInput';
+import { ChipsInput } from "../_common/ChipsInput";
+import { Label } from "../_common/Label";
+import styles from "./Chips.scss";
+import { useInput } from "../_common/hooks/useInput";
 
 const Text = ({
   value = "",
@@ -19,8 +19,6 @@ const Text = ({
   onFocus = () => {},
   onBlur = () => {},
   disabled = false,
-
-  innerRef = {},
 }) => {
   const _TextInputDOM = useRef();
   const { focused, setFocused, handleFocus, handleBlur } = useInput(
@@ -79,8 +77,12 @@ Text.propTypes = {
   onBlur: PropTypes.func,
   /** Bool to toggle Enable/Disable */
   disabled: PropTypes.bool,
-  /** Ref passed to Chips */
-  innerRef: PropTypes.object,
+};
+
+Text.classNames = {
+  $prefix: "Prefix ClassName",
+  "$prefix-label": "Prefix ClassName applied to the Label",
+  "$prefix-chipsInput": "Prefix ClassName applied to the input element",
 };
 
 export default Text;
