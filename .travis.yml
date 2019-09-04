@@ -99,6 +99,6 @@ jobs:
 stages:
   - test
   - name: develop
-    if: branch = develop
+    if: branch = develop AND type != pull_request
   - name: master
-    if: branch = master
+    if: branch = master AND type != pull_request

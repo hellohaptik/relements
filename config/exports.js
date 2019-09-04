@@ -23,7 +23,6 @@ export default {
   'input/tab': 'src/components/Inputs/Tab/index.js',
   'input/numberCounter': 'src/components/Inputs/NumberCounter/index.js',
   'input/toggle': 'src/components/Inputs/Toggle/index.js',
-  'input/popup': 'src/components/Inputs/Popup/index.js',
 
   'overlays/contextMenu': 'src/components/Overlays/ContextMenu/index.js',
   'overlays/drawer': 'src/components/Overlays/Drawer/index.js',
