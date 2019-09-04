@@ -1,6 +1,7 @@
 /* eslint-env jest */
 
 import React from "react";
+import "jest-dom/extend-expect";
 import "@testing-library/jest-dom/extend-expect";
 import { render, fireEvent, cleanup } from "@testing-library/react";
 
@@ -17,6 +18,26 @@ test("Smoke", async () => {
   expect(queryAllByTestId("odometer").length).toBe(1);
   rerender(<Odometer />);
   expect(queryAllByTestId("odometer").length).toBe(0);
+});
+
+test("Custom class", async () => {
+  const { getByTestId } = render(<Odometer className="test">1</Odometer>);
+  expect(getByTestId("odometer")).toHaveClass("test");
+});
+
+test("prefixClassName test", async () => {
+  const classNames = Object.keys(Odometer.classNames).map(className =>
+    className.replace("$prefix", "test"),
+  );
+
+  const { getByTestId } = render(<Odometer prefixClassName="test">1</Odometer>);
+
+  classNames.forEach(className => {
+    expect(
+      document.getElementsByClassName(className).length,
+      className,
+    ).toBeGreaterThanOrEqual(1);
+  });
 });
 
 test("Change", async () => {
@@ -38,4 +59,19 @@ test("Change", async () => {
   expect(getAllByTestId("odometer-value")[0]).toHaveTextContent("1");
   expect(getAllByTestId("odometer-value")[1]).toHaveTextContent("2");
   expect(getAllByTestId("odometer-value")[2]).toHaveTextContent("3");
+});
+
+test("on click function", async () => {
+  const mockFn = jest.fn();
+
+  const { container } = render(
+    <Odometer onClick={mockFn} className="test">
+      1
+    </Odometer>,
+  );
+
+  const odometer = container.getElementsByClassName("test")[0];
+
+  fireEvent.click(odometer);
+  expect(mockFn).toHaveBeenCalledTimes(1);
 });
