@@ -1,8 +1,8 @@
 /* eslint-disable react/no-multi-comp */
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import styles from './Digit.scss';
+import styles from "./Digit.scss";
 
 export default class Digit extends React.Component {
   constructor(props) {
@@ -23,7 +23,10 @@ export default class Digit extends React.Component {
   componentWillDecrement(nextProps) {
     if (this.props.children < nextProps.children) {
       this.setState({ value: nextProps.children - 10, animating: true }, () => {
-        setTimeout(() => this.setState({ value: nextProps.children, animating: false }), 250);
+        setTimeout(
+          () => this.setState({ value: nextProps.children, animating: false }),
+          250,
+        );
       });
     } else if (this.props.children !== nextProps.children) {
       this.setState({ value: nextProps.children, animating: true });
@@ -33,7 +36,10 @@ export default class Digit extends React.Component {
   componentWillIncrement(nextProps) {
     if (this.props.children > nextProps.children) {
       this.setState({ value: nextProps.children + 10, animating: true }, () => {
-        setTimeout(() => this.setState({ value: nextProps.children, animating: false }), 250);
+        setTimeout(
+          () => this.setState({ value: nextProps.children, animating: false }),
+          250,
+        );
       });
     } else if (this.props.children !== nextProps.children) {
       this.setState({ value: nextProps.children, animating: true });
@@ -42,17 +48,24 @@ export default class Digit extends React.Component {
 
   render() {
     const top = (this.state.value + 10) * this.props.fontSize;
-    const animatingClassName = this.state.animating ? styles.animating : '';
+    const animatingClassName = this.state.animating ? styles.animating : "";
     return (
       <span
-        style={{ transform: `translateY(-${top}px)`, lineHeight: `${this.props.fontSize}px` }}
+        style={{
+          transform: `translateY(-${top}px)`,
+          lineHeight: `${this.props.fontSize}px`,
+        }}
         className={`${styles.digit} ${animatingClassName}`}
       >
         {new Array(30).fill(0).map((_, i) => {
           const active = i === this.props.children;
-          const activeClassName = active % 10 ? styles.active : '';
+          const activeClassName = active % 10 ? styles.active : "";
           return (
-            <span data-testid={active ? 'odometer-value' : undefined} key={i} className={`${styles.digitNumber} ${activeClassName}`}>
+            <span
+              data-testid={active ? "odometer-value" : undefined}
+              key={i}
+              className={`${styles.digitNumber} ${activeClassName}`}
+            >
               {i % 10}
             </span>
           );

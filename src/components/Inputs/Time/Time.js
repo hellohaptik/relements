@@ -1,32 +1,33 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
+import React from "react";
+import PropTypes from "prop-types";
+import dayjs from "dayjs";
 
-import Tooltip from '@src/components/Overlays/Tooltip';
-import Icon from '@src/components/UI/Icon';
-import AngleDownIcon from '@src/icons/angle-down.svg';
+import Tooltip from "@src/components/Overlays/Tooltip";
+import Icon from "@src/components/UI/Icon";
+import AngleDownIcon from "@src/icons/angle-down.svg";
 
-import { TextInput } from '../_common/TextInput';
-import { Label } from '../_common/Label';
+import { TextInput } from "../_common/TextInput";
+import { Label } from "../_common/Label";
 
-import TimePicker from './components/TimePicker';
-import styles from './Time.scss';
+import TimePicker from "./components/TimePicker";
+import styles from "./Time.scss";
 
 class Time extends React.Component {
-  state = {
-    active: false,
-    focused: false,
-    value: dayjs(),
-  };
+  constructor() {
+    super();
+    this.state = {
+      active: false,
+      focused: false,
+      value: dayjs(),
+    };
+  }
 
   _DOMNode = React.createRef();
 
   render() {
-    const {
-      className, error, disabled, prefixClassName,
-    } = this.props;
-    const errorClassName = error ? styles.dateError : '';
-    const disabledClassName = disabled ? styles.disabled : '';
+    const { className, error, disabled, prefixClassName } = this.props;
+    const errorClassName = error ? styles.dateError : "";
+    const disabledClassName = disabled ? styles.disabled : "";
 
     return (
       <div
@@ -69,9 +70,7 @@ class Time extends React.Component {
 
   renderInput() {
     const { focused, active } = this.state;
-    const {
-      placeholder, prefixClassName, onFocus, onBlur, error,
-    } = this.props;
+    const { placeholder, prefixClassName, onFocus, onBlur, error } = this.props;
     const parsedValue = this._getParsedDate();
     return (
       <TextInput
@@ -94,22 +93,22 @@ class Time extends React.Component {
 
   _getParsedDate = () => {
     const { value } = this.props;
-    const format = 'hh:mm A';
+    const format = "hh:mm A";
     const date = this._getParsedValueFromDate(value);
-    if (!date.isValid()) return 'Invalid Date';
+    if (!date.isValid()) return "Invalid Date";
     return `${date.format(format)}`;
   };
 
-  _getParsedValueFromDate = (value) => {
+  _getParsedValueFromDate = value => {
     return dayjs(value);
   };
 
-  _handleChange = (date) => {
+  _handleChange = date => {
     this.setState({ value: date });
   };
 
   toggleDate = () => {
-    this.setState((state) => ({ active: !state.active, focused: !state.active }));
+    this.setState(state => ({ active: !state.active, focused: !state.active }));
   };
 
   closeDate = () => {
@@ -146,11 +145,11 @@ Time.propTypes = {
 };
 
 Time.defaultProps = {
-  label: '',
-  className: '',
-  prefixClassName: '',
-  value: '',
-  placeholder: '',
+  label: "",
+  className: "",
+  prefixClassName: "",
+  value: "",
+  placeholder: "",
   error: false,
   disabled: false,
   offset: null,
@@ -161,24 +160,24 @@ Time.defaultProps = {
 };
 
 Time.classNames = {
-  $prefix: 'Added to the wrapper',
-  '$prefix-label': 'Added to the wrapper',
-  '$prefix-input': 'Added to the wrapper',
+  $prefix: "Added to the wrapper",
+  "$prefix-label": "Added to the wrapper",
+  "$prefix-input": "Added to the wrapper",
 
-  '$prefix-tooltip': 'Added to the wrapper',
-  '$prefix-tooltip-overlay': 'Added to the wrapper',
-  '$prefix-tooltip-inner': 'Added to the wrapper',
-  '$prefix-tooltip-caret': 'Added to the wrapper',
-  '$prefix-tooltip-body': 'Added to the wrapper',
+  "$prefix-tooltip": "Added to the wrapper",
+  "$prefix-tooltip-overlay": "Added to the wrapper",
+  "$prefix-tooltip-inner": "Added to the wrapper",
+  "$prefix-tooltip-caret": "Added to the wrapper",
+  "$prefix-tooltip-body": "Added to the wrapper",
 
-  '$prefix-picker': 'Added to the wrapper',
-  '$prefix-picker-input': 'Added to the wrapper',
-  '$prefix-picker-input-element': 'Added to the wrapper',
-  '$prefix-picker-input-arrows': 'Added to the wrapper',
-  '$prefix-picker-input-arrow': 'Added to the wrapper',
+  "$prefix-picker": "Added to the wrapper",
+  "$prefix-picker-input": "Added to the wrapper",
+  "$prefix-picker-input-element": "Added to the wrapper",
+  "$prefix-picker-input-arrows": "Added to the wrapper",
+  "$prefix-picker-input-arrow": "Added to the wrapper",
 
-  '$prefix-picker-switcher': 'Added to the wrapper',
-  '$prefix-picker-switcher-value': 'Added to the wrapper',
+  "$prefix-picker-switcher": "Added to the wrapper",
+  "$prefix-picker-switcher-value": "Added to the wrapper",
 };
 
 export default Time;

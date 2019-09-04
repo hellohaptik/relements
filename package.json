@@ -75,6 +75,7 @@
     "dayjs": "^1.8.12",
     "eslint": "^6.3.0",
     "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.2.0",
     "eslint-import-resolver-babel-module": "^5.1.0",
     "eslint-import-resolver-webpack": "^0.11.1",
     "eslint-loader": "^3.0.0",

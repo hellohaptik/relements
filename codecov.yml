@@ -1,0 +1,3 @@
+ignore:
+  - "**/*.storybook.js"
+  - "**/*.test.js"

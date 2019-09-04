@@ -1,24 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
+import React from "react";
+import PropTypes from "prop-types";
+import dayjs from "dayjs";
 
-import Tooltip from '@src/components/Overlays/Tooltip';
-import Icon from '@src/components/UI/Icon';
-import AngleDownIcon from '@src/icons/angle-down.svg';
+import Tooltip from "@src/components/Overlays/Tooltip";
+import Icon from "@src/components/UI/Icon";
+import AngleDownIcon from "@src/icons/angle-down.svg";
 
-import { TextInput } from '../_common/TextInput';
-import { Label } from '../_common/Label';
+import { TextInput } from "../_common/TextInput";
+import { Label } from "../_common/Label";
 
-import RangeComparison from './components/RangeComparison';
-import SinglePicker from './components/SinglePicker';
+import RangeComparison from "./components/RangeComparison";
+import SinglePicker from "./components/SinglePicker";
 
-import styles from './Date.scss';
+import styles from "./Date.scss";
 
 class Date extends React.Component {
-  state = {
-    active: false,
-    focused: false,
-  };
+  constructor() {
+    super();
+    this.state = {
+      active: false,
+      focused: false,
+    };
+  }
 
   _DOMNode = React.createRef();
 
@@ -39,8 +42,8 @@ class Date extends React.Component {
       prefixClassName,
       numMonths,
     } = this.props;
-    const errorClassName = error ? styles.dateError : '';
-    const disabledClassName = disabled ? styles.disabled : '';
+    const errorClassName = error ? styles.dateError : "";
+    const disabledClassName = disabled ? styles.disabled : "";
 
     return (
       <div
@@ -102,9 +105,7 @@ class Date extends React.Component {
 
   renderInput() {
     const { focused, active } = this.state;
-    const {
-      placeholder, prefixClassName, onFocus, onBlur,
-    } = this.props;
+    const { placeholder, prefixClassName, onFocus, onBlur } = this.props;
     const parsedValue = this._getParsedDate();
     return (
       <TextInput
@@ -126,17 +127,17 @@ class Date extends React.Component {
 
   _getParsedDate = () => {
     const { withRange, value } = this.props;
-    const format = 'DD MMM, YYYY';
+    const format = "DD MMM, YYYY";
 
     if (withRange) {
       const { startDate, endDate } = this._getParsedValueFromObject(value);
-      if (!startDate.isValid() || !endDate.isValid()) return '';
+      if (!startDate.isValid() || !endDate.isValid()) return "";
       return `${startDate.format(format)} - ${endDate.format(format)}`;
     }
 
     const date = this._getParsedValueFromDate(value);
-    if (!date.isValid()) return 'Invalid Date';
-    return `${date.format('DD MMMM, YYYY')}`;
+    if (!date.isValid()) return "Invalid Date";
+    return `${date.format("DD MMMM, YYYY")}`;
   };
 
   _getParsedValueFromObject = () => {
@@ -162,13 +163,13 @@ class Date extends React.Component {
     return dayjs(value);
   };
 
-  _handleChange = (date) => {
+  _handleChange = date => {
     this.setState({ active: false, focused: false });
     this.props.onChange(date);
   };
 
   toggleDate = () => {
-    this.setState((state) => ({ active: !state.active, focused: !state.active }));
+    this.setState(state => ({ active: !state.active, focused: !state.active }));
   };
 
   closeDate = () => {
@@ -224,10 +225,10 @@ Date.defaultProps = {
   onFocus: () => {},
   onBlur: () => {},
   onChange: () => {},
-  label: '',
-  className: '',
-  value: '',
-  placeholder: '',
+  label: "",
+  className: "",
+  value: "",
+  placeholder: "",
   error: false,
   disabled: false,
   offset: null,
@@ -241,43 +242,43 @@ Date.defaultProps = {
 };
 
 Date.classNames = {
-  $prefix: 'Outermost element',
-  '$prefix-label': 'Label',
-  '$prefix-input': 'Input',
-  '$prefix-tooltip': 'Tooltip wrapping the picker',
-  '$prefix-picker': 'The div wrapping the picker inside the tooltip',
-  '$prefix-picker-calendar': 'Calendar element',
-  '$prefix-picker-calendar-arrow-left': 'Calendar arrow left',
-  '$prefix-picker-calendar-arrow-right': 'Calendar arrow right',
-  '$prefix-picker-calendar-calendar': 'The calendar month',
-  '$prefix-picker-calendar-calendar-header': 'The calendar header',
-  '$prefix-picker-calendar-calendar-header-text':
+  $prefix: "Outermost element",
+  "$prefix-label": "Label",
+  "$prefix-input": "Input",
+  "$prefix-tooltip": "Tooltip wrapping the picker",
+  "$prefix-picker": "The div wrapping the picker inside the tooltip",
+  "$prefix-picker-calendar": "Calendar element",
+  "$prefix-picker-calendar-arrow-left": "Calendar arrow left",
+  "$prefix-picker-calendar-arrow-right": "Calendar arrow right",
+  "$prefix-picker-calendar-calendar": "The calendar month",
+  "$prefix-picker-calendar-calendar-header": "The calendar header",
+  "$prefix-picker-calendar-calendar-header-text":
     "The calendar header's text (Month)",
-  '$prefix-picker-calendar-labels': 'The wrapper for labels for the days',
-  '$prefix-picker-calendar-label':
-    'The labels for the days (Sun, Mon, Tue, etc.)',
-  '$prefix-picker-calendar-calendar-grid': 'The main calendar grid div',
-  '$prefix-picker-calendar-calendar-grid-row': 'Each row of the calendar grid',
-  '$prefix-picker-calendar-calendar-grid-row-item':
-    'Each item of the grid (the square)',
-  '$prefix-picker-calendar-calendar-grid-row-item-selected':
-    'selected grid row item',
-  '$prefix-picker-calendar-grid-row-item-text':
-    'The label for each grid item (the day)',
-  '$prefix-picker-column': 'The column for a range picker',
-  '$prefix-picker-column-inputs': 'The inputs wrapper',
-  '$prefix-picker-column-comparison': 'The comparison wrapper',
-  '$prefix-picker-column-inputs-shortcuts': 'The button shortcuts wrapper',
-  '$prefix-picker-column-inputs-shortcuts-button': 'The button shortcut',
-  '$prefix-picker-column-inputs-label': 'The label class',
-  '$prefix-picker-column-inputs-hint': 'The hint class',
-  '$prefix-picker-column-inputs-input-items': 'The items class',
-  '$prefix-picker-column-inputs-input-item': 'The input element',
-  '$prefix-picker-column-comparison-shortcuts': 'The button shortcuts wrapper',
-  '$prefix-picker-column-comparison-shortcuts-button': 'The button shortcut',
-  '$prefix-picker-column-comparison-toggle': 'Comparison toggle',
-  '$prefix-picker-column-comparison-input-items': 'Comparison inputs wrapper',
-  '$prefix-picker-column-comparison-input-item': 'Comparison input',
+  "$prefix-picker-calendar-labels": "The wrapper for labels for the days",
+  "$prefix-picker-calendar-label":
+    "The labels for the days (Sun, Mon, Tue, etc.)",
+  "$prefix-picker-calendar-calendar-grid": "The main calendar grid div",
+  "$prefix-picker-calendar-calendar-grid-row": "Each row of the calendar grid",
+  "$prefix-picker-calendar-calendar-grid-row-item":
+    "Each item of the grid (the square)",
+  "$prefix-picker-calendar-calendar-grid-row-item-selected":
+    "selected grid row item",
+  "$prefix-picker-calendar-grid-row-item-text":
+    "The label for each grid item (the day)",
+  "$prefix-picker-column": "The column for a range picker",
+  "$prefix-picker-column-inputs": "The inputs wrapper",
+  "$prefix-picker-column-comparison": "The comparison wrapper",
+  "$prefix-picker-column-inputs-shortcuts": "The button shortcuts wrapper",
+  "$prefix-picker-column-inputs-shortcuts-button": "The button shortcut",
+  "$prefix-picker-column-inputs-label": "The label class",
+  "$prefix-picker-column-inputs-hint": "The hint class",
+  "$prefix-picker-column-inputs-input-items": "The items class",
+  "$prefix-picker-column-inputs-input-item": "The input element",
+  "$prefix-picker-column-comparison-shortcuts": "The button shortcuts wrapper",
+  "$prefix-picker-column-comparison-shortcuts-button": "The button shortcut",
+  "$prefix-picker-column-comparison-toggle": "Comparison toggle",
+  "$prefix-picker-column-comparison-input-items": "Comparison inputs wrapper",
+  "$prefix-picker-column-comparison-input-item": "Comparison input",
 };
 
 export default Date;

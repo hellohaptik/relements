@@ -1,12 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import ContextMenuPortal from './components/ContextMenuPortal';
-import ContextMenuItem from './components/ContextMenuItem';
-import ContextMenuButton from './components/ContextMenuButton';
-import ContextMenuIcon from './components/ContextMenuIcon';
+import ContextMenuPortal from "./components/ContextMenuPortal";
+import ContextMenuItem from "./components/ContextMenuItem";
+import ContextMenuButton from "./components/ContextMenuButton";
+import ContextMenuIcon from "./components/ContextMenuIcon";
 
-const ContextMenu = (props) => {
+const ContextMenu = props => {
+  // it warrants it here since this is just a wrapper
+  // eslint-disable-next-line react/jsx-props-no-spreading
   return <ContextMenuPortal {...props} />;
 };
 
@@ -36,18 +38,18 @@ ContextMenu.propTypes = {
 
 ContextMenu.defaultProps = {
   active: false,
-  className: '',
-  prefixClassName: '',
+  className: "",
+  prefixClassName: "",
   attachTo: {},
   onClose: () => {},
   offset: null,
 };
 
 ContextMenu.classNames = {
-  $prefix: 'portal element',
-  '$prefix-overlay': 'overlay',
-  '$prefix-context-menu': 'wrapping content div',
-  '$prefix-context-menu-content': 'the actual content div',
+  $prefix: "portal element",
+  "$prefix-overlay": "overlay",
+  "$prefix-context-menu": "wrapping content div",
+  "$prefix-context-menu-content": "the actual content div",
 };
 
 export default ContextMenu;

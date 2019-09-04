@@ -4947,6 +4947,12 @@ eslint-config-airbnb@^18.0.1:
     object.assign "^4.1.0"
     object.entries "^1.1.0"
 
+eslint-config-prettier@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-6.2.0.tgz#80e0b8714e3f6868c4ac2a25fbf39c02e73527a7"
+  dependencies:
+    get-stdin "^6.0.0"
+
 eslint-import-resolver-babel-module@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/eslint-import-resolver-babel-module/-/eslint-import-resolver-babel-module-5.1.0.tgz#50dac176dfbce2824b0e12100d6c23370d4325c0"
@@ -5829,6 +5835,10 @@ get-stdin@7.0.0, get-stdin@^7.0.0:
 get-stdin@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-4.0.1.tgz#b968c6b0a04384324902e8bf1a5df32579a450fe"
+
+get-stdin@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-6.0.0.tgz#9e09bf712b360ab9225e812048f71fde9c89657b"
 
 get-stream@^3.0.0:
   version "3.0.0"
@@ -11103,22 +11113,6 @@ regjsparser@^0.6.0:
 relateurl@^0.2.7:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
-
-"relements@file:/Users/pagrawl3/Development/relements2/":
-  version "2.0.4-beta.0"
-  dependencies:
-    "@babel/polyfill" "^7.4.4"
-    "@mdx-js/loader" "^1.0.21"
-    fuse.js "^3.4.4"
-    jsx-to-string "^1.4.0"
-    react "~16.9.0"
-    react-dom "~16.9.0"
-    react-input-autosize "^2.2.1"
-    react-portal "^4.2.0"
-    react-sortable-hoc "^1.8.3"
-    react-svg-loader "^3.0.3"
-    react-syntax-highlighter "^11.0.2"
-    react-textarea-autosize "^7.1.0"
 
 remark-mdx@^1.4.0:
   version "1.4.0"

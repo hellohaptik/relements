@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Context from '@src/components/Context';
-import Icon from '@src/components/UI/Icon';
+import React from "react";
+import PropTypes from "prop-types";
+import Context from "@src/components/Context";
+import Icon from "@src/components/UI/Icon";
 
-import styles from './TabsItem.scss';
+import styles from "./TabsItem.scss";
 
 /**
  * Renders an individual tab with an optional icon and text
@@ -23,16 +23,17 @@ export const TabsItem = ({
   type,
 }) => {
   const { primaryColor } = React.useContext(Context);
-  const component = typeof children !== 'string' && typeof children !== 'number'
-    ? children
-    : null;
+  const component =
+    typeof children !== "string" && typeof children !== "number"
+      ? children
+      : null;
   const title = component ? null : children;
   const activeClassName = active
     ? `${styles.active} ${prefixClassName}-active`
-    : '';
-  const activeIconClassName = active ? 'active' : '';
-  const disabledClassName = disabled ? styles.disabled : '';
-  const bigClassName = type === 'big' ? styles.big : '';
+    : "";
+  const activeIconClassName = active ? "active" : "";
+  const disabledClassName = disabled ? styles.disabled : "";
+  const bigClassName = type === "big" ? styles.big : "";
 
   return (
     <div
@@ -79,4 +80,6 @@ TabsItem.propTypes = {
   innerRef: PropTypes.object,
   /* The value of the tab item. This gets passed to the onClick as a parameter */
   value: PropTypes.string,
+  /* The type of tab item. (big/small) */
+  type: PropTypes.string,
 };

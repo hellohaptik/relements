@@ -1,16 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import Button from 'components/UI/Button';
-import Icon from 'components/UI/Icon';
+import Button from "components/UI/Button";
+import Icon from "components/UI/Icon";
 
-import ContextMenuPortal from './ContextMenuPortal';
-import styles from './ContextMenuButton.scss';
+import ContextMenuPortal from "./ContextMenuPortal";
+import styles from "./ContextMenuButton.scss";
 
 class ContextMenuButton extends React.Component {
-  state = {
-    active: false,
-  };
+  constructor() {
+    super();
+    this.state = {
+      active: false,
+    };
+  }
 
   render() {
     const {
@@ -30,16 +33,16 @@ class ContextMenuButton extends React.Component {
           onClose={this.handleClose}
           prefixClassName={`${prefixClassName}-portal`}
         >
-          {typeof children === 'function'
+          {typeof children === "function"
             ? children(this.handleClose)
             : children}
         </ContextMenuPortal>
         <Button
           size={size}
-          style={{ cursor: 'pointer' }}
+          style={{ cursor: "pointer" }}
           onClick={this._handleClick}
           className={`${prefixClassName} ${className}`}
-          innerRef={(DOMElement) => {
+          innerRef={DOMElement => {
             this._contextMenuIcon = DOMElement;
           }}
         >
@@ -54,13 +57,13 @@ class ContextMenuButton extends React.Component {
     );
   }
 
-  _handleClick = (e) => {
+  _handleClick = e => {
     e.preventDefault();
     e.stopPropagation();
     this.setState({ active: true });
   };
 
-  handleClose = (e) => {
+  handleClose = e => {
     e.preventDefault();
     e.stopPropagation();
     this.setState({ active: false });
@@ -86,20 +89,20 @@ ContextMenuButton.propTypes = {
 };
 
 ContextMenuButton.defaultProps = {
-  className: '',
-  prefixClassName: '',
+  className: "",
+  prefixClassName: "",
   offset: null,
   size: 0,
-  title: '',
+  title: "",
 };
 
 ContextMenuButton.classNames = {
-  $prefix: 'Outermost className (button)',
-  '$prefix-icon': 'the down arrow on the button',
-  '$prefix-portal': 'className for the portal',
-  '$prefix-portal-overlay': 'overlay',
-  '$prefix-portal-context-menu': 'wrapping content div',
-  '$prefix-portal-context-menu-content': 'the actual content div',
+  $prefix: "Outermost className (button)",
+  "$prefix-icon": "the down arrow on the button",
+  "$prefix-portal": "className for the portal",
+  "$prefix-portal-overlay": "overlay",
+  "$prefix-portal-context-menu": "wrapping content div",
+  "$prefix-portal-context-menu-content": "the actual content div",
 };
 
 export default ContextMenuButton;
