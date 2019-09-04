@@ -1,13 +1,12 @@
 import { CodeBlock, ConfigBlock } from '@src/helpers/DocBlocks';
 import Odometer from './Odometer';
-import { OdometerTest } from './Odometer.storybook.js';
 
 # Odometer
 
 > A clickable UI element with active and hover states. Indicates to the user that it's clickable.
 
 <CodeBlock>
-  <OdometerTest />
+  <Odometer fontSize={20} children={1}/>
 </CodeBlock>
 
 ## Configuration
@@ -15,3 +14,16 @@ import { OdometerTest } from './Odometer.storybook.js';
 <ConfigBlock of={Odometer} />
 
 ## Examples
+
+<CodeBlock title="Type: Primary">
+  <Odometer>1</Odometer>
+</CodeBlock>
+
+<CodeBlock title="Type: With custom classname and prefix classname">
+  <Odometer className="test">1</Odometer>
+</CodeBlock>
+
+<CodeBlock title="Type: With custom font size">
+  <Odometer fontSize={32}>1</Odometer>
+</CodeBlock>
+
