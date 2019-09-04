@@ -2,6 +2,7 @@ import React from "react";
 import { Portal } from "react-portal";
 import PropTypes from "prop-types";
 import useActivify from "@src/hooks/useActivify";
+import Context from "@src/components/Context";
 
 import styles from "./DropdownOptions.scss";
 
@@ -15,9 +16,10 @@ function DropdownOptions({
   className,
 }) {
   const { visible, enabled } = useActivify(active);
+  const { primaryColor } = React.useContext(Context);
   const renderPortalContainer = () => {
     const activeClassName = visible ? styles.active : "";
-    const focusedClassName = focused ? styles.focused : "";
+    const focusedStyle = focused ? { borderColor: primaryColor } : {};
     const rect = attachTo.current.getBoundingClientRect();
     let isReversed = reverseMode;
 
@@ -39,8 +41,8 @@ function DropdownOptions({
       <div className={`${styles.dropdownOptionsWrapper}  ${className}`}>
         <div className={styles.dropdownOptionsOverlay} onClick={onClose} />
         <div
-          style={position}
-          className={`${styles.dropdownOptions} ${activeClassName} ${focusedClassName} ${reverseModeClassName}`}
+          style={{ ...position, ...focusedStyle }}
+          className={`${styles.dropdownOptions} ${activeClassName} ${reverseModeClassName}`}
         >
           {children}
         </div>

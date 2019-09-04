@@ -1,6 +1,9 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 
+import { rgba } from "@src/utils/generic";
+import Context from "@src/components/Context";
+
 import { useTabs } from "../_common/hooks/useTabs";
 import { useInput } from "../_common/hooks/useInput";
 import { Label } from "../_common/Label";
@@ -28,6 +31,7 @@ function Tab({
     activeIndex,
     displayOptions,
   } = useTabs(value, onChange, options, optionKey);
+  const { primaryColor } = React.useContext(Context);
   const _TextInputDOM = useRef();
   const { focused, handleFocus, handleBlur } = useInput(
     _TextInputDOM,
@@ -51,9 +55,13 @@ function Tab({
         {label}
       </Label>
       <div
+        style={{ borderColor: primaryColor }}
         className={`${styles.tabOptionsWrapper} ${disabledClassName} ${prefixClassName}-options-wrapper`}
       >
-        <div className={`${styles.tabOptions} ${prefixClassName}-options`}>
+        <div
+          style={{ backgroundColor: rgba(primaryColor, 0.2) }}
+          className={`${styles.tabOptions} ${prefixClassName}-options`}
+        >
           {displayOptions.map((displayOption, i) => {
             return (
               <TabOption
@@ -69,7 +77,7 @@ function Tab({
         </div>
         <div
           className={`${styles.tabOptionsBG} ${prefixClassName}-selected`}
-          style={{ width, left: offset }}
+          style={{ width, left: offset, backgroundColor: primaryColor }}
         />
       </div>
     </div>

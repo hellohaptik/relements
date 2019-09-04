@@ -7,6 +7,8 @@ import ContextMenuButton from "./components/ContextMenuButton";
 import ContextMenuIcon from "./components/ContextMenuIcon";
 
 const ContextMenu = props => {
+  // it warrants it here since this is just a wrapper
+  // eslint-disable-next-line react/jsx-props-no-spreading
   return <ContextMenuPortal {...props} />;
 };
 

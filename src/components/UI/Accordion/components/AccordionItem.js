@@ -1,16 +1,22 @@
-import React, { useCallback, useRef, useLayoutEffect } from 'react';
-import { CSSTransition } from 'react-transition-group';
-import PropTypes from 'prop-types';
-import { SortableElement, SortableHandle } from 'react-sortable-hoc';
-import AngleDownIcon from 'icons/angle-down.svg';
-import ReorderIconSvg from 'icons/hamburger.svg';
-import Icon from 'components/UI/Icon';
-import styles from './AccordionItem.scss';
+import React, { useCallback, useRef, useLayoutEffect } from "react";
+import { CSSTransition } from "react-transition-group";
+import PropTypes from "prop-types";
+import { SortableElement, SortableHandle } from "react-sortable-hoc";
+import AngleDownIcon from "icons/angle-down.svg";
+import ReorderIconSvg from "icons/hamburger.svg";
+import Icon from "components/UI/Icon";
+import styles from "./AccordionItem.scss";
 
 function AccordionItem({
-  active, onChange, index, className, children, renderHeader, prefixClassName,
+  active,
+  onChange,
+  index,
+  className,
+  children,
+  renderHeader,
+  prefixClassName,
 }) {
-  const activeClassName = active ? styles.active : '';
+  const activeClassName = active ? styles.active : "";
   const wrapperRef = useRef();
   const headerRef = useRef();
   const bodyRef = useRef();
@@ -31,15 +37,23 @@ function AccordionItem({
 
   const _renderReorderIcon = useCallback(() => {
     const ReorderIcon = SortableHandle(Icon);
-    return <ReorderIcon className={`${styles.icon} ${styles.reorderIcon}`} src={ReorderIconSvg} />;
+    return (
+      <ReorderIcon
+        className={`${styles.icon} ${styles.reorderIcon}`}
+        src={ReorderIconSvg}
+      />
+    );
   });
 
   const _renderExpandIcon = useCallback(() => (
-    <Icon className={`${styles.icon} ${styles.arrowIcon} ${activeClassName}`} src={AngleDownIcon} />
+    <Icon
+      className={`${styles.icon} ${styles.arrowIcon} ${activeClassName}`}
+      src={AngleDownIcon}
+    />
   ));
 
   const _renderHeader = useCallback(() => {
-    if (typeof renderHeader === 'function') {
+    if (typeof renderHeader === "function") {
       return renderHeader({
         ReorderIcon: _renderReorderIcon,
         ExpandIcon: _renderExpandIcon,
@@ -54,8 +68,14 @@ function AccordionItem({
         {React.Children.map(children, (child, i) => {
           if (!child) return null;
           return (
-            <div className={`${styles.accordionItemBodyInner} ${prefixClassName}-body-item`} key={i}>
-              {React.cloneElement(child, child.type !== 'div' ? { resizeContainer: _resize } : null)}
+            <div
+              className={`${styles.accordionItemBodyInner} ${prefixClassName}-body-item`}
+              key={i}
+            >
+              {React.cloneElement(
+                child,
+                child.type !== "div" ? { resizeContainer: _resize } : null,
+              )}
             </div>
           );
         })}
@@ -64,7 +84,10 @@ function AccordionItem({
   });
 
   return (
-    <div ref={wrapperRef} className={`${styles.accordionItem} ${activeClassName} ${prefixClassName} ${className}`}>
+    <div
+      ref={wrapperRef}
+      className={`${styles.accordionItem} ${activeClassName} ${prefixClassName} ${className}`}
+    >
       <div
         className={`${styles.accordionItemHeader} ${prefixClassName}-header`}
         onClick={e => onChange(index, e)}
@@ -72,8 +95,16 @@ function AccordionItem({
       >
         {_renderHeader()}
       </div>
-      <div className={`${styles.accordionItemBody} ${prefixClassName}-body`} ref={bodyRef}>
-        <CSSTransition in={active} timeout={1000} classNames="animating" unmountOnExit>
+      <div
+        className={`${styles.accordionItemBody} ${prefixClassName}-body`}
+        ref={bodyRef}
+      >
+        <CSSTransition
+          in={active}
+          timeout={1000}
+          classNames="animating"
+          unmountOnExit
+        >
           {_renderChildren()}
         </CSSTransition>
       </div>
@@ -96,8 +127,8 @@ AccordionItem.defaultProps = {
   active: false,
   onChange: () => {},
   renderHeader: null,
-  className: '',
-  prefixClassName: '',
+  className: "",
+  prefixClassName: "",
 };
 
 AccordionItem.Sortable = SortableElement(AccordionItem);

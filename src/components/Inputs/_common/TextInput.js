@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import cc from "classcat";
 import PropTypes from "prop-types";
+import Context from "@src/components/Context";
+
 import styles from "./TextInput.scss";
 
 export const TextInput = ({
@@ -21,7 +23,9 @@ export const TextInput = ({
   prefixComponent,
   postfixComponent,
 }) => {
-  const focusedClassName = !disabled && focused ? styles.focused : "";
+  const { primaryColor } = React.useContext(Context);
+  const focusedStyle =
+    !disabled && focused ? { borderColor: primaryColor } : {};
   const focusedClassNameString = focused ? "focused" : "";
   const errorClassName = error ? styles.error : "";
   const [textValue, setTextValue] = useState();
@@ -51,7 +55,6 @@ export const TextInput = ({
       styles.inputWrapper,
       className,
       prefixClassName,
-      focusedClassName,
       focusedClassNameString,
       errorClassName,
     ]),
@@ -66,6 +69,7 @@ export const TextInput = ({
       onBlur={onBlur}
       onMouseDown={onMouseDown}
       className={classNames.main}
+      style={focusedStyle}
     >
       {prefixComponent}
       <div className={`${styles.input} ${prefixClassName}-inner`}>

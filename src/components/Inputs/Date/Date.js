@@ -15,10 +15,13 @@ import SinglePicker from "./components/SinglePicker";
 import styles from "./Date.scss";
 
 class Date extends React.Component {
-  state = {
-    active: false,
-    focused: false,
-  };
+  constructor() {
+    super();
+    this.state = {
+      active: false,
+      focused: false,
+    };
+  }
 
   _DOMNode = React.createRef();
 

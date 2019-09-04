@@ -1,5 +1,3 @@
-$LABEL-COLOR: #000;
-$UNDERLINE_COLOR: #68b2fc;
 $ICON_COLOR: #37aded;
 
 .TabsItem {
@@ -54,10 +52,6 @@ $ICON_COLOR: #37aded;
   font-size: 14px;
   text-align: center;
   -webkit-font-smoothing: antialiased;
-  &.active {
-    color: $ICON_COLOR;
-  }
-
   &.big {
     font-size: 16px;
   }

@@ -1,8 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Icon from 'components/UI/Icon';
+import React from "react";
+import PropTypes from "prop-types";
+import Context from "@src/components/Context";
+import Icon from "@src/components/UI/Icon";
 
-import styles from './TabsItem.scss';
+import styles from "./TabsItem.scss";
 
 /**
  * Renders an individual tab with an optional icon and text
@@ -11,37 +12,52 @@ import styles from './TabsItem.scss';
  * If the children is an element instead, then it just directly get's rendered inside the div
  */
 export const TabsItem = ({
-  children, active, disabled, icon, prefixClassName, onClick, innerRef, value, type
+  children,
+  active,
+  disabled,
+  icon,
+  prefixClassName,
+  onClick,
+  innerRef,
+  value,
+  type,
 }) => {
-  const component = typeof children !== 'string' && typeof children !== 'number' ? children : null;
+  const { primaryColor } = React.useContext(Context);
+  const component =
+    typeof children !== "string" && typeof children !== "number"
+      ? children
+      : null;
   const title = component ? null : children;
-  const activeClassName = active ? `${styles.active} ${prefixClassName}-active` : '';
-  const activeIconClassName = active ? 'active' : '';
-  const disabledClassName = disabled ? styles.disabled : '';
-  const bigClassName = type === 'big' ? styles.big : '';
+  const activeClassName = active
+    ? `${styles.active} ${prefixClassName}-active`
+    : "";
+  const activeIconClassName = active ? "active" : "";
+  const disabledClassName = disabled ? styles.disabled : "";
+  const bigClassName = type === "big" ? styles.big : "";
 
   return (
     <div
       onClick={() => onClick(value)}
       ref={innerRef}
-      className={`${
-        styles.TabsItem
-      } ${prefixClassName} ${activeClassName} ${disabledClassName} ${bigClassName}`}
+      className={`${styles.TabsItem} ${prefixClassName} ${activeClassName} ${disabledClassName} ${bigClassName}`}
     >
       {component ? (
         React.cloneElement(component, { active })
       ) : (
-        <React.Fragment>
+        <>
           {icon ? (
             <Icon
               src={icon}
               className={`${styles.TabsItemIcon} ${bigClassName} ${prefixClassName}-icon ${activeIconClassName}`}
             />
           ) : null}
-          <span className={`${styles.TabsItemText} ${activeClassName} ${bigClassName} ${prefixClassName}-text`}>
+          <span
+            style={{ color: active ? primaryColor : undefined }}
+            className={`${styles.TabsItemText} ${activeClassName} ${bigClassName} ${prefixClassName}-text`}
+          >
             {title}
           </span>
-        </React.Fragment>
+        </>
       )}
     </div>
   );
@@ -64,4 +80,6 @@ TabsItem.propTypes = {
   innerRef: PropTypes.object,
   /* The value of the tab item. This gets passed to the onClick as a parameter */
   value: PropTypes.string,
+  /* The type of tab item. (big/small) */
+  type: PropTypes.string,
 };

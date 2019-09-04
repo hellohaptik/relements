@@ -1,6 +1,4 @@
 $LABEL-COLOR: #000;
-$UNDERLINE_COLOR: #68b2fc;
-$ICON_COLOR: #37aded;
 
 .Tabs {
   position: relative;
@@ -19,6 +17,5 @@ $ICON_COLOR: #37aded;
   height: 2px;
   width: 1px;
   transform-origin: 0 0;
-  background-color: $UNDERLINE_COLOR;
   transition: 0.5s cubic-bezier(0.175, 0.5, 0.12, 1);
 }

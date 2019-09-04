@@ -2,6 +2,9 @@ import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import cc from "classcat";
 
+import { rgba } from "@src/utils/generic";
+import Context from "@src/components/Context";
+
 import { useInput } from "../_common/hooks/useInput";
 import { Label } from "../_common/Label";
 import styles from "./Toggle.scss";
@@ -18,6 +21,7 @@ const Toggle = ({
   error,
   disabled,
 }) => {
+  const { primaryColor } = React.useContext(Context);
   const activeClassName = value ? styles.active : "";
   const disabledClassName = disabled ? styles.disabled : "";
   const _TextInputDOM = useRef();
@@ -36,6 +40,23 @@ const Toggle = ({
       disabledClassName,
     ]),
   };
+
+  const toggleStyle =
+    value && !redGreen
+      ? {
+          backgoundColor: rgba(primaryColor, 0.2),
+          borderColor: primaryColor,
+        }
+      : {};
+
+  const toggleKnobStyle =
+    value && !redGreen
+      ? {
+          backgroundColor: primaryColor,
+          borderColor: primaryColor,
+        }
+      : {};
+
   return (
     <div
       data-testid="toggle"
@@ -53,9 +74,11 @@ const Toggle = ({
         tabIndex="0"
         onFocus={handleFocus}
         onBlur={handleBlur}
+        style={toggleStyle}
         className={`${classNames.main} ${prefixClassName}-toggle`}
       >
         <div
+          style={toggleKnobStyle}
           className={`${styles.toggleInputKnob} ${redGreenClassName} ${prefixClassName}-toggle-knob ${activeClassName}`}
         />
       </div>

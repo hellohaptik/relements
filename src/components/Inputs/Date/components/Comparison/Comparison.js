@@ -68,7 +68,7 @@ function Comparison({
         onChange={onToggle}
       />
       {toggled ? (
-        <React.Fragment>
+        <>
           <Shortcuts
             prefixClassName={`${prefixClassName}-shortcuts`}
             startDate={startDate}
@@ -98,7 +98,7 @@ function Comparison({
               prefixClassName={`${prefixClassName}-input-item`}
             />
           </div>
-        </React.Fragment>
+        </>
       ) : null}
     </div>
   );

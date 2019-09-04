@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import cc from "classcat";
 
+import Context from "@src/components/Context";
 import styles from "./RadioOption.scss";
 
 const RadioOption = ({
@@ -12,6 +13,7 @@ const RadioOption = ({
   className,
   prefixClassName,
 }) => {
+  const { primaryColor } = React.useContext(Context);
   const classNames = {
     main: cc([
       styles.radioOption,
@@ -20,21 +22,27 @@ const RadioOption = ({
       { [styles.selected]: value },
       { [styles.selected]: `${prefixClassName}-selected` },
     ]),
-    box: cc([
-      styles.radioOptionBox,
-      `${prefixClassName}-box`,
-      { [styles.selected]: value },
-    ]),
+    box: cc([styles.radioOptionBox, `${prefixClassName}-box`]),
     boxIcon: cc([
       styles.radioOptionBoxTick,
       `${prefixClassName}-box-tick`,
       { [styles.selected]: value },
     ]),
-    label: cc([
-      styles.radioOptionText,
-      `${prefixClassName}-text`,
-      { [styles.selected]: value },
-    ]),
+    label: cc([styles.radioOptionText, `${prefixClassName}-text`]),
+  };
+
+  const colorStyles = {
+    boxIcon: { backgroundColor: primaryColor },
+    box: value
+      ? {
+          borderColor: primaryColor,
+        }
+      : {},
+    label: value
+      ? {
+          color: primaryColor,
+        }
+      : {},
   };
 
   return (
@@ -44,10 +52,12 @@ const RadioOption = ({
       className={classNames.main}
       onClick={e => onChange(!value, e)}
     >
-      <div className={classNames.box}>
-        <div className={classNames.boxIcon} />
+      <div style={colorStyles.box} className={classNames.box}>
+        <div style={colorStyles.boxIcon} className={classNames.boxIcon} />
       </div>
-      <span className={classNames.label}>{label}</span>
+      <span style={colorStyles.label} className={classNames.label}>
+        {label}
+      </span>
     </div>
   );
 };

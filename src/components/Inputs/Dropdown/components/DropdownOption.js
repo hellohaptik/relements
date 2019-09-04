@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Context from "@src/components/Context";
+import { rgba } from "@src/utils/generic";
 
 import styles from "./DropdownOption.scss";
 
@@ -11,20 +13,23 @@ const DropdownOption = ({
   value,
   className,
 }) => {
+  const { primaryColor } = React.useContext(Context);
+  const dropdownOptionSelectedStyle = selected
+    ? { backgroundColor: rgba(primaryColor, 0.1) }
+    : {};
+  const dropdownOptionTextStyle = selected ? { color: primaryColor } : {};
   const selectedClassName = selected ? `${className}-selected` : "";
   return (
     <div
       ref={innerRef}
-      className={`${styles.dropdownOption} ${className} ${
-        selected ? styles.dropdownOptionSelected : ""
-      } ${selectedClassName}`}
+      style={dropdownOptionSelectedStyle}
+      className={`${styles.dropdownOption} ${className} ${selectedClassName}`}
       onClick={() => onClick(value)}
       data-testid="dropdown-option"
     >
       <span
-        className={`${styles.dropdownOptionText} ${
-          selected ? styles.dropdownOptionSelected : ""
-        }`}
+        style={dropdownOptionTextStyle}
+        className={`${styles.dropdownOptionText}`}
       >
         {children}
       </span>

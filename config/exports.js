@@ -9,7 +9,7 @@ export default {
   'ui/pagination': 'src/components/UI/Pagination/index.js',
   'ui/odometer': 'src/components/UI/Odometer/index.js',
   'ui/loader': 'src/components/UI/Loader/index.js',
-  
+
   'input/date': 'src/components/Inputs/Date/index.js',
   'input/file': 'src/components/Inputs/File/index.js',
   'input/dropdown': 'src/components/Inputs/Dropdown/index.js',
@@ -23,12 +23,13 @@ export default {
   'input/tab': 'src/components/Inputs/Tab/index.js',
   'input/numberCounter': 'src/components/Inputs/NumberCounter/index.js',
   'input/toggle': 'src/components/Inputs/Toggle/index.js',
-  'input/popup': 'src/components/Inputs/Popup/index.js',
 
   'overlays/contextMenu': 'src/components/Overlays/ContextMenu/index.js',
   'overlays/drawer': 'src/components/Overlays/Drawer/index.js',
   'overlays/modal': 'src/components/Overlays/Modal/index.js',
-  
+
   'hooks/useActivify': 'src/hooks/useActivify/index.js',
   'hooks/useLoader': 'src/hooks/useLoader/index.js',
+
+  'theme/provider': 'src/components/Context/Provider.js',
 };

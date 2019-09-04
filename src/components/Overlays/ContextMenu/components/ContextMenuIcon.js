@@ -5,9 +5,12 @@ import Icon from "components/UI/Icon";
 import ContextMenuPortal from "./ContextMenuPortal";
 
 class ContextMenuIcon extends React.Component {
-  state = {
-    active: false,
-  };
+  constructor() {
+    super();
+    this.state = {
+      active: false,
+    };
+  }
 
   render() {
     const {
@@ -20,7 +23,7 @@ class ContextMenuIcon extends React.Component {
       prefixClassName,
     } = this.props;
     return (
-      <React.Fragment>
+      <>
         {iconComponent ? (
           React.cloneElement(iconComponent, {
             onClick: this._handleClick,
@@ -52,7 +55,7 @@ class ContextMenuIcon extends React.Component {
             ? children(this._handleOverlayClick)
             : children}
         </ContextMenuPortal>
-      </React.Fragment>
+      </>
     );
   }
 

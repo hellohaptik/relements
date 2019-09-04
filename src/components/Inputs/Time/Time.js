@@ -13,11 +13,14 @@ import TimePicker from "./components/TimePicker";
 import styles from "./Time.scss";
 
 class Time extends React.Component {
-  state = {
-    active: false,
-    focused: false,
-    value: dayjs(),
-  };
+  constructor() {
+    super();
+    this.state = {
+      active: false,
+      focused: false,
+      value: dayjs(),
+    };
+  }
 
   _DOMNode = React.createRef();
 

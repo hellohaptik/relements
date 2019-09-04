@@ -4,7 +4,7 @@
   padding: 4px 8px;
   min-width: 64px;
   cursor: pointer;
-  border-right: 1px solid $primary-color;
+  border-right: 1px solid #000;
   text-align: center;
   &:last-child {
     border-right: none;
@@ -22,7 +22,6 @@
   font-size: 12px;
   font-weight: 400;
   transition: 0.2s ease-out;
-  color: $primary-color;
   text-align: center;
   &.selected {
     color: #fff;

@@ -6,9 +6,12 @@ import Odometer from "components/UI/Odometer";
 import styles from "./NumberCounter.scss";
 
 class NumberCounter extends React.Component {
-  state = {
-    focused: false,
-  };
+  constructor() {
+    super();
+    this.state = {
+      focused: false,
+    };
+  }
 
   render() {
     const {

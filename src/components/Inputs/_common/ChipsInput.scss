@@ -16,10 +16,6 @@
   transition: 0.2s ease-out;
   min-height: 24px;
   
-  &.focused {
-    border-color: $primary-color;
-  }
-
   &.error {
     border-color: $warning-color;
     background-color: rgba($warning-color, 0.05);

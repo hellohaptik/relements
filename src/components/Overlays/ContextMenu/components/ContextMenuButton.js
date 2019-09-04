@@ -8,9 +8,12 @@ import ContextMenuPortal from "./ContextMenuPortal";
 import styles from "./ContextMenuButton.scss";
 
 class ContextMenuButton extends React.Component {
-  state = {
-    active: false,
-  };
+  constructor() {
+    super();
+    this.state = {
+      active: false,
+    };
+  }
 
   render() {
     const {
@@ -22,7 +25,7 @@ class ContextMenuButton extends React.Component {
       prefixClassName,
     } = this.props;
     return (
-      <React.Fragment>
+      <>
         <ContextMenuPortal
           active={this.state.active}
           attachTo={this._contextMenuIcon}
@@ -50,7 +53,7 @@ class ContextMenuButton extends React.Component {
             src="angle-down"
           />
         </Button>
-      </React.Fragment>
+      </>
     );
   }
 

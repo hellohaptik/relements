@@ -1,35 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
-import Fuse from 'fuse.js';
+import React from "react";
+import PropTypes from "prop-types";
+import Fuse from "fuse.js";
 
-import { KEY_CODES } from 'constants/key_codes';
-import Icon from 'components/UI/Icon';
-import SearchIcon from 'icons/search.svg';
+import { KEY_CODES } from "constants/key_codes";
+import Icon from "components/UI/Icon";
+import SearchIcon from "icons/search.svg";
 
-import styles from './Search.scss';
+import styles from "./Search.scss";
 
 export default class Search extends React.Component {
-  static propTypes = {
-    placeholder: PropTypes.string,
-    onSubmit: PropTypes.func,
-    onChange: PropTypes.func,
-    searchKeys: PropTypes.array,
-    options: PropTypes.array,
-    autoFocus: PropTypes.bool,
-    withDropdown: PropTypes.bool,
-    className: PropTypes.string,
-    hint: PropTypes.string,
-    hintPosition: PropTypes.string,
-    searchTerm: PropTypes.string,
-    innerRef: PropTypes.object,
-    dropdownRef: PropTypes.object,
-  };
-
-  static defaultProps = {
-    hintPosition: 'INSIDE',
-  };
-
   fuseOptions = {
     shouldSort: true,
     threshold: 0.2,
@@ -40,13 +19,16 @@ export default class Search extends React.Component {
     distance: 50,
     maxPatternLength: 32,
     minMatchCharLength: 1,
-    keys: ['title'],
+    keys: ["title"],
   };
 
-  state = {
-    active: false,
-    searchTerm: this.props.searchTerm,
-  };
+  constructor() {
+    super();
+    this.state = {
+      active: false,
+      searchTerm: this.props.searchTerm,
+    };
+  }
 
   componentDidMount() {
     this.fuseOptions.keys = this.props.searchKeys;
@@ -75,16 +57,23 @@ export default class Search extends React.Component {
   }
 
   render() {
-    const activeClassName = this.state.active ? styles.active : '';
-    const withDropdownClassName = this.props.withDropdown ? styles.withDropdown : '';
-    const parentClass = this.props.className || '';
+    const activeClassName = this.state.active ? styles.active : "";
+    const withDropdownClassName = this.props.withDropdown
+      ? styles.withDropdown
+      : "";
+    const parentClass = this.props.className || "";
 
     return (
-      <div ref={this.props.innerRef} className={`${styles.searchWrapper} ${parentClass}`}>
-        <div className={`${styles.search} ${withDropdownClassName} ${activeClassName}`}>
+      <div
+        ref={this.props.innerRef}
+        className={`${styles.searchWrapper} ${parentClass}`}
+      >
+        <div
+          className={`${styles.search} ${withDropdownClassName} ${activeClassName}`}
+        >
           <Icon src={{ default: SearchIcon }} className={styles.searchIcon} />
           <input
-            ref={(DOMElement) => {
+            ref={DOMElement => {
               this._input = DOMElement;
             }}
             onFocus={this._activate}
@@ -98,9 +87,11 @@ export default class Search extends React.Component {
             value={this.state.searchTerm}
             autoFocus={this.props.autoFocus}
           />
-          {this.props.hintPosition === 'INSIDE' ? this.renderHint() : null}
+          {this.props.hintPosition === "INSIDE" ? this.renderHint() : null}
         </div>
-        <div>{this.props.hintPosition === 'OUTSIDE' ? this.renderHint() : null}</div>
+        <div>
+          {this.props.hintPosition === "OUTSIDE" ? this.renderHint() : null}
+        </div>
       </div>
     );
   }
@@ -138,9 +129,31 @@ export default class Search extends React.Component {
     this.setState({ searchTerm });
   };
 
-  _onKeyUp = (e) => {
+  _onKeyUp = e => {
     if (e.keyCode === KEY_CODES.ENTER && this.props.onSubmit) {
       this.props.onSubmit(this.state.searchTerm);
     }
   };
 }
+
+Search.propTypes = {
+  placeholder: PropTypes.string,
+  onSubmit: PropTypes.func,
+  onChange: PropTypes.func,
+  searchKeys: PropTypes.array,
+  options: PropTypes.array,
+  autoFocus: PropTypes.bool,
+  withDropdown: PropTypes.bool,
+  className: PropTypes.string,
+  hint: PropTypes.string,
+  hintPosition: PropTypes.string,
+  searchTerm: PropTypes.string,
+  innerRef: PropTypes.object,
+  dropdownRef: PropTypes.object,
+  onType: PropTypes.func,
+  onKeyDown: PropTypes.func,
+};
+
+Search.defaultProps = {
+  hintPosition: "INSIDE",
+};
