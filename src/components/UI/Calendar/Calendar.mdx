@@ -1,6 +1,6 @@
-import { CodeBlock, ConfigBlock } from '@src/helpers/DocBlocks';
-import dayjs from 'dayjs';
-import Calendar from './Calendar';
+import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
+import dayjs from "dayjs";
+import Calendar from "./Calendar";
 
 # Calendar
 
@@ -25,15 +25,18 @@ import Calendar from './Calendar';
 </CodeBlock>
 
 <CodeBlock title="Range">
-  <Calendar numMonths={1} value={[{ from: dayjs(), to: dayjs().add(7, 'd') }]} />
+  <Calendar
+    numMonths={1}
+    value={[{ from: dayjs(), to: dayjs().add(7, "d") }]}
+  />
 </CodeBlock>
 
 <CodeBlock title="Multiple Ranges">
   <Calendar
     numMonths={1}
     value={[
-      { from: dayjs(), to: dayjs().add(7, 'd'), color: '#F00' },
-      { from: dayjs().add(9, 'd'), to: dayjs().add(16, 'd') }
+      { from: dayjs(), to: dayjs().add(7, "d"), color: "#F00" },
+      { from: dayjs().add(9, "d"), to: dayjs().add(16, "d") },
     ]}
   />
 </CodeBlock>
@@ -43,8 +46,8 @@ import Calendar from './Calendar';
     numMonths={1}
     mergeColor="#22AA22"
     value={[
-      { from: dayjs(), to: dayjs().add(7, 'd'), color: '#F00' },
-      { from: dayjs().add(4, 'd'), to: dayjs().add(16, 'd') }
+      { from: dayjs(), to: dayjs().add(7, "d"), color: "#F00" },
+      { from: dayjs().add(4, "d"), to: dayjs().add(16, "d") },
     ]}
   />
 </CodeBlock>

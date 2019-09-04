@@ -1,0 +1,56 @@
+import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
+import dayjs from "dayjs";
+import Date from "./Date";
+
+# DateInput
+
+> A clickable UI element with active and hover states. Indicates to the user that it's clickable.
+
+<CodeBlock defaultValue={dayjs()}>
+  {(value, onChange) => (
+    <Date label="Select Date" value={value} onChange={onChange} numMonths={2} />
+  )}
+</CodeBlock>
+
+## Configuration
+
+<ConfigBlock of={Date} />
+
+## Examples
+
+<CodeBlock title="Single" defaultValue={dayjs()}>
+  {(value, onChange) => (
+    <Date label="Select Date" value={value} onChange={onChange} numMonths={2} />
+  )}
+</CodeBlock>
+
+<CodeBlock
+  title="Range"
+  defaultValue={{ startDate: dayjs(), endDate: dayjs().add(7, "d") }}
+>
+  {(value, onChange) => (
+    <Date
+      label="Select Date"
+      value={value}
+      onChange={onChange}
+      numMonths={2}
+      withRange
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock
+  title="Comparison"
+  defaultValue={{ startDate: dayjs(), endDate: dayjs().add(7, "d") }}
+>
+  {(value, onChange) => (
+    <Date
+      label="Select Date"
+      value={value}
+      onChange={onChange}
+      numMonths={2}
+      withRange
+      withComparison
+    />
+  )}
+</CodeBlock>

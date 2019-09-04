@@ -1,6 +1,6 @@
 # Tells Travis we're running on a Node environment
 language: node_js
-node_js: "8"
+node_js: "10"
 cache: yarn
 
 install:
@@ -8,36 +8,97 @@ install:
 
 jobs:
   include:
-    # Run the entire test suite
+    ##############################  TEST STAGE ##############################
+    # Runs on all (PRs/Branches)
+    # Runs the unit tests and the coverage reports
+    # Also uploads the coverage reports to codecov
+    # @TODO: Generate a storybook preview link
     - stage: test
     - script:
         - yarn test
         - yarn coverage
       name: "Run Tests & Coverage"
+    #########################################################################
 
-    # Build the components for npm registry
-    # Build the documentation website
-    - stage: deploy
+    #####################  PRE RELEASE (DEVELOP BRANCH) #####################
+    # This only runs on the develop branch
+    #
+    # Phase - 1 : DOCUMENTATION
+    # Generate the documentation [storybook] on /next
+    # Upload the documentation to the gh-pages branch
+    #
+    # Phase - 2 : NPM relements@NEXT RELEASE
+    # Trigger the npm build script
+    # Trigger the semantic-release script which bumps package versions according to commits
+    # Publish the new release to npm under the @next dist-tag
+    #
+    - stage: develop
     - script:
         - yarn build
         - yarn semantic-release
-      name: "Build & Deploy Relements"
+      name: "Release Relements@next"
+      deploy:
+        provider: npm
+        email: "pratham.agrawal92@gmail.com"
+        api_key: $NPM_TOKEN
+        tag: next
+        on:
+          branch: develop
     - script: yarn build:storybook
-      name: "Build & Deploy Documentation"
+      name: "Deploy documentation@next"
       deploy:
         provider: pages
         skip-cleanup: true
         github-token: $GITHUB_TOKEN
         local_dir: storybook-static
-        repo: pagrawl3/relements
+        repo: hellohaptik/relements
+        target_branch: gh-pages
+        on:
+          branch: develop
+    #########################################################################
+
+    ###################  PUBLISH RELEASE (MASTER BRANCH) ###################
+    # This only runs on the release branch
+    #
+    # Phase - 1 : DOCUMENTATION
+    # Generate the documentation [storybook] on the root point
+    # Upload the documentation to the gh-pages branch
+    #
+    # Phase - 2 : NPM relements RELEASE
+    # Trigger the npm build script
+    # Trigger the semantic-release script which
+    #   - Bumps package versions according to commits
+    #   - Generates Release Notes
+    #   - Generates Git Tag
+    #   - Publishes release to github
+    # Publish the new release to npm under the @next dist-tag
+    #
+    - stage: master
+    - script:
+        - yarn build
+        - yarn semantic-release
+      name: "Release Relements@latest"
+      deploy:
+        provider: npm
+        email: "pratham.agrawal92@gmail.com"
+        api_key: $NPM_TOKEN
+        on:
+          branch: master
+    - script: yarn build:storybook
+      name: "Deploy documentation@latest"
+      deploy:
+        provider: pages
+        skip-cleanup: true
+        github-token: $GITHUB_TOKEN
+        local_dir: storybook-static
+        repo: hellohaptik/relements
         target_branch: gh-pages
         on:
           branch: master
 
 stages:
   - test
-  - build
-  - name: deploy
-    if: branch = master
-  - name: preview
+  - name: develop
+    if: branch = develop
+  - name: master
     if: branch = master

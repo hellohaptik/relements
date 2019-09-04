@@ -16,7 +16,7 @@ export const TextInput = ({
   error,
   placeholder = "Type here...",
   inputRef,
-  disabled,
+  disabled = false,
   prefixClassName,
   prefixComponent,
   postfixComponent,

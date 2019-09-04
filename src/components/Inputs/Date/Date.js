@@ -22,6 +22,8 @@ class Date extends React.Component {
 
   _DOMNode = React.createRef();
 
+  rangeComparisonRef = React.createRef();
+
   render() {
     const {
       className,
@@ -34,13 +36,16 @@ class Date extends React.Component {
       withRange,
       withComparison,
       value,
+      prefixClassName,
+      numMonths,
     } = this.props;
     const errorClassName = error ? styles.dateError : "";
     const disabledClassName = disabled ? styles.disabled : "";
 
     return (
       <div
-        className={`${styles.date} ${errorClassName} ${disabledClassName} ${className}`}
+        data-testid="date"
+        className={`${styles.date} ${errorClassName} ${disabledClassName} ${className} ${prefixClassName}`}
       >
         {this.renderLabel()}
         {this.renderInput()}
@@ -51,16 +56,20 @@ class Date extends React.Component {
           offset={this.props.offset}
           className="date-picker-tooltip"
           position={this.props.position}
+          prefixClassName={`${prefixClassName}-tooltip`}
         >
           {withRange ? (
             <RangeComparison
+              ref={this.rangeComparisonRef}
               value={value}
-              onChange={this._handleChange}
               maxDate={maxDate}
               minDate={minDate}
+              active={this.state.active}
               comparisonMaxDate={comparisonMaxDate}
               comparisonMinDate={comparisonMinDate}
               withComparison={withComparison}
+              prefixClassName={`${prefixClassName}-picker`}
+              numMonths={numMonths}
             />
           ) : (
             <SinglePicker
@@ -68,10 +77,11 @@ class Date extends React.Component {
               onChange={this._handleChange}
               maxDate={maxDate}
               minDate={minDate}
+              prefixClassName={`${prefixClassName}-picker`}
+              numMonths={numMonths}
             />
           )}
         </Tooltip>
-        {this.renderError()}
       </div>
     );
   }
@@ -112,16 +122,6 @@ class Date extends React.Component {
     );
   }
 
-  renderError = () => {
-    const { errorMessage, errorMsgClassName, error } = this.props;
-    if (!error || !errorMessage) return null;
-    return (
-      <div className={`${styles.dateInputSubtext} ${errorMsgClassName}`}>
-        <span className={styles.dateInputSubtextError}>{errorMessage}</span>
-      </div>
-    );
-  };
-
   _getParsedDate = () => {
     const { withRange, value } = this.props;
     const format = "DD MMM, YYYY";
@@ -138,7 +138,7 @@ class Date extends React.Component {
   };
 
   _getParsedValueFromObject = () => {
-    const { value = {} } = this.props;
+    const { value } = this.props;
     const startDate = dayjs(value.startDate);
     const endDate = dayjs(value.endDate);
     const comparisonStartDate = value.comparisonStartDate
@@ -156,7 +156,7 @@ class Date extends React.Component {
   };
 
   _getParsedValueFromDate = () => {
-    const { value = {} } = this.props;
+    const { value } = this.props;
     return dayjs(value);
   };
 
@@ -171,31 +171,51 @@ class Date extends React.Component {
 
   closeDate = () => {
     this.setState({ active: false, focused: false });
+    this.props.onChange(this.rangeComparisonRef.current.getValue());
   };
 }
 
 Date.propTypes = {
+  /** If you want to attach the input tooltip to your a custom input */
   attachTo: PropTypes.object,
+  /** The classname to appended to the outermost element */
   className: PropTypes.string,
+  /** If the input is disabled (non-editable) */
   disabled: PropTypes.bool,
+  /** If the input has an error. */
   error: PropTypes.bool,
-  errorMessage: PropTypes.string,
-  errorMsgClassName: PropTypes.string,
+  /** The prefix classname appended to all elements */
   prefixClassName: PropTypes.string,
+  /** Label text */
   label: PropTypes.string,
+  /** Input tooltip offset ({x: 0, y: 0}) */
   offset: PropTypes.object,
+  /** onBlur callback */
   onBlur: PropTypes.func,
+  /** onChange callback */
   onChange: PropTypes.func,
+  /** onFocus callback */
   onFocus: PropTypes.func,
+  /** Input placeholder */
   placeholder: PropTypes.string,
+  /** Tooltip position (TOP/BOTTOM) */
   position: PropTypes.string,
+  /** The date */
   value: PropTypes.string,
+  /** Max selectable date */
   maxDate: PropTypes.instanceOf(Date),
+  /** Min selectable date */
   minDate: PropTypes.instanceOf(Date),
+  /** Max selectable comparison date */
   comparisonMaxDate: PropTypes.instanceOf(Date),
+  /** Min selectable comparison date */
   comparisonMinDate: PropTypes.instanceOf(Date),
+  /** With range support (From Date -> To Date) */
   withRange: PropTypes.bool,
+  /** With Comparison support (comparing 2 ranges) */
   withComparison: PropTypes.bool,
+  /** Number of months to show at a time */
+  numMonths: PropTypes.number,
 };
 
 Date.defaultProps = {
@@ -208,8 +228,6 @@ Date.defaultProps = {
   placeholder: "",
   error: false,
   disabled: false,
-  errorMessage: "",
-  errorMsgClassName: "",
   offset: null,
   position: null,
   attachTo: null,
@@ -217,6 +235,47 @@ Date.defaultProps = {
   minDate: null,
   comparisonMaxDate: null,
   comparisonMinDate: null,
+  numMonths: 1,
+};
+
+Date.classNames = {
+  $prefix: "Outermost element",
+  "$prefix-label": "Label",
+  "$prefix-input": "Input",
+  "$prefix-tooltip": "Tooltip wrapping the picker",
+  "$prefix-picker": "The div wrapping the picker inside the tooltip",
+  "$prefix-picker-calendar": "Calendar element",
+  "$prefix-picker-calendar-arrow-left": "Calendar arrow left",
+  "$prefix-picker-calendar-arrow-right": "Calendar arrow right",
+  "$prefix-picker-calendar-calendar": "The calendar month",
+  "$prefix-picker-calendar-calendar-header": "The calendar header",
+  "$prefix-picker-calendar-calendar-header-text":
+    "The calendar header's text (Month)",
+  "$prefix-picker-calendar-labels": "The wrapper for labels for the days",
+  "$prefix-picker-calendar-label":
+    "The labels for the days (Sun, Mon, Tue, etc.)",
+  "$prefix-picker-calendar-calendar-grid": "The main calendar grid div",
+  "$prefix-picker-calendar-calendar-grid-row": "Each row of the calendar grid",
+  "$prefix-picker-calendar-calendar-grid-row-item":
+    "Each item of the grid (the square)",
+  "$prefix-picker-calendar-calendar-grid-row-item-selected":
+    "selected grid row item",
+  "$prefix-picker-calendar-grid-row-item-text":
+    "The label for each grid item (the day)",
+  "$prefix-picker-column": "The column for a range picker",
+  "$prefix-picker-column-inputs": "The inputs wrapper",
+  "$prefix-picker-column-comparison": "The comparison wrapper",
+  "$prefix-picker-column-inputs-shortcuts": "The button shortcuts wrapper",
+  "$prefix-picker-column-inputs-shortcuts-button": "The button shortcut",
+  "$prefix-picker-column-inputs-label": "The label class",
+  "$prefix-picker-column-inputs-hint": "The hint class",
+  "$prefix-picker-column-inputs-input-items": "The items class",
+  "$prefix-picker-column-inputs-input-item": "The input element",
+  "$prefix-picker-column-comparison-shortcuts": "The button shortcuts wrapper",
+  "$prefix-picker-column-comparison-shortcuts-button": "The button shortcut",
+  "$prefix-picker-column-comparison-toggle": "Comparison toggle",
+  "$prefix-picker-column-comparison-input-items": "Comparison inputs wrapper",
+  "$prefix-picker-column-comparison-input-item": "Comparison input",
 };
 
 export default Date;

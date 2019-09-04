@@ -1,17 +1,23 @@
-import React from 'react';
-import { Portal } from 'react-portal';
-import PropTypes from 'prop-types';
-import useActivify from '@src/hooks/useActivify';
+import React from "react";
+import { Portal } from "react-portal";
+import PropTypes from "prop-types";
+import useActivify from "@src/hooks/useActivify";
 
-import styles from './DropdownOptions.scss';
+import styles from "./DropdownOptions.scss";
 
 function DropdownOptions({
-  focused, attachTo, reverseMode, onClose, children, active,
+  focused,
+  attachTo,
+  reverseMode,
+  onClose,
+  children,
+  active,
+  className,
 }) {
   const { visible, enabled } = useActivify(active);
   const renderPortalContainer = () => {
-    const activeClassName = visible ? styles.active : '';
-    const focusedClassName = focused ? styles.focused : '';
+    const activeClassName = visible ? styles.active : "";
+    const focusedClassName = focused ? styles.focused : "";
     const rect = attachTo.current.getBoundingClientRect();
     let isReversed = reverseMode;
 
@@ -23,14 +29,14 @@ function DropdownOptions({
 
     if (isReversed) {
       isReversed = true;
-      position.top = 'none';
+      position.top = "none";
       position.bottom = window.innerHeight - rect.top + window.scrollY - 1;
     }
 
-    const reverseModeClassName = isReversed ? styles.reverse : '';
+    const reverseModeClassName = isReversed ? styles.reverse : "";
 
     return (
-      <div className={`${styles.dropdownOptionsWrapper}`}>
+      <div className={`${styles.dropdownOptionsWrapper}  ${className}`}>
         <div className={styles.dropdownOptionsOverlay} onClick={onClose} />
         <div
           style={position}
@@ -48,6 +54,7 @@ function DropdownOptions({
 
 DropdownOptions.propTypes = {
   children: PropTypes.node,
+  className: PropTypes.string,
   attachTo: PropTypes.object,
   onClose: PropTypes.func,
   active: PropTypes.bool,

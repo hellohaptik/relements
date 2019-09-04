@@ -1,0 +1,121 @@
+import { CodeBlock, ConfigBlock } from '@src/helpers/DocBlocks';
+import Dropdown from './Dropdown';
+
+# Dropdown
+
+> A regular input element where user inputs a Number
+
+<CodeBlock>
+{
+    (value, setValue) => (
+        <Dropdown
+            placeholder="Test placeholder"
+            className="my-dropdown"
+            prefixClassName="my-yoooo"
+            options={[
+            { text: "Option text 1" },
+            { text: "Option text 2" },
+            { text: "Option text 3" },
+            { text: "Option text 4" },
+                ]}
+            label="This is the label"
+            value={value}
+            onChange={setValue}
+        />
+    )
+}
+
+</CodeBlock>
+
+## Configuration
+
+<ConfigBlock of={Dropdown} />
+
+## Examples
+
+<CodeBlock title="Default">
+{
+    (value, setValue) => (
+        <Dropdown
+            placeholder="Test placeholder"
+            className="my-dropdown"
+            prefixClassName="my-yoooo"
+            options={[
+            { text: "Option text 1" },
+            { text: "Option text 2" },
+            { text: "Option text 3" },
+            { text: "Option text 4" },
+                ]}
+            label="This is the label"
+            value={value}
+            onChange={setValue}
+        />
+    )
+}
+</CodeBlock>
+<CodeBlock title="With Multiple">
+{
+    (value, setValue) => (
+        <Dropdown
+            placeholder="Test placeholder"
+            className="my-dropdown"
+            prefixClassName="my-yoooo"
+            options={[
+            { text: "Option text 1" },
+            { text: "Option text 2" },
+            { text: "Option text 3" },
+            { text: "Option text 4" },
+                ]}
+            label="This is the label"
+            value={value}
+            onChange={setValue}
+            withMultiple
+        />
+    )
+}
+</CodeBlock>
+<CodeBlock title="With Search">
+{
+    (value, setValue) => (
+        <Dropdown
+            placeholder="Test placeholder"
+            className="my-dropdown"
+            prefixClassName="my-yoooo"
+            options={[
+            { text: "Option text 1" },
+            { text: "Option text 2" },
+            { text: "Option text 3" },
+            { text: "Option text 4" },
+                ]}
+            label="This is the label"
+            value={value}
+            onChange={setValue}
+            withSearch
+        />
+    )
+}
+</CodeBlock>
+
+
+
+<CodeBlock title="With Create">
+{
+    (value, setValue) => (
+        <Dropdown
+            placeholder="Test placeholder"
+            className="my-dropdown"
+            prefixClassName="my-yoooo"
+            options={[
+            { text: "Option text 1" },
+            { text: "Option text 2" },
+            { text: "Option text 3" },
+            { text: "Option text 4" },
+                ]}
+            label="This is the label"
+            value={value}
+            onChange={setValue}
+            withCreate
+        />
+    )
+}
+</CodeBlock>

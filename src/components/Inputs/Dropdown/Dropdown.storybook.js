@@ -8,6 +8,7 @@ import {
   boolean,
 } from "@storybook/addon-knobs";
 import Dropdown from "./Dropdown";
+import Docs from "./Dropdown.mdx";
 
 const stories = storiesOf("Components|Inputs/Dropdown", module);
 stories.addDecorator(withKnobs);
@@ -53,17 +54,22 @@ stories
   })
   .add("With Create", () => {
     return <DropdownTest withCreate />;
+  })
+  .add("Documentation", () => {
+    return <Docs />;
   });
 
 const DropdownTest = props => {
-  // const options = defaultProps.options.map((option, i) => ({ text: text(`Option ${i + 1}`, option.text) }));
+  const options = defaultProps.options.map((option, i) => ({
+    text: text(`Option ${i + 1}`, option.text),
+  }));
   const [value, setValue] = React.useState();
   return (
     <Dropdown
       placeholder="Test placeholder"
       className="my-dropdown"
       prefixClassName="my-yoooo"
-      options={[]}
+      options={options}
       label="This is the label"
       onChange={setValue}
       value={value}

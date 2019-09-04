@@ -1,0 +1,16 @@
+import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
+import ContextMenu from "../ContextMenu";
+import { ContextMenuTest } from "../ContextMenu.storybook.js";
+import SampleIcon from "icons/active.svg";
+
+# ContextMenu
+
+> A clickable UI element with active and hover states. Indicates to the user that it's clickable.
+
+<CodeBlock>
+  <ContextMenu.Item icon={SampleIcon} iconSize={18} title="Hello" />
+</CodeBlock>
+
+## Configuration
+
+<ConfigBlock of={ContextMenu.Item} />
