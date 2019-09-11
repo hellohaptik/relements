@@ -169,7 +169,7 @@ const Dropdown = ({
         optionKey={optionKey}
       />
       <DropdownOptions
-        // onClose={handleBlur}
+        onClose={handleBlur}
         attachTo={_InputWrapperDOM}
         active={focused}
         focused={focused}

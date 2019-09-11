@@ -1,13 +1,19 @@
-import { CodeBlock, ConfigBlock } from '@src/helpers/DocBlocks';
-import Table from './Table';
-import { DATA } from './Table.storybook.js';
+import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
+import Table from "./Table";
+import { DATA } from "./Table.storybook.js";
 
 # Table
 
 > A clickable UI element with active and hover states. Indicates to the user that it's clickable.
 
 <CodeBlock defaultValue="bots">
-  <Table sortable sortKey="title" sortOrder={-1} columns={DATA.columns} rows={DATA.data} />
+  <Table
+    sortable
+    sortKey="title"
+    sortOrder={-1}
+    columns={DATA.columns}
+    rows={DATA.data}
+  />
 </CodeBlock>
 
 ## Configuration
@@ -15,3 +21,16 @@ import { DATA } from './Table.storybook.js';
 <ConfigBlock of={Table} />
 
 ## Examples
+
+<CodeBlock title="Virtual Scrolling" defaultValue="bots">
+  <Table
+    sortable
+    sortKey="title"
+    sortOrder={-1}
+    columns={DATA.columns}
+    rows={[...DATA.data, ...DATA.data, ...DATA.data, ...DATA.data]}
+    virtual
+    rowHeight={32}
+    height={300}
+  />
+</CodeBlock>
