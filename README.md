@@ -2,7 +2,6 @@
 
 [![Build Status](https://travis-ci.com/hellohaptik/relements.svg?token=rergqhB6eJSbetzoHGCs&branch=master)](https://travis-ci.com/hellohaptik/relements) [![codecov](https://codecov.io/gh/hellohaptik/relements/branch/master/graph/badge.svg?token=eqHpHxVoaa)](https://codecov.io/gh/hellohaptik/relements)
 [![npm](https://img.shields.io/npm/v/relements?color=%2362D444)](https://www.npmjs.com/package/relements)
-[![Greenkeeper badge](https://badges.greenkeeper.io/hellohaptik/relements.svg)](https://greenkeeper.io/)
 
 
 Relements are a set of highly reusable components. They can be used to build highly customizable and interactive applications and user interfaces.
@@ -69,12 +68,6 @@ function App() {
   return <Button type={Button.TYPES.PRIMARY}> Hello, World! </Button>
 }
 ```
-
-#### Output
-
-<CodeBlock>
-  <Button type={Button.TYPES.PRIMARY}> Hello, World! </Button>
-</CodeBlock>
 
 
 ### Using the Provider

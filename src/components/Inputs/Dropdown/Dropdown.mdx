@@ -1,5 +1,5 @@
-import { CodeBlock, ConfigBlock } from '@src/helpers/DocBlocks';
-import Dropdown from './Dropdown';
+import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
+import Dropdown from "./Dropdown";
 
 # Dropdown
 
@@ -53,7 +53,7 @@ import Dropdown from './Dropdown';
     )
 }
 </CodeBlock>
-<CodeBlock title="With Multiple">
+<CodeBlock title="With Multiple" defaultValue={[{ title: "Option text 1" }]}>
 {
     (value, setValue) => (
         <Dropdown
@@ -61,15 +61,18 @@ import Dropdown from './Dropdown';
             className="my-dropdown"
             prefixClassName="my-yoooo"
             options={[
-            { text: "Option text 1" },
-            { text: "Option text 2" },
-            { text: "Option text 3" },
-            { text: "Option text 4" },
+            { labal: 'All', title: "Option text 1" },
+            { labal: 'All', title: "Option text 2" },
+            { labal: 'All', title: "Option text 3" },
+            { labal: 'All', title: "Option text 4" },
                 ]}
             label="This is the label"
             value={value}
             onChange={setValue}
+            optionKey="title"
+            searchKeys={['value']}
             withMultiple
+            withSearch
         />
     )
 }
@@ -96,26 +99,22 @@ import Dropdown from './Dropdown';
 }
 </CodeBlock>
 
-
-
 <CodeBlock title="With Create">
-{
-    (value, setValue) => (
-        <Dropdown
-            placeholder="Test placeholder"
-            className="my-dropdown"
-            prefixClassName="my-yoooo"
-            options={[
-            { text: "Option text 1" },
-            { text: "Option text 2" },
-            { text: "Option text 3" },
-            { text: "Option text 4" },
-                ]}
-            label="This is the label"
-            value={value}
-            onChange={setValue}
-            withCreate
-        />
-    )
-}
+  {(value, setValue) => (
+    <Dropdown
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      options={[
+        { text: "Option text 1" },
+        { text: "Option text 2" },
+        { text: "Option text 3" },
+        { text: "Option text 4" },
+      ]}
+      label="This is the label"
+      value={value}
+      onChange={setValue}
+      withCreate
+    />
+  )}
 </CodeBlock>

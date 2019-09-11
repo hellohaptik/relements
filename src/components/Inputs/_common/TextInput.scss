@@ -13,10 +13,15 @@
   box-sizing: border-box;
   outline: none;
   transition: 0.2s ease-out;
+  background: #FFF;
 
   &.error {
     border-color: $warning-color;
     background-color: rgba($warning-color, 0.05);
+  }
+  
+  &.disabled {
+    background-color: #EEE;
   }
 
   .input {
@@ -33,6 +38,7 @@
     padding: 4px 0;
     width: 100%;
     line-height: 1.9;
+    background-color: transparent;
     &::placeholder {
       color: #000;
       opacity: 0.3;

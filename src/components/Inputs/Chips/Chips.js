@@ -40,7 +40,8 @@ const Text = ({
         {label}
       </Label>
       <ChipsInput
-        className={`${prefixClassName}-chipsInput ${errorClassName}`}
+        className={`${errorClassName}`}
+        prefixClassName={`${prefixClassName}-chipsInput`}
         inputRef={_TextInputDOM}
         onFocus={handleFocus}
         onBlur={handleBlur}

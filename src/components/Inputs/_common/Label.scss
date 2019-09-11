@@ -10,7 +10,6 @@
   transition: 0.2s ease-out;
   
   &.error {
-    margin-left: 8px;
     opacity: 0.9;
     color: $warning-color;
   }

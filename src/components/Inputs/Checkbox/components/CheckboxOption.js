@@ -15,6 +15,7 @@ const CheckboxOption = ({
   innerRef,
   className,
   prefixClassName,
+  disabled,
 }) => {
   const { primaryColor } = React.useContext(Context);
   const classNames = {
@@ -22,6 +23,7 @@ const CheckboxOption = ({
       styles.checkboxOption,
       className,
       prefixClassName,
+      { [styles.disabled]: disabled },
       { [styles.selected]: value },
       { [styles.selected]: `${prefixClassName}-selected` },
     ]),
@@ -78,6 +80,8 @@ CheckboxOption.propTypes = {
   innerRef: PropTypes.func,
   /** The prefix classname appended to all elements */
   prefixClassName: PropTypes.string,
+  /** Whether the input is enabled or disabled */
+  disabled: PropTypes.string,
 };
 
 CheckboxOption.defaultProps = {
@@ -87,6 +91,7 @@ CheckboxOption.defaultProps = {
   value: false,
   innerRef: () => {},
   prefixClassName: "",
+  disabled: false,
 };
 
 CheckboxOption.classNames = {

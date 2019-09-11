@@ -92,12 +92,9 @@ test("Adding/Deleting Chips", async () => {
   const mockFn = jest.fn();
   const { container, rerender } = render(component({ onChange: mockFn }));
 
-  const inputElementWrapper = container.getElementsByClassName(
-    "test-chipsInput",
+  const inputDOMElement = container.getElementsByClassName(
+    "test-chipsInput-input",
   )[0];
-  // only input elements support change events, not their abstractions
-  const inputDOMElement =
-    inputElementWrapper.children[0].children[0].children[0];
 
   fireEvent.change(inputDOMElement, { target: { value: ["demo"] } });
   fireEvent.keyDown(inputDOMElement, {
@@ -114,15 +111,13 @@ test("Adding/Deleting Chips", async () => {
     }),
   );
   // a new chip DOM Node should be added
-  const chips = container.getElementsByClassName("chip");
+  const chips = container.getElementsByClassName("test-chipsInput-chip");
   expect(chips.length).toBe(1);
 
-  const updatedInputWrapper = container.getElementsByClassName(
-    "test-chipsInput",
+  const deleteButton = container.getElementsByClassName(
+    "test-chipsInput-chip-icon",
   )[0];
-  const deleteButton = container.getElementsByClassName("chip")[0].children[0];
-  expect(deleteButton).toHaveClass("deleteChip");
-  fireEvent.click(deleteButton);
+  fireEvent.mouseDown(deleteButton);
 
   expect(mockFn).toHaveBeenCalledTimes(2);
   rerender(
@@ -132,6 +127,6 @@ test("Adding/Deleting Chips", async () => {
     }),
   );
 
-  const updatedChips = container.getElementsByClassName("chip");
+  const updatedChips = container.getElementsByClassName("test-chip");
   expect(updatedChips.length).toBe(0);
 });

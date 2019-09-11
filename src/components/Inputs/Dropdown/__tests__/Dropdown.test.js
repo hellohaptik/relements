@@ -16,7 +16,12 @@ const options = [
   { text: "Option text 4" },
 ];
 const component = props => (
-  <Dropdown prefixClassName="test" options={options} {...props} />
+  <Dropdown
+    prefixClassName="test"
+    options={options}
+    optionKey="text"
+    {...props}
+  />
 );
 
 test("Smoke", async () => {
@@ -198,17 +203,14 @@ test("Adding Chips/Deleting Chips", async () => {
 
   fireEvent.click(inputElementWrapper);
 
-  const updatedOptions = document.getElementsByClassName("test-option");
-  expect(updatedOptions.length).toBe(3);
-
   // getting the updated DOM
-  const chips = document.getElementsByClassName("test-input")[0].children[0]
-    .children;
+  const chips = document.getElementsByClassName("test-input-chip");
+
   expect(chips.length).toBe(1);
 
-  const del = getByTestId("icon");
+  const chipsCross = document.getElementsByClassName("test-input-chip-icon")[0];
   // delete icon for first chip
-  fireEvent.click(del);
+  fireEvent.mouseDown(chipsCross);
   expect(mockFn).toHaveBeenCalledTimes(2);
 
   rerender(

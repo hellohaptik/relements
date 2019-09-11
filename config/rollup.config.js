@@ -54,6 +54,12 @@ const plugins = [
   babel({ exclude: 'node_modules/**' }),
 ];
 
+
+// eslint-disable-next-line no-undef
+const productionOnlyPlugins = process.env.NODE_ENV === 'production' ? [
+  terser(),
+] : []
+
 export default [
   {
     input: { index: 'src/index.js', ...chunkExports },
@@ -84,6 +90,6 @@ export default [
       },
     ],
     external: ['react', 'react-dom', 'react-proptypes'],
-    plugins: [...plugins, terser()],
+    plugins: [...plugins, ...productionOnlyPlugins],
   },
 ];

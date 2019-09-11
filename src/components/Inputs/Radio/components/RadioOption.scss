@@ -10,6 +10,12 @@
       fill: rgba($primary-color, 0.1);
     }
   }
+
+  &.disabled {
+    filter: grayscale(1);
+    pointer-events: none;
+    opacity: 0.8;
+  }
 }
 
 .radioOptionBox {

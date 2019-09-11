@@ -45,6 +45,9 @@ class File extends React.Component {
     }
 
     const uploads = values.concat(this.state.uploads);
+    if (this.props.children)
+      return this.props.children(uploads, this._renderInput);
+
     return (
       <div
         data-testid="file"
@@ -398,6 +401,8 @@ File.propTypes = {
   size: PropTypes.number,
   /** Dimensions of the file to upload (Doesn't work with type 'file') */
   dimensions: PropTypes.string,
+  /** When a custom ui is needed. This render func calls with uploads and the renderInput function */
+  children: PropTypes.func,
 };
 
 File.defaultProps = {

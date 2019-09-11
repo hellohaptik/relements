@@ -18,7 +18,8 @@ export const TextInput = ({
   error,
   placeholder = "Type here...",
   inputRef,
-  disabled = false,
+  disabled,
+  editable,
   prefixClassName,
   prefixComponent,
   postfixComponent,
@@ -28,6 +29,7 @@ export const TextInput = ({
     !disabled && focused ? { borderColor: primaryColor } : {};
   const focusedClassNameString = focused ? "focused" : "";
   const errorClassName = error ? styles.error : "";
+  const disabledClassName = disabled ? styles.disabled : "";
   const [textValue, setTextValue] = useState();
   const handleChange = e => {
     onChange(e.target.value);
@@ -36,7 +38,7 @@ export const TextInput = ({
 
   const renderInput = () => (
     <input
-      disabled={disabled}
+      disabled={disabled || !editable}
       value={textValue}
       onChange={handleChange}
       placeholder={placeholder}
@@ -57,6 +59,7 @@ export const TextInput = ({
       prefixClassName,
       focusedClassNameString,
       errorClassName,
+      disabledClassName,
     ]),
   };
 
@@ -82,6 +85,7 @@ export const TextInput = ({
 
 TextInput.propTypes = {
   className: PropTypes.string,
+  editable: PropTypes.bool,
   disabled: PropTypes.bool,
   error: PropTypes.bool,
   focused: PropTypes.bool,
@@ -101,6 +105,7 @@ TextInput.propTypes = {
 
 TextInput.defaultProps = {
   className: "",
+  editable: false,
   disabled: false,
   error: false,
   focused: false,

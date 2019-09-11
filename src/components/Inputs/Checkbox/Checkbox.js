@@ -39,6 +39,7 @@ const Checkbox = ({
               onChange={handleChange(i)}
               label={option.title}
               error={error}
+              disabled={disabled}
               prefixClassName={`${prefixClassName}-option`}
             />
           );
