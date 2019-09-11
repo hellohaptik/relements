@@ -35,20 +35,18 @@ const Dropdown = ({
   onFocus = () => {},
   onBlur = () => {},
 
+  disabled = false,
   withSearch = false,
   withCreate = false,
   withMultiple = false,
 }) => {
   const [updatedOptions, setUpdatedOptions] = useState(options);
-  const disabled = withCreate || withSearch ? false : true;
   const valueArray = Array.isArray(value) ? value : [value];
   const _InputDOM = useRef();
   const _InputWrapperDOM = useRef();
 
   const getInputValue = () => {
-    if (withMultiple) {
-      return valueArray.map(value => value[optionKey]);
-    }
+    if (withMultiple) return valueArray;
     return valueArray[0] ? valueArray[0][optionKey] : "";
   };
 
@@ -109,13 +107,6 @@ const Dropdown = ({
     }
   };
 
-  const handleChipDelete = valueToChange => {
-    const newValue = valueToChange.map(value => {
-      return { text: value };
-    });
-    onChange(newValue);
-  };
-
   const renderOptions = () => {
     if (!dropdownOptions.length) {
       return (
@@ -158,22 +149,27 @@ const Dropdown = ({
         innerRef={_InputWrapperDOM}
         inputRef={_InputDOM}
         className={`${styles.dropdownInput} ${prefixClassName}-input ${prefixClassName}-error ${reverseModeClassName}`}
+        prefixClassName={`${prefixClassName}-input`}
         error={error}
         onKeyDown={handleKeyDown}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onMouseDown={handleToggle}
-        onChange={withMultiple ? handleChipDelete : handleSearch}
+        onChange={withMultiple ? onChange : handleSearch}
         focused={focused}
         active={focused}
         value={inputValue}
         placeholder={placeholder}
         disabled={disabled}
+        editable={withSearch || withCreate}
         withMultiple={withMultiple}
-        postfixComponent={<Icon src={AngleDownIcon} />}
+        postfixComponent={
+          <Icon className={styles.dropdownInputIcon} src={AngleDownIcon} />
+        }
+        optionKey={optionKey}
       />
       <DropdownOptions
-        onClose={handleBlur}
+        // onClose={handleBlur}
         attachTo={_InputWrapperDOM}
         active={focused}
         focused={focused}
@@ -221,6 +217,8 @@ Dropdown.propTypes = {
   withCreate: PropTypes.bool,
   /**  Dropdown with Multiple Inputs Enabled */
   withMultiple: PropTypes.bool,
+  /**  Whether the input is disabled or not */
+  disabled: PropTypes.bool,
 };
 
 Dropdown.classNames = {

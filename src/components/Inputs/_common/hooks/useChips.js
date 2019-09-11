@@ -2,6 +2,7 @@ import { KEY_CODES } from "constants";
 
 export function useChips(value, inputValue, onChange, setInputValue) {
   const addChip = newChipValue => {
+    // when the value is a simple array
     if (!value.includes(newChipValue) && newChipValue) {
       const newValue = value.concat([newChipValue]);
       onChange(newValue);
@@ -9,11 +10,9 @@ export function useChips(value, inputValue, onChange, setInputValue) {
     }
   };
 
-  const deleteChip = deleteChipValue => {
-    if (value.includes(deleteChipValue) && deleteChipValue) {
-      const newValue = value.filter(item => item !== deleteChipValue);
-      onChange(newValue);
-    }
+  const deleteChip = indexToDelete => {
+    const newValue = value.filter((_, i) => i !== indexToDelete);
+    onChange(newValue);
   };
 
   const handleKeyDown = e => {
@@ -27,7 +26,7 @@ export function useChips(value, inputValue, onChange, setInputValue) {
 
       case KEY_CODES.BACKSPACE:
         if (!inputValue) {
-          deleteChip(value[value.length - 1]);
+          deleteChip(value.length - 1);
         }
         break;
 

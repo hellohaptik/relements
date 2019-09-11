@@ -24,8 +24,6 @@ const TABLE = {
 
 const PropsBlock = ({ of }) => {
   const props = of.__docgenInfo.props;
-  console.log("IN", props);
-
   const generateColumn = content => ({ content });
   const rows = Object.keys(props).map(key => {
     return [

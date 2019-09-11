@@ -9,12 +9,13 @@
   align-items: center;
   justify-content: space-between;
   background-color: #fff;
-  padding: 4px 8px;
+  padding: 4px;
+  padding-right: 8px;
+  min-height: 35px;
   box-sizing: border-box;
   cursor: pointer;
   outline: none;
   transition: 0.2s ease-out;
-  min-height: 24px;
   
   &.error {
     border-color: $warning-color;
@@ -63,9 +64,6 @@
   margin-right: 6px;
   margin-bottom: 6px;
   border: none;
-
-  border: none;
-  border-radius: 8px;
   padding: 4px 8px;
   padding-left: 0;
   line-height: 14px;

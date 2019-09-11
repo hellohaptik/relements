@@ -23,8 +23,13 @@ export const ChipsInput = ({
   inputRef = {},
   disabled = false,
   onValueChange = () => {},
+  prefixComponent = null,
+  postfixComponent = null,
+  optionKey = "text",
+  prefixClassName = "",
 }) => {
   const { primaryColor } = React.useContext(Context);
+  const focusedClassNameString = focused ? "focused" : "";
   const focusedStyle = focused ? { borderColor: primaryColor } : {};
   const errorClassName = error ? styles.error : "";
   const [inputValue, setInputValue] = useState();
@@ -34,35 +39,28 @@ export const ChipsInput = ({
     onChange,
     setInputValue,
   );
-  const renderChip = (title, i) => {
-    return (
-      <div key={i} className={`${styles.chip} chip`}>
-        {title}
-        <Icon
-          onClick={() => deleteChip(title)}
-          src={CrossIcon}
-          className={`${styles.deleteChipIcon} deleteChip`}
-        />
-      </div>
-    );
-  };
 
-  const handleChange = e => {
+  const handleDelete = React.useCallback(i => e => {
+    e.stopPropagation();
+    deleteChip(i);
+  });
+
+  const handleChange = React.useCallback(e => {
     const value = e.target.value;
     setInputValue(value);
     onValueChange(value);
-  };
+  });
 
-  const handleKeyDown = e => {
+  const handleKeyDown = React.useCallback(e => {
     onKeyDownChips(e);
     onKeyDown(e);
-  };
+  });
 
   const renderInput = () => {
     return (
       <AutosizeInput
         ref={inputRef}
-        inputClassName={styles.newChip}
+        inputClassName={`${styles.newChip} ${prefixClassName}-input`}
         onKeyDown={handleKeyDown}
         onChange={handleChange}
         value={inputValue}
@@ -71,19 +69,39 @@ export const ChipsInput = ({
     );
   };
 
+  const renderChip = (chip, i) => {
+    const title = chip[optionKey];
+    return (
+      <div key={i} className={`${styles.chip} ${prefixClassName}-chip`}>
+        {title}
+        <div
+          className={`${prefixClassName}-chip-icon`}
+          onMouseDown={handleDelete(i)}
+        >
+          <Icon
+            src={CrossIcon}
+            className={`${styles.deleteChipIcon} ${prefixClassName}-chip-icon-svg`}
+          />
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div
       onClick={onFocus}
       ref={innerRef}
       style={focusedStyle}
-      className={`${styles.chips} ${focusedStyle} ${errorClassName} ${className}`}
+      className={`${styles.chips} ${prefixClassName} ${errorClassName} ${className} ${focusedClassNameString}`}
       onBlur={onBlur}
       onMouseDown={onMouseDown}
     >
-      <div className={styles.chipsTrack}>
+      {prefixComponent}
+      <div className={`${styles.chipsTrack} ${prefixClassName}-chips`}>
         {value.length > 0 ? value.map(renderChip) : null}
         {!disabled ? renderInput() : null}
       </div>
+      {postfixComponent}
     </div>
   );
 };
@@ -102,5 +120,9 @@ ChipsInput.propTypes = {
   focused: PropTypes.bool,
   error: PropTypes.bool,
   placeholder: PropTypes.string,
+  optionKey: PropTypes.string,
   inputRef: PropTypes.object,
+  prefixComponent: PropTypes.node,
+  postfixComponent: PropTypes.node,
+  prefixClassName: PropTypes.string,
 };

@@ -29,14 +29,10 @@
   transform: translate3d(0, 4px, 0);
   .tooltipArrow {
     position: absolute;
-    left: 0;
-    margin-left: 5px;
-    border: 10px solid;
-    
-    &.small {
-      border: 6px solid;
-      margin-left: -5px;
-    }
+    left: 50%;
+    margin-left: -5px;
+    border: 6px solid;
+    margin-left: -5px;
 
     &.bottom {
       border-top-color: transparent !important;

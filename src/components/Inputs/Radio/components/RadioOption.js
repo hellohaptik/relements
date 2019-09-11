@@ -12,6 +12,7 @@ const RadioOption = ({
   innerRef,
   className,
   prefixClassName,
+  disabled,
 }) => {
   const { primaryColor } = React.useContext(Context);
   const classNames = {
@@ -19,6 +20,7 @@ const RadioOption = ({
       styles.radioOption,
       className,
       prefixClassName,
+      { [styles.disabled]: disabled },
       { [styles.selected]: value },
       { [styles.selected]: `${prefixClassName}-selected` },
     ]),
@@ -75,6 +77,8 @@ RadioOption.propTypes = {
   innerRef: PropTypes.func,
   /** The prefix classname appended to all elements */
   prefixClassName: PropTypes.string,
+  /** Whether the input is enabled or disabled */
+  disabled: PropTypes.string,
 };
 
 RadioOption.defaultProps = {
@@ -84,6 +88,7 @@ RadioOption.defaultProps = {
   value: false,
   innerRef: () => {},
   prefixClassName: "",
+  disabled: false,
 };
 
 RadioOption.classNames = {

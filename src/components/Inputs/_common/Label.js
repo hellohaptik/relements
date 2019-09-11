@@ -22,15 +22,22 @@ export const Label = ({
   return (
     <>
       <div className={`${styles.container}`}>
-        <span style={focusedStyle} className={`${styles.label} ${className}`}>
+        <span
+          style={focusedStyle}
+          className={`${styles.label} ${className} ${errorClassName}`}
+        >
           {children}
           {tooltip ? (
-            <WithTooltip className={`${styles.tooltip}`} tooltip={tooltip}>
+            <WithTooltip
+              className={`${styles.tooltip}`}
+              tooltip={tooltip}
+              position="TOP"
+            >
               <Icon className={`${styles.tooltipIcon}`} src={InfoIcon} />
             </WithTooltip>
           ) : null}
         </span>
-        {error ? (
+        {error && typeof error === "string" ? (
           <span className={`${styles.label} ${errorClassName}`}>
             {`(${error})`}
           </span>
