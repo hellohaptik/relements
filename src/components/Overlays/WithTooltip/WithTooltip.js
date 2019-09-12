@@ -44,8 +44,13 @@ function WithTooltip({
           tooltipArrowColor="rgba(0,0,0,0.7)"
           tooltipArrowSmall
           className={styles.withTooltipTooltip}
+          prefixClassName={`${prefixClassName}-inner`}
         >
-          <div className={styles.withTooltip}>{tooltip}</div>
+          <div
+            className={`${styles.withTooltip} ${prefixClassName}-inner-wrapper`}
+          >
+            {tooltip}
+          </div>
         </Tooltip>
       ) : null}
     </span>

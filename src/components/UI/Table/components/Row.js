@@ -29,7 +29,7 @@ function Row({ index, style, data, onClick, prefixClassName, widths }) {
             }}
           >
             <div
-              className={`${styles.tableRowItemText} ${prefixClassName}-column`}
+              className={`${styles.tableRowItemText} ${prefixClassName}-column-content`}
             >
               {column.content}
             </div>

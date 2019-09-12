@@ -105,7 +105,7 @@ TextInput.propTypes = {
 
 TextInput.defaultProps = {
   className: "",
-  editable: false,
+  editable: true,
   disabled: false,
   error: false,
   focused: false,
