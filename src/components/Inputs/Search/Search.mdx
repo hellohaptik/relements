@@ -1,0 +1,44 @@
+import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
+import Search from "./Search";
+
+# Search
+
+> An input element that has in built search.
+
+<CodeBlock defaultValue={[{ title: "Pratham" }, { title: "Shivang" }]}>
+  {(value, onChange) => (
+    <>
+      <Search
+        label="Node Type"
+        onChange={onChange}
+        options={[{ title: "Pratham" }, { title: "Shivang" }]}
+        searchKeys={["title"]}
+      />
+      SEARCH RESULTS
+      {value.map(value => (
+        <div>{value.title}</div>
+      ))}
+    </>
+  )}
+</CodeBlock>
+
+## Configuration
+
+<ConfigBlock of={Search} />
+
+## Examples
+
+<CodeBlock title="With Hint" defaultValue={{ title: "Good Node" }}>
+  {(value, onChange) => (
+    <Search
+      label="Node Type"
+      value={value}
+      onChange={onChange}
+      options={[
+        { title: "Good Node" },
+        { title: "Bad Node" },
+        { title: "Awesome Node" },
+      ]}
+    />
+  )}
+</CodeBlock>

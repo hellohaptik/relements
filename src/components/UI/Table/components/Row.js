@@ -15,7 +15,7 @@ function Row({ index, style, data, onClick, prefixClassName, widths }) {
       style={style}
       key={`${index}-${row.id}`}
       className={`${styles.tableRow} ${disabledClassName} ${prefixClassName} ${rowClassName}`}
-      onClick={() => onClick(row, index)}
+      onClick={() => onClick(index, row)}
     >
       {rowColumns.map((column, i) => {
         return (
