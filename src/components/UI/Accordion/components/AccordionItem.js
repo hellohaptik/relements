@@ -11,6 +11,7 @@ function AccordionItem({
   active,
   onChange,
   index,
+  itemIndex,
   className,
   children,
   renderHeader,
@@ -90,7 +91,7 @@ function AccordionItem({
     >
       <div
         className={`${styles.accordionItemHeader} ${prefixClassName}-header`}
-        onClick={e => onChange(index, e)}
+        onClick={e => onChange(index === null ? itemIndex : index, e)}
         ref={headerRef}
       >
         {_renderHeader()}
@@ -113,7 +114,8 @@ function AccordionItem({
 }
 
 AccordionItem.propTypes = {
-  index: PropTypes.number.isRequired,
+  index: PropTypes.number,
+  itemIndex: PropTypes.number,
   children: PropTypes.node,
   active: PropTypes.bool,
   onChange: PropTypes.func,
@@ -129,6 +131,8 @@ AccordionItem.defaultProps = {
   renderHeader: null,
   className: "",
   prefixClassName: "",
+  itemIndex: 0,
+  index: null,
 };
 
 AccordionItem.Sortable = SortableElement(AccordionItem);
