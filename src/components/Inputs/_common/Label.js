@@ -55,3 +55,5 @@ Label.propTypes = {
   error: PropTypes.bool,
   disabled: PropTypes.bool,
 };
+
+export default Label;
