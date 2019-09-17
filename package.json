@@ -1,6 +1,6 @@
 {
   "name": "relements",
-  "version": "2.1.1",
+  "version": "2.2.0-develop.1",
   "description": "UI Components Library for React",
   "main": "build/bundle.umd.js",
   "module": "build/bundle.mjs",
@@ -22,7 +22,7 @@
     "url": "https://github.com/hellohaptik/relements"
   },
   "author": "Pratham Agrawal",
-  "license": "",
+  "license": "MIT",
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "@mdx-js/loader": "^1.0.21",
