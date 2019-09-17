@@ -63,23 +63,11 @@ const Dropdown = ({
   ];
 
   const [dropdownOptions] = useDropdown(...useDropdownProps);
-  const [
-    highlightIndex,
-    handleKeyDown,
-    _DropdownOptionDOMs,
-  ] = useKeyboardSelect(dropdownOptions, onChange);
   const { focused, setFocused, handleFocus, handleBlur } = useInput(
     _InputDOM,
     onFocus,
     onBlur,
   );
-
-  const handleToggle = () => setFocused(!focused);
-
-  const isReversed =
-    _InputWrapperDOM.current &&
-    _InputWrapperDOM.current.getBoundingClientRect().bottom + 64 >
-      window.innerHeight;
 
   const handleChange = valueToChange => {
     const newValue = withMultiple ? [...value, valueToChange] : valueToChange;
@@ -105,7 +93,20 @@ const Dropdown = ({
     } else {
       onChange(newValue);
     }
+
+    if (!withMultiple) setFocused(false);
   };
+
+  const [
+    highlightIndex,
+    handleKeyDown,
+    _DropdownOptionDOMs,
+  ] = useKeyboardSelect(dropdownOptions, handleChange, setFocused);
+
+  const isReversed =
+    _InputWrapperDOM.current &&
+    _InputWrapperDOM.current.getBoundingClientRect().bottom + 64 >
+      window.innerHeight;
 
   const renderOptions = () => {
     if (!dropdownOptions.length) {
@@ -154,8 +155,8 @@ const Dropdown = ({
         onKeyDown={handleKeyDown}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        onMouseDown={handleToggle}
         onChange={withMultiple ? onChange : handleSearch}
+        onType={handleSearch}
         focused={focused}
         active={focused}
         value={inputValue}

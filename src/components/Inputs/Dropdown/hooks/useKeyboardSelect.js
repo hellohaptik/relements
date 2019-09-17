@@ -1,7 +1,7 @@
 import { useState, createRef, useEffect, useRef } from "react";
 import { KEY_CODES } from "constants";
 
-export function useKeyboardSelect(options, onSelect) {
+export function useKeyboardSelect(options, onSelect, onClose) {
   const [highlightIndex, setHighlightIndex] = useState(-1);
   const dropdownDOMs = useRef();
   const changeHighlightIndex = newIndex => {
@@ -10,7 +10,7 @@ export function useKeyboardSelect(options, onSelect) {
     } else if (newIndex < 0) {
       newIndex = options.length - 1;
     }
-    dropdownDOMs.current[newIndex].current.scrollIntoView(false);
+    // dropdownDOMs.current[newIndex].current.scrollIntoView(false);
     setHighlightIndex(newIndex);
   };
 
@@ -28,6 +28,10 @@ export function useKeyboardSelect(options, onSelect) {
         e.preventDefault();
         e.stopPropagation();
         return onSelect(options[highlightIndex]);
+      case KEY_CODES.ESC:
+        e.preventDefault();
+        e.stopPropagation();
+        return onClose(false);
       default:
         return null;
     }

@@ -22,7 +22,7 @@ export const ChipsInput = ({
   placeholder = "Type here...",
   inputRef = {},
   disabled = false,
-  onValueChange = () => {},
+  onType = () => {},
   prefixComponent = null,
   postfixComponent = null,
   optionKey = "text",
@@ -42,13 +42,14 @@ export const ChipsInput = ({
 
   const handleDelete = React.useCallback(i => e => {
     e.stopPropagation();
+    e.preventDefault();
     deleteChip(i);
   });
 
   const handleChange = React.useCallback(e => {
     const value = e.target.value;
     setInputValue(value);
-    onValueChange(value);
+    onType(value);
   });
 
   const handleKeyDown = React.useCallback(e => {
@@ -89,10 +90,11 @@ export const ChipsInput = ({
 
   return (
     <div
-      onClick={onFocus}
+      tabIndex="-1"
       ref={innerRef}
       style={focusedStyle}
       className={`${styles.chips} ${prefixClassName} ${errorClassName} ${className} ${focusedClassNameString}`}
+      onFocus={onFocus}
       onBlur={onBlur}
       onMouseDown={onMouseDown}
     >
@@ -116,7 +118,7 @@ ChipsInput.propTypes = {
   value: PropTypes.string,
   disabled: PropTypes.string,
   onChange: PropTypes.func,
-  onValueChange: PropTypes.func,
+  onType: PropTypes.func,
   focused: PropTypes.bool,
   error: PropTypes.bool,
   placeholder: PropTypes.string,

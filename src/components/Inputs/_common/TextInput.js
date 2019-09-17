@@ -67,10 +67,10 @@ export const TextInput = ({
     <div
       ref={innerRef}
       tabIndex="0"
-      onKeyDown={onKeyDown}
       onFocus={onFocus}
       onBlur={onBlur}
       onMouseDown={onMouseDown}
+      onKeyDown={onKeyDown}
       className={classNames.main}
       style={focusedStyle}
     >

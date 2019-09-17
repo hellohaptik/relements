@@ -49,7 +49,7 @@ test("Error", async () => {
 test("Options", () => {
   const { container } = render(component({ error: "error", label: "label" }));
   const inputElement = container.getElementsByClassName("test-input")[0];
-  fireEvent.mouseDown(inputElement);
+  fireEvent.focus(inputElement);
   expect(document.getElementsByClassName("test-option").length).toBe(4);
 });
 
@@ -64,7 +64,7 @@ test("Option Key", () => {
     }),
   );
   const inputElement = container.getElementsByClassName("test-input")[0];
-  fireEvent.mouseDown(inputElement);
+  fireEvent.focus(inputElement);
   const option = document.getElementsByClassName("test-option")[0];
   expect(option).toHaveTextContent("Option text 1");
 });
@@ -81,7 +81,7 @@ test("Prefix class", async () => {
   );
 
   const inputElement = container.getElementsByClassName("test-input")[0];
-  fireEvent.mouseDown(inputElement);
+  fireEvent.focus(inputElement);
 
   classNames.forEach(className => {
     expect(
@@ -95,7 +95,7 @@ test("On Change", async () => {
   const mockFn = jest.fn();
   const { container } = render(component({ value: 2, onChange: mockFn }));
   const inputElement = container.getElementsByClassName("test-input")[0];
-  fireEvent.mouseDown(inputElement);
+  fireEvent.focus(inputElement);
   const dropdownOption = document.getElementsByClassName("test-option")[0];
 
   fireEvent.click(dropdownOption);
@@ -139,29 +139,29 @@ test("Handling Keydowns", async () => {
 test("Searching options", async () => {
   const mockFn = jest.fn();
   const { container } = render(
-    component({ withSearch: true, onChange: mockFn }),
+    component({ withSearch: false, onChange: mockFn }),
   );
 
   const inputElementWrapper = container.getElementsByClassName("test-input")[0];
   // only input elements support change events, not their abstractions
   const inputDOMElement = inputElementWrapper.children[0].children[0];
 
+  fireEvent.focus(inputElementWrapper);
   fireEvent.change(inputDOMElement, { target: { value: "1" } });
-  fireEvent.mouseDown(inputDOMElement);
 
-  // only one option should be present from default options ('Option text 1')
+  // // only one option should be present from default options ('Option text 1')
   const options = document.getElementsByClassName("test-option");
   expect(options.length).toBe(1);
 });
 
 test("Creating options", async () => {
   const mockFn = jest.fn();
-  const { container } = render(component({ withCreate: true }));
+  const { container } = render(component({ withCreate: true, disabled: true }));
   const inputElementWrapper = container.getElementsByClassName("test-input")[0];
   // only input elements support change events, not their abstractions
   const inputDOMElement = inputElementWrapper.children[0].children[0];
   fireEvent.change(inputDOMElement, { target: { value: "new option" } });
-  fireEvent.mouseDown(inputDOMElement);
+  fireEvent.focus(inputElementWrapper);
   // the option to create a new dropdown option
   const createOption = document.getElementsByClassName("test-option")[0];
   fireEvent.click(createOption);
@@ -181,11 +181,11 @@ test("Creating options", async () => {
 test("Adding Chips/Deleting Chips", async () => {
   const mockFn = jest.fn();
   const { container, getByTestId, rerender } = render(
-    component({ withMultiple: true, onChange: mockFn }),
+    component({ withMultiple: true, onChange: mockFn, disabled: true }),
   );
   const inputElementWrapper = document.getElementsByClassName("test-input")[0];
   // only input elements support change events, not their abstractions
-  fireEvent.click(inputElementWrapper);
+  fireEvent.focus(inputElementWrapper);
 
   const options = document.getElementsByClassName("test-option");
 

@@ -29,6 +29,7 @@ export default {
   'overlays/drawer': 'src/components/Overlays/Drawer/index.js',
   'overlays/modal': 'src/components/Overlays/Modal/index.js',
   'overlays/toast': 'src/components/Overlays/Toast/index.js',
+  'overlays/tooltip': 'src/components/Overlays/Tooltip/index.js',
 
   'hooks/useActivify': 'src/hooks/useActivify/index.js',
   'hooks/useLoader': 'src/hooks/useLoader/index.js',
