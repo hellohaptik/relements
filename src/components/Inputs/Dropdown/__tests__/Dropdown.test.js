@@ -156,7 +156,7 @@ test("Searching options", async () => {
 
 test("Creating options", async () => {
   const mockFn = jest.fn();
-  const { container } = render(component({ withCreate: true, disabled: true }));
+  const { container } = render(component({ withCreate: true }));
   const inputElementWrapper = container.getElementsByClassName("test-input")[0];
   // only input elements support change events, not their abstractions
   const inputDOMElement = inputElementWrapper.children[0].children[0];
@@ -181,7 +181,7 @@ test("Creating options", async () => {
 test("Adding Chips/Deleting Chips", async () => {
   const mockFn = jest.fn();
   const { container, getByTestId, rerender } = render(
-    component({ withMultiple: true, onChange: mockFn, disabled: true }),
+    component({ withMultiple: true, onChange: mockFn }),
   );
   const inputElementWrapper = document.getElementsByClassName("test-input")[0];
   // only input elements support change events, not their abstractions
