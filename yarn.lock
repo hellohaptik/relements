@@ -1405,7 +1405,7 @@
     fs-extra "^8.0.0"
     lodash "^4.17.4"
 
-"@semantic-release/commit-analyzer@^7.0.0-beta.1":
+"@semantic-release/commit-analyzer@^7.0.0-beta.3":
   version "7.0.0-beta-.2"
   resolved "https://registry.yarnpkg.com/@semantic-release/commit-analyzer/-/commit-analyzer-7.0.0-beta-.2.tgz#5f30919eabee8f876c5f80d270274dca34933f76"
   dependencies:
@@ -1436,9 +1436,9 @@
     micromatch "^3.1.4"
     p-reduce "^1.0.0"
 
-"@semantic-release/github@^5.4.0-beta.1":
-  version "5.4.3"
-  resolved "https://registry.yarnpkg.com/@semantic-release/github/-/github-5.4.3.tgz#7c7fe716d0fa757d2d4a4075e5e7e1ff5d0f8942"
+"@semantic-release/github@^5.5.0-beta.1":
+  version "5.5.0"
+  resolved "https://registry.yarnpkg.com/@semantic-release/github/-/github-5.5.0.tgz#2a9ae28d5980b0282cd646f19fb062128c8862f0"
   dependencies:
     "@octokit/rest" "^16.27.0"
     "@semantic-release/error" "^2.2.0"
@@ -1458,9 +1458,9 @@
     parse-github-url "^1.0.1"
     url-join "^4.0.0"
 
-"@semantic-release/npm@^5.2.0-beta.5":
-  version "5.2.0-beta.8"
-  resolved "https://registry.yarnpkg.com/@semantic-release/npm/-/npm-5.2.0-beta.8.tgz#efd75b2bd00ce17f5368b2daf2ed8cf27575fb12"
+"@semantic-release/npm@^5.2.0-beta.8":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@semantic-release/npm/-/npm-5.2.0.tgz#e5643c43ca5f3eb7db3d403fe12e44c187c5f9c6"
   dependencies:
     "@semantic-release/error" "^2.2.0"
     aggregate-error "^3.0.0"
@@ -1473,7 +1473,6 @@
     rc "^1.2.8"
     read-pkg "^5.0.0"
     registry-auth-token "^4.0.0"
-    semver "^5.5.0"
 
 "@semantic-release/release-notes-generator@^7.1.2":
   version "7.3.0"
@@ -4944,9 +4943,9 @@ entities@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/entities/-/entities-2.0.0.tgz#68d6084cab1b079767540d80e56a39b423e4abf4"
 
-env-ci@^3.0.0:
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/env-ci/-/env-ci-3.2.2.tgz#06936f1fcfbc999102a2211fc2539df64062b61f"
+env-ci@^4.0.0:
+  version "4.1.3"
+  resolved "https://registry.yarnpkg.com/env-ci/-/env-ci-4.1.3.tgz#60af625cc610c13e6679640833677ca2d7e6aef5"
   dependencies:
     execa "^1.0.0"
     java-properties "^1.0.0"
@@ -5318,9 +5317,9 @@ execa@^1.0.0:
     signal-exit "^3.0.0"
     strip-eof "^1.0.0"
 
-execa@^2.0.2, execa@^2.0.3:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/execa/-/execa-2.0.4.tgz#2f5cc589c81db316628627004ea4e37b93391d8e"
+execa@^2.0.0, execa@^2.0.2, execa@^2.0.3:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/execa/-/execa-2.0.5.tgz#5be3e2ea7e61bd038da5a0e11dc6ab2097357f2f"
   dependencies:
     cross-spawn "^6.0.5"
     get-stream "^5.0.0"
@@ -5548,6 +5547,12 @@ figures@^1.3.5, figures@^1.7.0:
 figures@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/figures/-/figures-2.0.0.tgz#3ab1a2d2a62c8bfb431a0c94cb797a2fce27c962"
+  dependencies:
+    escape-string-regexp "^1.0.5"
+
+figures@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/figures/-/figures-3.0.0.tgz#756275c964646163cc6f9197c7a0295dbfd04de9"
   dependencies:
     escape-string-regexp "^1.0.5"
 
@@ -6371,13 +6376,19 @@ homedir-polyfill@^1.0.1:
   dependencies:
     parse-passwd "^1.0.0"
 
-hook-std@^1.1.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/hook-std/-/hook-std-1.2.0.tgz#b37d533ea5f40068fe368cb4d022ee1992588c27"
+hook-std@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/hook-std/-/hook-std-2.0.0.tgz#ff9aafdebb6a989a354f729bb6445cf4a3a7077c"
 
 hosted-git-info@^2.1.4, hosted-git-info@^2.7.1, hosted-git-info@^2.8.2:
   version "2.8.4"
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.8.4.tgz#44119abaf4bc64692a16ace34700fed9c03e2546"
+
+hosted-git-info@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-3.0.0.tgz#dd8af49cd01e73cc8e61ba13e217a772fd4ecd2d"
+  dependencies:
+    lru-cache "^5.1.1"
 
 hsl-regex@^1.0.0:
   version "1.0.0"
@@ -8400,9 +8411,9 @@ marked-terminal@^3.2.0:
     node-emoji "^1.4.1"
     supports-hyperlinks "^1.0.1"
 
-marked@^0.6.0:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-0.6.3.tgz#79babad78af638ba4d522a9e715cdfdd2429e946"
+marked@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-0.7.0.tgz#b64201f051d271b1edc10a04d1ae9b74bb8e5c0e"
 
 material-colors@^1.2.1:
   version "1.2.6"
@@ -9478,7 +9489,7 @@ os-locale@^2.0.0:
     lcid "^1.0.0"
     mem "^1.1.0"
 
-os-locale@^3.0.0, os-locale@^3.1.0:
+os-locale@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/os-locale/-/os-locale-3.1.0.tgz#a802a6ee17f24c10483ab9935719cef4ed16bf1a"
   dependencies:
@@ -9579,6 +9590,10 @@ p-queue@^2.4.2:
 p-reduce@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/p-reduce/-/p-reduce-1.0.0.tgz#18c2b0dd936a4690a529f8231f58a0fdb6a47dfa"
+
+p-reduce@^2.0.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/p-reduce/-/p-reduce-2.1.0.tgz#09408da49507c6c274faa31f28df334bc712b64a"
 
 p-retry@^4.0.0:
   version "4.1.0"
@@ -10659,7 +10674,7 @@ react-docgen@^4.1.0:
     node-dir "^0.1.10"
     recast "^0.17.3"
 
-react-dom@^16.8.3, react-dom@~16.9.0:
+react-dom@16.9.0, react-dom@^16.8.3:
   version "16.9.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.9.0.tgz#5e65527a5e26f22ae3701131bcccaee9fb0d3962"
   dependencies:
@@ -10846,20 +10861,20 @@ react-window@^1.8.5:
     "@babel/runtime" "^7.0.0"
     memoize-one ">=3.1.1 <6"
 
-react@^0.14.0:
-  version "0.14.9"
-  resolved "https://registry.yarnpkg.com/react/-/react-0.14.9.tgz#9110a6497c49d44ba1c0edd317aec29c2e0d91d1"
-  dependencies:
-    envify "^3.0.0"
-    fbjs "^0.6.1"
-
-react@^16.8.3, react@~16.9.0:
+react@16.9.0, react@^16.8.3:
   version "16.9.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.9.0.tgz#40ba2f9af13bc1a38d75dbf2f4359a5185c4f7aa"
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
+
+react@^0.14.0:
+  version "0.14.9"
+  resolved "https://registry.yarnpkg.com/react/-/react-0.14.9.tgz#9110a6497c49d44ba1c0edd317aec29c2e0d91d1"
+  dependencies:
+    envify "^3.0.0"
+    fbjs "^0.6.1"
 
 reactcss@^1.2.0:
   version "1.2.3"
@@ -11791,37 +11806,37 @@ select@^1.1.2:
   resolved "https://registry.yarnpkg.com/select/-/select-1.1.2.tgz#0e7350acdec80b1108528786ec1d4418d11b396d"
 
 semantic-release@^16.0.0-beta.22:
-  version "16.0.0-beta.22"
-  resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-16.0.0-beta.22.tgz#d0b0b28da7c055a4f8665779b2b468b34d74b363"
+  version "16.0.0-beta.24"
+  resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-16.0.0-beta.24.tgz#87b443b61afc43979d8a48e37e08b42023ba9d9f"
   dependencies:
-    "@semantic-release/commit-analyzer" "^7.0.0-beta.1"
+    "@semantic-release/commit-analyzer" "^7.0.0-beta.3"
     "@semantic-release/error" "^2.2.0"
-    "@semantic-release/github" "^5.4.0-beta.1"
-    "@semantic-release/npm" "^5.2.0-beta.5"
+    "@semantic-release/github" "^5.5.0-beta.1"
+    "@semantic-release/npm" "^5.2.0-beta.8"
     "@semantic-release/release-notes-generator" "^7.1.2"
-    aggregate-error "^2.0.0"
+    aggregate-error "^3.0.0"
     cosmiconfig "^5.0.1"
     debug "^4.0.0"
-    env-ci "^3.0.0"
-    execa "^1.0.0"
-    figures "^2.0.0"
+    env-ci "^4.0.0"
+    execa "^2.0.0"
+    figures "^3.0.0"
     find-versions "^3.0.0"
-    get-stream "^4.0.0"
+    get-stream "^5.0.0"
     git-log-parser "^1.2.0"
-    hook-std "^1.1.0"
-    hosted-git-info "^2.7.1"
-    lodash "^4.17.4"
-    marked "^0.6.0"
+    hook-std "^2.0.0"
+    hosted-git-info "^3.0.0"
+    lodash "^4.17.15"
+    marked "^0.7.0"
     marked-terminal "^3.2.0"
     micromatch "3.1.5"
     p-each-series "^1.0.0"
-    p-reduce "^1.0.0"
-    read-pkg-up "^4.0.0"
-    resolve-from "^4.0.0"
-    semver "^5.4.1"
+    p-reduce "^2.0.0"
+    read-pkg-up "^6.0.0"
+    resolve-from "^5.0.0"
+    semver "^6.0.0"
     semver-diff "^2.1.0"
     signale "^1.2.1"
-    yargs "^12.0.0"
+    yargs "^14.0.0"
 
 semver-compare@^1.0.0:
   version "1.0.0"
@@ -13686,7 +13701,7 @@ y18n@^3.2.0, y18n@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/y18n/-/y18n-3.2.1.tgz#6d15fba884c08679c0d77e88e7759e811e07fa41"
 
-"y18n@^3.2.1 || ^4.0.0", y18n@^4.0.0:
+y18n@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/y18n/-/y18n-4.0.0.tgz#95ef94f85ecc81d007c264e190a120f0a3c8566b"
 
@@ -13703,13 +13718,6 @@ yargs-parser@^10.0.0:
   resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-10.1.0.tgz#7202265b89f7e9e9f2e5765e0fe735a905edbaa8"
   dependencies:
     camelcase "^4.1.0"
-
-yargs-parser@^11.1.1:
-  version "11.1.1"
-  resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-11.1.1.tgz#879a0865973bca9f6bab5cbdf3b1c67ec7d3bcf4"
-  dependencies:
-    camelcase "^5.0.0"
-    decamelize "^1.2.0"
 
 yargs-parser@^13.1.0, yargs-parser@^13.1.1:
   version "13.1.1"
@@ -13763,28 +13771,27 @@ yargs@^11.0.0:
     y18n "^3.2.1"
     yargs-parser "^9.0.2"
 
-yargs@^12.0.0:
-  version "12.0.5"
-  resolved "https://registry.yarnpkg.com/yargs/-/yargs-12.0.5.tgz#05f5997b609647b64f66b81e3b4b10a368e7ad13"
-  dependencies:
-    cliui "^4.0.0"
-    decamelize "^1.2.0"
-    find-up "^3.0.0"
-    get-caller-file "^1.0.1"
-    os-locale "^3.0.0"
-    require-directory "^2.1.1"
-    require-main-filename "^1.0.1"
-    set-blocking "^2.0.0"
-    string-width "^2.0.0"
-    which-module "^2.0.0"
-    y18n "^3.2.1 || ^4.0.0"
-    yargs-parser "^11.1.1"
-
 yargs@^13.3.0:
   version "13.3.0"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-13.3.0.tgz#4c657a55e07e5f2cf947f8a366567c04a0dedc83"
   dependencies:
     cliui "^5.0.0"
+    find-up "^3.0.0"
+    get-caller-file "^2.0.1"
+    require-directory "^2.1.1"
+    require-main-filename "^2.0.0"
+    set-blocking "^2.0.0"
+    string-width "^3.0.0"
+    which-module "^2.0.0"
+    y18n "^4.0.0"
+    yargs-parser "^13.1.1"
+
+yargs@^14.0.0:
+  version "14.0.0"
+  resolved "https://registry.yarnpkg.com/yargs/-/yargs-14.0.0.tgz#ba4cacc802b3c0b3e36a9e791723763d57a85066"
+  dependencies:
+    cliui "^5.0.0"
+    decamelize "^1.2.0"
     find-up "^3.0.0"
     get-caller-file "^2.0.1"
     require-directory "^2.1.1"
