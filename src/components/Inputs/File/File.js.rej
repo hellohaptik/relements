@@ -1,0 +1,14 @@
+diff a/src/components/Inputs/File/File.js b/src/components/Inputs/File/File.js	(rejected hunks)
+@@ -323 +323 @@ class File extends React.Component {
+-      prevState => {        
++      prevState => {
+@@ -359,3 +359 @@ class File extends React.Component {
+-          `File: ${file.name} must be less than ${
+-            this.props.maxFileSize
+-          }MB`,
++          `File: ${file.name} must be less than ${this.props.maxFileSize}MB`,
+@@ -369,3 +367 @@ class File extends React.Component {
+-          `File: ${file.name} must be less than ${
+-            this.props.maxFileSize
+-          }MB`,
++          `File: ${file.name} must be less than ${this.props.maxFileSize}MB`,

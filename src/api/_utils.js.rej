@@ -1,0 +1,61 @@
+diff a/src/api/_utils.js b/src/api/_utils.js	(rejected hunks)
+@@ -1 +1 @@
+-import { ENDPOINTS } from 'constants';
++import { ENDPOINTS } from "constants";
+@@ -5,5 +5,5 @@ export async function APIRequest(url, method, data = undefined) {
+-    method: method || 'GET',
+-    headers: new Headers({ 'Content-Type': 'application/json' }),
+-    credentials: 'same-origin',
+-    mode: 'cors',
+-    cache: 'default',
++    method: method || "GET",
++    headers: new Headers({ "Content-Type": "application/json" }),
++    credentials: "same-origin",
++    mode: "cors",
++    cache: "default",
+@@ -15,2 +15,2 @@ export async function APIRequest(url, method, data = undefined) {
+-    const contentType = response.headers.get('content-type');
+-    if (contentType && contentType.indexOf('application/json') !== -1) {
++    const contentType = response.headers.get("content-type");
++    if (contentType && contentType.indexOf("application/json") !== -1) {
+@@ -20 +20 @@ export async function APIRequest(url, method, data = undefined) {
+-    throw new Error('API request failed!');
++    throw new Error("API request failed!");
+@@ -26 +26,7 @@ export async function APIRequest(url, method, data = undefined) {
+-export async function upload(file, fileObject, onProgress, onComplete, onError) {
++export async function upload(
++  file,
++  fileObject,
++  onProgress,
++  onComplete,
++  onError,
++) {
+@@ -28 +34 @@ export async function upload(file, fileObject, onProgress, onComplete, onError)
+-  const policy = (await APIRequest(url, 'POST', fileObject)).body;
++  const policy = (await APIRequest(url, "POST", fileObject)).body;
+@@ -32 +38 @@ export async function upload(file, fileObject, onProgress, onComplete, onError)
+-  Object.keys(policy.fields).map((key) => {
++  Object.keys(policy.fields).map(key => {
+@@ -35 +41 @@ export async function upload(file, fileObject, onProgress, onComplete, onError)
+-  fd.append('file', file);
++  fd.append("file", file);
+@@ -37 +43 @@ export async function upload(file, fileObject, onProgress, onComplete, onError)
+-  xhr.upload.onprogress = (e) => {
++  xhr.upload.onprogress = e => {
+@@ -40 +46 @@ export async function upload(file, fileObject, onProgress, onComplete, onError)
+-      const percentCompleteToNumber = +percentComplete;      
++      const percentCompleteToNumber = +percentComplete;
+@@ -53 +59,4 @@ export async function upload(file, fileObject, onProgress, onComplete, onError)
+-      const cdnUrl = url.replace('haptikappimg.s3.amazonaws.com', 'haptikappimg.haptikapi.com');
++      const cdnUrl = url.replace(
++        "haptikappimg.s3.amazonaws.com",
++        "haptikappimg.haptikapi.com",
++      );
+@@ -57 +66 @@ export async function upload(file, fileObject, onProgress, onComplete, onError)
+-  xhr.onerror = (e) => {
++  xhr.onerror = e => {
+@@ -61,2 +70,2 @@ export async function upload(file, fileObject, onProgress, onComplete, onError)
+-  xhr.open('POST', policy.url);
+-  xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
++  xhr.open("POST", policy.url);
++  xhr.setRequestHeader("Access-Control-Allow-Origin", "*");

@@ -21,7 +21,7 @@ const FilePlaceholder = props => (
       <span
         className={`${styles.filePlaceholderTextSubtitle} ${props.prefixClassName}-filesize`}
       >
-        {`Max File Size: ${props.size ? props.size : 2}MB`}
+        {`Max File Size: ${props.maxFileSize}MB`}
       </span>
       <span
         className={`${styles.filePlaceholderTextSubtitle} ${props.prefixClassName}-format`}
@@ -34,7 +34,7 @@ const FilePlaceholder = props => (
 
 FilePlaceholder.propTypes = {
   prefixClassName: PropTypes.string,
-  size: PropTypes.number,
+  maxFileSize: PropTypes.number,
 };
 
 export default FilePlaceholder;

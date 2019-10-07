@@ -156,7 +156,7 @@ test("File size", async () => {
   });
 
   const { rerender } = render(
-    <FileComponent prefixClassName="test" size={0.000001} />,
+    <FileComponent prefixClassName="test" maxFileSize={0.000001} />,
   );
   const input = document.getElementsByClassName("test-input")[0];
 
@@ -167,7 +167,7 @@ test("File size", async () => {
   fireEvent.change(input);
 
   rerender(
-    <FileComponent type="file" prefixClassName="test" size={0.000001} />,
+    <FileComponent type="file" prefixClassName="test" maxFileSize={0.000001} />,
   );
   const input_file = document.getElementsByClassName("test-input")[0];
   Object.defineProperty(input_file, "file", {
