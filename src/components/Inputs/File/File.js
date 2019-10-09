@@ -330,7 +330,7 @@ class File extends React.Component {
         return { uploads, uploadsCompleted };
       },
       () => {
-        if (this.props.onChange && uploadsCompleted >= numFiles) {
+        if (this.props.onChange && uploadsCompleted.length >= numFiles) {
           if (this.props.multiple) {
             this.props.onChange(
               value.concat(uploads.map(upload => upload.value)),
