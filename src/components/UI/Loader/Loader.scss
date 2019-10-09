@@ -13,11 +13,6 @@ $width: 100px;
   position: relative;
   margin: 0 auto;
   width: $width;
-  &:before {
-    content: '';
-    display: block;
-    padding-top: 100%;
-  }
 }
 
 .loader-inner {
