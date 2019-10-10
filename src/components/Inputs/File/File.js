@@ -321,7 +321,7 @@ class File extends React.Component {
     let uploads;
     this.setState(
       prevState => {
-        const uploadsCompleted = prevState.uploadsCompleted + 1;
+        uploadsCompleted = prevState.uploadsCompleted + 1;
         uploads = prevState.uploads;
         uploads[index].isUploading = false;
         uploads[index].uploadedPercent = 0;
