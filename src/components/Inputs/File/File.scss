@@ -110,9 +110,10 @@ $IMAGE_HEIGHT: 180px / 1.5;
 
 .loader {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  margin-top: 0;
   opacity: 0;
   transition: 0.2s ease-out;
   &.isUploading {
