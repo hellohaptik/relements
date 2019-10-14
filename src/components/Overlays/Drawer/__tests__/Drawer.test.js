@@ -40,7 +40,7 @@ test("Custom Width", async () => {
     component({ active: true, prefixClassName: "test", width: 420 }),
   );
   expect(document.getElementsByClassName("test-drawer")[0]).toHaveStyle(
-    "width: 420",
+    "width: 420px",
   );
 });
 
