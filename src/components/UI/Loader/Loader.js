@@ -26,7 +26,7 @@ const Loader = ({ size, className, prefixClassName }) => {
           cy="50"
           r="20"
           fill="none"
-          strokeWidth="2"
+          strokeWidth="3"
           strokeMiterlimit="10"
           stroke={primaryColor}
         />
