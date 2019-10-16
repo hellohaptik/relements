@@ -6,6 +6,7 @@ export const toPosition = (start, end, step) => knobValue => {
   const value = start + (knobValue / 100) * (end - start);
   return Math.ceil(value / step) * step;
 };
+
 export const fromPosition = (start, end) => position => {
   return (100 * (position - start)) / (end - start);
 };
@@ -97,12 +98,24 @@ export function useRangeSlider({
 
   const handleKeyDown = knobType => e => {
     const changeKnobPosition = () => {
-      const setter = knobType === "start" ? setStartPosition : setEndPosition;
+      const isStartKnob = knobType === "start";
+      const setter = isStartKnob ? setStartPosition : setEndPosition;
       let knobPosition = translateFromPosition(e.target.value);
       if (knobPosition < 0) knobPosition = 0;
       if (knobPosition > 100) knobPosition = 100;
       setter({ exact: knobPosition, rounded: knobPosition });
       endDrag(knobType);
+
+      // calling on change for input field updates
+      const knobValue = translateToPosition(knobPosition);
+      if (single) onChange(knobValue);
+      else {
+        const startValue = translateToPosition(startPosition.exact);
+        const endValue = translateToPosition(endPosition.exact);
+        isStartKnob
+          ? onChange([knobValue, endValue])
+          : onChange([startValue, knobValue]);
+      }
     };
     switch (e.keyCode) {
       case KEY_CODES.TAB:
