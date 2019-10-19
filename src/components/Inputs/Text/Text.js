@@ -19,6 +19,7 @@ const Text = ({
 
   onFocus,
   onBlur,
+  onKeyDown,
   disabled,
   multiline,
 }) => {
@@ -51,6 +52,7 @@ const Text = ({
         className={`${prefixClassName}-textinput`}
         onFocus={handleFocus}
         onBlur={handleBlur}
+        onKeyDown={onKeyDown}
         onChange={onChange}
         onClick={setFocused}
         focused={focused}
@@ -84,6 +86,8 @@ Text.propTypes = {
   onFocus: PropTypes.func,
   /** onBlur Callback */
   onBlur: PropTypes.func,
+  /** onKeyDown Callback */
+  onKeyDown: PropTypes.func,
   /** Disable Flag for input */
   disabled: PropTypes.bool,
   /** Tooltip to help user with the input fields */
@@ -104,6 +108,7 @@ Text.defaultProps = {
   onChange: () => {},
   onFocus: () => {},
   onBlur: () => {},
+  onKeyDown: () => {},
 };
 
 Text.classNames = {
