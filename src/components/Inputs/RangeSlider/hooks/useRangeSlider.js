@@ -134,7 +134,9 @@ export function useRangeSlider({
 
   const handleBlur = (e, knobType) => {
     const isStartKnob = !!(knobType === "start");
+    const setter = isStartKnob ? setStartPosition : setEndPosition;
     const knobPosition = translateFromPosition(e.target.value);
+    setter({ exact: knobPosition, rounded: knobPosition });
     const knobValue = translateToPosition(knobPosition);
     onKnobValueChange(isStartKnob, knobValue);
   };
