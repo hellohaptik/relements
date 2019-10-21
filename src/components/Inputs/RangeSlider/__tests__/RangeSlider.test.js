@@ -176,3 +176,19 @@ test("Drag end knob", async () => {
 
   expect(inputEnd.value).toBe(newVal.toString());
 });
+
+test("onBlur", async () => {
+  const mockFn = jest.fn();
+  const { container } = render(
+    <Component
+      value={[300, 400]}
+      prefixClassName="range-slider"
+      onBlur={mockFn}
+    />,
+  );
+  const inputEnd = container.querySelector(".range-slider-end-input");
+  let newEnd = 500;
+  fireEvent.change(inputEnd, { target: { value: newEnd } });
+  fireEvent.blur(inputEnd);
+  expect(inputEnd.value).toBe(newEnd.toString());
+});

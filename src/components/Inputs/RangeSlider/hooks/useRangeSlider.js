@@ -96,6 +96,17 @@ export function useRangeSlider({
     });
   };
 
+  const onKnobValueChange = (isStartKnob, knobValue) => {
+    if (single) onChange(knobValue);
+    else {
+      const startValue = translateToPosition(startPosition.exact);
+      const endValue = translateToPosition(endPosition.exact);
+      isStartKnob
+        ? onChange([knobValue, endValue])
+        : onChange([startValue, knobValue]);
+    }
+  };
+
   const handleKeyDown = knobType => e => {
     const changeKnobPosition = () => {
       const isStartKnob = knobType === "start";
@@ -104,18 +115,10 @@ export function useRangeSlider({
       if (knobPosition < 0) knobPosition = 0;
       if (knobPosition > 100) knobPosition = 100;
       setter({ exact: knobPosition, rounded: knobPosition });
-      endDrag(knobType);
 
       // calling on change for input field updates
       const knobValue = translateToPosition(knobPosition);
-      if (single) onChange(knobValue);
-      else {
-        const startValue = translateToPosition(startPosition.exact);
-        const endValue = translateToPosition(endPosition.exact);
-        isStartKnob
-          ? onChange([knobValue, endValue])
-          : onChange([startValue, knobValue]);
-      }
+      onKnobValueChange(isStartKnob, knobValue);
     };
     switch (e.keyCode) {
       case KEY_CODES.TAB:
@@ -127,6 +130,15 @@ export function useRangeSlider({
         break;
       default:
     }
+  };
+
+  const handleBlur = (e, knobType) => {
+    const isStartKnob = !!(knobType === "start");
+    const setter = isStartKnob ? setStartPosition : setEndPosition;
+    const knobPosition = translateFromPosition(e.target.value);
+    setter({ exact: knobPosition, rounded: knobPosition });
+    const knobValue = translateToPosition(knobPosition);
+    onKnobValueChange(isStartKnob, knobValue);
   };
 
   const renderKnob = (knobType, prefixClassName) => {
@@ -184,6 +196,9 @@ export function useRangeSlider({
           className={className}
           onChange={e => {
             setter({ value: e.target.value });
+          }}
+          onBlur={e => {
+            handleBlur(e, knobType);
           }}
         />
       </div>
