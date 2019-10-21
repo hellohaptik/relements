@@ -52,7 +52,6 @@ const Text = ({
         value={value}
         placeholder={placeholder}
         disabled={disabled}
-        noDelete={noDelete}
       />
     </div>
   );
