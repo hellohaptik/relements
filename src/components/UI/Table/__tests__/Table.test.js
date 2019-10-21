@@ -39,6 +39,11 @@ test("Header", async () => {
   expect(container.getElementsByClassName("test-header").length).toBe(1);
 });
 
+test("No Header", async () => {
+  const { container } = render(component({ noHeader: true }));
+  expect(container.getElementsByClassName("test-header").length).toBe(0);
+});
+
 test("Number of Rows", async () => {
   const { container } = render(component());
   expect(container.getElementsByClassName("test-body-row").length).toBe(

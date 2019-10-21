@@ -18,6 +18,7 @@ function Table({
   virtual,
   rowHeight,
   height,
+  noHeader,
 }) {
   const RenderBody = virtual ? BodyVirtual : Body;
   return (
@@ -25,13 +26,15 @@ function Table({
       data-testid="table"
       className={`${styles.table} ${className} ${prefixClassName}`}
     >
-      <Header
-        prefixClassName={`${prefixClassName}-header`}
-        onSort={onSort}
-        columns={columns}
-        sortOrder={sortOrder}
-        sortKey={sortKey}
-      />
+      {!noHeader && (
+        <Header
+          prefixClassName={`${prefixClassName}-header`}
+          onSort={onSort}
+          columns={columns}
+          sortOrder={sortOrder}
+          sortKey={sortKey}
+        />
+      )}
       <RenderBody
         prefixClassName={`${prefixClassName}-body`}
         onRowClick={onRowClick}
