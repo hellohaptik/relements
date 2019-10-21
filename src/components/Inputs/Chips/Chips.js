@@ -16,7 +16,6 @@ const Text = ({
   prefixClassName = "",
   error = "",
 
-  noDelete = false,
   onFocus = () => {},
   onBlur = () => {},
   disabled = false,
@@ -74,8 +73,6 @@ Text.propTypes = {
   onChange: PropTypes.func,
   /** PrefixClassName for The Chips */
   prefixClassName: PropTypes.string,
-  /** Removes Deleting Chip Functionality */
-  noDelete: PropTypes.bool,
   /** onFocus Callback */
   onFocus: PropTypes.func,
   /** onBlur Callback */
