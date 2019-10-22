@@ -14,7 +14,7 @@ export const ChipsInput = ({
   onFocus = () => {},
   onBlur = () => {},
   onMouseDown = () => {},
-  innerRef = {},
+  innerRef = React.createRef(),
   value = [],
   onChange = () => {},
   focused = false,
