@@ -75,15 +75,17 @@ export const ChipsInput = ({
     return (
       <div key={i} className={`${styles.chip} ${prefixClassName}-chip`}>
         {title}
-        <div
-          className={`${prefixClassName}-chip-icon`}
-          onMouseDown={handleDelete(i)}
-        >
-          <Icon
-            src={CrossIcon}
-            className={`${styles.deleteChipIcon} ${prefixClassName}-chip-icon-svg`}
-          />
-        </div>
+        {!disabled && (
+          <div
+            className={`${prefixClassName}-chip-icon`}
+            onMouseDown={handleDelete(i)}
+          >
+            <Icon
+              src={CrossIcon}
+              className={`${styles.deleteChipIcon} ${prefixClassName}-chip-icon-svg`}
+            />
+          </div>
+        )}
       </div>
     );
   };
