@@ -37,7 +37,7 @@ function Search({
 }) {
   const { primaryColor } = React.useContext(Context);
   const fuse = React.useRef();
-  const searchInput = React.useRef();
+  const searchInputRef = React.useRef();
   const [searchTerm, setSearchTerm] = React.useState("");
   const [focused, setFocused] = React.useState("");
   const handleSearch = React.useCallback(e => {
@@ -57,7 +57,7 @@ function Search({
     setSearchTerm(value);
   }, [value]);
 
-  useEnterKey(onSubmit, searchInput);
+  useEnterKey(onSubmit, searchInputRef);
 
   const activeClassName = focused ? styles.active : "";
   return (
@@ -70,7 +70,7 @@ function Search({
         className={`${styles.searchIcon} ${prefixClassName}-icon`}
       />
       <input
-        ref={searchInput}
+        ref={searchInputRef}
         type="text"
         placeholder={placeholder}
         className={`${styles.searchInput} ${prefixClassName}-input`}
