@@ -14,7 +14,7 @@ export const ChipsInput = ({
   onFocus = () => {},
   onBlur = () => {},
   onMouseDown = () => {},
-  innerRef = {},
+  innerRef = React.createRef(),
   value = [],
   onChange = () => {},
   focused = false,
@@ -57,6 +57,11 @@ export const ChipsInput = ({
     onKeyDown(e);
   });
 
+  const handleFocus = e => {
+    onFocus(e);
+    inputRef.current.focus();
+  };
+
   const renderInput = () => {
     return (
       <AutosizeInput
@@ -96,7 +101,7 @@ export const ChipsInput = ({
       ref={innerRef}
       style={focusedStyle}
       className={`${styles.chips} ${prefixClassName} ${errorClassName} ${className} ${focusedClassNameString}`}
-      onFocus={onFocus}
+      onFocus={handleFocus}
       onBlur={onBlur}
       onMouseDown={onMouseDown}
     >
