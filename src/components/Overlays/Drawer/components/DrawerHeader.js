@@ -12,6 +12,7 @@ const ComponentDrawerHeader = ({
   onSave,
   onCopy,
   onDone,
+  showDisabledSave,
 }) => {
   return (
     <div className={styles.drawerHeader}>
@@ -34,8 +35,11 @@ const ComponentDrawerHeader = ({
             src={CloneIcon}
           />
         ) : null}
-        {onSave ? (
-          <div onClick={onSave} className={styles.saveButton}>
+        {onSave || showDisabledSave ? (
+          <div
+            onClick={onSave}
+            className={onSave ? styles.saveButton : styles.saveButtonDisabled}
+          >
             Save
           </div>
         ) : null}
@@ -50,6 +54,7 @@ ComponentDrawerHeader.propTypes = {
   onSave: PropTypes.func,
   onCopy: PropTypes.func,
   onDone: PropTypes.func,
+  showDisabledSave: PropTypes.bool,
 };
 
 export default ComponentDrawerHeader;
