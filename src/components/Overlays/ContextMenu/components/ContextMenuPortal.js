@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 
 import useActivify from "@src/hooks/useActivify";
 import useEscapeKey from "@src/hooks/useEscapeKey";
-import useEnterKey from "@src/hooks/useEnterKey";
 import usePositioner from "../hooks/usePositioner";
 
 import styles from "./ContextMenuPortal.scss";
@@ -25,7 +24,6 @@ const ContextMenuPortal = ({
   const position = usePositioner(attachTo, contextMenuDOM, offset);
 
   useEscapeKey(onClose);
-  useEnterKey(onClose);
 
   if (!enabled) return null;
   return (
