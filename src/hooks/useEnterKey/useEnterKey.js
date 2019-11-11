@@ -12,7 +12,7 @@ export default function useEnterKey(onEnter, ref = { current: document }) {
   );
 
   React.useEffect(() => {
-    ref.current.addEventListener("keyup", handleKeyUp);
+    ref.current && ref.current.addEventListener("keyup", handleKeyUp);
     return () => ref.current.removeEventListener("keyup", handleKeyUp);
   }, [handleKeyUp]);
 }
