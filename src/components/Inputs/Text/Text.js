@@ -101,7 +101,7 @@ Text.propTypes = {
   tooltip: PropTypes.string,
   /** If you want to render a textarea instead */
   multiline: PropTypes.bool,
-  /** To get a reference */
+  /** Passing Ref for input field reference */
   innerRef: PropTypes.func,
 };
 
