@@ -22,6 +22,7 @@ const Text = ({
   onKeyDown,
   disabled,
   multiline,
+  innerRef,
 }) => {
   const _TextInputDOM = useRef();
   const { focused, setFocused, handleFocus, handleBlur } = useInput(
@@ -31,6 +32,12 @@ const Text = ({
   );
   const errorClassName = error ? "error" : "";
   const disabledClassName = disabled ? "disabled" : "";
+
+  const handleRef = React.useCallback(ref => {
+    _TextInputDOM.current = ref;
+    if (typeof innerRef === "function") innerRef(ref);
+    else innerRef.current = ref;
+  });
 
   return (
     <div
@@ -47,7 +54,7 @@ const Text = ({
         <span>{label}</span>
       </Label>
       <TextInput
-        inputRef={_TextInputDOM}
+        inputRef={handleRef}
         prefixClassName={prefixClassName}
         className={`${prefixClassName}-textinput`}
         onFocus={handleFocus}
@@ -94,6 +101,8 @@ Text.propTypes = {
   tooltip: PropTypes.string,
   /** If you want to render a textarea instead */
   multiline: PropTypes.bool,
+  /** To get a reference */
+  innerRef: PropTypes.func,
 };
 
 Text.defaultProps = {
@@ -109,6 +118,7 @@ Text.defaultProps = {
   onFocus: () => {},
   onBlur: () => {},
   onKeyDown: () => {},
+  innerRef: () => {},
 };
 
 Text.classNames = {

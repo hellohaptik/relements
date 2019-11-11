@@ -34,11 +34,11 @@ export const TextInput = ({
   const disabledClassName = disabled ? styles.disabled : "";
   const [textValue, setTextValue] = useState();
 
-  const handleRef = ref => {
-    if (typeof inputRef === "object") inputRef.current = ref;
-    else inputRef(ref);
+  const handleRef = React.useCallback(ref => {
     input.current = ref;
-  };
+    if (typeof inputRef === "function") inputRef(ref);
+    else inputRef.current = ref;
+  });
 
   const handleChange = e => {
     onChange(e.target.value);
