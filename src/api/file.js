@@ -3,6 +3,7 @@ import { APIRequest, upload } from './_utils';
 
 export const getUploadPolicy = (fileObject) => {
   const url = ENDPOINTS.BASE_URL + ENDPOINTS.POLICY_ENDPOINT;
+  console.log("TCL: getUploadPolicy -> url", url)
   return APIRequest(url, 'POST', fileObject);
 };
 

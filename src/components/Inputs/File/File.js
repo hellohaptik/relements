@@ -41,7 +41,7 @@ class File extends React.Component {
     const { value, multiple, className, prefixClassName } = this.props;
     let values = [];
     if (value) {
-      values = multiple ? this._transform([value]) : this._transform([value]);
+      values = multiple ? this._transform(value) : this._transform([value]);
     }
 
     const uploads = values.concat(this.state.uploads);
@@ -379,8 +379,8 @@ class File extends React.Component {
 }
 
 File.propTypes = {
-  /** Names of already choosen file/files */
-  value: PropTypes.string,
+  /** Names of already choosen file/files, could be a string (if single file), could be an array(if multiple files) */
+  value: PropTypes.oneOf([PropTypes.string, PropTypes.array]),
   /** on change function for input */
   onChange: PropTypes.func,
   /** Boolean value to allow multiple files */
