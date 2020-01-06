@@ -23,16 +23,17 @@ const ConfirmationDialog = () => WrappedComponent => {
         e.preventDefault();
         e.stopPropagation();
       }
+      confirmationCallback.current = null;
       setModalActive(false);
     });
 
     const deactivatePositive = React.useCallback(() => {
-      confirmationCallback.current(true);
+      if (confirmationCallback.current) confirmationCallback.current(true);
       deactivateConfirmationDialog();
     });
 
     const deactivateNegative = React.useCallback(() => {
-      confirmationCallback.current(false);
+      if (confirmationCallback.current) confirmationCallback.current(false);
       deactivateConfirmationDialog();
     });
 
