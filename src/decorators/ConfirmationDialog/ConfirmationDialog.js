@@ -8,7 +8,7 @@ const ConfirmationDialog = () => WrappedComponent => {
   return props => {
     const [modalActive, setModalActive] = React.useState(false);
     const [modalContent, setModalContent] = React.useState({});
-    const confirmationCallback = React.useRef(() => {});
+    const confirmationCallback = React.useRef(null);
 
     const activateConfirmationDialog = React.useCallback(
       (modalContent = {}, callback) => {
