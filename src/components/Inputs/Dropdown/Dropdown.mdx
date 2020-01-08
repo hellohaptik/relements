@@ -118,3 +118,23 @@ import Dropdown from "./Dropdown";
     />
   )}
 </CodeBlock>
+
+<CodeBlock title="Disabled">
+  {(value, setValue) => (
+    <Dropdown
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      value={[{text: "Option text 1" }]}
+      options={[
+        { text: "Option text 1" },
+        { text: "Option text 2" },
+        { text: "Option text 3" },
+        { text: "Option text 4" },
+      ]}
+      label="This is the label"
+      onChange={setValue}
+      disabled
+    />
+  )}
+</CodeBlock>

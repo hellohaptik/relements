@@ -173,7 +173,9 @@ const Dropdown = ({
         editable={withSearch || withCreate}
         withMultiple={withMultiple}
         postfixComponent={
-          <Icon className={styles.dropdownInputIcon} src={AngleDownIcon} />
+          !disabled ? (
+            <Icon className={styles.dropdownInputIcon} src={AngleDownIcon} />
+          ) : null
         }
         optionKey={optionKey}
       />
