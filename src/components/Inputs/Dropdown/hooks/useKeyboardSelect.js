@@ -2,7 +2,7 @@ import { useState, createRef, useEffect, useRef } from "react";
 import { KEY_CODES } from "constants";
 
 export function useKeyboardSelect(options, onSelect, onClose) {
-  const [highlightIndex, setHighlightIndex] = useState(-1);
+  const [highlightIndex, setHighlightIndex] = useState(0);
   const dropdownDOMs = useRef();
   const changeHighlightIndex = newIndex => {
     if (newIndex >= options.length) {
