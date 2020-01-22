@@ -1,7 +1,17 @@
-@import 'constants/index.scss';
+@import "constants/index.scss";
 
 .date {
   position: relative;
+  &Time {
+    > div {
+      border-radius: 0;
+      padding: 12px 14px;
+      padding-right: 16px;
+    }
+    .TimePickerInput__timePickerInput___qghY7 {
+      flex: 1;
+    }
+  }
 }
 
 .dateLabel {
@@ -89,7 +99,7 @@
 }
 
 .dateInputZeroState {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   display: block;
   padding: 16px;
   font-size: 14px;

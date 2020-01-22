@@ -1,4 +1,4 @@
-@import 'constants/index.scss';
+@import "constants/index.scss";
 
 :global {
   .date-picker-tooltip {
@@ -9,7 +9,6 @@
 .singlePicker {
   background-color: #fff;
   border-radius: 8px;
-  margin-top: 8px;
   min-height: 240px;
   display: flex;
   align-items: flex-start;
