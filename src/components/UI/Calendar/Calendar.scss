@@ -121,7 +121,7 @@ $GRID_HEIGHT: 28px;
           pointer-events: none;
         }
         &.invisible > * {
-          opacity: 0.1;
+          opacity: 0.05;
         }
         &:last-child {
           border-right: none;

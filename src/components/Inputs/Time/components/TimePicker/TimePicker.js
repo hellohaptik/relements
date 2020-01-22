@@ -16,33 +16,44 @@ function TimePicker({ value, onChange, prefixClassName }) {
   const amActiveClassName = AMPM === "AM" ? styles.active : "";
   const pmActiveClassName = AMPM === "PM" ? styles.active : "";
 
-  const generateValue = React.useCallback((newHH, newMM, newAMPM) => {
-    let date = dayjs();
-    date = date.set("h", parseInt(newHH, 10) + (newAMPM === "PM" ? 12 : 0));
-    date = date.set("m", parseInt(newMM, 10));
+  const generateValue = React.useCallback(
+    (newHH, newMM, newAMPM) => {
+      let date = dayjs(value);
+      date = date.set("h", parseInt(newHH, 10) + (newAMPM === "PM" ? 12 : 0));
+      date = date.set("m", parseInt(newMM, 10));
 
-    return date;
-  });
+      return date;
+    },
+    [date],
+  );
 
-  const handleHHChange = React.useCallback(e => {
-    const newHH = e.target ? e.target.value : e;
-    if (Number.isNaN(+newHH)) return;
-    if (newHH > 12) return MMRef.current.focus();
-    if (newHH > 1) {
-      MMRef.current.select();
-      MMRef.current.focus();
-    }
-    setHH(newHH);
-    onChange(generateValue(newHH, MM, AMPM));
-  });
+  const handleHHChange = React.useCallback(
+    e => {
+      const newHH = e.target ? e.target.value : e;
+      if (Number.isNaN(+newHH)) return;
+      if (newHH > 12) return MMRef.current.focus();
+      if (newHH > 1) {
+        MMRef.current.select();
+        MMRef.current.focus();
+      }
+      if (newHH < 1) return;
+      setHH(newHH);
+      onChange(generateValue(newHH, MM, AMPM));
+    },
+    [date],
+  );
 
-  const handleMMChange = React.useCallback(e => {
-    const newMM = e.target ? e.target.value : e;
-    if (Number.isNaN(+newMM)) return;
-    if (newMM > 59) return;
-    setMM(newMM);
-    onChange(generateValue(HH, newMM, AMPM));
-  });
+  const handleMMChange = React.useCallback(
+    e => {
+      const newMM = e.target ? e.target.value : e;
+      if (Number.isNaN(+newMM)) return;
+      if (newMM > 59) return;
+      if (newMM < 0) return;
+      setMM(newMM);
+      onChange(generateValue(HH, newMM, AMPM));
+    },
+    [date],
+  );
 
   const handleAMPMChange = React.useCallback(newAMPM => () => {
     setAMPM(newAMPM);

@@ -79,7 +79,7 @@ class Date extends React.Component {
             />
           ) : (
             <SinglePicker
-              value={this.state.value || value}
+              value={this.state.date || value}
               onChange={this._handleChange}
               maxDate={maxDate}
               minDate={minDate}
@@ -91,7 +91,7 @@ class Date extends React.Component {
             <div className={`${styles.dateTime} ${prefixClassName}-time`}>
               <TimePicker
                 prefixClassName={`${prefixClassName}-time-picker`}
-                value={dayjs(this.state.value || value)}
+                value={dayjs(this.state.date || value)}
                 onChange={this._handleChange}
               />
             </div>
@@ -140,22 +140,23 @@ class Date extends React.Component {
   _getParsedDate = () => {
     const { withRange, value } = this.props;
     const format = "DD MMM, YYYY";
+    const actualValue = this.state.date || value;
 
     if (withRange) {
-      const { startDate, endDate } = this._getParsedValueFromObject(value);
+      const { startDate, endDate } = this._getParsedValueFromObject(
+        actualValue,
+      );
       if (!startDate.isValid() || !endDate.isValid()) return "";
       return `${startDate.format(format)} - ${endDate.format(format)}`;
     }
 
-    const date = this._getParsedValueFromDate(value);
+    const date = this._getParsedValueFromDate(actualValue);
     if (!date.isValid()) return "Invalid Date";
-
-    if (this.props.withTime) return `${date.format("DD MMMM, YYYY hh:mm A")}`;
+    if (this.props.withTime) return `${date.format("DD/MM/YYYY hh:mm A")}`;
     return `${date.format("DD MMMM, YYYY")}`;
   };
 
-  _getParsedValueFromObject = () => {
-    const { value } = this.props;
+  _getParsedValueFromObject = (value = this.props.value) => {
     const startDate = dayjs(value.startDate);
     const endDate = dayjs(value.endDate);
     const comparisonStartDate = value.comparisonStartDate
@@ -172,20 +173,24 @@ class Date extends React.Component {
     };
   };
 
-  _getParsedValueFromDate = () => {
-    const { value } = this.props;
+  _getParsedValueFromDate = (value = this.props.value) => {
     if (!value) return dayjs();
     return dayjs(value);
   };
 
   _handleChange = date => {
     const newDate = date.toDate ? date.toDate() : date;
+    const { maxDate, minDate } = this.props;
+    if (maxDate && dayjs(newDate).isAfter(maxDate))
+      return this.setState({ date: maxDate });
+    if (minDate && dayjs(newDate).isBefore(minDate))
+      return this.setState({ date: minDate });
 
     if (!this.props.withTime) {
-      this.setState({ active: false, focused: false, date });
+      this.setState({ active: false, focused: false, date: newDate });
       this.props.onChange(newDate);
     } else {
-      this.setState({ date });
+      this.setState({ date: newDate });
     }
   };
 

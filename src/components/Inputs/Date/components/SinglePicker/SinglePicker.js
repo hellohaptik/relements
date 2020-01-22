@@ -13,7 +13,7 @@ export default class SinglePicker extends React.Component {
   }
 
   render() {
-    const { value, prefixClassName } = this.props;
+    const { value, prefixClassName, maxDate, minDate } = this.props;
     const date = this._getParsedValue(value);
     return (
       <div className={`${styles.singlePicker} ${prefixClassName}`}>
@@ -22,6 +22,8 @@ export default class SinglePicker extends React.Component {
           value={[{ from: date, to: date }]}
           onChange={this._handleCellClick}
           numMonths={1}
+          maxDate={maxDate}
+          minDate={minDate}
         />
       </div>
     );
@@ -47,10 +49,14 @@ SinglePicker.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.object,
   prefixClassName: PropTypes.string,
+  maxDate: PropTypes.string,
+  minDate: PropTypes.string,
 };
 
 SinglePicker.defaultProps = {
   onChange: () => {},
   value: dayjs(),
   prefixClassName: "",
+  maxDate: undefined,
+  minDate: undefined,
 };
