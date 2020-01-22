@@ -96,14 +96,14 @@ test("On change input value for start and end", async () => {
   fireEvent.change(inputStart, { target: { value: newStart } });
   fireEvent.keyDown(inputStart, { key: "tab", keyCode: KEY_CODES.TAB });
   startLeft = translateFromPosition(newStart);
-  expect(inputStart.value).toBe(newStart.toString());
+  expect(inputStart.value).toBe("0");
   expect(knobStart.style.left).toBe(`0%`);
 
   newEnd = 1001;
   fireEvent.change(inputEnd, { target: { value: newEnd } });
   fireEvent.keyDown(inputEnd, { key: "enter", keyCode: KEY_CODES.ENTER });
   endLeft = translateFromPosition(newEnd);
-  expect(inputEnd.value).toBe(newEnd.toString());
+  expect(inputEnd.value).toBe("1000");
   expect(knobEnd.style.left).toBe(`100%`);
 });
 

@@ -98,29 +98,37 @@ export function useRangeSlider({
     });
   };
 
-  const onKnobValueChange = (isStartKnob, knobValue) => {
-    if (single) onChange(knobValue);
+  const onKnobValueChange = (isStartKnob, knobValue, knobPosition) => {
+    let newValue = knobValue;
+    let newPosition = knobPosition;
+
+    if (knobValue > end) newValue = end;
+    if (knobValue < 0) newValue = 0;
+    if (newPosition > 100) newPosition = 100;
+    if (newPosition < 0) newPosition = 0;
+
+    const setter = isStartKnob
+      ? { setValue: setStartValue, setPosition: setStartPosition }
+      : { setValue: setEndValue, setPosition: setEndPosition };
+    setter.setValue(newValue);
+    setter.setPosition({ exact: newPosition, rounded: newPosition });
+
+    if (single) onChange(newValue);
     else {
       const startValue = translateToPosition(startPosition.exact);
       const endValue = translateToPosition(endPosition.exact);
       isStartKnob
-        ? onChange([knobValue, endValue])
-        : onChange([startValue, knobValue]);
+        ? onChange([newValue, endValue])
+        : onChange([startValue, newValue]);
     }
   };
 
   const handleKeyDown = knobType => e => {
     const changeKnobPosition = () => {
       const isStartKnob = knobType === "start";
-      const setter = isStartKnob ? setStartPosition : setEndPosition;
-      let knobPosition = translateFromPosition(e.target.value);
-      if (knobPosition < 0) knobPosition = 0;
-      if (knobPosition > 100) knobPosition = 100;
-      setter({ exact: knobPosition, rounded: knobPosition });
-
-      // calling on change for input field updates
+      const knobPosition = translateFromPosition(e.target.value);
       const knobValue = translateToPosition(knobPosition);
-      onKnobValueChange(isStartKnob, knobValue);
+      onKnobValueChange(isStartKnob, knobValue, knobPosition);
     };
     switch (e.keyCode) {
       case KEY_CODES.TAB:
@@ -136,11 +144,9 @@ export function useRangeSlider({
 
   const handleBlur = (e, knobType) => {
     const isStartKnob = !!(knobType === "start");
-    const setter = isStartKnob ? setStartPosition : setEndPosition;
     const knobPosition = translateFromPosition(e.target.value);
-    setter({ exact: knobPosition, rounded: knobPosition });
     const knobValue = translateToPosition(knobPosition);
-    onKnobValueChange(isStartKnob, knobValue);
+    onKnobValueChange(isStartKnob, knobValue, knobPosition);
   };
 
   const renderKnob = (knobType, prefixClassName) => {
