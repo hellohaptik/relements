@@ -13,11 +13,15 @@ import styles from "./Tabs.scss";
  */
 const Tabs = ({ className, prefixClassName, children, value = "" }) => {
   const { primaryColor } = React.useContext(Context);
-  const DOMRefs = new Array(React.Children.count(children))
-    .fill()
-    .map(() => React.useRef());
-  const [left, width, renderTabs] = useTabs(value, DOMRefs, children);
+  const DOMRefs = React.useRef([]);
+  const [left, width, renderTabs] = useTabs(value, DOMRefs.current, children);
   const transform = `translateX(${left}px) scale(${width}, 1)`;
+
+  React.useEffect(() => {
+    DOMRefs.current = new Array(React.Children.count(children))
+      .fill()
+      .map(() => React.createRef());
+  }, [children]);
 
   return (
     <div
