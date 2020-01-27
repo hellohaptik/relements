@@ -94,7 +94,7 @@ export const ICON_MAP = {
   api: ApiIcon,
   gear: GearIcon,
   close: CloseIcon,
-  close_v2: CloseIconV2,
+  closeV2: CloseIconV2,
   inactive: InactiveIcon,
   active: ActiveIcon,
   edit: EditIcon,
