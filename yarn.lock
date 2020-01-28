@@ -1412,17 +1412,15 @@
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@semantic-release/error/-/error-2.2.0.tgz#ee9d5a09c9969eade1ec864776aeda5c5cddbbf0"
 
-"@semantic-release/git@^7.1.0-beta.3":
-  version "7.1.0-beta.6"
-  resolved "https://registry.yarnpkg.com/@semantic-release/git/-/git-7.1.0-beta.6.tgz#d3bca6bda609e2ca2217a568b4e4b04ebaa55b84"
+"@semantic-release/git@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@semantic-release/git/-/git-8.0.0.tgz#59be8e2cf061476a747c077808c2ccc01a217a2f"
   dependencies:
     "@semantic-release/error" "^2.1.0"
     aggregate-error "^3.0.0"
     debug "^4.0.0"
     dir-glob "^3.0.0"
-    execa "^2.0.2"
-    fs-extra "^8.0.0"
-    globby "^10.0.0"
+    execa "^4.0.0"
     lodash "^4.17.4"
     micromatch "^4.0.0"
     p-reduce "^2.0.0"
@@ -5298,6 +5296,20 @@ execa@^2.0.0, execa@^2.0.2, execa@^2.0.3:
     signal-exit "^3.0.2"
     strip-final-newline "^2.0.0"
 
+execa@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/execa/-/execa-4.0.0.tgz#7f37d6ec17f09e6b8fc53288611695b6d12b9daf"
+  dependencies:
+    cross-spawn "^7.0.0"
+    get-stream "^5.0.0"
+    human-signals "^1.1.1"
+    is-stream "^2.0.0"
+    merge-stream "^2.0.0"
+    npm-run-path "^4.0.0"
+    onetime "^5.1.0"
+    signal-exit "^3.0.2"
+    strip-final-newline "^2.0.0"
+
 exit-hook@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/exit-hook/-/exit-hook-1.1.1.tgz#f05ca233b48c05d54fff07765df8507e95c02ff8"
@@ -6444,6 +6456,10 @@ https-proxy-agent@^2.2.1:
   dependencies:
     agent-base "^4.3.0"
     debug "^3.1.0"
+
+human-signals@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-1.1.1.tgz#c5b1cd14f50aeae09ab6c59fe63ba3395fe4dfa3"
 
 humanize-ms@^1.2.1:
   version "1.2.1"
@@ -9091,6 +9107,12 @@ npm-run-path@^2.0.0:
 npm-run-path@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/npm-run-path/-/npm-run-path-3.1.0.tgz#7f91be317f6a466efed3c9f2980ad8a4ee8b0fa5"
+  dependencies:
+    path-key "^3.0.0"
+
+npm-run-path@^4.0.0:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/npm-run-path/-/npm-run-path-4.0.1.tgz#b7ecd1e5ed53da8e37a55e1c2269e0b97ed748ea"
   dependencies:
     path-key "^3.0.0"
 
