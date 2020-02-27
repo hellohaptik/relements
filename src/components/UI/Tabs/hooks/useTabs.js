@@ -50,9 +50,9 @@ export function useTabs(value, DOMRefs, children) {
     let width = 0;
     DOMRefs.map((DOMElement, i) => {
       if (i < index && i >= 0) {
-        left += DOMElement.current.getBoundingClientRect().width;
+        left += DOMElement.getBoundingClientRect().width;
       } else if (i === index) {
-        width = DOMElement.current.getBoundingClientRect().width - 1;
+        width = DOMElement.getBoundingClientRect().width - 1;
       }
     });
 
@@ -81,8 +81,10 @@ export function useTabs(value, DOMRefs, children) {
   const renderTabs = () =>
     React.Children.map(children, (child, i) => {
       return React.cloneElement(child, {
-        innerRef: DOMRefs[i],
         active: activeIndex === i,
+        innerRef: ref => {
+          if (ref) DOMRefs[i] = ref;
+        },
       });
     });
 
