@@ -1,4 +1,6 @@
-@import 'constants/index.scss';
+@import "constants/index.scss";
+
+@import "constants/index.scss";
 
 .dropdownOptions {
   position: absolute;
@@ -26,7 +28,6 @@
     border-top-left-radius: 8px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
-    transform: translateY(5px);
     &.active {
       transform: translateY(0px);
     }

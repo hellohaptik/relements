@@ -1,0 +1,14 @@
+@import "constants/index.scss";
+
+.input {
+  &.focused {
+    &:not(.reversed) {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    &.reversed {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+}

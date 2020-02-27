@@ -9,6 +9,7 @@ function Body({ className, prefixClassName, onRowClick, rows, columns }) {
     <div className={`${prefixClassName} ${className}`}>
       {rows.map((_, index) => (
         <Row
+          key={index}
           index={index}
           data={rows}
           onClick={onRowClick}

@@ -1,7 +1,8 @@
-@import 'constants/index.scss';
+@import "constants/index.scss";
 
 .dropdown {
   position: relative;
+  outline: none;
 }
 
 .dropdownInput {
@@ -37,7 +38,6 @@
   transition: 0.2s ease-out;
 }
 
-
 .dropdownInputZeroState {
   display: block;
   padding: 8px;
@@ -54,7 +54,7 @@
 
   position: absolute;
   bottom: 0;
-  transform: translate3d(0,100%,0);
+  transform: translate3d(0, 100%, 0);
   padding-top: 4px;
 }
 

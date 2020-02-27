@@ -6,11 +6,13 @@ export function useInput(inputDOM, onFocus, onBlur) {
     e.preventDefault();
     setFocused(true);
     onFocus(e);
+    inputDOM.current && inputDOM.current.focus();
   };
 
   const handleBlur = e => {
     setFocused(false);
     onBlur(e);
+    inputDOM.current && inputDOM.current.blur();
   };
 
   return {

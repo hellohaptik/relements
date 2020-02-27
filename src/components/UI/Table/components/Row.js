@@ -42,18 +42,20 @@ function Row({ index, style, data, onClick, prefixClassName, widths }) {
 
 Row.propTypes = {
   prefixClassName: PropTypes.string,
-  widths: PropTypes.arrayOf(PropTypes.number),
+  widths: PropTypes.arrayOf(PropTypes.string),
   onClick: PropTypes.func,
   index: PropTypes.number,
   style: PropTypes.shape({}),
   data: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      columns: PropTypes.array,
-      disabled: PropTypes.bool,
-      className: PropTypes.string,
-      hidden: PropTypes.bool,
-    }),
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+        columns: PropTypes.array,
+        disabled: PropTypes.bool,
+        className: PropTypes.string,
+        hidden: PropTypes.bool,
+      }),
+    ),
   ),
 };
 

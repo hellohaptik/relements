@@ -27,12 +27,13 @@ export const ChipsInput = ({
   postfixComponent = null,
   optionKey = "text",
   prefixClassName = "",
+  typeValue = "",
 }) => {
   const { primaryColor } = React.useContext(Context);
   const focusedClassNameString = focused ? "focused" : "";
   const focusedStyle = focused ? { borderColor: primaryColor } : {};
   const errorClassName = error ? styles.error : "";
-  const [inputValue, setInputValue] = useState();
+  const [inputValue, setInputValue] = useState(typeValue);
   const [onKeyDownChips, , deleteChip] = useChips(
     value,
     inputValue,
@@ -56,11 +57,6 @@ export const ChipsInput = ({
     onKeyDownChips(e);
     onKeyDown(e);
   });
-
-  const handleFocus = e => {
-    onFocus(e);
-    inputRef.current.focus();
-  };
 
   const renderInput = () => {
     return (
@@ -95,13 +91,17 @@ export const ChipsInput = ({
     );
   };
 
+  React.useEffect(() => {
+    setInputValue(typeValue);
+  }, [typeValue]);
+
   return (
     <div
       tabIndex="-1"
       ref={innerRef}
       style={focusedStyle}
       className={`${styles.chips} ${prefixClassName} ${errorClassName} ${className} ${focusedClassNameString}`}
-      onFocus={handleFocus}
+      onFocus={onFocus}
       onBlur={onBlur}
       onMouseDown={onMouseDown}
     >
@@ -122,8 +122,8 @@ ChipsInput.propTypes = {
   onMouseDown: PropTypes.func,
   innerRef: PropTypes.object,
   className: PropTypes.string,
-  value: PropTypes.string,
-  disabled: PropTypes.string,
+  value: PropTypes.arrayOf(PropTypes.shape({})),
+  disabled: PropTypes.bool,
   onChange: PropTypes.func,
   onType: PropTypes.func,
   focused: PropTypes.bool,
@@ -134,4 +134,5 @@ ChipsInput.propTypes = {
   prefixComponent: PropTypes.node,
   postfixComponent: PropTypes.node,
   prefixClassName: PropTypes.string,
+  typeValue: PropTypes.string,
 };

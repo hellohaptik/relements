@@ -1,4 +1,4 @@
-@import 'constants/index.scss';
+@import "constants/index.scss";
 
 .dropdownOption {
   padding: 8px;
@@ -11,6 +11,20 @@
   &:hover {
     background-color: #fafafa;
     cursor: pointer;
+  }
+
+  &.zeroState {
+    opacity: 0.5;
+    background-color: transparent !important;
+    span {
+      color: #000 !important;
+    }
+  }
+
+  &.isNew {
+    span {
+      font-style: italic;
+    }
   }
 }
 
