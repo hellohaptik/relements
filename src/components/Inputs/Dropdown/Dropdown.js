@@ -44,7 +44,8 @@ const Dropdown = ({
   // based on the typed text, the options are filtered using the useSearch hook
   // Fuse.js is used for fuzzy searching.
   // searchKeys determines the array of keys withing the options to search
-  const searchResults = useSearch(text, options, searchKeys);
+  const searchInKeys = searchKeys.length ? searchKeys : [optionKey];
+  const searchResults = useSearch(text, options, searchInKeys);
 
   // we normalize it to always be an array depending on the useMultiple flag
   const inputValue = withMultiple ? value : [value];
@@ -220,7 +221,7 @@ Dropdown.defaultProps = {
   onChange: () => {},
   placeholder: "",
   createPrefix: "+ Create",
-  searchKeys: ["text"],
+  searchKeys: [],
   onFocus: () => {},
   onBlur: () => {},
   disabled: false,
