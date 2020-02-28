@@ -32,7 +32,7 @@ const Dropdown = ({
   // stores the currently typed input (in case of withSearch)
   const [text, setText] = React.useState("");
   const [options, setOptions] = React.useState(propOptions);
-  const [createdOption, setCreatedOption] = React.useState(undefined);
+  const [createdOption, setCreatedOption] = React.useState();
   const [focused, setFocused] = React.useState(false);
 
   // the ref for the input wrapper (used for positioning the dropdown)
