@@ -14,15 +14,17 @@ function TimePickerInput({
   max,
 }) {
   const handleChange = React.useCallback(newValue => {
-    if (+newValue > max) onChange(0);
-    else onChange(newValue);
+    if (+newValue > max) onChange("00");
+    else onChange(`${newValue}`);
   });
+
+  const inputValue = +value > 9 ? `${+value}` : `0${+value}`;
 
   return (
     <div className={`${styles.timePickerInput} ${prefixClassName}`}>
       <input
         type="number"
-        value={value}
+        value={inputValue}
         onChange={e => handleChange(e.target.value)}
         ref={innerRef}
         className={`${prefixClassName}-element`}

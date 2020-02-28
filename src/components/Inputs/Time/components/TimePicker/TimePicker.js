@@ -19,8 +19,15 @@ function TimePicker({ value, onChange, prefixClassName }) {
   const generateValue = React.useCallback(
     (newHH, newMM, newAMPM) => {
       let date = dayjs(value);
-      date = date.set("h", parseInt(newHH, 10) + (newAMPM === "PM" ? 12 : 0));
+      let hoursToAdd = 0;
+      if (newAMPM === "PM" && +newHH === 12) hoursToAdd = 0;
+      if (newAMPM === "AM" && +newHH === 12) hoursToAdd = 12;
+
+      date = date.set("h", parseInt(newHH, 10) + hoursToAdd);
       date = date.set("m", parseInt(newMM, 10));
+
+      if (dayjs(value).get("d") !== date.get("d"))
+        date = date.set("d", dayjs(value).get("d"));
 
       return date;
     },
@@ -29,14 +36,17 @@ function TimePicker({ value, onChange, prefixClassName }) {
 
   const handleHHChange = React.useCallback(
     e => {
-      const newHH = e.target ? e.target.value : e;
+      let newHH = e.target ? +e.target.value : e;
+      if (!newHH) newHH = 0;
       if (Number.isNaN(+newHH)) return;
       if (newHH > 12) return MMRef.current.focus();
       if (newHH > 1) {
         MMRef.current.select();
         MMRef.current.focus();
       }
+      if (newHH === 0) newHH = 12;
       if (newHH < 1) return;
+
       setHH(newHH);
       onChange(generateValue(newHH, MM, AMPM));
     },
@@ -45,7 +55,8 @@ function TimePicker({ value, onChange, prefixClassName }) {
 
   const handleMMChange = React.useCallback(
     e => {
-      const newMM = e.target ? e.target.value : e;
+      let newMM = e.target ? e.target.value : e;
+      if (!newMM) newMM = 0;
       if (Number.isNaN(+newMM)) return;
       if (newMM > 59) return;
       if (newMM < 0) return;

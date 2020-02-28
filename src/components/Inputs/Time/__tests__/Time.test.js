@@ -99,7 +99,7 @@ test("On Change", async () => {
     />,
   );
 
-  expect(tooltipInputHH.value).toBe("3");
+  expect(tooltipInputHH.value).toBe("03");
   expect(tooltipInputMM.value).toBe("10");
 
   fireEvent.mouseDown(inputElement);
@@ -108,7 +108,7 @@ test("On Change", async () => {
 
   expect(mockFn).toHaveBeenCalledTimes(2);
   const date2 = dayjs(mockFn.mock.calls[1][0]);
-  expect(date2.get("hour")).toBe(15);
+  expect(date2.get("hour")).toBe(3);
   expect(date2.get("minute")).toBe(10);
 
   rerender(
@@ -119,6 +119,6 @@ test("On Change", async () => {
     />,
   );
 
-  expect(tooltipInputHH.value).toBe("3");
+  expect(tooltipInputHH.value).toBe("03");
   expect(tooltipInputMM.value).toBe("10");
 });
