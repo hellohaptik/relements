@@ -183,7 +183,10 @@ Dropdown.propTypes = {
   /** ClassName for the Dropdown element */
   className: PropTypes.string,
   /** Value of the Dropdown Input */
-  value: PropTypes.arrayOf(PropTypes.shape({})),
+  value: PropTypes.oneOfType([
+    PropTypes.shape({}),
+    PropTypes.arrayOf(PropTypes.shape({})),
+  ]),
   /** Label for the Dropdown */
   label: PropTypes.string,
   /** Text to be shown if there are no options */
