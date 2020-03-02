@@ -116,8 +116,7 @@ const Options = ({
                 key={`${options.label}-${i}`}
                 selected={highlightIndex === i}
                 innerRef={dropdownDOMs.current[i]}
-                value={option.value}
-                onClick={onChange}
+                onClick={() => onChange(option.value)}
                 isZeroState={option.isZeroState}
                 isNew={option.isNew}
                 className={`${prefixClassName}-option`}

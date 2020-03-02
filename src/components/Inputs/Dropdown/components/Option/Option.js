@@ -10,7 +10,6 @@ const Option = ({
   onClick,
   selected,
   innerRef,
-  value,
   className,
   isZeroState,
   isNew,
@@ -28,7 +27,7 @@ const Option = ({
       ref={innerRef}
       style={dropdownOptionSelectedStyle}
       className={`${styles.dropdownOption} ${className} ${selectedClassName} ${zeroStateClassName} ${isNewClassName}`}
-      onClick={() => !isZeroState && onClick(value)}
+      onClick={!isZeroState && onClick}
       data-testid="dropdown-option"
     >
       <span
@@ -48,7 +47,6 @@ Option.propTypes = {
   isZeroState: PropTypes.bool,
   onClick: PropTypes.func,
   selected: PropTypes.bool,
-  value: PropTypes.string,
 };
 
 Option.defaultProps = {
@@ -59,7 +57,6 @@ Option.defaultProps = {
   isNew: false,
   isZeroState: false,
   selected: false,
-  value: "",
 };
 
 export default Option;

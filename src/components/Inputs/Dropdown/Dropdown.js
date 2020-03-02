@@ -41,6 +41,10 @@ const Dropdown = ({
   // the ref for the actual input itself (used for focus/blur of input)
   const inputRef = React.useRef();
 
+  // the ref for the clear timeout
+  // [when the typeable input clears]
+  const timeoutRef = React.useRef();
+
   // based on the typed text, the options are filtered using the useSearch hook
   // Fuse.js is used for fuzzy searching.
   // searchKeys determines the array of keys withing the options to search
@@ -75,10 +79,10 @@ const Dropdown = ({
   // on blurring we clear + blur the input
   const handleBlur = e => {
     if (disabled) return;
-    setText("");
     setFocused(false);
     onBlur(e);
     if (inputRef.current) inputRef.current.blur();
+    timeoutRef.current = setTimeout(() => setText(""), 100);
   };
 
   const handleFocus = e => {
@@ -88,6 +92,7 @@ const Dropdown = ({
     // sometimes the input isn't immediately available
     // only available on the next tick (hence the timeout is 0)
     setTimeout(() => inputRef.current && inputRef.current.focus(), 0);
+    clearTimeout(timeoutRef.current);
   };
 
   const handleChange = e => {
