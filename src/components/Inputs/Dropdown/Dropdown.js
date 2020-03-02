@@ -82,6 +82,8 @@ const Dropdown = ({
     setFocused(false);
     onBlur(e);
     if (inputRef.current) inputRef.current.blur();
+    // we need a timeout, otherwise the list resets sending the wrong event
+    // [since the list is outside the context of the dropdown, the blur event is fired as well
     timeoutRef.current = setTimeout(() => setText(""), 100);
   };
 
