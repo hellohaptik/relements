@@ -47,7 +47,7 @@ export default function getOptions({
     filteredOptions = [
       {
         label: `${createPrefix} <strong>${text}</strong>`,
-        value: { [optionKey]: text },
+        value: { [optionKey]: text, type: "CREATE" },
         isNew: true,
       },
       ...filteredOptions,

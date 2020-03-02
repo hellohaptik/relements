@@ -27,7 +27,7 @@ const Option = ({
       ref={innerRef}
       style={dropdownOptionSelectedStyle}
       className={`${styles.dropdownOption} ${className} ${selectedClassName} ${zeroStateClassName} ${isNewClassName}`}
-      onClick={!isZeroState && onClick}
+      onClick={!isZeroState ? onClick : null}
       data-testid="dropdown-option"
     >
       <span
