@@ -47,7 +47,7 @@ export function useSearch(text, options, searchKeys) {
 
   useEffect(() => {
     setupSearch();
-  }, [options.length]);
+  }, [options]);
 
   useEffect(() => {
     handleSearch(text);

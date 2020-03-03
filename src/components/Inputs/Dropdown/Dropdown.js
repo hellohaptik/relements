@@ -83,7 +83,7 @@ const Dropdown = ({
   const handleBlur = e => {
     if (disabled) return;
     setFocused(false);
-    onBlur(e);
+    if (e.target) onBlur(e);
     if (inputRef.current) inputRef.current.blur();
     // e.target is not available inside the timeout
     // https://reactjs.org/docs/events.html#event-pooling

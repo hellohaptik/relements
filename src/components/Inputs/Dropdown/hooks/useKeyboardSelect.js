@@ -65,7 +65,7 @@ export default function useKeyboardSelect({
       if (!attachTo.current) return;
       attachTo.current.removeEventListener("keydown", handleKeyDown);
     };
-  }, [attachTo.current, highlightIndex, options.length, enabled]);
+  }, [attachTo.current, highlightIndex, options, enabled]);
 
   return highlightIndex;
 }
