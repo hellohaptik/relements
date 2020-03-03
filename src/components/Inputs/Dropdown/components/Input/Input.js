@@ -57,11 +57,10 @@ const Input = ({
 
   // if search is allowed, then we return an editable text input
   if (withSearch) {
-    const inputValue = text === "" ? value[0][optionKey] || "" : text;
     return (
       <TextInput
         editable={true}
-        value={inputValue}
+        value={text}
         onChange={onTextChange}
         {...commonProps}
       />

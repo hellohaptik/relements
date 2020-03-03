@@ -45,14 +45,17 @@ const Dropdown = ({
   // [when the typeable input clears]
   const timeoutRef = React.useRef();
 
-  // based on the typed text, the options are filtered using the useSearch hook
-  // Fuse.js is used for fuzzy searching.
-  // searchKeys determines the array of keys withing the options to search
-  const searchInKeys = searchKeys.length ? searchKeys : [optionKey];
-  const searchResults = useSearch(text, options, searchInKeys);
-
   // we normalize it to always be an array depending on the useMultiple flag
   const inputValue = withMultiple ? value : [value];
+  const firstValueLabel = inputValue[0] ? inputValue[0][optionKey] || "" : "";
+
+  // based on the typed text, the options are filtered using the useSearch hook
+  // Fuse.js is used for fuzzy searching.
+  // searchText is set to empty (show all results if a valid value is already selected)
+  // searchKeys determines the array of keys withing the options to search
+  const searchInKeys = searchKeys.length ? searchKeys : [optionKey];
+  const searchText = text === firstValueLabel ? "" : text;
+  const searchResults = useSearch(searchText, options, searchInKeys);
 
   // we need to normalize the options for display.
   // - It filters out the option that was selected
@@ -82,9 +85,14 @@ const Dropdown = ({
     setFocused(false);
     onBlur(e);
     if (inputRef.current) inputRef.current.blur();
+    // e.target is not available inside the timeout
+    // https://reactjs.org/docs/events.html#event-pooling
+    const target = e.target;
     // we need a timeout, otherwise the list resets sending the wrong event
     // [since the list is outside the context of the dropdown, the blur event is fired as well
-    timeoutRef.current = setTimeout(() => setText(""), 100);
+    timeoutRef.current = setTimeout(() => {
+      if (text !== firstValueLabel && target) setText(firstValueLabel);
+    }, 100);
   };
 
   const handleFocus = e => {
@@ -132,6 +140,14 @@ const Dropdown = ({
         : propOptions;
     setOptions(mergedOptions);
   }, [propOptions.length, createdOption]);
+
+  React.useEffect(() => {
+    // we set the search text for single selection
+    // items to the selected value. This is so that
+    // the input text shows the selected value
+    if (withMultiple) return;
+    setText(firstValueLabel || "");
+  }, [firstValueLabel]);
 
   return (
     <div
