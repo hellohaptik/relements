@@ -138,7 +138,8 @@ const Dropdown = ({
   };
 
   const handleChange = e => {
-    onChange(e);
+    // if it's simple mode, then we return a string value
+    onChange(isSimpleOptionsMode ? e[optionKey] : e);
     // we don't blur if multiple options can be selected
     // this is a UX decision.
     if (!withMultiple) handleBlur(e);

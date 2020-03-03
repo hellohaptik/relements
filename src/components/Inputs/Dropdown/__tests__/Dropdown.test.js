@@ -15,6 +15,14 @@ const options = [
   { text: "Option text 3" },
   { text: "Option text 4" },
 ];
+
+const simpleOptions = [
+  "Option text 1",
+  "Option text 2",
+  "Option text 3",
+  "Option text 4",
+];
+
 const component = props => (
   <Dropdown
     prefixClassName="test"
@@ -135,6 +143,21 @@ test("Handling Keydowns", async () => {
   fireEvent.keyDown(inputElement, { key: "up", keyCode: KEY_CODES.UP });
   fireEvent.keyDown(inputElement, { key: "enter", keyCode: KEY_CODES.ENTER });
   expect(mockFn.mock.calls[0][0]).toStrictEqual({ text: "Option text 2" });
+});
+
+test("Handling Simple Mode", async () => {
+  // scrollIntoView is not implemented in JSDOM, this bypasses the issue.
+  window.HTMLElement.prototype.scrollIntoView = function() {};
+
+  const mockFn = jest.fn();
+  const { container } = render(
+    component({ value: "", onChange: mockFn, options: simpleOptions }),
+  );
+  const inputElement = container.getElementsByClassName("test-input")[0];
+  fireEvent.focus(inputElement);
+  await new Promise(r => setTimeout(r, 100));
+  fireEvent.keyDown(inputElement, { key: "enter", keyCode: KEY_CODES.ENTER });
+  expect(mockFn.mock.calls[0][0]).toStrictEqual(simpleOptions[0]);
 });
 
 test("Searching options", async () => {
