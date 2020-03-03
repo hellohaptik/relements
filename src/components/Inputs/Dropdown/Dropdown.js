@@ -91,7 +91,10 @@ const Dropdown = ({
     // we need a timeout, otherwise the list resets sending the wrong event
     // [since the list is outside the context of the dropdown, the blur event is fired as well
     timeoutRef.current = setTimeout(() => {
-      if (text !== firstValueLabel && target) setText(firstValueLabel);
+      if (text !== firstValueLabel && target) {
+        if (withMultiple) setText("");
+        else setText(firstValueLabel);
+      }
     }, 100);
   };
 
