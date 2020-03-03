@@ -160,6 +160,21 @@ test("Handling Simple Mode", async () => {
   expect(mockFn.mock.calls[0][0]).toStrictEqual(simpleOptions[0]);
 });
 
+test("Handling HSL Case", async () => {
+  // scrollIntoView is not implemented in JSDOM, this bypasses the issue.
+  window.HTMLElement.prototype.scrollIntoView = function() {};
+
+  const mockFn = jest.fn();
+  const { container } = render(
+    component({ value: "Open Screen", onChange: mockFn }),
+  );
+  const inputElement = container.getElementsByClassName("test-input")[0];
+  fireEvent.focus(inputElement);
+  await new Promise(r => setTimeout(r, 100));
+  fireEvent.keyDown(inputElement, { key: "enter", keyCode: KEY_CODES.ENTER });
+  expect(mockFn.mock.calls[0][0]).toStrictEqual(options[0]);
+});
+
 test("Searching options", async () => {
   const mockFn = jest.fn();
   const { container } = render(
