@@ -159,3 +159,23 @@ import Dropdown from "./Dropdown";
     />
   )}
 </CodeBlock>
+
+<CodeBlock title="Simple Array">
+  {(value, setValue) => (
+    <Dropdown
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      value={value}
+      options={[
+        "Option text 1",
+        "Option text 2",
+        "Option text 3",
+        "Option text 4",
+      ]}
+      label="This is the label"
+      onChange={setValue}
+      withSearch
+    />
+  )}
+</CodeBlock>

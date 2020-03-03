@@ -35,6 +35,10 @@ const Dropdown = ({
   const [createdOption, setCreatedOption] = React.useState();
   const [focused, setFocused] = React.useState(false);
 
+  // simple mode is when the options are an array of strings instead of objects
+  // and the value and onChange also expect strings.
+  const isSimpleMode = options.length && typeof propOptions[0] === "string";
+
   // the ref for the input wrapper (used for positioning the dropdown)
   const inputWrapperRef = React.useRef();
 
@@ -48,8 +52,12 @@ const Dropdown = ({
   // [when the typeable input clears]
   const timeoutRef = React.useRef();
 
-  // we normalize it to always be an array depending on the useMultiple flag
-  const inputValue = withMultiple ? value : [value];
+  let inputValue = "";
+  // if the value is a simple string, convert it to an object
+  inputValue = isSimpleMode ? { [optionKey]: value } : value;
+  // we normalize it to always be an array of objects depending on the useMultiple flag
+  inputValue = withMultiple ? inputValue : [inputValue];
+
   const firstValueLabel = inputValue[0] ? inputValue[0][optionKey] || "" : "";
 
   // based on the typed text, the options are filtered using the useSearch hook
@@ -128,7 +136,8 @@ const Dropdown = ({
   };
 
   const handleChange = e => {
-    onChange(e);
+    // if it's simple mode, then we return a string value
+    onChange(isSimpleMode ? e[optionKey] : e);
     // we don't blur if multiple options can be selected
     // this is a UX decision.
     if (!withMultiple) handleBlur(e);
@@ -155,11 +164,22 @@ const Dropdown = ({
   };
 
   React.useEffect(() => {
+    // we also support an array of strings instead of objects
+    // we normalize it to objects with the default optionKey
+    // [simple mode]
+    let listOfOptionObjects = propOptions;
+    if (isSimpleMode) {
+      listOfOptionObjects = propOptions.map(option => ({
+        [optionKey]: option,
+      }));
+    }
+
     // merged options contains the extra created option if available
     const mergedOptions =
       createdOption && withCreate
-        ? [createdOption, ...propOptions]
-        : propOptions;
+        ? [createdOption, ...listOfOptionObjects]
+        : listOfOptionObjects;
+
     setOptions(mergedOptions);
   }, [propOptions.length, createdOption]);
 
