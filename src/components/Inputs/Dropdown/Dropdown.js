@@ -37,7 +37,9 @@ const Dropdown = ({
 
   // simple mode is when the options are an array of strings instead of objects
   // and the value and onChange also expect strings.
-  const isSimpleMode = options.length && typeof propOptions[0] === "string";
+  const isSimpleMode =
+    (options.length && typeof propOptions[0] === "string") ||
+    typeof value === "string";
 
   // the ref for the input wrapper (used for positioning the dropdown)
   const inputWrapperRef = React.useRef();
