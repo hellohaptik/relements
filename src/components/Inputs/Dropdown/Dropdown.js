@@ -100,7 +100,12 @@ const Dropdown = ({
     // the delay is non-consequential as it's only there when the input resets
     setTimeout(() => {
       if (text !== firstValueLabel && target && blurCount.current === 1) {
+        const optionIndex = dropdownOptions
+          .map(option => option.label)
+          .indexOf(text);
+
         if (withMultiple) setText("");
+        else if (optionIndex > -1) onChange(dropdownOptions[optionIndex].value);
         else setText(firstValueLabel);
       }
     }, 200);

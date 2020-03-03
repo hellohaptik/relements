@@ -134,7 +134,7 @@ test("Handling Keydowns", async () => {
   fireEvent.keyDown(inputElement, { key: "down", keyCode: KEY_CODES.DOWN });
   fireEvent.keyDown(inputElement, { key: "up", keyCode: KEY_CODES.UP });
   fireEvent.keyDown(inputElement, { key: "enter", keyCode: KEY_CODES.ENTER });
-  expect(mockFn.mock.calls[0][0]).toStrictEqual({ text: "Option text 1" });
+  expect(mockFn.mock.calls[0][0]).toStrictEqual({ text: "Option text 2" });
 });
 
 test("Searching options", async () => {
