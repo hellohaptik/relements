@@ -37,9 +37,9 @@ const Dropdown = ({
 
   // simple mode is when the options are an array of strings instead of objects
   // and the value and onChange also expect strings.
-  const isSimpleMode =
-    (options.length && typeof propOptions[0] === "string") ||
-    typeof value === "string";
+  const isSimpleInputMode = typeof value === "string";
+  const isSimpleOptionsMode =
+    options.length && typeof propOptions[0] === "string";
 
   // the ref for the input wrapper (used for positioning the dropdown)
   const inputWrapperRef = React.useRef();
@@ -56,7 +56,7 @@ const Dropdown = ({
 
   let inputValue = "";
   // if the value is a simple string, convert it to an object
-  inputValue = isSimpleMode ? { [optionKey]: value } : value;
+  inputValue = isSimpleInputMode ? { [optionKey]: value } : value;
   // we normalize it to always be an array of objects depending on the useMultiple flag
   inputValue = withMultiple ? inputValue : [inputValue];
 
@@ -139,7 +139,7 @@ const Dropdown = ({
 
   const handleChange = e => {
     // if it's simple mode, then we return a string value
-    onChange(isSimpleMode ? e[optionKey] : e);
+    onChange(isSimpleInputMode ? e[optionKey] : e);
     // we don't blur if multiple options can be selected
     // this is a UX decision.
     if (!withMultiple) handleBlur(e);
@@ -170,7 +170,7 @@ const Dropdown = ({
     // we normalize it to objects with the default optionKey
     // [simple mode]
     let listOfOptionObjects = propOptions;
-    if (isSimpleMode) {
+    if (isSimpleOptionsMode) {
       listOfOptionObjects = propOptions.map(option => ({
         [optionKey]: option,
       }));
