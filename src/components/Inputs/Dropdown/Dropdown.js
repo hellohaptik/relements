@@ -38,6 +38,9 @@ const Dropdown = ({
   // the ref for the input wrapper (used for positioning the dropdown)
   const inputWrapperRef = React.useRef();
 
+  // the ref for blur lock (whether to lock the blur event or not)
+  const blurCount = React.useRef(false);
+
   // the ref for the actual input itself (used for focus/blur of input)
   const inputRef = React.useRef();
 
@@ -83,25 +86,36 @@ const Dropdown = ({
   const handleBlur = e => {
     if (disabled) return;
     setFocused(false);
-    if (e.target) onBlur(e);
+    onBlur(e);
     if (inputRef.current) inputRef.current.blur();
-    // e.target is not available inside the timeout
-    // https://reactjs.org/docs/events.html#event-pooling
+
+    // increment the blur count
+    blurCount.current += 1;
+
     const target = e.target;
-    // we need a timeout, otherwise the list resets sending the wrong event
-    // [since the list is outside the context of the dropdown, the blur event is fired as well
-    timeoutRef.current = setTimeout(() => {
-      if (text !== firstValueLabel && target) {
+    // we set a timeout to give the component enough time to dispatch both the events.
+    // once both the events fire, we can ignore the second one. (when blurCount is 2)
+    // otherwise it will reset the text to the old value.
+    // 200 is a sufficiently high value
+    // the delay is non-consequential as it's only there when the input resets
+    setTimeout(() => {
+      if (text !== firstValueLabel && target && blurCount.current === 1) {
         if (withMultiple) setText("");
         else setText(firstValueLabel);
       }
-    }, 100);
+    }, 200);
   };
 
   const handleFocus = e => {
     if (disabled) return;
     setFocused(true);
     onFocus(e);
+
+    // blur count keeps track of how many times the blur event was called
+    // this is to ensure that the when the user clicks on the option
+    // we can ignore the duplicate blur event
+    blurCount.current = 0;
+
     // sometimes the input isn't immediately available
     // only available on the next tick (hence the timeout is 0)
     setTimeout(() => inputRef.current && inputRef.current.focus(), 0);
