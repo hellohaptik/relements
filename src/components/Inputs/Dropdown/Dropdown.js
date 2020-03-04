@@ -109,6 +109,12 @@ const Dropdown = ({
     // 200 is a sufficiently high value
     // the delay is non-consequential as it's only there when the input resets
     setTimeout(() => {
+      console.error(
+        "BLUR::",
+        text !== firstValueLabel,
+        target,
+        blurCount.current,
+      );
       if (text !== firstValueLabel && target && blurCount.current === 1) {
         const optionIndex = dropdownOptions
           .map(option => option.label)

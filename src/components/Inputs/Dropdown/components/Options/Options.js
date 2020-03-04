@@ -104,7 +104,7 @@ const Options = ({
   return (
     <Portal>
       <div className={`${styles.dropdownOptionsWrapper}  ${className}`}>
-        <div className={styles.dropdownOptionsOverlay} onClick={onBlur} />
+        <div className={styles.dropdownOptionsOverlay} />
         <div
           ref={scrollContainer}
           style={{ ...position, ...focusedStyle }}
