@@ -10,7 +10,8 @@ function WithTooltip({
   className,
   onClick,
   tooltip,
-  position = "TOP",
+  position,
+  disabled,
 }) {
   const [tooltipActive, setTooltipActive] = React.useState();
   const DOMRef = React.useRef();
@@ -37,7 +38,7 @@ function WithTooltip({
       {children}
       {tooltip ? (
         <Tooltip
-          active={tooltipActive}
+          active={tooltipActive && !disabled}
           position={position}
           attachTo={DOMRef}
           onClose={handleMouseLeave}
@@ -63,6 +64,7 @@ WithTooltip.propTypes = {
   className: PropTypes.string,
   tooltip: PropTypes.string,
   position: PropTypes.string,
+  disabled: PropTypes.bool,
   onClick: PropTypes.func,
 };
 
@@ -70,7 +72,8 @@ WithTooltip.defaultProps = {
   children: null,
   className: "",
   tooltip: "",
-  position: "",
+  position: "TOP",
+  disabled: false,
   onClick: () => {},
 };
 
