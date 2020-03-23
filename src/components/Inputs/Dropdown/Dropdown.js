@@ -32,6 +32,14 @@ const Dropdown = ({
   // stores the currently typed input (in case of withSearch)
   const [text, setText] = React.useState("");
   const [options, setOptions] = React.useState(propOptions);
+
+  // updates initial set of options, whenever propOptions changes
+  // because on re-render, useState for options doesn't get called, which results in
+  // options always using the old value of propOptions.
+  React.useEffect(() => {
+    setOptions(propOptions);
+  }, [propOptions]);
+
   const [createdOption, setCreatedOption] = React.useState();
   const [focused, setFocused] = React.useState(false);
 
