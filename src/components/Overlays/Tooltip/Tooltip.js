@@ -23,9 +23,7 @@ function Tooltip({
   onClose,
   children,
   offset,
-  dismissable,
 }) {
-  const [dismissed, setDismissed] = React.useState(false);
   const tooltipRef = React.useRef();
   const coordinates = usePositioner({
     attachTo,
@@ -34,16 +32,11 @@ function Tooltip({
     offset,
   });
 
-  const { enabled, visible } = useActivify(active && !dismissed);
+  const { enabled, visible } = useActivify(active);
   const activeClassName = visible ? styles.tooltipActive : "";
   const topPositionClassName = position === "TOP" ? styles.top : styles.bottom;
 
-  const handleClose = React.useCallback(() => {
-    if (dismissable) setDismissed(true);
-    onClose();
-  });
-
-  useEscapeKey(handleClose);
+  useEscapeKey(onClose);
 
   if (!attachTo || !enabled) return null;
 
@@ -53,7 +46,7 @@ function Tooltip({
         className={`${styles.tooltipWrapper} ${className} ${prefixClassName}`}
       >
         <div
-          onClick={handleClose}
+          onClick={onClose}
           className={`${styles.tooltipOverlay} ${prefixClassName}-overlay`}
         />
         <div
@@ -78,7 +71,6 @@ function Tooltip({
 Tooltip.propTypes = {
   attachTo: PropTypes.object.isRequired,
   active: PropTypes.bool,
-  dismissable: PropTypes.bool,
   children: PropTypes.node,
   className: PropTypes.string,
   prefixClassName: PropTypes.string,
@@ -92,7 +84,6 @@ Tooltip.propTypes = {
 
 Tooltip.defaultProps = {
   active: false,
-  dismissable: false,
   children: null,
   className: "",
   prefixClassName: "",

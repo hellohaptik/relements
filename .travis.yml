@@ -84,7 +84,6 @@ jobs:
         provider: npm
         email: "pratham.agrawal92@gmail.com"
         api_key: $NPM_TOKEN
-        edge: true
         on:
           branch: master
     - script: yarn build:storybook

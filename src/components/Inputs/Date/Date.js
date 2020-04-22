@@ -11,7 +11,6 @@ import { Label } from "../_common/Label";
 
 import RangeComparison from "./components/RangeComparison";
 import SinglePicker from "./components/SinglePicker";
-import TimePicker from "../Time/components/TimePicker";
 
 import styles from "./Date.scss";
 
@@ -21,7 +20,6 @@ class Date extends React.Component {
     this.state = {
       active: false,
       focused: false,
-      date: undefined,
     };
   }
 
@@ -43,7 +41,6 @@ class Date extends React.Component {
       value,
       prefixClassName,
       numMonths,
-      withTime,
     } = this.props;
     const errorClassName = error ? styles.dateError : "";
     const disabledClassName = disabled ? styles.disabled : "";
@@ -79,7 +76,7 @@ class Date extends React.Component {
             />
           ) : (
             <SinglePicker
-              value={this.state.date || value}
+              value={value}
               onChange={this._handleChange}
               maxDate={maxDate}
               minDate={minDate}
@@ -87,15 +84,6 @@ class Date extends React.Component {
               numMonths={numMonths}
             />
           )}
-          {withTime ? (
-            <div className={`${styles.dateTime} ${prefixClassName}-time`}>
-              <TimePicker
-                prefixClassName={`${prefixClassName}-time-picker`}
-                value={dayjs(this.state.date || value)}
-                onChange={this._handleChange}
-              />
-            </div>
-          ) : null}
         </Tooltip>
       </div>
     );
@@ -131,7 +119,7 @@ class Date extends React.Component {
         active={active}
         value={parsedValue}
         placeholder={placeholder}
-        editable={false}
+        disabled
         postfixComponent={<Icon src={AngleDownIcon} />}
       />
     );
@@ -140,23 +128,20 @@ class Date extends React.Component {
   _getParsedDate = () => {
     const { withRange, value } = this.props;
     const format = "DD MMM, YYYY";
-    const actualValue = this.state.date || value;
 
     if (withRange) {
-      const { startDate, endDate } = this._getParsedValueFromObject(
-        actualValue,
-      );
+      const { startDate, endDate } = this._getParsedValueFromObject(value);
       if (!startDate.isValid() || !endDate.isValid()) return "";
       return `${startDate.format(format)} - ${endDate.format(format)}`;
     }
 
-    const date = this._getParsedValueFromDate(actualValue);
+    const date = this._getParsedValueFromDate(value);
     if (!date.isValid()) return "Invalid Date";
-    if (this.props.withTime) return `${date.format("DD/MM/YYYY hh:mm A")}`;
     return `${date.format("DD MMMM, YYYY")}`;
   };
 
-  _getParsedValueFromObject = (value = this.props.value) => {
+  _getParsedValueFromObject = () => {
+    const { value } = this.props;
     const startDate = dayjs(value.startDate);
     const endDate = dayjs(value.endDate);
     const comparisonStartDate = value.comparisonStartDate
@@ -173,25 +158,14 @@ class Date extends React.Component {
     };
   };
 
-  _getParsedValueFromDate = (value = this.props.value) => {
-    if (!value) return dayjs();
+  _getParsedValueFromDate = () => {
+    const { value } = this.props;
     return dayjs(value);
   };
 
   _handleChange = date => {
-    const newDate = date.toDate ? date.toDate() : date;
-    const { maxDate, minDate } = this.props;
-    if (maxDate && dayjs(newDate).isAfter(maxDate))
-      return this.setState({ date: maxDate });
-    if (minDate && dayjs(newDate).isBefore(minDate))
-      return this.setState({ date: minDate });
-
-    if (!this.props.withTime) {
-      this.setState({ active: false, focused: false, date: newDate });
-      this.props.onChange(newDate);
-    } else {
-      this.setState({ date: newDate });
-    }
+    this.setState({ active: false, focused: false });
+    this.props.onChange(date);
   };
 
   toggleDate = () => {
@@ -200,11 +174,7 @@ class Date extends React.Component {
 
   closeDate = () => {
     this.setState({ active: false, focused: false });
-    if (this.rangeComparisonRef.current) {
-      this.props.onChange(this.rangeComparisonRef.current.getValue());
-    } else if (this.state.date) {
-      this.props.onChange(this.state.date);
-    }
+    this.props.onChange(this.rangeComparisonRef.current.getValue());
   };
 }
 
@@ -247,8 +217,6 @@ Date.propTypes = {
   withRange: PropTypes.bool,
   /** With Comparison support (comparing 2 ranges) */
   withComparison: PropTypes.bool,
-  /** If whether to show the time picker or not */
-  withTime: PropTypes.bool,
   /** Number of months to show at a time */
   numMonths: PropTypes.number,
 };
@@ -271,7 +239,6 @@ Date.defaultProps = {
   comparisonMaxDate: null,
   comparisonMinDate: null,
   numMonths: 1,
-  withTime: false,
 };
 
 Date.classNames = {
@@ -280,8 +247,6 @@ Date.classNames = {
   "$prefix-input": "Input",
   "$prefix-tooltip": "Tooltip wrapping the picker",
   "$prefix-picker": "The div wrapping the picker inside the tooltip",
-  "$prefix-time": "The div wrapping the time picker inside the tooltip",
-  "$prefix-time-picker": "The timepicker inside the tooltip",
   "$prefix-picker-calendar": "Calendar element",
   "$prefix-picker-calendar-arrow-left": "Calendar arrow left",
   "$prefix-picker-calendar-arrow-right": "Calendar arrow right",

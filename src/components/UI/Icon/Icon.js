@@ -47,7 +47,7 @@ const Icon = ({
     >
       <WithTooltip
         tooltip={tooltip}
-        position={tooltipPosition}
+        tooltipPosition={tooltipPosition}
         className={styles.iconTooltip}
         prefixClassName={`${prefixClassName}-tooltip`}
       >

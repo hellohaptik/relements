@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 /**
  * useActivify React Hook
@@ -14,21 +14,21 @@ export default function useActivify(active) {
   const [visible, setVisible] = useState(active);
   const [enabled, setEnabled] = useState(active);
 
-  const _enableTimeout = useRef(null);
-  const _disableTimeout = useRef(null);
+  let _enableTimeout = null;
+  let _disableTimeout = null;
 
   const show = () => {
-    if (_disableTimeout.current) clearTimeout(_disableTimeout.current);
+    if (_disableTimeout) clearTimeout(_disableTimeout);
     setEnabled(true);
-    _enableTimeout.current = setTimeout(() => {
+    _enableTimeout = setTimeout(() => {
       setVisible(true);
     }, 50);
   };
 
   const hide = () => {
-    if (_enableTimeout.current) clearTimeout(_enableTimeout.current);
+    if (_enableTimeout) clearTimeout(_enableTimeout);
     setVisible(false);
-    _disableTimeout.current = setTimeout(() => {
+    _disableTimeout = setTimeout(() => {
       setEnabled(false);
     }, 400);
   };

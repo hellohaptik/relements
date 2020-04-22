@@ -1,30 +1,15 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import Header from "./components/Header";
-import Body from "./components/Body";
-import BodyVirtual from "./components/Body.Virtual";
-import styles from "./Table.scss";
+import Header from './components/Header';
+import Body from './components/Body';
+import styles from './Table.scss';
 
 function Table({
-  columns,
-  rows,
-  onSort,
-  onRowClick,
-  sortKey,
-  sortOrder,
-  className,
-  prefixClassName,
-  virtual,
-  rowHeight,
-  height,
+  columns, rows, onSort, onRowClick, sortKey, sortOrder, className, prefixClassName,
 }) {
-  const RenderBody = virtual ? BodyVirtual : Body;
   return (
-    <div
-      data-testid="table"
-      className={`${styles.table} ${className} ${prefixClassName}`}
-    >
+    <div data-testid="table" className={`${styles.table} ${className} ${prefixClassName}`}>
       <Header
         prefixClassName={`${prefixClassName}-header`}
         onSort={onSort}
@@ -32,30 +17,21 @@ function Table({
         sortOrder={sortOrder}
         sortKey={sortKey}
       />
-      <RenderBody
-        prefixClassName={`${prefixClassName}-body`}
-        onRowClick={onRowClick}
-        rows={rows}
-        columns={columns}
-        rowHeight={rowHeight}
-        height={height}
-      />
+      <Body prefixClassName={`${prefixClassName}-body`} onRowClick={onRowClick} rows={rows} columns={columns} />
     </div>
   );
 }
 
 Table.propTypes = {
   className: PropTypes.string,
-  height: PropTypes.number,
   prefixClassName: PropTypes.string,
   ...Header.propTypes,
   ...Body.propTypes,
 };
 
 Table.defaultProps = {
-  className: "",
-  prefixClassName: "",
-  height: 300,
+  className: '',
+  prefixClassName: '',
 };
 
 export default Table;

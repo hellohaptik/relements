@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 /**
  * React hook to manage calculation and positioning of the tab indicator
@@ -28,11 +28,11 @@ export function useTabs(value, DOMRefs, children) {
    * @param  {string} value the value for which the index needs to be calculated
    * @returns {number} the index corresponding to the value provided
    */
-  const getIndexFromValue = value => {
+  const getIndexFromValue = (value) => {
     let index = -1;
     React.Children.forEach(children, (child, i) => {
       const childValue = child.props.value;
-      if (typeof childValue === "string" && childValue === value) {
+      if (typeof childValue === 'string' && childValue === value) {
         index = i;
       }
     });
@@ -45,14 +45,14 @@ export function useTabs(value, DOMRefs, children) {
    * @param  {number} index the index of the tab for which the calculation needs to run
    * @return {array} an array containing the left offset and the width of the indicator
    */
-  const calcWidthAndPosition = index => {
+  const calcWidthAndPosition = (index) => {
     let left = 0;
     let width = 0;
     DOMRefs.map((DOMElement, i) => {
       if (i < index && i >= 0) {
-        left += DOMElement.getBoundingClientRect().width;
+        left += DOMElement.current.getBoundingClientRect().width;
       } else if (i === index) {
-        width = DOMElement.getBoundingClientRect().width - 1;
+        width = DOMElement.current.getBoundingClientRect().width - 1;
       }
     });
 
@@ -71,22 +71,16 @@ export function useTabs(value, DOMRefs, children) {
     setLeft(left);
     setWidth(width);
     setActiveIndex(index);
-  }, [value, DOMRefs.length]);
+  }, [value]);
 
   /**
    * Injects props such as innerRef and the active bool by
    * cloning the element
    * @returns children cloned with Props
    */
-  const renderTabs = () =>
-    React.Children.map(children, (child, i) => {
-      return React.cloneElement(child, {
-        active: activeIndex === i,
-        innerRef: ref => {
-          if (ref) DOMRefs[i] = ref;
-        },
-      });
-    });
+  const renderTabs = () => React.Children.map(children, (child, i) => {
+    return React.cloneElement(child, { innerRef: DOMRefs[i], active: activeIndex === i });
+  });
 
   return [left, width, renderTabs];
 }

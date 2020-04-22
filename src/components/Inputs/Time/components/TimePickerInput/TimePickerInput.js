@@ -11,23 +11,12 @@ function TimePickerInput({
   value,
   increment,
   prefixClassName,
-  max,
 }) {
-  const handleChange = React.useCallback(newValue => {
-    if (+newValue > max) onChange("00");
-    else onChange(`${newValue}`);
-  });
-
-  // in display we want to always show 2 digits 
-  // [1 should show up as 01, but 13 should show up as 13]
-  const inputValue = +value > 9 ? `${+value}` : `0${+value}`;
-
   return (
     <div className={`${styles.timePickerInput} ${prefixClassName}`}>
       <input
-        type="number"
-        value={inputValue}
-        onChange={e => handleChange(e.target.value)}
+        value={value}
+        onChange={onChange}
         ref={innerRef}
         className={`${prefixClassName}-element`}
       />
@@ -35,12 +24,12 @@ function TimePickerInput({
         className={`${styles.timePickerInputArrows} ${prefixClassName}-arrows`}
       >
         <Icon
-          onClick={() => handleChange(+value + increment)}
+          onClick={() => onChange(+value + increment)}
           src={AngleDownIcon}
           className={`${styles.timePickerInputArrow} ${prefixClassName}-arrow`}
         />
         <Icon
-          onClick={() => handleChange(+value - increment)}
+          onClick={() => onChange(+value - increment)}
           src={AngleDownIcon}
           className={`${styles.timePickerInputArrow} ${prefixClassName}-arrow`}
         />
@@ -54,14 +43,12 @@ TimePickerInput.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.object,
   increment: PropTypes.number,
-  max: PropTypes.number,
   prefixClassName: PropTypes.string,
 };
 
 TimePickerInput.defaultProps = {
   innerRef: null,
   increment: 1,
-  max: Number.MAX_SAFE_INTEGER,
   onChange: () => {},
   prefixClassName: "",
 };

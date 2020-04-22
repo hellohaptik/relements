@@ -16,56 +16,33 @@ function TimePicker({ value, onChange, prefixClassName }) {
   const amActiveClassName = AMPM === "AM" ? styles.active : "";
   const pmActiveClassName = AMPM === "PM" ? styles.active : "";
 
-  const generateValue = React.useCallback(
-    (newHH, newMM, newAMPM) => {
-      let date = dayjs(value);
-      let hoursToAdd = 0;
-      if (newAMPM === "PM" && +newHH === 12) hoursToAdd = 0;
-      else if (newAMPM === "PM") hoursToAdd = 12;
-      else if (newAMPM === "AM" && +newHH === 12) hoursToAdd = 12;
+  const generateValue = React.useCallback((newHH, newMM, newAMPM) => {
+    let date = dayjs();
+    date = date.set("h", parseInt(newHH, 10) + (newAMPM === "PM" ? 12 : 0));
+    date = date.set("m", parseInt(newMM, 10));
 
-      date = date.set("h", parseInt(newHH, 10) + hoursToAdd);
-      date = date.set("m", parseInt(newMM, 10));
+    return date;
+  });
 
-      if (dayjs(value).get("d") !== date.get("d"))
-        date = date.set("d", dayjs(value).get("d"));
+  const handleHHChange = React.useCallback(e => {
+    const newHH = e.target ? e.target.value : e;
+    if (Number.isNaN(+newHH)) return;
+    if (newHH > 12) return MMRef.current.focus();
+    if (newHH > 1) {
+      MMRef.current.select();
+      MMRef.current.focus();
+    }
+    setHH(newHH);
+    onChange(generateValue(newHH, MM, AMPM));
+  });
 
-      return date;
-    },
-    [date],
-  );
-
-  const handleHHChange = React.useCallback(
-    e => {
-      let newHH = e.target ? +e.target.value : e;
-      if (!newHH) newHH = 0;
-      if (Number.isNaN(+newHH)) return;
-      if (newHH > 12) return MMRef.current.focus();
-      if (newHH > 1) {
-        MMRef.current.select();
-        MMRef.current.focus();
-      }
-      if (newHH === 0) newHH = 12;
-      if (newHH < 1) return;
-
-      setHH(newHH);
-      onChange(generateValue(newHH, MM, AMPM));
-    },
-    [date],
-  );
-
-  const handleMMChange = React.useCallback(
-    e => {
-      let newMM = e.target ? e.target.value : e;
-      if (!newMM) newMM = 0;
-      if (Number.isNaN(+newMM)) return;
-      if (newMM > 59) return;
-      if (newMM < 0) return;
-      setMM(newMM);
-      onChange(generateValue(HH, newMM, AMPM));
-    },
-    [date],
-  );
+  const handleMMChange = React.useCallback(e => {
+    const newMM = e.target ? e.target.value : e;
+    if (Number.isNaN(+newMM)) return;
+    if (newMM > 59) return;
+    setMM(newMM);
+    onChange(generateValue(HH, newMM, AMPM));
+  });
 
   const handleAMPMChange = React.useCallback(newAMPM => () => {
     setAMPM(newAMPM);
@@ -81,7 +58,6 @@ function TimePicker({ value, onChange, prefixClassName }) {
         onChange={handleHHChange}
         placeholder="HH"
         increment={1}
-        max={12}
         prefixClassName={`${prefixClassName}-input`}
       />
       <span className={`${prefixClassName}-separator`}>:</span>
@@ -90,8 +66,7 @@ function TimePicker({ value, onChange, prefixClassName }) {
         value={MM}
         onChange={handleMMChange}
         placeholder="MM"
-        increment={1}
-        max={59}
+        increment={30}
         prefixClassName={`${prefixClassName}-input`}
       />
       <div

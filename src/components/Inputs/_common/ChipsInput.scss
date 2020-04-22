@@ -1,4 +1,4 @@
-@import "constants/index.scss";
+@import 'constants/index.scss';
 
 .chips {
   border: 1px solid $border-color;
@@ -16,7 +16,7 @@
   cursor: pointer;
   outline: none;
   transition: 0.2s ease-out;
-
+  
   &.error {
     border-color: $warning-color;
     background-color: rgba($warning-color, 0.05);
@@ -28,15 +28,13 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  cursor: text;
-  width: 100%;
 }
 
 .chip {
   display: inline-block;
   font-size: 12px;
-  border: 1px solid #ddd;
-  background-color: #f2f2f2;
+  border: 1px solid #DDD;
+  background-color: #F2F2F2;
   color: #333333;
   border-radius: 8px;
   padding: 2px 8px;
@@ -78,7 +76,7 @@
   }
 
   &::placeholder {
-    color: #aaa;
+    color: #AAA;
   }
 }
 

@@ -81,13 +81,13 @@ test("Prefix class", async () => {
 
 test("Activate/Deactivate", async () => {
   const { queryAllByTestId, getByTestId, rerender } = render(
-    <Component prefixClassName="test" active={false} />,
+    <Component active={false} />,
   );
   expect(queryAllByTestId("context-menu").length).toBe(0);
   fireEvent.click(getByTestId("button"));
   expect(queryAllByTestId("context-menu").length).toBe(1);
-  fireEvent.click(document.getElementsByClassName("test-portal-overlay")[0]);
-  await new Promise(r => setTimeout(r, 500));
+  fireEvent.click(getByTestId("button"));
+  await new Promise(r => setTimeout(r, 400));
   expect(queryAllByTestId("context-menu").length).toBe(0);
 });
 

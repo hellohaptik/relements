@@ -6,8 +6,6 @@
 
 Relements are a set of highly reusable components. They can be used to build highly customizable and interactive applications and user interfaces.
 
-https://hellohaptik.github.io/relements
-
 ### Highlights
 
 Built from the ground up with zero dependencies. This lightweight component library helps you focus more on your business logic and less on reinventing the wheel.
@@ -39,6 +37,8 @@ npm install relements --save
 ```
 yarn add relements
 ```
+
+---
 
 ### Import directly in browser
 

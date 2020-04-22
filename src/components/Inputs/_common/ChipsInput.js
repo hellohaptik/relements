@@ -14,26 +14,25 @@ export const ChipsInput = ({
   onFocus = () => {},
   onBlur = () => {},
   onMouseDown = () => {},
-  innerRef = React.createRef(),
+  innerRef = {},
   value = [],
   onChange = () => {},
   focused = false,
   error = "",
   placeholder = "Type here...",
-  inputRef,
+  inputRef = {},
   disabled = false,
-  onType = () => {},
+  onValueChange = () => {},
   prefixComponent = null,
   postfixComponent = null,
   optionKey = "text",
   prefixClassName = "",
-  typeValue = "",
 }) => {
   const { primaryColor } = React.useContext(Context);
   const focusedClassNameString = focused ? "focused" : "";
   const focusedStyle = focused ? { borderColor: primaryColor } : {};
   const errorClassName = error ? styles.error : "";
-  const [inputValue, setInputValue] = useState(typeValue);
+  const [inputValue, setInputValue] = useState();
   const [onKeyDownChips, , deleteChip] = useChips(
     value,
     inputValue,
@@ -43,14 +42,13 @@ export const ChipsInput = ({
 
   const handleDelete = React.useCallback(i => e => {
     e.stopPropagation();
-    e.preventDefault();
     deleteChip(i);
   });
 
   const handleChange = React.useCallback(e => {
     const value = e.target.value;
     setInputValue(value);
-    onType(value);
+    onValueChange(value);
   });
 
   const handleKeyDown = React.useCallback(e => {
@@ -72,36 +70,29 @@ export const ChipsInput = ({
   };
 
   const renderChip = (chip, i) => {
-    const title = typeof chip === "object" ? chip[optionKey] : chip;
+    const title = chip[optionKey];
     return (
       <div key={i} className={`${styles.chip} ${prefixClassName}-chip`}>
         {title}
-        {!disabled && (
-          <div
-            className={`${prefixClassName}-chip-icon`}
-            onMouseDown={handleDelete(i)}
-          >
-            <Icon
-              src={CrossIcon}
-              className={`${styles.deleteChipIcon} ${prefixClassName}-chip-icon-svg`}
-            />
-          </div>
-        )}
+        <div
+          className={`${prefixClassName}-chip-icon`}
+          onMouseDown={handleDelete(i)}
+        >
+          <Icon
+            src={CrossIcon}
+            className={`${styles.deleteChipIcon} ${prefixClassName}-chip-icon-svg`}
+          />
+        </div>
       </div>
     );
   };
 
-  React.useEffect(() => {
-    setInputValue(typeValue);
-  }, [typeValue]);
-
   return (
     <div
-      tabIndex="-1"
+      onClick={onFocus}
       ref={innerRef}
       style={focusedStyle}
       className={`${styles.chips} ${prefixClassName} ${errorClassName} ${className} ${focusedClassNameString}`}
-      onFocus={onFocus}
       onBlur={onBlur}
       onMouseDown={onMouseDown}
     >
@@ -122,10 +113,10 @@ ChipsInput.propTypes = {
   onMouseDown: PropTypes.func,
   innerRef: PropTypes.object,
   className: PropTypes.string,
-  value: PropTypes.arrayOf(PropTypes.shape({})),
-  disabled: PropTypes.bool,
+  value: PropTypes.string,
+  disabled: PropTypes.string,
   onChange: PropTypes.func,
-  onType: PropTypes.func,
+  onValueChange: PropTypes.func,
   focused: PropTypes.bool,
   error: PropTypes.bool,
   placeholder: PropTypes.string,
@@ -134,5 +125,4 @@ ChipsInput.propTypes = {
   prefixComponent: PropTypes.node,
   postfixComponent: PropTypes.node,
   prefixClassName: PropTypes.string,
-  typeValue: PropTypes.string,
 };

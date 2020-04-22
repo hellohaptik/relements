@@ -23,7 +23,7 @@ const Drawer = ({
   noOverlay,
 }) => {
   const { enabled, visible } = useActivify(active);
-  const activeClassName = visible ? styles.drawerActive : "";
+  const activeClassName = visible || noDisable ? styles.drawerActive : "";
   const placementClassName = position === "LEFT" ? styles.left : "";
   const noDisableClassName = noDisable ? styles.noDisable : "";
   const transformAmount =

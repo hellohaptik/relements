@@ -1,6 +1,10 @@
 @import 'constants/index.scss';
 
 :local {
+  .tableBody {
+
+  }
+
   .tableRow {
     position: relative;
     display: flex;
@@ -30,10 +34,6 @@
 
     &.disabled {
         opacity: 0.4;
-    }
-
-    &:last-child .tableRowItem {
-      margin-bottom: -1px;
     }
   }
 

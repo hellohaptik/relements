@@ -9,8 +9,7 @@ export default {
   'ui/pagination': 'src/components/UI/Pagination/index.js',
   'ui/odometer': 'src/components/UI/Odometer/index.js',
   'ui/loader': 'src/components/UI/Loader/index.js',
-  'ui/label': 'src/components/Inputs/_common/Label.js',
-  
+
   'input/date': 'src/components/Inputs/Date/index.js',
   'input/file': 'src/components/Inputs/File/index.js',
   'input/dropdown': 'src/components/Inputs/Dropdown/index.js',
@@ -24,21 +23,13 @@ export default {
   'input/tab': 'src/components/Inputs/Tab/index.js',
   'input/numberCounter': 'src/components/Inputs/NumberCounter/index.js',
   'input/toggle': 'src/components/Inputs/Toggle/index.js',
-  
+
   'overlays/contextMenu': 'src/components/Overlays/ContextMenu/index.js',
   'overlays/drawer': 'src/components/Overlays/Drawer/index.js',
   'overlays/modal': 'src/components/Overlays/Modal/index.js',
-  'overlays/toast': 'src/components/Overlays/Toast/index.js',
-  'overlays/tooltip': 'src/components/Overlays/Tooltip/index.js',
-  'overlays/withTooltip': 'src/components/Overlays/WithTooltip/index.js',
 
   'hooks/useActivify': 'src/hooks/useActivify/index.js',
   'hooks/useLoader': 'src/hooks/useLoader/index.js',
-  
-  'decorators/loader': 'src/decorators/Loader/index.js',
-  'decorators/confirmationDialog': 'src/decorators/ConfirmationDialog/index.js',
-  'decorators/toastMessage': 'src/decorators/ToastMessage/index.js',
-  'decorators/activify': 'src/decorators/Activify/index.js',
 
   'theme/provider': 'src/components/Context/Provider.js',
 };

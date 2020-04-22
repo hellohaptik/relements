@@ -2,13 +2,14 @@
 
 .withTooltip {
   padding: 4px 8px;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
-  -webkit-font-smoothing: antialiased;
   min-width: 32px;
-  background-color: #28394B;
-  color: #F5F5F5;
-  text-align: left;
+  background-color: #FFF;
+  color: #333;
+  white-space: nowrap;
+  text-align: center;
+
 }
 
 .withTooltipTooltip {

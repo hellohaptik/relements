@@ -96,7 +96,7 @@ const Button = ({
       disabled={disabled}
       ref={innerRef}
       onClick={onClick}
-      style={!disabled ? getColorStyles() : undefined}
+      style={getColorStyles()}
       className={`
         ${styles.button}
         ${prefixClassName}

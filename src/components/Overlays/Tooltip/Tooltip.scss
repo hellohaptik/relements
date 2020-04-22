@@ -1,4 +1,4 @@
-@import "constants/index.scss";
+@import 'constants/index.scss';
 
 .tooltipWrapper {
   position: fixed;
@@ -37,14 +37,14 @@
     &.bottom {
       border-top-color: transparent !important;
       border-right-color: transparent !important;
-      border-bottom-color: #28394b;
+      border-bottom-color: #FFF;
       border-left-color: transparent !important;
       margin-top: -20px;
       top: 0;
     }
 
     &.top {
-      border-top-color: #28394b;
+      border-top-color: #FFF;
       border-right-color: transparent !important;
       border-bottom-color: transparent !important;
       border-left-color: transparent !important;
@@ -54,7 +54,7 @@
   }
 
   * {
-    font-family: "Roboto", sans-serif;
+    font-family: 'Roboto', sans-serif;
   }
 
   &.tooltipActive {
@@ -64,12 +64,11 @@
 }
 
 .tooltipContent {
-  max-height: inherit !important;
+  max-height: 300px;
   max-width: 550px;
   border-radius: 8px;
   overflow: hidden;
   overflow-x: auto;
-  line-height: 1.4;
   &.bottom {
     margin-top: -8px;
   }

@@ -1,4 +1,4 @@
-@import "constants/index.scss";
+@import 'constants/index.scss';
 $GRID_WIDTH: 32px;
 $GRID_HEIGHT: 28px;
 
@@ -19,8 +19,8 @@ $GRID_HEIGHT: 28px;
     position: absolute;
     top: 8px;
     left: 8px;
-    width: 32px !important;
-    height: 32px !important;
+    width: 32px;
+    height: 32px;
     background-color: #fff;
     border-radius: 16px;
     box-shadow: 0 2px 4px rgba(#000, 0.08);
@@ -121,7 +121,7 @@ $GRID_HEIGHT: 28px;
           pointer-events: none;
         }
         &.invisible > * {
-          opacity: 0.05;
+          opacity: 0.1;
         }
         &:last-child {
           border-right: none;

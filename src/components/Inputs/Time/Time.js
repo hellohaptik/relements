@@ -85,7 +85,7 @@ class Time extends React.Component {
         value={parsedValue}
         placeholder={placeholder}
         error={error}
-        editable={false}
+        disabled
         postfixComponent={<Icon src={AngleDownIcon} />}
       />
     );
@@ -94,8 +94,8 @@ class Time extends React.Component {
   _getParsedDate = () => {
     const { value } = this.props;
     const format = "hh:mm A";
-    const date = this._getParsedValueFromDate(value || new Date());
-    if (!date.isValid()) return "Invalid Time";
+    const date = this._getParsedValueFromDate(value);
+    if (!date.isValid()) return "Invalid Date";
     return `${date.format(format)}`;
   };
 

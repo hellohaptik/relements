@@ -23,17 +23,17 @@ const ImagePlaceholder = props => (
       <span
         className={`${styles.imagePlaceholderTextSubtitle} ${props.prefixClassName}-image-dimensions`}
       >
-        {`Dimensions: ${props.dimensions}`}
+        {`Dimensions: ${props.dimensions ? props.dimensions : "450px X 450px"}`}
       </span>
       <span
         className={`${styles.imagePlaceholderTextSubtitle} ${props.prefixClassName}-filesize`}
       >
-        {`Max File Size: ${props.maxFileSize}MB`}
+        {`Max File Size: ${props.size ? props.size : 1}MB`}
       </span>
       <span
         className={`${styles.imagePlaceholderTextSubtitle} ${props.prefixClassName}-format`}
       >
-        {`Supported Formats: ${props.type}`}
+        {`Supported Formats: ${props.type ? props.type : ".png, .jpg"}`}
       </span>
     </div>
   </div>
@@ -41,7 +41,7 @@ const ImagePlaceholder = props => (
 
 ImagePlaceholder.propTypes = {
   prefixClassName: PropTypes.string,
-  maxFileSize: PropTypes.number,
+  size: PropTypes.number,
   type: PropTypes.string,
   dimensions: PropTypes.string,
 };

@@ -1,4 +1,4 @@
-@import "constants/index.scss";
+@import 'constants/index.scss';
 
 .inputWrapper {
   border: 1px solid $border-color;
@@ -13,23 +13,22 @@
   box-sizing: border-box;
   outline: none;
   transition: 0.2s ease-out;
-  background: #fff;
+  background: #FFF;
 
   &.error {
     border-color: $warning-color;
     background-color: rgba($warning-color, 0.05);
   }
-
+  
   &.disabled {
-    background-color: #eee;
+    background-color: #EEE;
   }
 
   .input {
     width: 100%;
   }
 
-  input,
-  textarea {
+  input {
     display: inline-block;
     vertical-align: middle;
     font-size: 12px;
@@ -40,13 +39,12 @@
     width: 100%;
     line-height: 1.9;
     background-color: transparent;
-    resize: none;
     &::placeholder {
       color: #000;
       opacity: 0.3;
     }
     &.error {
-      border-color: #f44336;
+      border-color: #F44336;
       background-color: rgba(244, 67, 54, 0);
     }
   }

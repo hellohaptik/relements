@@ -10,8 +10,7 @@ function WithTooltip({
   className,
   onClick,
   tooltip,
-  position,
-  disabled,
+  position = "TOP",
 }) {
   const [tooltipActive, setTooltipActive] = React.useState();
   const DOMRef = React.useRef();
@@ -38,20 +37,15 @@ function WithTooltip({
       {children}
       {tooltip ? (
         <Tooltip
-          active={tooltipActive && !disabled}
+          active={tooltipActive}
           position={position}
           attachTo={DOMRef}
           onClose={handleMouseLeave}
           tooltipArrowColor="rgba(0,0,0,0.7)"
           tooltipArrowSmall
           className={styles.withTooltipTooltip}
-          prefixClassName={`${prefixClassName}-inner`}
         >
-          <div
-            className={`${styles.withTooltip} ${prefixClassName}-inner-wrapper`}
-          >
-            {tooltip}
-          </div>
+          <div className={styles.withTooltip}>{tooltip}</div>
         </Tooltip>
       ) : null}
     </span>
@@ -64,7 +58,6 @@ WithTooltip.propTypes = {
   className: PropTypes.string,
   tooltip: PropTypes.string,
   position: PropTypes.string,
-  disabled: PropTypes.bool,
   onClick: PropTypes.func,
 };
 
@@ -72,8 +65,7 @@ WithTooltip.defaultProps = {
   children: null,
   className: "",
   tooltip: "",
-  position: "TOP",
-  disabled: false,
+  position: "",
   onClick: () => {},
 };
 

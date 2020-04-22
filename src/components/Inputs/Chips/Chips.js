@@ -11,7 +11,7 @@ const Text = ({
   onChange = () => {},
 
   label = "",
-  placeholder = "Type here...",
+  placeholder = "",
   className = "",
   prefixClassName = "",
   error = "",

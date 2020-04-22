@@ -47,7 +47,6 @@ const Component = ({
     withComparison={withComparison}
     disabled={disabled}
     error={error}
-    withTime
   />
 );
 

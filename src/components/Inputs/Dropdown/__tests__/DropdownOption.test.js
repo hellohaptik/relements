@@ -4,11 +4,11 @@ import React from "react";
 import "@testing-library/jest-dom/extend-expect";
 import { render, fireEvent, cleanup } from "@testing-library/react";
 
-import Option from "../components/Option";
+import DropdownOption from "../components/DropdownOption";
 
 afterEach(cleanup);
 
-const component = props => <Option prefixClassName="test" {...props} />;
+const component = props => <DropdownOption prefixClassName="test" {...props} />;
 
 test("Smoke", async () => {
   const { getByTestId } = render(component());

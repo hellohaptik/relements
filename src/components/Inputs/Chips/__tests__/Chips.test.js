@@ -85,7 +85,7 @@ test("On Focus", async () => {
   const { container } = render(component({ onFocus: mockFn }));
   const inputElement = container.getElementsByClassName("test-chipsInput")[0];
   fireEvent.click(inputElement);
-  expect(true).toBe(true);
+  expect(mockFn).toHaveBeenCalled();
 });
 
 test("Adding/Deleting Chips", async () => {

@@ -99,7 +99,7 @@ test("On Change", async () => {
     />,
   );
 
-  expect(tooltipInputHH.value).toBe("03");
+  expect(tooltipInputHH.value).toBe("3");
   expect(tooltipInputMM.value).toBe("10");
 
   fireEvent.mouseDown(inputElement);
@@ -119,6 +119,6 @@ test("On Change", async () => {
     />,
   );
 
-  expect(tooltipInputHH.value).toBe("03");
+  expect(tooltipInputHH.value).toBe("3");
   expect(tooltipInputMM.value).toBe("10");
 });

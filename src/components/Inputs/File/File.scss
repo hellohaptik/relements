@@ -1,4 +1,4 @@
-@import "constants/index.scss";
+@import 'constants/index.scss';
 
 $IMAGE_WIDTH: 320px / 1.5;
 $IMAGE_HEIGHT: 180px / 1.5;
@@ -110,15 +110,16 @@ $IMAGE_HEIGHT: 180px / 1.5;
 
 .loader {
   position: absolute;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  margin-top: 0;
+  top: 0;
+  right: 0;
+  margin: 16px;
   opacity: 0;
   transition: 0.2s ease-out;
   &.isUploading {
     opacity: 1;
   }
+
+
 }
 
 .imageInputPreviewDelete {
@@ -138,7 +139,7 @@ $IMAGE_HEIGHT: 180px / 1.5;
   }
 
   &:after {
-    content: "";
+    content: '';
     @include absoluteFill;
     background-color: #000;
     opacity: 0.6;
@@ -171,10 +172,11 @@ $IMAGE_HEIGHT: 180px / 1.5;
   }
 }
 
+
 .filePreviewWrapper {
   position: relative;
   width: 100%;
-  border: 1px solid #ddd;
+  border: 1px solid #DDD;
   border-radius: 8px;
   padding: 8px;
   overflow: hidden;
@@ -201,10 +203,11 @@ $IMAGE_HEIGHT: 180px / 1.5;
   .loader {
     left: 0;
     right: auto;
-    transform: scale3d(0.6, 0.6, 1);
+    transform: scale3d(0.6,0.6,1);
     margin: 2px;
   }
 }
+
 
 @keyframes slide-up {
   0% {

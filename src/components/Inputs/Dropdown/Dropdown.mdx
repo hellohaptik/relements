@@ -17,26 +17,6 @@ import Dropdown from "./Dropdown";
             { text: "Option text 2" },
             { text: "Option text 3" },
             { text: "Option text 4" },
-            { text: "Option text 1" },
-            { text: "Option text 2" },
-            { text: "Option text 3" },
-            { text: "Option text 4" },
-            { text: "Option text 1" },
-            { text: "Option text 2" },
-            { text: "Option text 3" },
-            { text: "Option text 4" },
-            { text: "Option text 1" },
-            { text: "Option text 2" },
-            { text: "Option text 3" },
-            { text: "Option text 4" },
-            { text: "Option text 1" },
-            { text: "Option text 2" },
-            { text: "Option text 3" },
-            { text: "Option text 4" },
-            { text: "Option text 1" },
-            { text: "Option text 2" },
-            { text: "Option text 3" },
-            { text: "Option text 4" },
                 ]}
             label="This is the label"
             value={value}
@@ -90,7 +70,7 @@ import Dropdown from "./Dropdown";
             value={value}
             onChange={setValue}
             optionKey="title"
-            searchKeys={['title']}
+            searchKeys={['value']}
             withMultiple
             withSearch
         />
@@ -135,47 +115,6 @@ import Dropdown from "./Dropdown";
       value={value}
       onChange={setValue}
       withCreate
-      withSearch
-    />
-  )}
-</CodeBlock>
-
-<CodeBlock title="Disabled">
-  {(value, setValue) => (
-    <Dropdown
-      placeholder="Test placeholder"
-      className="my-dropdown"
-      prefixClassName="my-yoooo"
-      value={[{text: "Option text 1" }]}
-      options={[
-        { text: "Option text 1" },
-        { text: "Option text 2" },
-        { text: "Option text 3" },
-        { text: "Option text 4" },
-      ]}
-      label="This is the label"
-      onChange={setValue}
-      disabled
-    />
-  )}
-</CodeBlock>
-
-<CodeBlock title="Simple Array">
-  {(value, setValue) => (
-    <Dropdown
-      placeholder="Test placeholder"
-      className="my-dropdown"
-      prefixClassName="my-yoooo"
-      value={value}
-      options={[
-        {text: "Option text 1"},
-        {text: "Option text 2"},
-        {text: "Option text 3"},
-        {text: "Option text 4"},
-      ]}
-      label="This is the label"
-      onChange={setValue}
-      withSearch
     />
   )}
 </CodeBlock>

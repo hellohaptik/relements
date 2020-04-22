@@ -1,4 +1,4 @@
-@import "constants/index.scss";
+@import 'constants/index.scss';
 
 :global {
   .date-picker-tooltip {
@@ -9,7 +9,7 @@
 .timePicker {
   background-color: #fff;
   border-radius: 8px;
-  margin-top: 0px;
+  margin-top: 8px;
   display: flex;
   align-items: flex-start;
   color: #333;
@@ -39,6 +39,7 @@
         color: #000;
       }
     }
+
   }
 }
 

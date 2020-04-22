@@ -95,7 +95,7 @@ const renderGridRow = (
   rowIndex,
   date,
   ranges,
-  { handleCellClick, mergeColor, prefixClassName, minDate, maxDate },
+  { handleCellClick, mergeColor, prefixClassName },
 ) => {
   return new Array(7).fill(0).map((_, columnIndex) => {
     const { text, day, invisible } = getTextForCell(
@@ -144,18 +144,10 @@ const renderGridRow = (
       }
     });
 
-    let isDisabled = false;
-    if (minDate && dayjs(minDate).isAfter(day)) isDisabled = true;
-    if (maxDate && dayjs(maxDate).isBefore(day)) isDisabled = true;
-
     const classNames = {
       gridRowItem: cc([
         styles.calendarGridRowItem,
-        {
-          [styles.invisible]: invisible,
-          [styles.selected]: selected,
-          [styles.disabled]: isDisabled,
-        },
+        { [styles.invisible]: invisible, [styles.selected]: selected },
         `${prefixClassName}-calendar-grid-row-item`,
         {
           [`${prefixClassName}-calendar-grid-row-item-selected`]: selected,
@@ -223,8 +215,6 @@ const Calendar = ({
   mergeColor,
   className,
   prefixClassName,
-  maxDate,
-  minDate,
 }) => {
   const ranges = Array.isArray(value) ? value : [{ from: value, to: value }];
   const [viewingMonth, setViewingMonth] = React.useState(dayjs());
@@ -245,8 +235,6 @@ const Calendar = ({
     handleCellClick,
     mergeColor,
     prefixClassName,
-    maxDate,
-    minDate,
   };
 
   return (
@@ -286,10 +274,6 @@ Calendar.propTypes = {
   onChange: PropTypes.func,
   /** when specifying multiple ranges, this is the color for conflicting ranges */
   mergeColor: PropTypes.string,
-  /** Dates after this date would be disabled * */
-  maxDate: PropTypes.string,
-  /** Dates before this date would be disabled * */
-  minDate: PropTypes.string,
   /** number of months to show in the calendar at a time */
   numMonths: PropTypes.number,
   /** The dates to highlight, can be an array of objects or a single a object */
@@ -312,8 +296,6 @@ Calendar.defaultProps = {
   mergeColor: "#F00",
   className: "",
   prefixClassName: "",
-  minDate: undefined,
-  maxDate: undefined,
 };
 
 Calendar.classNames = {

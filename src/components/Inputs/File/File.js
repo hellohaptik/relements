@@ -41,7 +41,7 @@ class File extends React.Component {
     const { value, multiple, className, prefixClassName } = this.props;
     let values = [];
     if (value) {
-      values = multiple ? this._transform(value) : this._transform([value]);
+      values = multiple ? this._transform([value]) : this._transform([value]);
     }
 
     const uploads = values.concat(this.state.uploads);
@@ -66,14 +66,14 @@ class File extends React.Component {
       return (
         <FilePlaceholder
           prefixClassName={`${this.props.prefixClassName}-placeholder`}
-          maxFileSize={this.props.maxFileSize}
+          size={this.props.size}
         />
       );
     }
     return (
       <ImagePlaceholder
         prefixClassName={`${this.props.prefixClassName}-placeholder`}
-        maxFileSize={this.props.maxFileSize}
+        size={this.props.size}
         type={this.props.type}
         dimensions={this.props.dimensions}
       />
@@ -150,7 +150,6 @@ class File extends React.Component {
           prefixClassName={`${this.props.prefixClassName}-progressbar`}
           complete={uploadedPercent}
           active={isUploading}
-          maxFileSize={this.props.maxFileSize}
         />
       </div>
     );
@@ -170,7 +169,6 @@ class File extends React.Component {
           prefixClassName={`${this.props.prefixClassName}-progressbar`}
           complete={uploadedPercent}
           active={isUploading}
-          maxFileSize={this.props.maxFileSize}
         />
       </div>
     );
@@ -315,14 +313,13 @@ class File extends React.Component {
     });
   };
 
-  _onUploadComplete = (fileURL, index, numFiles) => {
+  _onUploadComplete = (uploads, fileURL, index, numFiles) => {
     const value = this.props.value || [];
-    let uploadsCompleted;
-    let uploads;
+    const uploadsCompleted = this.state.uploads;
     this.setState(
       prevState => {
-        uploadsCompleted = prevState.uploadsCompleted + 1;
-        uploads = prevState.uploads;
+        const uploadsCompleted = prevState.uploadsCompleted + 1;
+        const uploads = prevState.uploads;
         uploads[index].isUploading = false;
         uploads[index].uploadedPercent = 0;
         uploads[index].value = fileURL;
@@ -353,18 +350,22 @@ class File extends React.Component {
     [...files].map(file => {
       if (
         this.props.type !== "file" &&
-        file.size > 1024 * 1024 * this.props.maxFileSize
+        file.size > 1024 * 1024 * (this.props.size ? this.props.size : 1)
       ) {
         errorMessages.push(
-          `File: ${file.name} must be less than ${this.props.maxFileSize}MB`,
+          `File: ${file.name} must be less than ${
+            this.props.size ? this.props.size : 1
+          }MB`,
         );
         isValid = false;
       } else if (
         this.props.type === "file" &&
-        file.size > 1024 * 1024 * this.props.maxFileSize
+        file.size > 1024 * 1024 * (this.props.size ? this.props.size : 2)
       ) {
         errorMessages.push(
-          `File: ${file.name} must be less than ${this.props.maxFileSize}MB`,
+          `File: ${file.name} must be less than ${
+            this.props.size ? this.props.size : 2
+          }MB`,
         );
         isValid = false;
       }
@@ -379,8 +380,8 @@ class File extends React.Component {
 }
 
 File.propTypes = {
-  /** Names of already choosen file/files, could be a string (if single file), could be an array(if multiple files) */
-  value: PropTypes.oneOf([PropTypes.string, PropTypes.array]),
+  /** Names of already choosen file/files */
+  value: PropTypes.string,
   /** on change function for input */
   onChange: PropTypes.func,
   /** Boolean value to allow multiple files */
@@ -397,7 +398,7 @@ File.propTypes = {
   /** Type of file to accept (file or image) or you can pass your own custom formats as a string */
   type: PropTypes.string,
   /** Size of the file allowed in MBs */
-  maxFileSize: PropTypes.number,
+  size: PropTypes.number,
   /** Dimensions of the file to upload (Doesn't work with type 'file') */
   dimensions: PropTypes.string,
   /** When a custom ui is needed. This render func calls with uploads and the renderInput function */
@@ -412,9 +413,8 @@ File.defaultProps = {
   baseWidth: 290,
   className: "",
   prefixClassName: "",
-  type: ".png, .jpg",
-  dimensions: "450px X 450px",
-  maxFileSize: 5,
+  type: "",
+  dimensions: "",
 };
 
 File.classNames = {

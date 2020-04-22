@@ -1,154 +1,159 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Fuse from "fuse.js";
 
-import Context from "@src/components/Context";
-import Icon from "@src/components/UI/Icon";
-import SearchIcon from "@src/icons/search.svg";
-import useEnterKey from "@src/hooks/useEnterKey/useEnterKey";
+import { KEY_CODES } from "constants/key_codes";
+import Icon from "components/UI/Icon";
+import SearchIcon from "icons/search.svg";
 
 import styles from "./Search.scss";
 
-const FUSE_OPTIONS = {
-  shouldSort: true,
-  threshold: 0.2,
-  tokenize: true,
-  matchAllTokens: true,
-  findAllMatches: true,
-  location: 0,
-  distance: 50,
-  maxPatternLength: 32,
-  minMatchCharLength: 1,
-  keys: ["title"],
-};
+export default class Search extends React.Component {
+  fuseOptions = {
+    shouldSort: true,
+    threshold: 0.2,
+    tokenize: true,
+    matchAllTokens: true,
+    findAllMatches: true,
+    location: 0,
+    distance: 50,
+    maxPatternLength: 32,
+    minMatchCharLength: 1,
+    keys: ["title"],
+  };
 
-function Search({
-  className,
-  prefixClassName,
-  options,
-  onChange,
-  onType,
-  onSubmit,
-  searchKeys,
-  autoFocus,
-  hint,
-  placeholder,
-  value,
-  onBlur,
-  onFocus,
-}) {
-  const { primaryColor } = React.useContext(Context);
-  const fuse = React.useRef();
-  const searchInputRef = React.useRef();
-  const [searchTerm, setSearchTerm] = React.useState("");
-  const [focused, setFocused] = React.useState("");
-  const handleSearch = React.useCallback(e => {
-    const termToSearch = e.target.value;
-    if (!termToSearch.length) onChange(options);
-    else onChange(fuse.current.search(termToSearch));
-    onType(termToSearch, e);
-    setSearchTerm(termToSearch);
-  });
+  constructor() {
+    super();
+    this.state = {
+      active: false,
+      searchTerm: this.props.searchTerm,
+    };
+  }
 
-  const handleFocus = React.useCallback(e => {
-    setFocused(true);
-    onFocus(e);
-  });
+  componentDidMount() {
+    this.fuseOptions.keys = this.props.searchKeys;
+    this._fuse = new Fuse(this.props.options || [], this.fuseOptions);
+  }
 
-  const handleBlur = React.useCallback(e => {
-    setFocused(false);
-    onBlur(e);
-  });
+  componentWillReceiveProps(nextProps) {
+    this._fuse = new Fuse(this.props.options || [], this.fuseOptions);
 
-  useEffect(() => {
-    FUSE_OPTIONS.keys = searchKeys;
-    fuse.current = new Fuse(options, FUSE_OPTIONS);
-  });
+    if (this.props.searchTerm !== nextProps.searchTerm) {
+      this._search(undefined, nextProps.searchTerm);
+    }
+  }
 
-  useEffect(() => {
-    setSearchTerm(value);
-  }, [value]);
+  /**
+   * Render
+   * @return {[type]} [description]
+   */
 
-  useEffect(() => {
-    if (autoFocus && searchInputRef.current) searchInputRef.current.focus();
-  }, [autoFocus]);
+  renderHint() {
+    return (
+      <div className={styles.hint} onClick={this._focusDiv}>
+        {this.props.hint}
+      </div>
+    );
+  }
 
-  useEnterKey(onSubmit, searchInputRef);
+  render() {
+    const activeClassName = this.state.active ? styles.active : "";
+    const withDropdownClassName = this.props.withDropdown
+      ? styles.withDropdown
+      : "";
+    const parentClass = this.props.className || "";
 
-  const activeClassName = focused ? styles.active : "";
-  return (
-    <div
-      style={{ borderColor: focused ? primaryColor : undefined }}
-      className={`${styles.search} ${prefixClassName} ${className} ${activeClassName}`}
-    >
-      <Icon
-        src={SearchIcon}
-        className={`${styles.searchIcon} ${prefixClassName}-icon`}
-      />
-      <input
-        ref={searchInputRef}
-        type="text"
-        placeholder={placeholder}
-        className={`${styles.searchInput} ${prefixClassName}-input`}
-        onChange={handleSearch}
-        value={searchTerm}
-        autoFocus={autoFocus}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-      />
-      <div className={`${styles.hint} ${prefixClassName}-hint`}>{hint}</div>
-    </div>
-  );
+    return (
+      <div
+        ref={this.props.innerRef}
+        className={`${styles.searchWrapper} ${parentClass}`}
+      >
+        <div
+          className={`${styles.search} ${withDropdownClassName} ${activeClassName}`}
+        >
+          <Icon src={{ default: SearchIcon }} className={styles.searchIcon} />
+          <input
+            ref={DOMElement => {
+              this._input = DOMElement;
+            }}
+            onFocus={this._activate}
+            onBlur={this._deactivate}
+            type="text"
+            placeholder={this.props.placeholder}
+            className={styles.searchInput}
+            onChange={this._search}
+            onKeyUp={this._onKeyUp}
+            onKeyDown={this.props.onKeyDown}
+            value={this.state.searchTerm}
+            autoFocus={this.props.autoFocus}
+          />
+          {this.props.hintPosition === "INSIDE" ? this.renderHint() : null}
+        </div>
+        <div>
+          {this.props.hintPosition === "OUTSIDE" ? this.renderHint() : null}
+        </div>
+      </div>
+    );
+  }
+
+  _focusDiv = () => {
+    this._input.focus();
+  };
+
+  _activate = () => {
+    this.setState({ active: true });
+    if (this.props.dropdownRef) this.props.dropdownRef.current._enable();
+  };
+
+  _deactivate = () => {
+    this.setState({ active: false });
+    if (this.props.dropdownRef) this.props.dropdownRef.current._disable();
+  };
+
+  _search = (e, alternateText) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    const searchTerm = e ? e.target.value : alternateText;
+    if (searchTerm.length === 0 && this.props.onChange) {
+      this.props.onChange(this.props.options);
+    } else if (this.props.onChange) {
+      this.props.onChange(this._fuse.search(searchTerm));
+    }
+
+    if (this.props.onType) {
+      this.props.onType(searchTerm);
+    }
+
+    this.setState({ searchTerm });
+  };
+
+  _onKeyUp = e => {
+    if (e.keyCode === KEY_CODES.ENTER && this.props.onSubmit) {
+      this.props.onSubmit(this.state.searchTerm);
+    }
+  };
 }
 
 Search.propTypes = {
-  /** The classname to appended to the outermost element */
-  className: PropTypes.string,
-  /** The prefix classname appended to all elements */
-  prefixClassName: PropTypes.string,
-  /** The input placeholder */
   placeholder: PropTypes.string,
-  /** Whenever you type, an onChange callback is triggered with the results */
-  onChange: PropTypes.func,
-  /** Object keys to search when finding */
-  searchKeys: PropTypes.array,
-  /** The array of object to search */
-  options: PropTypes.array,
-  /** Whether to auto focus or not */
-  autoFocus: PropTypes.bool,
-  /** The hint text that shows up inside the search input */
-  hint: PropTypes.string,
-  /** The onChange for the input (callback called with searchTerm as param) */
-  onType: PropTypes.func,
-  /** The onFocus for the input (callback called when focusing the input) */
-  onFocus: PropTypes.func,
-  /** The onBlur for the input (callback called with blurring the input) */
-  onBlur: PropTypes.func,
-  /** When enter key is pressed to initiate the search */
   onSubmit: PropTypes.func,
-  /** The search input value */
-  value: PropTypes.string,
+  onChange: PropTypes.func,
+  searchKeys: PropTypes.array,
+  options: PropTypes.array,
+  autoFocus: PropTypes.bool,
+  withDropdown: PropTypes.bool,
+  className: PropTypes.string,
+  hint: PropTypes.string,
+  hintPosition: PropTypes.string,
+  searchTerm: PropTypes.string,
+  innerRef: PropTypes.object,
+  dropdownRef: PropTypes.object,
+  onType: PropTypes.func,
+  onKeyDown: PropTypes.func,
 };
 
 Search.defaultProps = {
-  placeholder: "",
-  onChange: () => {},
-  onSubmit: () => {},
-  searchKeys: [],
-  options: [],
-  autoFocus: false,
-  className: "",
-  hint: "",
-  onType: () => {},
-  onFocus: () => {},
-  onBlur: () => {},
+  hintPosition: "INSIDE",
 };
-
-Search.classNames = {
-  $prefix: "Outermost element",
-  "$prefix-icon": "Search Icon",
-  "$prefix-input": "Search input",
-  "$prefix-hint": "Search hint",
-};
-
-export default Search;

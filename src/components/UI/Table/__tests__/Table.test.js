@@ -52,8 +52,8 @@ test("Row Click", async () => {
   fireEvent.click(container.getElementsByClassName("test-body-row")[0]);
 
   expect(mockFn).toHaveBeenCalledTimes(1);
-  expect(mockFn.mock.calls[0][0]).toBe(0);
-  expect(mockFn.mock.calls[0][1]).toBe(DATA.data[0]);
+  expect(mockFn.mock.calls[0][0]).toBe(DATA.data[0]);
+  expect(mockFn.mock.calls[0][1]).toBe(0);
 });
 
 test("Hidden Row", async () => {
