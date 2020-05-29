@@ -281,8 +281,10 @@ class File extends React.Component {
   };
 
   _handleFile = e => {
-    const files = e.target.files;
-    if (!this._areFilesValid(files)) return;
+    const selectedFiles = e.target.files;
+    const filesObj = this._areFilesValid(selectedFiles);
+    // Only upload valid files
+    const files = filesObj.validFiles;
     const filenames = [];
     const uploads = [...files].map((file, i) => {
       this._uploadFile(file, i, files.length);
@@ -348,50 +350,54 @@ class File extends React.Component {
   };
 
   _areFilesValid = files => {
-    let isValid = true;
+    // Validate the file and add them to the below arrays accordingly
+    const retObj = {
+      validFiles: [],
+      invalidFiles: [],
+    };
     const errorMessages = [];
     const { type, maxFileSize } = this.props;
 
     // Accepts the file extenstions and the selected file's type to validate
-    const fileValidation = (allowedFileTypes, fileType) => {
+    const fileValidation = (allowedFileTypes, file, fileType) => {
       if (!allowedFileTypes.includes(fileType)) {
-        errorMessages.push(`Invalid File selected. Supported formats: ${type}`);
-        isValid = false;
+        let errorMsg = "Invalid File selected.";
+        if (files.length > 1) {
+          errorMsg = "Some of the files selected are invalid.";
+        }
+
+        errorMessages.push(`${errorMsg} Supported formats: ${type}`);
+        retObj.invalidFiles.push(file);
+      } else if (file.size > 1024 * 1024 * maxFileSize) {
+        errorMessages.push(
+          `File: ${file.name} must be less than ${maxFileSize}MB`,
+        );
+        retObj.invalidFiles.push(file);
+      } else {
+        retObj.validFiles.push(file);
       }
     };
 
     [...files].map(file => {
-      let fileType = file.type;
-
       // Image Extension Check
       if (type === "image") {
         const allowedImageTypes = IMAGE_ACCEPT_TYPES.split(", ");
-        fileValidation(allowedImageTypes, fileType);
+        fileValidation(allowedImageTypes, file, file.type);
       }
 
       // File Extenstions Check
       else if (type === "file") {
         const allowedFileTypes = FILE_ACCEPT_TYPES.split(", ");
-        fileValidation(allowedFileTypes, fileType);
+        fileValidation(allowedFileTypes, file, file.type);
       }
 
       // Custom Extenstions Check
       else {
         // Removed all the dots from the extensions to match the types with filetypes
         const allowedTypes = type.replace(/\./g, "").split(", ");
-        const formattedFileType = fileType.split("/");
-        fileType = formattedFileType[formattedFileType.length - 1];
-        fileValidation(allowedTypes, fileType);
-      }
-
-      // File Size Validation
-      if (isValid) {
-        if (file.size > 1024 * 1024 * maxFileSize) {
-          errorMessages.push(
-            `File: ${file.name} must be less than ${maxFileSize}MB`,
-          );
-          isValid = false;
-        }
+        const formattedFileType = file.type.split("/");
+        const fileType = formattedFileType[formattedFileType.length - 1];
+        fileValidation(allowedTypes, file, fileType);
       }
     });
 
@@ -399,7 +405,7 @@ class File extends React.Component {
       alert(errorMessages.join("\n"));
     }
 
-    return isValid;
+    return retObj;
   };
 }
 
