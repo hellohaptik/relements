@@ -11,7 +11,7 @@
     "build:storybook": "build-storybook -s public -o storybook-static",
     "build:storybook:next": "build-storybook -s public -o storybook-static/next/",
     "dev": "NODE_ENV=development webpack --watch --config config/webpack.development.config.js --colors",
-    "test": "SET NODE_ENV=test jest --coverage",
+    "test": "NODE_ENV=test jest --coverage",
     "test:ui": "NODE_ENV=test majestic --coverage",
     "coverage": "codecov",
     "semantic-release": "semantic-release",
