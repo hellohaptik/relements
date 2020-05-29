@@ -353,40 +353,68 @@ class File extends React.Component {
     const { type, maxFileSize } = this.props;
 
     [...files].map(file => {
-      const fileType = file.type.split("/")[1];
-      const propTypeData = type.split(", ");
-      const multiplePropTypes = type.includes(",") ? true : false;
-      let validFile = false;
+      const fileType = file.type;
 
-      // Absolute type check
-      if (!multiplePropTypes) {
+      // Image Extension Check
+      if (type === "image") {
+        const acceptedImgArr = IMAGE_ACCEPT_TYPES.split(", ");
+        let validImg = false;
+        for (const i in acceptedImgArr) {
+          if (fileType.includes(acceptedImgArr[i])) {
+            validImg = true;
+            break;
+          }
+        }
+
+        if (!validImg) {
+          errorMessages.push(
+            `Invalid File selected. Supported formats: ${type}`,
+          );
+          isValid = false;
+        }
+      }
+
+      // File Extenstions Check
+      else if (type === "file") {
         const acceptedFileArr = FILE_ACCEPT_TYPES.split(", ");
+        let validFile = false;
         for (const index in acceptedFileArr) {
-          if (file.type.includes(acceptedFileArr[index])) {
+          if (fileType.includes(acceptedFileArr[index])) {
             validFile = true;
             break;
           }
+        }
+
+        if (!validFile) {
+          errorMessages.push(
+            `Invalid File selected. Supported formats: ${type}`,
+          );
+          isValid = false;
         }
       }
 
       // Custom Extenstions Check
       else {
-        for (const i in propTypeData) {
-          if (propTypeData[i].includes(fileType)) {
-            validFile = true;
+        const propTypeData = type.replace(/\./g, "").split(", ");
+        let validDataFile = false;
+        for (const j in propTypeData) {
+          if (fileType.includes(propTypeData[j])) {
+            validDataFile = true;
             break;
           }
         }
-      }
 
-      if (!validFile) {
-        errorMessages.push(`Invalid File selected. Supported formats: ${type}`);
-        isValid = false;
+        if (!validDataFile) {
+          errorMessages.push(
+            `Invalid File selected. Supported formats: ${type}`,
+          );
+          isValid = false;
+        }
       }
 
       // File Size Validation
       if (isValid) {
-        if (file.size > 1024 * 1024 * maxFileSize) {
+        if (file.size > maxFileSize) {
           errorMessages.push(
             `File: ${file.name} must be less than ${maxFileSize}MB`,
           );
