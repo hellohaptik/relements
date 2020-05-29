@@ -353,9 +353,8 @@ class File extends React.Component {
     const { type, maxFileSize } = this.props;
 
     // Accepts the file extenstions and the selected file's type to validate
-    // data -> allowed file types
-    const fileValidation = (data, fileType) => {
-      if (!data.includes(fileType)) {
+    const fileValidation = (allowedFileTypes, fileType) => {
+      if (!allowedFileTypes.includes(fileType)) {
         errorMessages.push(`Invalid File selected. Supported formats: ${type}`);
         isValid = false;
       }
