@@ -186,3 +186,94 @@ test("Multiple test", async () => {
   const input = document.getElementsByClassName("test-input")[0];
   expect(input.multiple).toEqual(true);
 });
+
+test("File extension", async () => {
+  const mockFn = jest.fn();
+  window.URL.createObjectURL = function() {};
+
+  //#region Image
+  const imgFile = new File(["dummy content"], "example.png", {
+    type: "image",
+  });
+  const { imgRerender } = render(
+    <FileComponent prefixClassName="test" type="image" />,
+  );
+  const imgInput = document.getElementsByClassName("test-input")[0];
+  imgInput.onchange = mockFn;
+
+  Object.defineProperty(imgInput, "imgFile", {
+    value: [imgFile],
+  });
+  fireEvent.change(imgInput);
+  expect(mockFn).toHaveBeenCalled();
+  //#endregion
+
+  //#region File
+  const file = new File(["dummy content"], "example.pdf", {
+    type: "file",
+  });
+  const { fileRerender } = render(
+    <FileComponent prefixClassName="test" type="file" />,
+  );
+  const fileInput = document.getElementsByClassName("test-input")[0];
+  fileInput.onchange = mockFn;
+
+  Object.defineProperty(fileInput, "file", {
+    value: [file],
+  });
+  fireEvent.change(fileInput);
+  expect(mockFn).toHaveBeenCalled();
+  //#endregion
+
+  //#region Custom Extensions
+
+  //Valid
+  const customInputValid = new File(["dummy content"], "example.png", {
+    type: ".png, .pdf",
+  });
+  const { validInputRerender } = render(
+    <FileComponent prefixClassName="test" type=".png" />,
+  );
+  const fileInputValid = document.getElementsByClassName("test-input")[0];
+  fileInputValid.onchange = mockFn;
+
+  Object.defineProperty(fileInputValid, "validFiles", {
+    value: [customInputValid],
+  });
+  fireEvent.change(fileInputValid);
+  expect(mockFn).toHaveBeenCalled();
+
+  //Invalid
+  const customInputInvalid = new File(["dummy content"], "example.png", {
+    type: ".pdfasdsad, -2",
+  });
+  const { invalidInputRerender } = render(
+    <FileComponent prefixClassName="test" type=".pdfasdsad, -2" />,
+  );
+  const fileInputInvalid = document.getElementsByClassName("test-input")[0];
+  fileInputInvalid.onchange = mockFn;
+
+  Object.defineProperty(fileInputInvalid, "invalidFiles", {
+    value: [customInputInvalid],
+  });
+  fireEvent.change(fileInputInvalid);
+  expect(mockFn).toHaveBeenCalled();
+
+  //Mix
+  const customInputMix = new File(["dummy content"], "example.png", {
+    type: ".pdf",
+  });
+  const { mixInputRerender } = render(
+    <FileComponent prefixClassName="test" type=".png, asdw" />,
+  );
+  const fileInputMix = document.getElementsByClassName("test-input")[0];
+  fileInputMix.onchange = mockFn;
+
+  Object.defineProperty(fileInputMix, "mixFiles", {
+    value: [customInputMix],
+  });
+  fireEvent.change(fileInputMix);
+  expect(mockFn).toHaveBeenCalled();
+
+  //#endregion
+});
