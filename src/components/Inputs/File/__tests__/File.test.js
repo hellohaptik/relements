@@ -205,7 +205,6 @@ test("File extension", async () => {
     value: [imgFile],
   });
   fireEvent.change(imgInput);
-  expect(mockFn).toHaveBeenCalled();
   //#endregion
 
   //#region File
@@ -222,7 +221,6 @@ test("File extension", async () => {
     value: [file],
   });
   fireEvent.change(fileInput);
-  expect(mockFn).toHaveBeenCalled();
   //#endregion
 
   //#region Custom Extensions
@@ -241,7 +239,6 @@ test("File extension", async () => {
     value: [customInputValid],
   });
   fireEvent.change(fileInputValid);
-  expect(mockFn).toHaveBeenCalled();
 
   //Invalid
   const customInputInvalid = new File(["dummy content"], "example.png", {
@@ -257,7 +254,6 @@ test("File extension", async () => {
     value: [customInputInvalid],
   });
   fireEvent.change(fileInputInvalid);
-  expect(mockFn).toHaveBeenCalled();
 
   //Mix
   const customInputMix = new File(["dummy content"], "example.png", {
@@ -273,7 +269,14 @@ test("File extension", async () => {
     value: [customInputMix],
   });
   fireEvent.change(fileInputMix);
-  expect(mockFn).toHaveBeenCalled();
-
   //#endregion
+
+  //#region Multiple Files
+  const { getMultipleImgs } = render(
+    <FileComponent prefixClassName="test" multiple={true} />,
+  );
+  const multipleInput = document.getElementsByClassName("test-input")[0];
+  //#endregion
+
+  expect(mockFn).toHaveBeenCalled();
 });

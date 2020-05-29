@@ -353,7 +353,6 @@ class File extends React.Component {
     // Validate the file and add them to the below arrays accordingly
     const retObj = {
       validFiles: [],
-      invalidFiles: [],
     };
     const errorMessages = [];
     const { type, maxFileSize } = this.props;
@@ -361,18 +360,17 @@ class File extends React.Component {
     // Accepts the file extenstions and the selected file's type to validate
     const fileValidation = (allowedFileTypes, file, fileType) => {
       if (!allowedFileTypes.includes(fileType)) {
-        let errorMsg = "Invalid File selected.";
-        if (files.length > 1) {
-          errorMsg = "Some of the files selected are invalid.";
-        }
-
-        errorMessages.push(`${errorMsg} Supported formats: ${type}`);
-        retObj.invalidFiles.push(file);
+        const errorMsg =
+          files.length > 1
+            ? "Some of the files selected are invalid."
+            : "Invalid File selected.";
+        const propType =
+          type === "image" ? IMAGE_ACCEPT_TYPES.split("image/").join("") : type;
+        errorMessages.push(`${errorMsg} Supported formats: ${propType}`);
       } else if (file.size > 1024 * 1024 * maxFileSize) {
         errorMessages.push(
           `File: ${file.name} must be less than ${maxFileSize}MB`,
         );
-        retObj.invalidFiles.push(file);
       } else {
         retObj.validFiles.push(file);
       }
