@@ -352,48 +352,34 @@ class File extends React.Component {
     const errorMessages = [];
     const { type, maxFileSize } = this.props;
 
+    const fileValidation = (data, fileType) => {
+      if (!data.includes(fileType)) {
+        errorMessages.push(`Invalid File selected. Supported formats: ${type}`);
+        isValid = false;
+      }
+    };
+
     [...files].map(file => {
-      const fileType = file.type;
+      let fileType = file.type;
 
       // Image Extension Check
       if (type === "image") {
-        const acceptedImgArr = IMAGE_ACCEPT_TYPES.split(", ");
-        if (!acceptedImgArr.includes(fileType)) {
-          errorMessages.push(
-            `Invalid File selected. Supported formats: ${type}`,
-          );
-          isValid = false;
-        }
+        const allowedImageTypes = IMAGE_ACCEPT_TYPES.split(", ");
+        fileValidation(allowedImageTypes, fileType);
       }
 
       // File Extenstions Check
       else if (type === "file") {
-        const acceptedFileArr = FILE_ACCEPT_TYPES.split(", ");
-        if (!acceptedFileArr.includes(fileType)) {
-          errorMessages.push(
-            `Invalid File selected. Supported formats: ${type}`,
-          );
-          isValid = false;
-        }
+        const allowedFileTypes = FILE_ACCEPT_TYPES.split(", ");
+        fileValidation(allowedFileTypes, fileType);
       }
 
       // Custom Extenstions Check
       else {
-        const propTypeData = type.replace(/\./g, "").split(", ");
-        let validDataFile = false;
-        for (const i in propTypeData) {
-          if (fileType.includes(propTypeData[i])) {
-            validDataFile = true;
-            break;
-          }
-        }
-
-        if (!validDataFile) {
-          errorMessages.push(
-            `Invalid File selected. Supported formats: ${type}`,
-          );
-          isValid = false;
-        }
+        const allowedTypes = type.replace(/\./g, "").split(", ");
+        const formattedFileType = fileType.split("/");
+        fileType = formattedFileType[formattedFileType.length - 1];
+        fileValidation(allowedTypes, fileType);
       }
 
       // File Size Validation
