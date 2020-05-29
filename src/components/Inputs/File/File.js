@@ -358,15 +358,7 @@ class File extends React.Component {
       // Image Extension Check
       if (type === "image") {
         const acceptedImgArr = IMAGE_ACCEPT_TYPES.split(", ");
-        let validImg = false;
-        for (const i in acceptedImgArr) {
-          if (fileType.includes(acceptedImgArr[i])) {
-            validImg = true;
-            break;
-          }
-        }
-
-        if (!validImg) {
+        if (!acceptedImgArr.includes(fileType)) {
           errorMessages.push(
             `Invalid File selected. Supported formats: ${type}`,
           );
@@ -377,15 +369,7 @@ class File extends React.Component {
       // File Extenstions Check
       else if (type === "file") {
         const acceptedFileArr = FILE_ACCEPT_TYPES.split(", ");
-        let validFile = false;
-        for (const index in acceptedFileArr) {
-          if (fileType.includes(acceptedFileArr[index])) {
-            validFile = true;
-            break;
-          }
-        }
-
-        if (!validFile) {
+        if (!acceptedFileArr.includes(fileType)) {
           errorMessages.push(
             `Invalid File selected. Supported formats: ${type}`,
           );
@@ -397,8 +381,8 @@ class File extends React.Component {
       else {
         const propTypeData = type.replace(/\./g, "").split(", ");
         let validDataFile = false;
-        for (const j in propTypeData) {
-          if (fileType.includes(propTypeData[j])) {
+        for (const i in propTypeData) {
+          if (fileType.includes(propTypeData[i])) {
             validDataFile = true;
             break;
           }
@@ -414,7 +398,7 @@ class File extends React.Component {
 
       // File Size Validation
       if (isValid) {
-        if (file.size > maxFileSize) {
+        if (file.size > 1024 * 1024 * maxFileSize) {
           errorMessages.push(
             `File: ${file.name} must be less than ${maxFileSize}MB`,
           );
