@@ -361,15 +361,9 @@ class File extends React.Component {
           files.length > 1
             ? "Some of the files selected are invalid."
             : "Invalid File selected.";
-        let propType = type;
-
-        if (type === "image") {
-          propType = IMAGE_ACCEPT_TYPES;
-        } else if (type === "file") {
-          propType = FILE_ACCEPT_TYPES;
-        }
-
-        errorMessages.push(`${errorMsg} Supported formats: ${propType}`);
+        errorMessages.push(
+          `${errorMsg} Supported formats: ${allowedFileTypes}`,
+        );
       } else if (file.size > 1024 * 1024 * maxFileSize) {
         errorMessages.push(
           `File: ${file.name} must be less than ${maxFileSize}MB`,
