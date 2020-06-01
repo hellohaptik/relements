@@ -199,9 +199,7 @@ test("Single - Image Extension Test", async () => {
     type: "image",
   });
 
-  const { rerender } = render(
-    <FileComponent prefixClassName="test" type="image" />,
-  );
+  render(<FileComponent prefixClassName="test" type="image" />);
   const input = document.getElementsByClassName("test-input")[0];
 
   Object.defineProperty(input, "files", {
@@ -232,9 +230,7 @@ test("Single - File Extension Test", async () => {
     type: "file",
   });
 
-  const { rerender } = render(
-    <FileComponent prefixClassName="test" type="file" />,
-  );
+  render(<FileComponent prefixClassName="test" type="file" />);
   const input = document.getElementsByClassName("test-input")[0];
 
   Object.defineProperty(input, "files", {
