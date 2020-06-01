@@ -187,7 +187,9 @@ test("Multiple test", async () => {
   expect(input.multiple).toEqual(true);
 });
 
-test("File extension", async () => {
+//Extenstion Tests
+
+test("Image Extenstion Test", async () => {
   const mockFn = jest.fn();
   window.URL.createObjectURL = function() {};
 
@@ -206,8 +208,13 @@ test("File extension", async () => {
   });
   fireEvent.change(imgInput);
   //#endregion
+  expect(mockFn).toHaveBeenCalled();
+});
 
-  //#region File
+test("File Extenstion Test", async () => {
+  const mockFn = jest.fn();
+  window.URL.createObjectURL = function() {};
+
   const file = new File(["dummy content"], "example.pdf", {
     type: "file",
   });
@@ -221,9 +228,13 @@ test("File extension", async () => {
     value: [file],
   });
   fireEvent.change(fileInput);
-  //#endregion
 
-  //#region Custom Extensions
+  expect(mockFn).toHaveBeenCalled();
+});
+
+test("Custom Extenstions Test", async () => {
+  const mockFn = jest.fn();
+  window.URL.createObjectURL = function() {};
 
   //Valid
   const customInputValid = new File(["dummy content"], "example.png", {
@@ -269,14 +280,38 @@ test("File extension", async () => {
     value: [customInputMix],
   });
   fireEvent.change(fileInputMix);
-  //#endregion
 
-  //#region Multiple Files
-  const { getMultipleImgs } = render(
-    <FileComponent prefixClassName="test" multiple={true} />,
+  expect(mockFn).toHaveBeenCalledTimes(3);
+});
+
+test("Extension Test for Multiple Files", async () => {
+  const mockFn = jest.fn();
+  window.URL.createObjectURL = function() {};
+
+  const m_imgFile = new File(["dummy content"], "example.png", {
+    type: "image",
+  });
+
+  const m_file = new File(["dummy content"], "example.png", {
+    type: "file",
+  });
+
+  const m_invalidFile = new File(["dummy content"], "example.zip", {
+    type: "abxs",
+  });
+
+  const { rerender } = render(
+    <FileComponent prefixClassName="test" type="file" />,
   );
+
+  rerender(<FileComponent prefixClassName="test" type="file" />);
+
   const multipleInput = document.getElementsByClassName("test-input")[0];
-  //#endregion
+  multipleInput.onchange = mockFn;
+  Object.defineProperty(multipleInput, "mulFileInput", {
+    value: [m_imgFile, m_file, m_invalidFile],
+  });
+  fireEvent.change(multipleInput);
 
   expect(mockFn).toHaveBeenCalled();
 });
