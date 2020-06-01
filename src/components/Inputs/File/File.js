@@ -282,9 +282,8 @@ class File extends React.Component {
 
   _handleFile = e => {
     const selectedFiles = e.target.files;
-    const validFiles = this._areFilesValid(selectedFiles);
     // Only upload valid files
-    const files = validFiles;
+    const files = this._areFilesValid(selectedFiles);
     const filenames = [];
     const uploads = [...files].map((file, i) => {
       this._uploadFile(file, i, files.length);

@@ -204,6 +204,7 @@ test("Single - Image Extension Test", async () => {
 
   Object.defineProperty(input, "files", {
     value: [invalidFile],
+    configurable: true,
   });
   fireEvent.change(input);
 
@@ -212,13 +213,12 @@ test("Single - Image Extension Test", async () => {
     type: "image/png",
   });
 
-  const inputFile = document.getElementsByClassName("test-input")[0];
-  Object.defineProperty(inputFile, "file", {
+  Object.defineProperty(input, "files", {
     value: [validFile],
   });
-  fireEvent.change(inputFile);
+  fireEvent.change(input);
 
-  expect(global.alert).toHaveBeenCalledTimes(2);
+  expect(global.alert).toHaveBeenCalledTimes(1);
 });
 
 test("Single - File Extension Test", async () => {
@@ -235,6 +235,7 @@ test("Single - File Extension Test", async () => {
 
   Object.defineProperty(input, "files", {
     value: [invalidFile],
+    configurable: true,
   });
   fireEvent.change(input);
 
@@ -243,13 +244,12 @@ test("Single - File Extension Test", async () => {
     type: "image/png",
   });
 
-  const inputFile = document.getElementsByClassName("test-input")[0];
-  Object.defineProperty(inputFile, "file", {
+  Object.defineProperty(input, "files", {
     value: [validFile],
   });
-  fireEvent.change(inputFile);
+  fireEvent.change(input);
 
-  expect(global.alert).toHaveBeenCalledTimes(2);
+  expect(global.alert).toHaveBeenCalledTimes(1);
 });
 
 test("Single - Custom Extension Test", async () => {
@@ -268,6 +268,7 @@ test("Single - Custom Extension Test", async () => {
 
   Object.defineProperty(input, "files", {
     value: [invalidFile],
+    configurable: true,
   });
   fireEvent.change(input);
 
@@ -276,24 +277,23 @@ test("Single - Custom Extension Test", async () => {
     type: "image/png",
   });
 
-  const inputFile = document.getElementsByClassName("test-input")[0];
-  Object.defineProperty(inputFile, "file", {
+  Object.defineProperty(input, "files", {
     value: [validFile],
   });
-  fireEvent.change(inputFile);
+  fireEvent.change(input);
 
   //Mixed
   const mixed = new File(["dummy content"], "example.png", {
     type: "image/png",
   });
   rerender(<FileComponent prefixClassName="test" type=".png, .asdw" />);
-  const inputMixed = document.getElementsByClassName("test-input")[0];
-  Object.defineProperty(inputMixed, "mixed", {
+
+  Object.defineProperty(input, "files", {
     value: [mixed],
   });
-  fireEvent.change(inputMixed);
+  fireEvent.change(input);
 
-  expect(global.alert).toHaveBeenCalledTimes(3);
+  expect(global.alert).toHaveBeenCalledTimes(1);
 });
 //#endregion
 
