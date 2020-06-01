@@ -283,7 +283,7 @@ class File extends React.Component {
   _handleFile = e => {
     const selectedFiles = e.target.files;
     // Only upload valid files
-    const files = this._areFilesValid(selectedFiles);
+    const files = this._getValidFiles(selectedFiles);
     const filenames = [];
     const uploads = [...files].map((file, i) => {
       this._uploadFile(file, i, files.length);
@@ -348,7 +348,7 @@ class File extends React.Component {
     );
   };
 
-  _areFilesValid = files => {
+  _getValidFiles = files => {
     // Validate the file and add them to the below arrays accordingly
     const validFiles = [];
     const errorMessages = [];
