@@ -196,7 +196,7 @@ test("Single - Image Extension Test", async () => {
 
   //Invalid File
   const invalidFile = new File(["dummy content"], "example.pdf", {
-    type: "image",
+    type: "application/pdf",
   });
 
   render(<FileComponent prefixClassName="test" type="image" />);
@@ -209,7 +209,7 @@ test("Single - Image Extension Test", async () => {
 
   //Valid File
   const validFile = new File(["dummy content"], "example.png", {
-    type: "image",
+    type: "image/png",
   });
 
   const inputFile = document.getElementsByClassName("test-input")[0];
@@ -218,7 +218,7 @@ test("Single - Image Extension Test", async () => {
   });
   fireEvent.change(inputFile);
 
-  expect(global.alert).toHaveBeenCalled();
+  expect(global.alert).toHaveBeenCalledTimes(2);
 });
 
 test("Single - File Extension Test", async () => {
@@ -227,7 +227,7 @@ test("Single - File Extension Test", async () => {
 
   //Invalid File
   const invalidFile = new File(["dummy content"], "example.exe", {
-    type: "file",
+    type: "application/octet-stream",
   });
 
   render(<FileComponent prefixClassName="test" type="file" />);
@@ -240,7 +240,7 @@ test("Single - File Extension Test", async () => {
 
   //Valid File
   const validFile = new File(["dummy content"], "example.png", {
-    type: "file",
+    type: "image/png",
   });
 
   const inputFile = document.getElementsByClassName("test-input")[0];
@@ -249,7 +249,7 @@ test("Single - File Extension Test", async () => {
   });
   fireEvent.change(inputFile);
 
-  expect(global.alert).toHaveBeenCalled();
+  expect(global.alert).toHaveBeenCalledTimes(2);
 });
 
 test("Single - Custom Extension Test", async () => {
@@ -258,7 +258,7 @@ test("Single - Custom Extension Test", async () => {
 
   //Invalid File
   const invalidFile = new File(["dummy content"], "example.exe", {
-    type: ".png, .pdf",
+    type: "application/octet-stream",
   });
 
   const { rerender } = render(
@@ -273,7 +273,7 @@ test("Single - Custom Extension Test", async () => {
 
   //Valid File
   const validFile = new File(["dummy content"], "example.png", {
-    type: ".png, .pdf",
+    type: "image/png",
   });
 
   const inputFile = document.getElementsByClassName("test-input")[0];
@@ -284,7 +284,7 @@ test("Single - Custom Extension Test", async () => {
 
   //Mixed
   const mixed = new File(["dummy content"], "example.png", {
-    type: ".png, .pdf",
+    type: "image/png",
   });
   rerender(<FileComponent prefixClassName="test" type=".png, .asdw" />);
   const inputMixed = document.getElementsByClassName("test-input")[0];
@@ -293,7 +293,7 @@ test("Single - Custom Extension Test", async () => {
   });
   fireEvent.change(inputMixed);
 
-  expect(global.alert).toHaveBeenCalled();
+  expect(global.alert).toHaveBeenCalledTimes(3);
 });
 //#endregion
 
@@ -303,11 +303,11 @@ test("Multiple - Image Extension Test", async () => {
   window.URL.createObjectURL = function() {};
 
   const imgFile = new File(["dummy content"], "example.png", {
-    type: "image",
+    type: "image/png",
   });
 
   const invalidFile = new File(["dummy content"], "example.exe", {
-    type: "image",
+    type: "application/octet-stream",
   });
 
   render(<FileComponent prefixClassName="test" type="image" multiple={true} />);
@@ -319,8 +319,7 @@ test("Multiple - Image Extension Test", async () => {
   });
   fireEvent.change(multipleInput);
 
-  expect(multipleInput.multiple).toEqual(true);
-  expect(global.alert).toHaveBeenCalled();
+  expect(global.alert).toHaveBeenCalledTimes(1);
 });
 
 test("Multiple - File Extension Test", async () => {
@@ -328,15 +327,15 @@ test("Multiple - File Extension Test", async () => {
   window.URL.createObjectURL = function() {};
 
   const imgFile = new File(["dummy content"], "example.png", {
-    type: "file",
+    type: "image/png",
   });
 
-  const file = new File(["dummy content"], "example.pdf", {
-    type: "file",
+  const file = new File(["dummy content"], "example.jpg", {
+    type: "image/jpg",
   });
 
   const invalidFile = new File(["dummy content"], "example.exe", {
-    type: "file",
+    type: "application/octet-stream",
   });
 
   render(<FileComponent prefixClassName="test" type="file" multiple={true} />);
@@ -348,8 +347,7 @@ test("Multiple - File Extension Test", async () => {
   });
   fireEvent.change(multipleInput);
 
-  expect(multipleInput.multiple).toEqual(true);
-  expect(global.alert).toHaveBeenCalled();
+  expect(global.alert).toHaveBeenCalledTimes(1);
 });
 
 test("Multiple - Custom Extension Test", async () => {
@@ -357,19 +355,23 @@ test("Multiple - Custom Extension Test", async () => {
   window.URL.createObjectURL = function() {};
 
   const imgFile = new File(["dummy content"], "example.png", {
-    type: ".png, .pdf",
+    type: "image/png",
   });
 
-  const file = new File(["dummy content"], "example.pdf", {
-    type: ".png, .pdf",
+  const file = new File(["dummy content"], "example.jpg", {
+    type: "image/jpg",
   });
 
   const invalidFile = new File(["dummy content"], "example.exe", {
-    type: ".png, .pdf",
+    type: "application/octet-stream",
   });
 
   render(
-    <FileComponent prefixClassName="test" type=".png, .pdf" multiple={true} />,
+    <FileComponent
+      prefixClassName="test"
+      type=".png, .jpg, .pdf"
+      multiple={true}
+    />,
   );
 
   const multipleInput = document.getElementsByClassName("test-input")[0];
@@ -379,7 +381,6 @@ test("Multiple - Custom Extension Test", async () => {
   });
   fireEvent.change(multipleInput);
 
-  expect(multipleInput.multiple).toEqual(true);
-  expect(global.alert).toHaveBeenCalled();
+  expect(global.alert).toHaveBeenCalledTimes(1);
 });
 //#endregion

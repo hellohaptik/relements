@@ -282,9 +282,9 @@ class File extends React.Component {
 
   _handleFile = e => {
     const selectedFiles = e.target.files;
-    const filesObj = this._areFilesValid(selectedFiles);
+    const validFiles = this._areFilesValid(selectedFiles);
     // Only upload valid files
-    const files = filesObj.validFiles;
+    const files = validFiles;
     const filenames = [];
     const uploads = [...files].map((file, i) => {
       this._uploadFile(file, i, files.length);
@@ -351,9 +351,7 @@ class File extends React.Component {
 
   _areFilesValid = files => {
     // Validate the file and add them to the below arrays accordingly
-    const retObj = {
-      validFiles: [],
-    };
+    const validFiles = [];
     const errorMessages = [];
     const { type, maxFileSize } = this.props;
 
@@ -364,15 +362,21 @@ class File extends React.Component {
           files.length > 1
             ? "Some of the files selected are invalid."
             : "Invalid File selected.";
-        const propType =
-          type === "image" ? IMAGE_ACCEPT_TYPES.split("image/").join("") : type;
+        let propType = type;
+
+        if (type === "image") {
+          propType = IMAGE_ACCEPT_TYPES;
+        } else if (type === "file") {
+          propType = FILE_ACCEPT_TYPES;
+        }
+
         errorMessages.push(`${errorMsg} Supported formats: ${propType}`);
       } else if (file.size > 1024 * 1024 * maxFileSize) {
         errorMessages.push(
           `File: ${file.name} must be less than ${maxFileSize}MB`,
         );
       } else {
-        retObj.validFiles.push(file);
+        validFiles.push(file);
       }
     };
 
@@ -403,7 +407,7 @@ class File extends React.Component {
       alert(errorMessages.join("\n"));
     }
 
-    return retObj;
+    return validFiles;
   };
 }
 
