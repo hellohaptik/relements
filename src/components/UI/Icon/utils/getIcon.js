@@ -84,6 +84,8 @@ import BusinessTabIcon from "icons/businessTab.svg";
 import BusinessTabColoredIcon from "icons/businessTabColored.svg";
 import GridIcon from "icons/grid.svg";
 import AnalyticsIcon from "icons/analytics.svg";
+import ExpandIcon from "icons/expand.svg";
+import ShrinkIcon from "icons/shrink.svg";
 
 export const ICON_MAP = {
   info: InfoIcon,
@@ -172,6 +174,8 @@ export const ICON_MAP = {
   imagePlaceholder: ImagePlaceholder,
   filePlaceholder: FilePlaceholder,
   analytics: AnalyticsIcon,
+  expand: ExpandIcon,
+  shrink: ShrinkIcon,
 };
 
 /**

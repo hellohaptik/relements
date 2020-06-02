@@ -40,39 +40,37 @@ const Drawer = ({
 
   return (
     <Portal node={document && attachTo && document.getElementById(attachTo)}>
-      {
-        <div
-          className={`${styles.drawerWrapper} ${prefixClassName} ${className}`}
-          style={style}
-          data-testid="drawer"
-        >
-          {noOverlay ? null : (
-            <div
-              className={`
+      <div
+        className={`${styles.drawerWrapper} ${prefixClassName} ${className}`}
+        style={style}
+        data-testid="drawer"
+      >
+        {noOverlay ? null : (
+          <div
+            className={`
                     ${styles.drawerOverlay}
                     ${activeClassName}
                     ${prefixClassName}-overlay
                   `}
-              onClick={onClose}
-            />
-          )}
-          <div
-            style={{
-              width,
-              transform: `translate3d(${transformAmount}px, 0, 0)`,
-            }}
-            className={`
+            onClick={onClose}
+          />
+        )}
+        <div
+          style={{
+            width,
+            transform: `translate3d(${transformAmount}px, 0, 0)`,
+          }}
+          className={`
               ${styles.drawer}
               ${placementClassName}
               ${activeClassName}
               ${noDisableClassName}
               ${prefixClassName}-drawer
             `}
-          >
-            {children}
-          </div>
+        >
+          {children}
         </div>
-      }
+      </div>
     </Portal>
   );
 };
