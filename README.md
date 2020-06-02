@@ -12,7 +12,7 @@ https://hellohaptik.github.io/relements
 
 Built from the ground up with zero dependencies. This lightweight component library helps you focus more on your business logic and less on reinventing the wheel.
 
-- Highly customizable. Each and every layer and element can styled using the CSS framework/library of your choice.
+- Highly customizable. Each and every layer and element can be styled using the CSS framework/library of your choice.
 - Focused on performance. Each component is individually importable, and developed using strict performance benchmarks.
 - Documentation Storybook. Plenty of usage examples and easy integration let's you get started quickly.
 
