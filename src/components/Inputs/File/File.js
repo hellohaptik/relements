@@ -18,8 +18,8 @@ import ImageProgressBar from "./components/ImageProgressBar";
 
 const FILE_ACCEPT_TYPES =
   // eslint-disable-next-line max-len
-  "image/png, image/jpg, image/jpeg, application/pdf, application/ vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword";
-const IMAGE_ACCEPT_TYPES = "image/png, image/jpg, image/jpeg";
+  "image/png, image/jpeg, application/pdf, application/ vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword";
+const IMAGE_ACCEPT_TYPES = "image/png, image/jpeg";
 
 class File extends React.Component {
   _newUploadItem = {
@@ -438,7 +438,7 @@ File.defaultProps = {
   baseWidth: 290,
   className: "",
   prefixClassName: "",
-  type: ".png, .jpg",
+  type: ".png, .jpeg",
   dimensions: "450px X 450px",
   maxFileSize: 5,
 };
