@@ -152,31 +152,40 @@ test("On change test", async () => {
 });
 
 test("File size", async () => {
+  const error = jest.fn();
   window.URL.createObjectURL = function() {};
   const file = new File(["dummy content"], "example.png", {
     type: "image/png",
   });
 
   const { rerender } = render(
-    <FileComponent prefixClassName="test" maxFileSize={0.000001} />,
+    <FileComponent
+      prefixClassName="test"
+      maxFileSize={0.000001}
+      onError={error}
+    />,
   );
   const input = document.getElementsByClassName("test-input")[0];
 
-  global.alert = jest.fn();
   Object.defineProperty(input, "files", {
     value: [file],
   });
   fireEvent.change(input);
 
   rerender(
-    <FileComponent type="file" prefixClassName="test" maxFileSize={0.000001} />,
+    <FileComponent
+      type="file"
+      prefixClassName="test"
+      maxFileSize={0.000001}
+      onError={error}
+    />,
   );
   const input_file = document.getElementsByClassName("test-input")[0];
   Object.defineProperty(input_file, "file", {
     value: [file],
   });
   fireEvent.change(input_file);
-  expect(global.alert).toHaveBeenCalledTimes(2);
+  expect(error).toHaveBeenCalledTimes(2);
 });
 
 test("Multiple test", async () => {
@@ -191,7 +200,7 @@ test("Multiple test", async () => {
 
 //#region Single File Upload Tests
 test("Single - Image Extension Test", async () => {
-  global.alert = jest.fn();
+  const error = jest.fn();
   window.URL.createObjectURL = function() {};
 
   //Invalid File
@@ -199,7 +208,8 @@ test("Single - Image Extension Test", async () => {
     type: "application/pdf",
   });
 
-  render(<FileComponent prefixClassName="test" type="image" />);
+  render(<FileComponent prefixClassName="test" type="image" onError={error} />);
+
   const input = document.getElementsByClassName("test-input")[0];
 
   Object.defineProperty(input, "files", {
@@ -218,11 +228,11 @@ test("Single - Image Extension Test", async () => {
   });
   fireEvent.change(input);
 
-  expect(global.alert).toHaveBeenCalledTimes(1);
+  expect(error).toHaveBeenCalledTimes(1);
 });
 
 test("Single - File Extension Test", async () => {
-  global.alert = jest.fn();
+  const error = jest.fn();
   window.URL.createObjectURL = function() {};
 
   //Invalid File
@@ -230,7 +240,7 @@ test("Single - File Extension Test", async () => {
     type: "application/octet-stream",
   });
 
-  render(<FileComponent prefixClassName="test" type="file" />);
+  render(<FileComponent prefixClassName="test" type="file" onError={error} />);
   const input = document.getElementsByClassName("test-input")[0];
 
   Object.defineProperty(input, "files", {
@@ -249,11 +259,11 @@ test("Single - File Extension Test", async () => {
   });
   fireEvent.change(input);
 
-  expect(global.alert).toHaveBeenCalledTimes(1);
+  expect(error).toHaveBeenCalledTimes(1);
 });
 
 test("Single - Custom Extension Test", async () => {
-  global.alert = jest.fn();
+  const error = jest.fn();
   window.URL.createObjectURL = function() {};
 
   //Invalid File
@@ -262,7 +272,7 @@ test("Single - Custom Extension Test", async () => {
   });
 
   const { rerender } = render(
-    <FileComponent prefixClassName="test" type=".png, .pdf" />,
+    <FileComponent prefixClassName="test" type=".png, .pdf" onError={error} />,
   );
   const input = document.getElementsByClassName("test-input")[0];
 
@@ -286,80 +296,26 @@ test("Single - Custom Extension Test", async () => {
   const mixed = new File(["dummy content"], "example.png", {
     type: "image/png",
   });
-  rerender(<FileComponent prefixClassName="test" type=".png, .asdw" />);
+  rerender(
+    <FileComponent prefixClassName="test" type=".png, .asdw" onError={error} />,
+  );
 
   Object.defineProperty(input, "files", {
     value: [mixed],
   });
   fireEvent.change(input);
 
-  expect(global.alert).toHaveBeenCalledTimes(1);
+  expect(error).toHaveBeenCalledTimes(1);
 });
 //#endregion
 
 //#region Multiple File Upload Tests
 test("Multiple - Image Extension Test", async () => {
-  global.alert = jest.fn();
+  const error = jest.fn();
   window.URL.createObjectURL = function() {};
 
   const imgFile = new File(["dummy content"], "example.png", {
     type: "image/png",
-  });
-
-  const invalidFile = new File(["dummy content"], "example.exe", {
-    type: "application/octet-stream",
-  });
-
-  render(<FileComponent prefixClassName="test" type="image" multiple={true} />);
-
-  const multipleInput = document.getElementsByClassName("test-input")[0];
-
-  Object.defineProperty(multipleInput, "files", {
-    value: [imgFile, invalidFile],
-  });
-  fireEvent.change(multipleInput);
-
-  expect(global.alert).toHaveBeenCalledTimes(1);
-});
-
-test("Multiple - File Extension Test", async () => {
-  global.alert = jest.fn();
-  window.URL.createObjectURL = function() {};
-
-  const imgFile = new File(["dummy content"], "example.png", {
-    type: "image/png",
-  });
-
-  const file = new File(["dummy content"], "example.jpg", {
-    type: "image/jpeg",
-  });
-
-  const invalidFile = new File(["dummy content"], "example.exe", {
-    type: "application/octet-stream",
-  });
-
-  render(<FileComponent prefixClassName="test" type="file" multiple={true} />);
-
-  const multipleInput = document.getElementsByClassName("test-input")[0];
-
-  Object.defineProperty(multipleInput, "files", {
-    value: [imgFile, file, invalidFile],
-  });
-  fireEvent.change(multipleInput);
-
-  expect(global.alert).toHaveBeenCalledTimes(1);
-});
-
-test("Multiple - Custom Extension Test", async () => {
-  global.alert = jest.fn();
-  window.URL.createObjectURL = function() {};
-
-  const imgFile = new File(["dummy content"], "example.png", {
-    type: "image/png",
-  });
-
-  const file = new File(["dummy content"], "example.jpg", {
-    type: "image/jpeg",
   });
 
   const invalidFile = new File(["dummy content"], "example.exe", {
@@ -369,8 +325,44 @@ test("Multiple - Custom Extension Test", async () => {
   render(
     <FileComponent
       prefixClassName="test"
-      type=".png, .jpeg, .pdf"
+      type="image"
       multiple={true}
+      onError={error}
+    />,
+  );
+
+  const multipleInput = document.getElementsByClassName("test-input")[0];
+
+  Object.defineProperty(multipleInput, "files", {
+    value: [imgFile, invalidFile],
+  });
+  fireEvent.change(multipleInput);
+
+  expect(error).toHaveBeenCalledTimes(1);
+});
+
+test("Multiple - File Extension Test", async () => {
+  const error = jest.fn();
+  window.URL.createObjectURL = function() {};
+
+  const imgFile = new File(["dummy content"], "example.png", {
+    type: "image/png",
+  });
+
+  const file = new File(["dummy content"], "example.jpg", {
+    type: "image/jpg",
+  });
+
+  const invalidFile = new File(["dummy content"], "example.exe", {
+    type: "application/octet-stream",
+  });
+
+  render(
+    <FileComponent
+      prefixClassName="test"
+      type="file"
+      multiple={true}
+      onError={error}
     />,
   );
 
@@ -381,6 +373,41 @@ test("Multiple - Custom Extension Test", async () => {
   });
   fireEvent.change(multipleInput);
 
-  expect(global.alert).toHaveBeenCalledTimes(1);
+  expect(error).toHaveBeenCalledTimes(1);
+});
+
+test("Multiple - Custom Extension Test", async () => {
+  const error = jest.fn();
+  window.URL.createObjectURL = function() {};
+
+  const imgFile = new File(["dummy content"], "example.png", {
+    type: "image/png",
+  });
+
+  const file = new File(["dummy content"], "example.jpg", {
+    type: "image/jpg",
+  });
+
+  const invalidFile = new File(["dummy content"], "example.exe", {
+    type: "application/octet-stream",
+  });
+
+  render(
+    <FileComponent
+      prefixClassName="test"
+      type=".png, .jpg, .pdf"
+      multiple={true}
+      onError={error}
+    />,
+  );
+
+  const multipleInput = document.getElementsByClassName("test-input")[0];
+
+  Object.defineProperty(multipleInput, "files", {
+    value: [imgFile, file, invalidFile],
+  });
+  fireEvent.change(multipleInput);
+
+  expect(error).toHaveBeenCalledTimes(1);
 });
 //#endregion
