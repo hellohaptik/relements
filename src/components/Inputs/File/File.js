@@ -7,6 +7,7 @@ import { IMAGE_EXTENSIONS } from "constants";
 import * as genericUtils from "utils/generic";
 import Loader from "components/UI/Loader";
 import Icon from "components/UI/Icon";
+import ToastMessage from "decorators/ToastMessage";
 import PlusIcon from "icons/plus.svg";
 import TrashIcon from "icons/trash.svg";
 import PlaceholderIcon from "icons/placeholder.svg";
@@ -21,6 +22,7 @@ const FILE_ACCEPT_TYPES =
   "image/png, image/jpeg, application/pdf, application/ vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword";
 const IMAGE_ACCEPT_TYPES = "image/png, image/jpeg";
 
+@ToastMessage()
 class File extends React.Component {
   _newUploadItem = {
     isUploading: true,
@@ -397,7 +399,12 @@ class File extends React.Component {
     });
 
     if (errorMessages.length > 0) {
-      alert(errorMessages.join("\n"));
+      this.props.onError();
+      // Show the toast message
+      this.props.activateToastMessage({
+        title: errorMessages.join("\n"),
+        type: "NEGATIVE",
+      });
     }
 
     return validFiles;
@@ -428,6 +435,9 @@ File.propTypes = {
   dimensions: PropTypes.string,
   /** When a custom ui is needed. This render func calls with uploads and the renderInput function */
   children: PropTypes.func,
+  activateToastMessage: PropTypes.func,
+  /** Gets called whenever file validation returns an error */
+  onError: PropTypes.func,
 };
 
 File.defaultProps = {
@@ -441,6 +451,7 @@ File.defaultProps = {
   type: ".png, .jpeg",
   dimensions: "450px X 450px",
   maxFileSize: 5,
+  onError: () => {},
 };
 
 File.classNames = {
