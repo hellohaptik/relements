@@ -399,10 +399,13 @@ class File extends React.Component {
     });
 
     if (errorMessages.length > 0) {
+
+      this.props.onError();
       //Show the toast message
       this.props.activateToastMessage({
         title: errorMessages.join("\n"),
         type: 'NEGATIVE',
+        timeout: 4000,
       });
     }
 
@@ -436,7 +439,9 @@ File.propTypes = {
   children: PropTypes.func,
 
   //Show toast message for file validations
-  activateToastMessage: PropTypes.func
+  activateToastMessage: PropTypes.func,
+
+  onError: PropTypes.func
 };
 
 File.defaultProps = {
@@ -450,6 +455,7 @@ File.defaultProps = {
   type: ".png, .jpg",
   dimensions: "450px X 450px",
   maxFileSize: 5,
+  onError: () => { },
 };
 
 File.classNames = {

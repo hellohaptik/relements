@@ -5,6 +5,7 @@ import "@testing-library/jest-dom/extend-expect";
 import { render, cleanup, fireEvent } from "@testing-library/react";
 
 import FileComponent from "../File";
+import ToastMessage from "../../../../decorators/ToastMessage/ToastMessage";
 
 afterEach(cleanup);
 
@@ -151,33 +152,33 @@ test("On change test", async () => {
   expect(mockFn).toHaveBeenCalled();
 });
 
-// test("File size", async () => {
-//   window.URL.createObjectURL = function() {};
-//   const file = new File(["dummy content"], "example.png", {
-//     type: "image/png",
-//   });
+test("File size", async () => {
+  const error = jest.fn();
+  window.URL.createObjectURL = function() {};
+  const file = new File(["dummy content"], "example.png", {
+    type: "image/png",
+  });
 
-//   const { rerender } = render(
-//     <FileComponent prefixClassName="test" maxFileSize={0.000001} />,
-//   );
-//   const input = document.getElementsByClassName("test-input")[0];
+  const { rerender } = render(
+    <FileComponent prefixClassName="test" maxFileSize={0.000001} onError={error}/>,
+  );
+  const input = document.getElementsByClassName("test-input")[0];
 
-//   global.alert = jest.fn();
-//   Object.defineProperty(input, "files", {
-//     value: [file],
-//   });
-//   fireEvent.change(input);
+  Object.defineProperty(input, "files", {
+    value: [file],
+  });
+  fireEvent.change(input);
 
-//   rerender(
-//     <FileComponent type="file" prefixClassName="test" maxFileSize={0.000001} />,
-//   );
-//   const input_file = document.getElementsByClassName("test-input")[0];
-//   Object.defineProperty(input_file, "file", {
-//     value: [file],clea
-//   });
-//   fireEvent.change(input_file);
-//   expect(global.alert).toHaveBeenCalledTimes(2);
-// });
+  rerender(
+    <FileComponent type="file" prefixClassName="test" maxFileSize={0.000001} onError={error}/>,
+  );
+  const input_file = document.getElementsByClassName("test-input")[0];
+  Object.defineProperty(input_file, "file", {
+    value: [file],
+  });
+  fireEvent.change(input_file);
+  expect(error).toHaveBeenCalledTimes(2);
+});
 
 test("Multiple test", async () => {
   const { getByTestId } = render(
@@ -191,7 +192,7 @@ test("Multiple test", async () => {
 
 //#region Single File Upload Tests
 test("Single - Image Extension Test", async () => {
-  global.alert = jest.fn();
+  const error = jest.fn();
   window.URL.createObjectURL = function () { };
 
   //Invalid File
@@ -199,7 +200,7 @@ test("Single - Image Extension Test", async () => {
     type: "application/pdf",
   });
 
-  render(<FileComponent prefixClassName="test" type="image" />);
+  render(<FileComponent prefixClassName="test" type="image" onError={error} />);
 
   const input = document.getElementsByClassName("test-input")[0];
 
@@ -218,171 +219,171 @@ test("Single - Image Extension Test", async () => {
     value: [validFile],
   });
   fireEvent.change(input);
-  console.log(mockFn)
-  
-  //expect(screen.getByTestId("toast-message")).toBeInTheDocument();
+
+  expect(error).toHaveBeenCalledTimes(1);
 });
 
-// test("Single - File Extension Test", async () => {
-//   global.alert = jest.fn();
-//   window.URL.createObjectURL = function() {};
+test("Single - File Extension Test", async () => {
+  const error = jest.fn();
+  window.URL.createObjectURL = function() {};
 
-//   //Invalid File
-//   const invalidFile = new File(["dummy content"], "example.exe", {
-//     type: "application/octet-stream",
-//   });
+  //Invalid File
+  const invalidFile = new File(["dummy content"], "example.exe", {
+    type: "application/octet-stream",
+  });
 
-//   render(<FileComponent prefixClassName="test" type="file" />);
-//   const input = document.getElementsByClassName("test-input")[0];
+  render(<FileComponent prefixClassName="test" type="file" onError={error}/>);
+  const input = document.getElementsByClassName("test-input")[0];
 
-//   Object.defineProperty(input, "files", {
-//     value: [invalidFile],
-//     configurable: true,
-//   });
-//   fireEvent.change(input);
+  Object.defineProperty(input, "files", {
+    value: [invalidFile],
+    configurable: true,
+  });
+  fireEvent.change(input);
 
-//   //Valid File
-//   const validFile = new File(["dummy content"], "example.png", {
-//     type: "image/png",
-//   });
+  //Valid File
+  const validFile = new File(["dummy content"], "example.png", {
+    type: "image/png",
+  });
 
-//   Object.defineProperty(input, "files", {
-//     value: [validFile],
-//   });
-//   fireEvent.change(input);
+  Object.defineProperty(input, "files", {
+    value: [validFile],
+  });
+  fireEvent.change(input);
 
-//   expect(global.alert).toHaveBeenCalledTimes(1);
-// });
+  expect(error).toHaveBeenCalledTimes(1);
+});
 
-// test("Single - Custom Extension Test", async () => {
-//   global.alert = jest.fn();
-//   window.URL.createObjectURL = function() {};
+test("Single - Custom Extension Test", async () => {
+  const error = jest.fn();
+  window.URL.createObjectURL = function() {};
 
-//   //Invalid File
-//   const invalidFile = new File(["dummy content"], "example.exe", {
-//     type: "application/octet-stream",
-//   });
+  //Invalid File
+  const invalidFile = new File(["dummy content"], "example.exe", {
+    type: "application/octet-stream",
+  });
 
-//   const { rerender } = render(
-//     <FileComponent prefixClassName="test" type=".png, .pdf" />,
-//   );
-//   const input = document.getElementsByClassName("test-input")[0];
+  const { rerender } = render(
+    <FileComponent prefixClassName="test" type=".png, .pdf" onError={error}/>,
+  );
+  const input = document.getElementsByClassName("test-input")[0];
 
-//   Object.defineProperty(input, "files", {
-//     value: [invalidFile],
-//     configurable: true,
-//   });
-//   fireEvent.change(input);
+  Object.defineProperty(input, "files", {
+    value: [invalidFile],
+    configurable: true,
+  });
+  fireEvent.change(input);
 
-//   //Valid File
-//   const validFile = new File(["dummy content"], "example.png", {
-//     type: "image/png",
-//   });
+  //Valid File
+  const validFile = new File(["dummy content"], "example.png", {
+    type: "image/png",
+  });
 
-//   Object.defineProperty(input, "files", {
-//     value: [validFile],
-//   });
-//   fireEvent.change(input);
+  Object.defineProperty(input, "files", {
+    value: [validFile],
+  });
+  fireEvent.change(input);
 
-//   //Mixed
-//   const mixed = new File(["dummy content"], "example.png", {
-//     type: "image/png",
-//   });
-//   rerender(<FileComponent prefixClassName="test" type=".png, .asdw" />);
+  //Mixed
+  const mixed = new File(["dummy content"], "example.png", {
+    type: "image/png",
+  });
+  rerender(<FileComponent prefixClassName="test" type=".png, .asdw" onError={error}/>);
 
-//   Object.defineProperty(input, "files", {
-//     value: [mixed],
-//   });
-//   fireEvent.change(input);
+  Object.defineProperty(input, "files", {
+    value: [mixed],
+  });
+  fireEvent.change(input);
 
-//   expect(global.alert).toHaveBeenCalledTimes(1);
-// });
-// //#endregion
+  expect(error).toHaveBeenCalledTimes(1);
+});
+//#endregion
 
-// //#region Multiple File Upload Tests
-// test("Multiple - Image Extension Test", async () => {
-//   global.alert = jest.fn();
-//   window.URL.createObjectURL = function() {};
+//#region Multiple File Upload Tests
+test("Multiple - Image Extension Test", async () => {
+  const error = jest.fn();
+  window.URL.createObjectURL = function() {};
 
-//   const imgFile = new File(["dummy content"], "example.png", {
-//     type: "image/png",
-//   });
+  const imgFile = new File(["dummy content"], "example.png", {
+    type: "image/png",
+  });
 
-//   const invalidFile = new File(["dummy content"], "example.exe", {
-//     type: "application/octet-stream",
-//   });
+  const invalidFile = new File(["dummy content"], "example.exe", {
+    type: "application/octet-stream",
+  });
 
-//   render(<FileComponent prefixClassName="test" type="image" multiple={true} />);
+  render(<FileComponent prefixClassName="test" type="image" multiple={true} onError={error}/>);
 
-//   const multipleInput = document.getElementsByClassName("test-input")[0];
+  const multipleInput = document.getElementsByClassName("test-input")[0];
 
-//   Object.defineProperty(multipleInput, "files", {
-//     value: [imgFile, invalidFile],
-//   });
-//   fireEvent.change(multipleInput);
+  Object.defineProperty(multipleInput, "files", {
+    value: [imgFile, invalidFile],
+  });
+  fireEvent.change(multipleInput);
 
-//   expect(global.alert).toHaveBeenCalledTimes(1);
-// });
+  expect(error).toHaveBeenCalledTimes(1);
+});
 
-// test("Multiple - File Extension Test", async () => {
-//   global.alert = jest.fn();
-//   window.URL.createObjectURL = function() {};
+test("Multiple - File Extension Test", async () => {
+  const error = jest.fn();
+  window.URL.createObjectURL = function() {};
 
-//   const imgFile = new File(["dummy content"], "example.png", {
-//     type: "image/png",
-//   });
+  const imgFile = new File(["dummy content"], "example.png", {
+    type: "image/png",
+  });
 
-//   const file = new File(["dummy content"], "example.jpg", {
-//     type: "image/jpg",
-//   });
+  const file = new File(["dummy content"], "example.jpg", {
+    type: "image/jpg",
+  });
 
-//   const invalidFile = new File(["dummy content"], "example.exe", {
-//     type: "application/octet-stream",
-//   });
+  const invalidFile = new File(["dummy content"], "example.exe", {
+    type: "application/octet-stream",
+  });
 
-//   render(<FileComponent prefixClassName="test" type="file" multiple={true} />);
+  render(<FileComponent prefixClassName="test" type="file" multiple={true} onError={error}/>);
 
-//   const multipleInput = document.getElementsByClassName("test-input")[0];
+  const multipleInput = document.getElementsByClassName("test-input")[0];
 
-//   Object.defineProperty(multipleInput, "files", {
-//     value: [imgFile, file, invalidFile],
-//   });
-//   fireEvent.change(multipleInput);
+  Object.defineProperty(multipleInput, "files", {
+    value: [imgFile, file, invalidFile],
+  });
+  fireEvent.change(multipleInput);
 
-//   expect(global.alert).toHaveBeenCalledTimes(1);
-// });
+  expect(error).toHaveBeenCalledTimes(1);
+});
 
-// test("Multiple - Custom Extension Test", async () => {
-//   global.alert = jest.fn();
-//   window.URL.createObjectURL = function() {};
+test("Multiple - Custom Extension Test", async () => {
+  const error = jest.fn();
+  window.URL.createObjectURL = function() {};
 
-//   const imgFile = new File(["dummy content"], "example.png", {
-//     type: "image/png",
-//   });
+  const imgFile = new File(["dummy content"], "example.png", {
+    type: "image/png",
+  });
 
-//   const file = new File(["dummy content"], "example.jpg", {
-//     type: "image/jpg",
-//   });
+  const file = new File(["dummy content"], "example.jpg", {
+    type: "image/jpg",
+  });
 
-//   const invalidFile = new File(["dummy content"], "example.exe", {
-//     type: "application/octet-stream",
-//   });
+  const invalidFile = new File(["dummy content"], "example.exe", {
+    type: "application/octet-stream",
+  });
 
-//   render(
-//     <FileComponent
-//       prefixClassName="test"
-//       type=".png, .jpg, .pdf"
-//       multiple={true}
-//     />,
-//   );
+  render(
+    <FileComponent
+      prefixClassName="test"
+      type=".png, .jpg, .pdf"
+      multiple={true}
+      onError={error}
+    />,
+  );
 
-//   const multipleInput = document.getElementsByClassName("test-input")[0];
+  const multipleInput = document.getElementsByClassName("test-input")[0];
 
-//   Object.defineProperty(multipleInput, "files", {
-//     value: [imgFile, file, invalidFile],
-//   });
-//   fireEvent.change(multipleInput);
+  Object.defineProperty(multipleInput, "files", {
+    value: [imgFile, file, invalidFile],
+  });
+  fireEvent.change(multipleInput);
 
-//   expect(global.alert).toHaveBeenCalledTimes(1);
-// });
-// //#endregion
+  expect(error).toHaveBeenCalledTimes(1);
+});
+//#endregion
