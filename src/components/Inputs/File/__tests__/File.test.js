@@ -395,7 +395,7 @@ test("Multiple - Custom Extension Test", async () => {
   render(
     <FileComponent
       prefixClassName="test"
-      type=".png, .jpg, .pdf"
+      type=".png, .jpeg, .pdf"
       multiple={true}
       onError={error}
     />,
