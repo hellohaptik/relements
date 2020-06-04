@@ -437,10 +437,7 @@ File.propTypes = {
   dimensions: PropTypes.string,
   /** When a custom ui is needed. This render func calls with uploads and the renderInput function */
   children: PropTypes.func,
-
-  //Show toast message for file validations
-  activateToastMessage: PropTypes.func,
-
+  //Handle errors on file upload while testing
   onError: PropTypes.func
 };
 

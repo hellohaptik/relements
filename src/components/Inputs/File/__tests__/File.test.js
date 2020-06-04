@@ -5,8 +5,6 @@ import "@testing-library/jest-dom/extend-expect";
 import { render, cleanup, fireEvent } from "@testing-library/react";
 
 import FileComponent from "../File";
-import ToastMessage from "../../../../decorators/ToastMessage/ToastMessage";
-
 afterEach(cleanup);
 
 test("Smoke", async () => {
