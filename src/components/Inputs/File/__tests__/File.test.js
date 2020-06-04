@@ -350,7 +350,7 @@ test("Multiple - File Extension Test", async () => {
   });
 
   const file = new File(["dummy content"], "example.jpg", {
-    type: "image/jpg",
+    type: "image/jpeg",
   });
 
   const invalidFile = new File(["dummy content"], "example.exe", {
@@ -385,7 +385,7 @@ test("Multiple - Custom Extension Test", async () => {
   });
 
   const file = new File(["dummy content"], "example.jpg", {
-    type: "image/jpg",
+    type: "image/jpeg",
   });
 
   const invalidFile = new File(["dummy content"], "example.exe", {
