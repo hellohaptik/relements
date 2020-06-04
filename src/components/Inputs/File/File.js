@@ -35,7 +35,7 @@ class File extends React.Component {
     this.state = {
       uploads: [],
       filenames: [],
-      uploadsCompleted: 0
+      uploadsCompleted: 0,
     };
   }
 
@@ -399,12 +399,11 @@ class File extends React.Component {
     });
 
     if (errorMessages.length > 0) {
-
       this.props.onError();
-      //Show the toast message
+      // Show the toast message
       this.props.activateToastMessage({
         title: errorMessages.join("\n"),
-        type: 'NEGATIVE',
+        type: "NEGATIVE",
         timeout: 4000,
       });
     }
@@ -437,13 +436,14 @@ File.propTypes = {
   dimensions: PropTypes.string,
   /** When a custom ui is needed. This render func calls with uploads and the renderInput function */
   children: PropTypes.func,
-  //Handle errors on file upload while testing
-  onError: PropTypes.func
+  activateToastMessage: PropTypes.func,
+  //* * Gets called whenever file upload fails */
+  onError: PropTypes.func,
 };
 
 File.defaultProps = {
   value: "",
-  onChange: () => { },
+  onChange: () => {},
   multiple: false,
   ratio: "",
   baseWidth: 290,
@@ -452,7 +452,7 @@ File.defaultProps = {
   type: ".png, .jpg",
   dimensions: "450px X 450px",
   maxFileSize: 5,
-  onError: () => { },
+  onError: () => {},
 };
 
 File.classNames = {
