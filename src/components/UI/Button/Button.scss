@@ -32,6 +32,11 @@
     transform: translateY(-2px);
   }
 
+  &:active {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+  }
+
   &.disabled {
     background-color: #f2f2f2;
     cursor: not-allowed;
