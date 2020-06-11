@@ -134,24 +134,44 @@ export default class RangePicker extends React.Component {
    * We use this.state.selectingKey to track this
    */
   _handleCellClick = day => {
-    const { selectingKey } = this.state;
+    const { selectingKey, startDate, endDate, comparisonEndDate } = this.state;
+    let selectKey = selectingKey;
+    let compEndDate = comparisonEndDate;
+
+    // When latter date is selected as start date and former is selected as end
+    let invalidRange = false;
+
     if (selectingKey === "startDate") {
-      this.setState({
-        selectingKey: "endDate",
-        endDate: null,
-      });
+      selectKey = "endDate";
     } else if (selectingKey === "comparisonStartDate") {
-      const { startDate, endDate } = this.state;
       const numDays = endDate.diff(startDate, "d");
-      this.setState({
-        selectingKey: "comparisonStartDate",
-        comparisonEndDate: day.add(numDays, "d"),
-      });
+      compEndDate = day.add(numDays, "d");
     } else {
-      this.setState({ selectingKey: "startDate" });
+      selectKey = "startDate";
+      const difference = day.diff(startDate, "d");
+      invalidRange = Math.sign(difference) === -1;
     }
 
-    this.setState({ [selectingKey]: day });
+    this.setState(
+      {
+        [selectingKey]: day,
+        selectingKey: selectKey,
+        comparisonEndDate: compEndDate,
+      },
+      () => {
+        if (selectingKey === "startDate") {
+          this.setState({
+            endDate: null,
+          });
+        }
+        if (invalidRange) {
+          this.setState({
+            startDate: day,
+            endDate: startDate,
+          });
+        }
+      },
+    );
   };
 
   /**
