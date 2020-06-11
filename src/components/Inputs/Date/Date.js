@@ -22,41 +22,12 @@ class Date extends React.Component {
       active: false,
       focused: false,
       date: undefined,
-      position: "BOTTOM",
     };
   }
 
   _DOMNode = React.createRef();
 
   rangeComparisonRef = React.createRef();
-
-  componentDidMount() {
-    this.updateCalendarPosition();
-    window.addEventListener("scroll", this.updateCalendarPosition);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.updateCalendarPosition);
-  }
-
-  updateCalendarPosition = () => {
-    const elementTop = this._DOMNode.current.getBoundingClientRect().top;
-    this.setState({
-      active: false,
-    });
-    if (
-      window.innerHeight - elementTop > 50 &&
-      window.innerHeight - elementTop < 260
-    ) {
-      this.setState({
-        position: "TOP",
-      });
-    } else {
-      this.setState({
-        position: "BOTTOM",
-      });
-    }
-  };
 
   render() {
     const {
@@ -90,7 +61,7 @@ class Date extends React.Component {
           active={this.state.active}
           offset={this.props.offset}
           className="date-picker-tooltip"
-          position={this.state.position}
+          position={this.props.position}
           prefixClassName={`${prefixClassName}-tooltip`}
         >
           {withRange ? (
@@ -260,6 +231,8 @@ Date.propTypes = {
   onFocus: PropTypes.func,
   /** Input placeholder */
   placeholder: PropTypes.string,
+  /** Tooltip position (TOP/BOTTOM) */
+  position: PropTypes.string,
   /** The date */
   value: PropTypes.string,
   /** Max selectable date */
@@ -291,6 +264,7 @@ Date.defaultProps = {
   error: false,
   disabled: false,
   offset: null,
+  position: null,
   attachTo: null,
   maxDate: null,
   minDate: null,
