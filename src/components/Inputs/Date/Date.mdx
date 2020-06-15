@@ -40,6 +40,20 @@ import Date from "./Date";
 </CodeBlock>
 
 <CodeBlock
+  title="Max Selectable Range"
+>
+  {(value, onChange) => (
+    <Date
+      label="Select Date"
+      onChange={onChange}
+      numMonths={2}
+      withRange
+      maxSelectableRange={5}
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock
   title="Comparison"
   defaultValue={{ startDate: dayjs(), endDate: dayjs().add(7, "d") }}
 >

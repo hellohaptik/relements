@@ -32,7 +32,14 @@ function getDateStats(startDate, endDate) {
   };
 }
 
-function Shortcuts({ startDate, endDate, onChange, prefixClassName }) {
+function Shortcuts({
+  startDate,
+  endDate,
+  onChange,
+  prefixClassName,
+  last7DaysVisible,
+  last30DaysVisible,
+}) {
   const { isToday, isYesterday, isLast7Days, isLast30Days } = getDateStats(
     startDate,
     endDate,
@@ -60,24 +67,30 @@ function Shortcuts({ startDate, endDate, onChange, prefixClassName }) {
       >
         Yesterday
       </Button>
-      <Button
-        primary={isLast7Days}
-        className={`${styles.inputsButton} ${prefixClassName}-button`}
-        onClick={() =>
-          onChange(today.subtract(6, "d").startOf("day"), today.endOf("day"))
-        }
-      >
-        Last 7 Days
-      </Button>
-      <Button
-        primary={isLast30Days}
-        className={`${styles.inputsButton} ${prefixClassName}-button`}
-        onClick={() =>
-          onChange(today.subtract(29, "d").startOf("day"), today.endOf("day"))
-        }
-      >
-        Last 30 Days
-      </Button>
+
+      {last7DaysVisible ? (
+        <Button
+          primary={isLast7Days}
+          className={`${styles.inputsButton} ${prefixClassName}-button`}
+          onClick={() =>
+            onChange(today.subtract(6, "d").startOf("day"), today.endOf("day"))
+          }
+        >
+          Last 7 Days
+        </Button>
+      ) : null}
+
+      {last30DaysVisible ? (
+        <Button
+          primary={isLast30Days}
+          className={`${styles.inputsButton} ${prefixClassName}-button`}
+          onClick={() =>
+            onChange(today.subtract(29, "d").startOf("day"), today.endOf("day"))
+          }
+        >
+          Last 30 Days
+        </Button>
+      ) : null}
     </div>
   );
 }
@@ -89,6 +102,8 @@ function Inputs({
   onFocus,
   selectingKey,
   prefixClassName,
+  last7DaysVisible,
+  last30DaysVisible,
 }) {
   return (
     <div className={`${styles.inputsColumn} ${prefixClassName}`}>
@@ -103,6 +118,8 @@ function Inputs({
         startDate={startDate}
         endDate={endDate}
         onChange={onChange}
+        last7DaysVisible={last7DaysVisible}
+        last30DaysVisible={last30DaysVisible}
       />
       <div className={`${styles.inputsItems} ${prefixClassName}-input-items`}>
         <Input
@@ -134,6 +151,8 @@ Inputs.propTypes = {
   onFocus: PropTypes.func,
   prefixClassName: PropTypes.string,
   selectingKey: PropTypes.string,
+  last7DaysVisible: PropTypes.bool,
+  last30DaysVisible: PropTypes.bool,
 };
 
 Inputs.defaultProps = {
@@ -141,6 +160,8 @@ Inputs.defaultProps = {
   onFocus: () => {},
   prefixClassName: "",
   selectingKey: "",
+  last7DaysVisible: true,
+  last30DaysVisible: true,
 };
 
 Shortcuts.propTypes = {
@@ -148,6 +169,8 @@ Shortcuts.propTypes = {
   prefixClassName: PropTypes.string,
   endDate: PropTypes.instanceOf(dayjs),
   startDate: PropTypes.instanceOf(dayjs),
+  last7DaysVisible: PropTypes.bool,
+  last30DaysVisible: PropTypes.bool,
 };
 
 Shortcuts.defaultProps = {

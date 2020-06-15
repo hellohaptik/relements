@@ -39,6 +39,7 @@ class Date extends React.Component {
       comparisonMaxDate,
       comparisonMinDate,
       withRange,
+      maxSelectableRange,
       withComparison,
       value,
       prefixClassName,
@@ -47,7 +48,6 @@ class Date extends React.Component {
     } = this.props;
     const errorClassName = error ? styles.dateError : "";
     const disabledClassName = disabled ? styles.disabled : "";
-
     return (
       <div
         data-testid="date"
@@ -67,6 +67,7 @@ class Date extends React.Component {
           {withRange ? (
             <RangeComparison
               ref={this.rangeComparisonRef}
+              maxSelectableRange={maxSelectableRange}
               value={value}
               maxDate={maxDate}
               minDate={minDate}
@@ -245,6 +246,8 @@ Date.propTypes = {
   comparisonMinDate: PropTypes.instanceOf(Date),
   /** With range support (From Date -> To Date) */
   withRange: PropTypes.bool,
+  /** Max number of days which can be selected in range */
+  maxSelectableRange: PropTypes.number,
   /** With Comparison support (comparing 2 ranges) */
   withComparison: PropTypes.bool,
   /** If whether to show the time picker or not */

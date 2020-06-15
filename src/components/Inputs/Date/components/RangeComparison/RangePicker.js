@@ -15,7 +15,6 @@ export default class RangePicker extends React.Component {
     const value = { ...this._getParsedValue(props.value) };
     value.compare = value.comparisonStartDate && value.comparisonEndDate;
     this.setState(value);
-
     this.state = {
       startDate: value.startDate,
       endDate: value.endDate,
@@ -34,7 +33,6 @@ export default class RangePicker extends React.Component {
       comparisonStartDate,
       comparisonEndDate,
     } = this.state;
-
     let value = [{ from: startDate, to: endDate }];
     if (this.props.withComparison) {
       value = value.concat({
@@ -44,7 +42,9 @@ export default class RangePicker extends React.Component {
       });
     }
 
-    const { prefixClassName, numMonths } = this.props;
+    const { prefixClassName, numMonths, maxSelectableRange } = this.props;
+    const shortcut7DaysVisible = maxSelectableRange >= 7 ? true : false;
+    const shortcut30DaysVisible = maxSelectableRange >= 30 ? true : false;
 
     return (
       <div className={`${styles.rangePicker} ${prefixClassName}`}>
@@ -70,7 +70,12 @@ export default class RangePicker extends React.Component {
             onFocus={key => {
               this.setState({ selectingKey: key });
             }}
+            last7DaysVisible={maxSelectableRange ? shortcut7DaysVisible : true}
+            last30DaysVisible={
+              maxSelectableRange ? shortcut30DaysVisible : true
+            }
           />
+
           {this.props.withComparison ? (
             <Comparison
               selectingKey={this.state.selectingKey}
@@ -135,8 +140,10 @@ export default class RangePicker extends React.Component {
    */
   _handleCellClick = day => {
     const { selectingKey, startDate, endDate, comparisonEndDate } = this.state;
+    const { maxSelectableRange } = this.props;
     let selectKey = selectingKey;
     let compEndDate = comparisonEndDate;
+    const selectedDay = day;
 
     // When latter date is selected as start date and former is selected as end
     let invalidRange = false;
@@ -150,24 +157,42 @@ export default class RangePicker extends React.Component {
       selectKey = "startDate";
       const difference = day.diff(startDate, "d");
       invalidRange = Math.sign(difference) === -1;
+
+      // Check if selected day is more than end date for maxSelectableRange
+      if (
+        maxSelectableRange &&
+        day > dayjs(startDate).add(maxSelectableRange - 1, "d")
+      ) {
+        invalidRange = true;
+      }
     }
 
     this.setState(
       {
-        [selectingKey]: day,
+        [selectingKey]: selectedDay,
         selectingKey: selectKey,
         comparisonEndDate: compEndDate,
       },
       () => {
         if (selectingKey === "startDate") {
           this.setState({
-            endDate: null,
+            endDate: maxSelectableRange
+              ? dayjs(selectedDay).add(maxSelectableRange - 1, "d")
+              : null,
           });
         }
         if (invalidRange) {
+          let setEndDate = "";
+
+          // If max sel. range is applicable, set end date to its number of days + selected date
+          if (maxSelectableRange) {
+            setEndDate = dayjs(selectedDay).add(maxSelectableRange - 1, "d");
+          } else {
+            setEndDate = startDate;
+          }
           this.setState({
-            startDate: day,
-            endDate: startDate,
+            startDate: selectedDay,
+            endDate: setEndDate,
           });
         }
       },
@@ -221,6 +246,7 @@ RangePicker.propTypes = {
   withComparison: PropTypes.bool,
   prefixClassName: PropTypes.string,
   numMonths: PropTypes.number,
+  maxSelectableRange: PropTypes.number,
   value: PropTypes.shape({
     startDate: PropTypes.object,
     endDate: PropTypes.object,
