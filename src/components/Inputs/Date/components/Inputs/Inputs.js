@@ -68,7 +68,7 @@ function Shortcuts({
         Yesterday
       </Button>
 
-      {last7DaysVisible ? (
+      {last7DaysVisible && (
         <Button
           primary={isLast7Days}
           className={`${styles.inputsButton} ${prefixClassName}-button`}
@@ -78,9 +78,9 @@ function Shortcuts({
         >
           Last 7 Days
         </Button>
-      ) : null}
+      )}
 
-      {last30DaysVisible ? (
+      {last30DaysVisible && (
         <Button
           primary={isLast30Days}
           className={`${styles.inputsButton} ${prefixClassName}-button`}
@@ -90,7 +90,7 @@ function Shortcuts({
         >
           Last 30 Days
         </Button>
-      ) : null}
+      )}
     </div>
   );
 }

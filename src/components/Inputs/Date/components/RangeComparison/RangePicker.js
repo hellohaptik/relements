@@ -43,8 +43,11 @@ export default class RangePicker extends React.Component {
     }
 
     const { prefixClassName, numMonths, maxSelectableRange } = this.props;
-    const shortcut7DaysVisible = maxSelectableRange >= 7 ? true : false;
-    const shortcut30DaysVisible = maxSelectableRange >= 30 ? true : false;
+    const weekDays = 7;
+    const monthDays = 30;
+    const shortcut7DaysVisible = maxSelectableRange >= weekDays ? true : false;
+    const shortcut30DaysVisible =
+      maxSelectableRange >= monthDays ? true : false;
 
     return (
       <div className={`${styles.rangePicker} ${prefixClassName}`}>
@@ -144,19 +147,32 @@ export default class RangePicker extends React.Component {
     let selectKey = selectingKey;
     let compEndDate = comparisonEndDate;
     const selectedDay = day;
+    let selectedStartDate = startDate;
+    let selectedEndDate = endDate;
 
     // When latter date is selected as start date and former is selected as end
     let invalidRange = false;
 
     if (selectingKey === "startDate") {
       selectKey = "endDate";
-    } else if (selectingKey === "comparisonStartDate") {
+      selectedStartDate = selectedDay;
+      selectedEndDate = maxSelectableRange
+        ? dayjs(selectedDay).add(maxSelectableRange - 1, "d")
+        : null;
+    }
+
+    // If selected date is comparisonStartDate
+    else if (selectingKey === "comparisonStartDate") {
       const numDays = endDate.diff(startDate, "d");
       compEndDate = day.add(numDays, "d");
-    } else {
+    }
+
+    // If selected date is end date
+    else {
       selectKey = "startDate";
       const difference = day.diff(startDate, "d");
       invalidRange = Math.sign(difference) === -1;
+      selectedEndDate = selectedDay;
 
       // Check if selected day is more than end date for maxSelectableRange
       if (
@@ -165,38 +181,27 @@ export default class RangePicker extends React.Component {
       ) {
         invalidRange = true;
       }
+
+      // When selected range is invalid
+      if (invalidRange) {
+        // If max sel. range is applicable, set end date to its number of days + selected date
+        if (maxSelectableRange) {
+          selectedEndDate = dayjs(selectedDay).add(maxSelectableRange - 1, "d");
+          selectKey = "endDate";
+        } else {
+          selectedEndDate = startDate;
+        }
+        selectedStartDate = selectedDay;
+      }
     }
 
-    this.setState(
-      {
-        [selectingKey]: selectedDay,
-        selectingKey: selectKey,
-        comparisonEndDate: compEndDate,
-      },
-      () => {
-        if (selectingKey === "startDate") {
-          this.setState({
-            endDate: maxSelectableRange
-              ? dayjs(selectedDay).add(maxSelectableRange - 1, "d")
-              : null,
-          });
-        }
-        if (invalidRange) {
-          let setEndDate = "";
-
-          // If max sel. range is applicable, set end date to its number of days + selected date
-          if (maxSelectableRange) {
-            setEndDate = dayjs(selectedDay).add(maxSelectableRange - 1, "d");
-          } else {
-            setEndDate = startDate;
-          }
-          this.setState({
-            startDate: selectedDay,
-            endDate: setEndDate,
-          });
-        }
-      },
-    );
+    // Update values
+    this.setState({
+      startDate: selectedStartDate,
+      endDate: selectedEndDate,
+      selectingKey: selectKey,
+      comparisonEndDate: compEndDate,
+    });
   };
 
   /**
