@@ -130,3 +130,56 @@ test("On Change: Range", async () => {
     />,
   );
 });
+
+test("On Change: Invalid Range", async () => {
+  const mockFn = jest.fn();
+  const { container, rerender, getAllByText } = render(
+    <Component
+      value={{
+        startDate: dayjs().toDate(),
+        endDate: dayjs()
+          .add(1, "d")
+          .toDate(),
+      }}
+      prefixClassName="test"
+      onChange={mockFn}
+      withRange
+      numCalender
+    />,
+  );
+
+  const inputElement = container.getElementsByClassName("test-input")[0];
+  fireEvent.mouseDown(inputElement);
+
+  const CalendarDateFirst = getAllByText("1")[0];
+  const CalendarDateSecond = getAllByText("2")[0];
+  const CalendarOverlay = document.getElementsByClassName(
+    "test-tooltip-overlay",
+  )[0];
+
+  fireEvent.click(CalendarDateFirst);
+  fireEvent.click(CalendarDateSecond);
+  fireEvent.click(CalendarOverlay);
+
+  expect(mockFn).toHaveBeenCalledTimes(1);
+
+  let startDate = mockFn.mock.calls[0][0].startDate;
+  let endDate = mockFn.mock.calls[0][0].endDate;
+
+  expect(startDate.toString()).toBe(
+    dayjs(endDate)
+      .startOf("month")
+      .toDate()
+      .toString(),
+  );
+
+  expect(endDate.toString()).toBe(
+    dayjs(startDate)
+      .startOf("month")
+      .add(1, "d")
+      .endOf("day")
+      .toDate()
+      .toString(),
+  );
+  rerender(<Component value={mockFn.mock.calls[0][0]} onChange={mockFn} />);
+});
