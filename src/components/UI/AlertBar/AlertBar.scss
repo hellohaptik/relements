@@ -1,0 +1,94 @@
+@mixin flexAlign($justify: true) {
+  display: flex;
+  align-items: center;
+
+  @if ($justify) {
+    justify-content: space-between;
+  }
+}
+
+@mixin boxShadow {
+  -webkit-box-shadow: 0px 0px 8px 0px #a9a9a9;
+  -moz-box-shadow: 0px 0px 8px 0px #a9a9a9;
+  box-shadow: 0px 0px 8px 0px #a9a9a9;
+}
+
+$success: #5fbe85;
+$warning: #f7a857;
+$error: #f76b6b;
+
+.alertBar {
+  color: white;
+  border-radius: 10px;
+  min-height: 30px;
+  padding: 6px 8px;
+  @include flexAlign($justify: true);
+  @include boxShadow;
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+
+  [data-testid="icon"] {
+    width: 25px;
+    height: auto;
+    svg {
+      width: 25px;
+    }
+  }
+
+  &[data-type="success"] {
+    background-color: $success;
+  }
+
+  &[data-type="warning"] {
+    background-color: $warning;
+
+    svg {
+      g {
+        stroke: $warning;
+      }
+      path {
+        fill: $warning;
+      }
+    }
+  }
+
+  &[data-type="error"] {
+    background-color: $error;
+  }
+
+  .inner {
+    @include flexAlign($justify: false);
+    svg {
+      g {
+        fill: white;
+      }
+
+      circle {
+        stroke: transparent;
+      }
+    }
+    .message {
+      font-size: 15px;
+      padding: 0 15px 0 10px;
+    }
+  }
+
+  .dismiss {
+    svg {
+      g {
+        stroke: white;
+      }
+      circle {
+        fill: transparent;
+      }
+    }
+    cursor: pointer;
+  }
+
+  &.active {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}

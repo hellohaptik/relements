@@ -1,0 +1,36 @@
+import { CodeBlock, ConfigBlock } from '@src/helpers/DocBlocks';
+import AlertBar from './AlertBar';
+
+# AlertBar
+
+> A simple alert bar that displays a short message for the user.
+
+<CodeBlock>
+  <AlertBar 
+    message={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. 👍🏻"}
+    type={"success"}
+    active={true}
+  />
+</CodeBlock>
+
+## Configuration
+
+<ConfigBlock of={AlertBar} />
+
+## Examples
+
+<CodeBlock title="Type: Warning">
+  <AlertBar 
+    message={"You are being warned! 🤨"}
+    type={"warning"}
+    active={true}
+  />
+</CodeBlock>
+
+<CodeBlock title="Type: Error">
+  <AlertBar 
+    message={"Oh no, something happened. 😵"}
+    type={"error"}
+    active={true}
+  />
+</CodeBlock>
