@@ -23,16 +23,17 @@ const AlertBar = ({
   type,
   message = "",
   active,
+  onDismiss,
 }) => {
-  const [isActive, changeActiveStatus] = useState(active);
+  const [isActive, setAlertBarActive] = useState(false);
 
   useEffect(() => {
-    changeActiveStatus(active);
+    setAlertBarActive(active);
   }, [active]);
 
   return (
     <div
-      data-testid="alertBar"
+      data-testid="AlertBar"
       data-type={type}
       className={`
             ${styles.alertBar}
@@ -45,7 +46,13 @@ const AlertBar = ({
         {renderAlertBarIcon(type)}
         <span className={styles.message}>{message}</span>
       </div>
-      <div className={styles.dismiss} onClick={() => changeActiveStatus(false)}>
+      <div
+        className={styles.dismiss}
+        onClick={() => {
+          setAlertBarActive(false);
+          onDismiss(false);
+        }}
+      >
         <Icon src={ErrorIcon} />
       </div>
     </div>
@@ -63,6 +70,8 @@ AlertBar.propTypes = {
   message: PropTypes.string,
   /** If the alert bar is visible or not */
   active: PropTypes.bool,
+  /** Function to update parent state when alert bar is deactivated */
+  onDismiss: PropTypes.func,
 };
 
 AlertBar.defaultProps = {
@@ -71,11 +80,18 @@ AlertBar.defaultProps = {
   type: "success",
   message: "",
   active: false,
+  onDismiss: () => {},
 };
 
 AlertBar.classNames = {
   $prefix: "Outermost element",
   "$prefix-child": "Child of the Main Button Component",
+};
+
+AlertBar.TYPES = {
+  SUCCESS: "success",
+  WARNING: "warning",
+  ERROR: "error",
 };
 
 export default AlertBar;

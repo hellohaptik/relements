@@ -9,24 +9,25 @@ export class AlertBarPlayground extends React.Component {
     active: false,
   };
 
-  toggleAlertBar = () => {
+  toggleAlertBar = status => {
     this.setState({
-      active: !this.state.active,
+      active: status,
     });
   };
 
   render() {
     const { active } = this.state;
+
     return (
       <div>
         <AlertBar
           message={`This is a test. Go mad! (You can just do active/inactive btw) 🥳`}
           type="success"
           active={active}
+          onDismiss={status => this.toggleAlertBar(status)}
         />
-        <br />
-        <Button onClick={this.toggleAlertBar}>
-          {!active ? "Show" : "Hide"} Alert Bar
+        <Button onClick={() => this.toggleAlertBar(true)}>
+          Show Alert Bar
         </Button>
       </div>
     );
