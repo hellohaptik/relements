@@ -1,3 +1,10 @@
+$default: #e1f0fe;
+$success: #5fbe85;
+$warning: #f7a857;
+$error: #f76b6b;
+$internalPadding: 6px 8px;
+$boxShadowConfig: 0px 0px 8px 0px rgba(123, 123, 123, 0.45);
+
 @mixin flexAlign($justify: true) {
   display: flex;
   align-items: center;
@@ -8,9 +15,9 @@
 }
 
 @mixin boxShadow {
-  -webkit-box-shadow: 0px 0px 8px 0px #a9a9a9;
-  -moz-box-shadow: 0px 0px 8px 0px #a9a9a9;
-  box-shadow: 0px 0px 8px 0px #a9a9a9;
+  -webkit-box-shadow: $boxShadowConfig;
+  -moz-box-shadow: $boxShadowConfig;
+  box-shadow: $boxShadowConfig;
 }
 
 @mixin inactive {
@@ -31,11 +38,6 @@
   z-index: 1;
 }
 
-$success: #5fbe85;
-$warning: #f7a857;
-$error: #f76b6b;
-$internalPadding: 6px 8px;
-
 .alertBar {
   position: relative;
   color: white;
@@ -52,6 +54,31 @@ $internalPadding: 6px 8px;
     padding: $internalPadding;
     svg {
       width: 25px;
+    }
+  }
+
+  &[data-type="default"] {
+    background-color: $default;
+    color: #333333;
+    .inner {
+      [data-testid="icon"] {
+        svg {
+          g,
+          circle {
+            stroke: #0c4da2;
+          }
+          path {
+            fill: #0c4da2;
+          }
+        }
+      }
+    }
+    .dismiss {
+      svg {
+        g {
+          stroke: #333333;
+        }
+      }
     }
   }
 
@@ -78,18 +105,25 @@ $internalPadding: 6px 8px;
 
   .inner {
     @include flexAlign($justify: false);
-    svg {
-      g {
-        fill: white;
-      }
+    [data-testid="icon"] {
+      cursor: initial;
+      svg {
+        g {
+          fill: white;
+        }
 
-      circle {
-        stroke: transparent;
+        circle {
+          stroke: transparent;
+        }
       }
     }
     .message {
       font-size: 15px;
-      padding: 10px 15px 10px 10px;
+      padding: 10px 15px 10px 5px;
+
+      &.noIcon {
+        padding-left: 18px;
+      }
     }
   }
 
@@ -102,7 +136,6 @@ $internalPadding: 6px 8px;
         fill: transparent;
       }
     }
-    cursor: pointer;
   }
 
   &.active {
