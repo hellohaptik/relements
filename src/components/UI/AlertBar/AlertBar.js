@@ -3,23 +3,8 @@ import PropTypes from "prop-types";
 
 import Icon from "components/UI/Icon";
 import ErrorIcon from "icons/close.svg";
-import SuccessIcon from "icons/tick.svg";
-import WarningIcon from "icons/red-exclamation.svg";
 import styles from "./AlertBar.scss";
-
-const renderAlertBarIcon = (type, customIcon = false) => {
-  let icon = "";
-  let iconPath = "";
-  if (customIcon) {
-    iconPath = customIcon;
-  } else if (type === "success") {
-    iconPath = SuccessIcon;
-  } else {
-    iconPath = WarningIcon;
-  }
-  icon = <Icon src={iconPath} />;
-  return icon;
-};
+import * as Utils from "./utils";
 
 const AlertBar = ({
   prefixClassName = "",
@@ -46,28 +31,26 @@ const AlertBar = ({
             ${styles.alertBar}
             ${prefixClassName}
             ${className}
-            ${isActive ? styles.active : null}
-        `}
+            ${isActive ? styles.active : styles.inactive}`}
     >
-      <div className={styles.inner}>
-        {!noIcon ? renderAlertBarIcon(type, customIcon) : null}
+      <div className={`${styles.inner} ${prefixClassName}-child`}>
+        {!noIcon ? Utils.renderAlertBarIcon(type, customIcon) : null}
         <span
-          className={`
-        ${styles.message}
-        ${noIcon ? styles.noIcon : ""}`}
+          className={`${styles.message}
+        ${noIcon ? styles.noIcon : ""} ${prefixClassName}-message`}
         >
           {message}
         </span>
       </div>
       {!alwaysActive ? (
         <div
-          className={styles.dismiss}
+          className={`${styles.dismiss} ${prefixClassName}-dismiss`}
           onClick={() => {
             setAlertBarActive(false);
-            onDismiss(false);
+            onDismiss();
           }}
         >
-          <Icon src={ErrorIcon} />
+          <Icon src={ErrorIcon} className={`${prefixClassName}-dismiss-icon`} />
         </div>
       ) : null}
     </div>
@@ -83,15 +66,18 @@ AlertBar.propTypes = {
   type: PropTypes.string,
   /** The message which will be displayed within the alert bar */
   message: PropTypes.string,
-  /** If the alert bar is visible or not */
+  /** Determines if alert bar is visible */
   active: PropTypes.bool,
-  /** Function to update parent state when alert bar is deactivated */
+  /** Function which will be called when dismissing the alert bar.
+   * A required prop when driving from parent.
+   */
   onDismiss: PropTypes.func,
   /** If set to 'true',
-   * the bar won't be dismissed it will always be shown.
-   * 'active' prop is not needed here. */
+   * the bar won't be dismissed it will always be shown. */
   alwaysActive: PropTypes.bool,
-  /** Decides if the icon before the message is to be visible or not  */
+  /** Decides if the icon before the message is to be visible or not
+   * 'active' prop is not needed
+   */
   noIcon: PropTypes.bool,
   /** Adds a custom icon before the message,
    * accepts the name to the icon (Refer Icon docs for names)  */
@@ -103,8 +89,8 @@ AlertBar.defaultProps = {
   className: "",
   type: "default",
   message: "",
-  active: false,
   onDismiss: () => {},
+  active: false,
   alwaysActive: false,
   noIcon: false,
   customIcon: "",
@@ -112,7 +98,10 @@ AlertBar.defaultProps = {
 
 AlertBar.classNames = {
   $prefix: "Outermost element",
-  "$prefix-child": "Child of the Main Button Component",
+  "$prefix-child": "Child of the Main Alert Bar Component",
+  "$prefix-message": "Message of the alert bar",
+  "$prefix-dismiss": "Dismiss container",
+  "$prefix-dismiss-icon": "Dismiss icon for message",
 };
 
 AlertBar.TYPES = {
