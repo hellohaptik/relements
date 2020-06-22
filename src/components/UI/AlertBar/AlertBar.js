@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import Icon from "components/UI/Icon";
 import ErrorIcon from "icons/close.svg";
+
 import * as Utils from "./utils";
 import styles from "./AlertBar.scss";
 

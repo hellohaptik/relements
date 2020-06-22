@@ -1,6 +1,8 @@
 import React from "react";
+
 import { storiesOf } from "@storybook/react";
 import Docs from "./AlertBar.mdx";
+
 import AlertBar from "./AlertBar";
 import Button from "../Button/Button";
 
