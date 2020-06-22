@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-
 import Icon from "components/UI/Icon";
 import ErrorIcon from "icons/close.svg";
 import styles from "./AlertBar.scss";
@@ -17,42 +16,42 @@ const AlertBar = ({
   noIcon,
   customIcon,
 }) => {
-  const [isActive, setAlertBarActive] = useState(false);
+  const [isActive, setIsActive] = React.useState(false);
 
-  useEffect(() => {
-    setAlertBarActive(active || alwaysActive);
+  React.useEffect(() => {
+    setIsActive(active || alwaysActive);
   }, [active || alwaysActive]);
+  const renderIcon = !noIcon && Utils.renderAlertBarIcon(type, customIcon);
 
   return (
     <div
       data-testid="AlertBar"
-      data-type={type}
       className={`
             ${styles.alertBar}
-            ${prefixClassName}
             ${className}
+            ${type}
             ${isActive ? styles.active : styles.inactive}`}
     >
-      <div className={`${styles.inner} ${prefixClassName}-child`}>
-        {!noIcon ? Utils.renderAlertBarIcon(type, customIcon) : null}
+      <div className={`${styles.inner} ${prefixClassName}-inner`}>
+        {renderIcon}
         <span
           className={`${styles.message}
-        ${noIcon ? styles.noIcon : ""} ${prefixClassName}-message`}
+          ${noIcon && styles.noIcon} ${prefixClassName}-message`}
         >
           {message}
         </span>
       </div>
-      {!alwaysActive ? (
+      {!alwaysActive && (
         <div
           className={`${styles.dismiss} ${prefixClassName}-dismiss`}
           onClick={() => {
-            setAlertBarActive(false);
+            setIsActive(false);
             onDismiss();
           }}
         >
           <Icon src={ErrorIcon} className={`${prefixClassName}-dismiss-icon`} />
         </div>
-      ) : null}
+      )}
     </div>
   );
 };
@@ -98,7 +97,7 @@ AlertBar.defaultProps = {
 
 AlertBar.classNames = {
   $prefix: "Outermost element",
-  "$prefix-child": "Child of the Main Alert Bar Component",
+  "$prefix-inner": "Child of the Main Alert Bar Component",
   "$prefix-message": "Message of the alert bar",
   "$prefix-dismiss": "Dismiss container",
   "$prefix-dismiss-icon": "Dismiss icon for message",

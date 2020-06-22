@@ -10,7 +10,6 @@ import WarningIcon from "icons/red-exclamation.svg";
  * @param {boolean}   customIcon  when passed as true, it will set the icon as the custom icon passed and
  *                                return the same
  */
-
 export function renderAlertBarIcon(type, customIcon = false) {
   let icon = "";
   let iconPath = "";

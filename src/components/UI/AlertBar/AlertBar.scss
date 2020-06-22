@@ -1,54 +1,25 @@
-$default: #e1f0fe;
-$success: #5fbe85;
-$warning: #f7a857;
-$error: #f76b6b;
-$internalPadding: 6px 8px;
-$boxShadowConfig: 0px 0px 8px 0px rgba(123, 123, 123, 0.45);
+@import "./variables.scss";
 
-@mixin flexAlign($justify: true) {
+.alertBar {
+  position: relative;
+  color: white;
+  border-radius: 10px;
   display: flex;
   align-items: center;
-
-  @if ($justify) {
-    justify-content: space-between;
-  }
-}
-
-@mixin boxShadow {
-  -webkit-box-shadow: $boxShadowConfig;
-  -moz-box-shadow: $boxShadowConfig;
-  box-shadow: $boxShadowConfig;
-}
-
-@mixin inactive {
+  justify-content: space-between;
   min-height: 0;
   height: 0;
   opacity: 0;
   transform: translateY(20px);
   margin: 0px;
   z-index: -1;
-}
-
-@mixin active {
-  height: auto;
-  min-height: 30px;
-  transform: translateY(0px);
-  opacity: 1;
-  margin: 12px 0;
-  z-index: 1;
-}
-
-.alertBar {
-  position: relative;
-  color: white;
-  border-radius: 10px;
-  @include inactive;
-  @include flexAlign($justify: true);
-  @include boxShadow;
+  -webkit-box-shadow: $boxShadowConfig;
+  -moz-box-shadow: $boxShadowConfig;
+  box-shadow: $boxShadowConfig;
   transition: all 0.3s ease;
   -webkit-transition: all 0.3s ease;
 
-  [data-testid="icon"] {
+  [class*="Icon"] {
     width: 25px;
     height: auto;
     padding: $internalPadding;
@@ -57,7 +28,7 @@ $boxShadowConfig: 0px 0px 8px 0px rgba(123, 123, 123, 0.45);
     }
   }
 
-  &[data-type="default"] {
+  &:global(.default) {
     background-color: $default;
     color: #333333;
     .inner {
@@ -82,11 +53,11 @@ $boxShadowConfig: 0px 0px 8px 0px rgba(123, 123, 123, 0.45);
     }
   }
 
-  &[data-type="success"] {
+  &:global(.success) {
     background-color: $success;
   }
 
-  &[data-type="warning"] {
+  &:global(.warning) {
     background-color: $warning;
 
     svg {
@@ -99,13 +70,14 @@ $boxShadowConfig: 0px 0px 8px 0px rgba(123, 123, 123, 0.45);
     }
   }
 
-  &[data-type="error"] {
+  &:global(.error) {
     background-color: $error;
   }
 
   .inner {
-    @include flexAlign($justify: false);
-    [data-testid="icon"] {
+    display: flex;
+    align-items: center;
+    [class*="Icon"] {
       cursor: initial;
       svg {
         g {
@@ -123,6 +95,7 @@ $boxShadowConfig: 0px 0px 8px 0px rgba(123, 123, 123, 0.45);
 
       &.noIcon {
         padding-left: 18px;
+        width: 100%;
       }
     }
   }
@@ -139,6 +112,11 @@ $boxShadowConfig: 0px 0px 8px 0px rgba(123, 123, 123, 0.45);
   }
 
   &.active {
-    @include active;
+    height: auto;
+    min-height: 30px;
+    transform: translateY(0px);
+    opacity: 1;
+    margin: 12px 0;
+    z-index: 1;
   }
 }
