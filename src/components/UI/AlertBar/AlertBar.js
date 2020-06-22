@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import Icon from "components/UI/Icon";
 import ErrorIcon from "icons/close.svg";
-import styles from "./AlertBar.scss";
 import * as Utils from "./utils";
+import styles from "./AlertBar.scss";
 
 const AlertBar = ({
   prefixClassName = "",
@@ -17,12 +17,10 @@ const AlertBar = ({
   customIcon,
 }) => {
   const [isActive, setIsActive] = React.useState(false);
-
   React.useEffect(() => {
     setIsActive(active || alwaysActive);
   }, [active || alwaysActive]);
   const renderIcon = !noIcon && Utils.renderAlertBarIcon(type, customIcon);
-
   return (
     <div
       data-testid="AlertBar"
@@ -36,7 +34,7 @@ const AlertBar = ({
         {renderIcon}
         <span
           className={`${styles.message}
-          ${noIcon && styles.noIcon} ${prefixClassName}-message`}
+          ${noIcon && styles.noIcon} ${prefixClassName}-inner-message`}
         >
           {message}
         </span>
@@ -74,8 +72,8 @@ AlertBar.propTypes = {
   /** If set to 'true',
    * the bar won't be dismissed it will always be shown. */
   alwaysActive: PropTypes.bool,
-  /** Decides if the icon before the message is to be visible or not
-   * 'active' prop is not needed
+  /** Decides if the icon before the message is to be visible or not.
+   *  'active' prop is not needed
    */
   noIcon: PropTypes.bool,
   /** Adds a custom icon before the message,
@@ -98,7 +96,7 @@ AlertBar.defaultProps = {
 AlertBar.classNames = {
   $prefix: "Outermost element",
   "$prefix-inner": "Child of the Main Alert Bar Component",
-  "$prefix-message": "Message of the alert bar",
+  "$prefix-inner-message": "Message of the alert bar",
   "$prefix-dismiss": "Dismiss container",
   "$prefix-dismiss-icon": "Dismiss icon for message",
 };

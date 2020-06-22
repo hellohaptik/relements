@@ -19,13 +19,10 @@ test("Custom class", async () => {
 });
 
 test("Prefix class", async () => {
-  console.log(AlertBar);
   const classNames = Object.keys(AlertBar.classNames).map(className =>
     className.replace("$prefix", "test"),
   );
-
   render(<AlertBar prefixClassName="test" />);
-
   classNames.shift();
   classNames.forEach(className => {
     expect(
