@@ -3,7 +3,7 @@
 .alertBar {
   position: relative;
   color: white;
-  border-radius: 10px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16,8 +16,9 @@
   -webkit-box-shadow: $boxShadowConfig;
   -moz-box-shadow: $boxShadowConfig;
   box-shadow: $boxShadowConfig;
-  transition: all 0.3s ease;
-  -webkit-transition: all 0.3s ease;
+  transition-property: transform, opacity, min-height, height;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
 
   [class*="Icon"] {
     width: 25px;
