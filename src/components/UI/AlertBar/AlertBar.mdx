@@ -47,17 +47,17 @@ import AlertBar from './AlertBar';
 </CodeBlock>
 
 <CodeBlock title="Custom Content">
-  <AlertBar 
-    message={
+  <AlertBar
+    active={true}
+    onDismiss={()=>{}}
+  >
       <div>
         I can be anything I want. 🐵
         <br />
         <a href="#" target="_blank">So I became a link.</a>
       </div>
-    }
-    active={true}
-    onDismiss={()=>{}}
-  />
+  </AlertBar>
+
 </CodeBlock>
 
 <CodeBlock title="Always Active">

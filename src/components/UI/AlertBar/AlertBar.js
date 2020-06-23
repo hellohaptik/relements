@@ -17,6 +17,7 @@ const AlertBar = ({
   alwaysActive,
   noIcon,
   customIcon,
+  children,
 }) => {
   const [isActive, setIsActive] = React.useState(false);
   React.useEffect(() => {
@@ -38,7 +39,7 @@ const AlertBar = ({
           className={`${styles.message}
           ${noIcon && styles.noIcon} ${prefixClassName}-inner-message`}
         >
-          {message}
+          {children ? children : message}
         </div>
       </div>
       {!alwaysActive && (
@@ -64,7 +65,13 @@ AlertBar.propTypes = {
   /** The type of the alert bar (default/success/warning/error) */
   type: PropTypes.string,
   /** The message which will be displayed within the alert bar */
-  message: PropTypes.oneOf([PropTypes.string, PropTypes.node]),
+  message: PropTypes.string,
+  /** Children to render inside the AlertBar */
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   /** Determines if alert bar is visible */
   active: PropTypes.bool,
   /** Function which will be called when dismissing the alert bar.
