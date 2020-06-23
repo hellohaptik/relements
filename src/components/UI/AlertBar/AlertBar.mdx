@@ -1,0 +1,90 @@
+import { CodeBlock, ConfigBlock } from '@src/helpers/DocBlocks';
+import AlertBar from './AlertBar';
+
+# AlertBar
+
+> A simple alert bar that displays a short message for the user.
+
+<CodeBlock title="Default">
+  <AlertBar 
+    message={"Insert generic message here. 📰"}
+    active={true}
+    onDismiss={()=>{}}
+  />
+</CodeBlock>
+
+## Configuration
+
+<ConfigBlock of={AlertBar} />
+
+## Examples
+
+<CodeBlock title="Success">
+  <AlertBar 
+    message={"k. 👍🏻"}
+    type={"success"}
+    active={true}
+    onDismiss={()=>{}}
+  />
+</CodeBlock>
+
+<CodeBlock title="Warning">
+  <AlertBar 
+    message={"You are being warned! 🤨"}
+    type={"warning"}
+    active={true}
+    onDismiss={()=>{}}
+  />
+</CodeBlock>
+
+<CodeBlock title="Error">
+  <AlertBar 
+    message={"Oh 💩, something happened. 😵"}
+    type={"error"}
+    active={true}
+    onDismiss={()=>{}}
+  />
+</CodeBlock>
+
+<CodeBlock title="Custom Content">
+  <AlertBar
+  message={
+    <div>
+        I can be anything I want. 🐵
+        <br />
+        <a href="#" target="_blank">So I became a link.</a>
+      </div>}
+    active={true}
+    onDismiss={()=>{}}
+  >
+  </AlertBar>
+
+</CodeBlock>
+
+<CodeBlock title="Always Active">
+  <AlertBar 
+    message={"😎 Can't touch this."}
+    type={"warning"}
+    alwaysActive={true}
+  />
+</CodeBlock>
+
+<CodeBlock title="No Icon">
+  <AlertBar 
+    message={"Mr. Lonely."}
+    type={"success"}
+    active={true}
+    noIcon={true}
+    onDismiss={()=>{}}
+  />
+</CodeBlock>
+
+<CodeBlock title="Custom Icon">
+  <AlertBar 
+    message={"Mah Icon, Mah rulz"}
+    type={"error"}
+    active={true}
+    customIcon={"client"}
+    onDismiss={()=>{}}
+  />
+</CodeBlock>

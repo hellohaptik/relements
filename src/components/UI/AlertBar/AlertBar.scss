@@ -1,0 +1,119 @@
+@import "./variables.scss";
+
+.alertBar {
+  position: relative;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 0;
+  height: 0;
+  opacity: 0;
+  transform: translateY(20px);
+  margin: 0px;
+  z-index: -1;
+  -webkit-box-shadow: $boxShadowConfig;
+  -moz-box-shadow: $boxShadowConfig;
+  box-shadow: $boxShadowConfig;
+  transition-property: transform, opacity, min-height, height;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+
+  [class*="Icon"] {
+    width: 25px;
+    height: auto;
+    padding: $internalPadding;
+    svg {
+      width: 25px;
+    }
+  }
+
+  &:global(.default) {
+    background-color: $default;
+    color: #333333;
+    .inner {
+      [data-testid="icon"] {
+        svg {
+          g {
+            fill: transparent;
+          }
+        }
+      }
+    }
+    .dismiss {
+      svg {
+        g {
+          stroke: #333333;
+        }
+      }
+    }
+  }
+
+  &:global(.success) {
+    background-color: $success;
+  }
+
+  &:global(.warning) {
+    background-color: $warning;
+
+    svg {
+      g {
+        stroke: $warning;
+      }
+      path {
+        fill: $warning;
+      }
+    }
+  }
+
+  &:global(.error) {
+    background-color: $error;
+  }
+
+  .inner {
+    display: flex;
+    align-items: center;
+    [class*="Icon"] {
+      cursor: initial;
+      svg {
+        g {
+          fill: white;
+        }
+
+        circle {
+          stroke: transparent;
+        }
+      }
+    }
+    .message {
+      font-size: 15px;
+      padding: 10px 15px 10px 5px;
+
+      &.noIcon {
+        padding-left: 18px;
+        width: 100%;
+      }
+    }
+  }
+
+  .dismiss {
+    svg {
+      g {
+        stroke: white;
+      }
+      circle {
+        fill: transparent;
+      }
+    }
+  }
+
+  &.active {
+    height: auto;
+    min-height: 30px;
+    transform: translateY(0px);
+    opacity: 1;
+    margin: 12px 0;
+    z-index: 1;
+  }
+}
