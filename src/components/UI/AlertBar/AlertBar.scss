@@ -35,12 +35,8 @@
     .inner {
       [data-testid="icon"] {
         svg {
-          g,
-          circle {
-            stroke: #0c4da2;
-          }
-          path {
-            fill: #0c4da2;
+          g {
+            fill: transparent;
           }
         }
       }

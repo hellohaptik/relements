@@ -3,6 +3,7 @@ import React from "react";
 import Icon from "components/UI/Icon";
 import SuccessIcon from "icons/tick.svg";
 import WarningIcon from "icons/red-exclamation.svg";
+import DefaultIcon from "./icons/defaultIcon.svg";
 
 /**
  * renderAlertBarIcon takes type of icon and checks if custom icon
@@ -18,6 +19,8 @@ export function renderAlertBarIcon(type, customIcon = false) {
     iconPath = customIcon;
   } else if (type === "success") {
     iconPath = SuccessIcon;
+  } else if (type === "default") {
+    iconPath = DefaultIcon;
   } else {
     iconPath = WarningIcon;
   }

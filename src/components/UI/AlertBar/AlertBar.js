@@ -34,12 +34,12 @@ const AlertBar = ({
     >
       <div className={`${styles.inner} ${prefixClassName}-inner`}>
         {renderIcon}
-        <span
+        <div
           className={`${styles.message}
           ${noIcon && styles.noIcon} ${prefixClassName}-inner-message`}
         >
           {message}
-        </span>
+        </div>
       </div>
       {!alwaysActive && (
         <div
@@ -64,7 +64,7 @@ AlertBar.propTypes = {
   /** The type of the alert bar (default/success/warning/error) */
   type: PropTypes.string,
   /** The message which will be displayed within the alert bar */
-  message: PropTypes.string,
+  message: PropTypes.oneOf([PropTypes.string, PropTypes.node]),
   /** Determines if alert bar is visible */
   active: PropTypes.bool,
   /** Function which will be called when dismissing the alert bar.
