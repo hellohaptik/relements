@@ -283,12 +283,17 @@ class File extends React.Component {
   };
 
   _handleFile = e => {
+    const { customUpload } = this.props;
     const selectedFiles = e.target.files;
     // Only upload valid files
     const files = this._getValidFiles(selectedFiles);
     const filenames = [];
     const uploads = [...files].map((file, i) => {
-      this._uploadFile(file, i, files.length);
+      if (customUpload && typeof customUpload === "function") {
+        customUpload(file, i, files.length);
+      } else {
+        this._uploadFile(file, i, files.length);
+      }
       filenames[i] = file.name;
       const extenstionRegex = /(?:\.([^.]+))?$/;
       const fileExtension = extenstionRegex.exec(file.name)[1];
@@ -299,7 +304,9 @@ class File extends React.Component {
         fileType: isImage ? "image" : "file",
       };
     });
-    this.setState({ uploads, filenames });
+    if (!customUpload) {
+      this.setState({ uploads, filenames });
+    }
   };
 
   _uploadFile = (file, index, numFiles) => {
@@ -416,6 +423,9 @@ File.propTypes = {
   value: PropTypes.oneOf([PropTypes.string, PropTypes.array]),
   /** on change function for input */
   onChange: PropTypes.func,
+  /** Overrides default upload, a function can be passed to override. Returns 'file, index and numFiles' in
+   * parameters  */
+  customUpload: PropTypes.oneOf([PropTypes.bool, PropTypes.func]),
   /** Boolean value to allow multiple files */
   multiple: PropTypes.bool,
   /** ratio of the preview image to be generated */
@@ -443,6 +453,7 @@ File.propTypes = {
 File.defaultProps = {
   value: "",
   onChange: () => {},
+  customUpload: false,
   multiple: false,
   ratio: "",
   baseWidth: 290,

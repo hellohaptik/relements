@@ -411,3 +411,22 @@ test("Multiple - Custom Extension Test", async () => {
   expect(error).toHaveBeenCalledTimes(1);
 });
 //#endregion
+
+test("Custom Upload test", async () => {
+  const mockFn = jest.fn();
+  const file = new File(["dummy content"], "example.png", {
+    type: "image/png",
+  });
+
+  render(<FileComponent prefixClassName="test" customUpload={mockFn} />);
+
+  const input = document.getElementsByClassName("test-input")[0];
+  input.onchange = mockFn;
+
+  Object.defineProperty(input, "files", {
+    value: [file],
+  });
+
+  fireEvent.change(input);
+  expect(mockFn).toHaveBeenCalledTimes(2);
+});

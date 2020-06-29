@@ -31,6 +31,12 @@ import File from './File';
   <File className="test" prefixClassName="pretest" />
 </CodeBlock>
 
+<CodeBlock title="Custom Upload">
+  <File customUpload={(file, index, numFiles)=>{
+    console.log(file, index, numFiles);
+  }}/>
+</CodeBlock>
+
 <CodeBlock title="Type: Custom Extension">
   <File type="image/png" />
 </CodeBlock>
