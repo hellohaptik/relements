@@ -30,12 +30,6 @@ class File extends React.Component {
     previewURL: undefined,
   };
 
-  _newCustomUploadItem = {
-    isUploading: false,
-    uploadedPercent: 100,
-    previewURL: undefined,
-  };
-
   constructor() {
     super();
     this.state = {
