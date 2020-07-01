@@ -1,12 +1,12 @@
-import { CodeBlock, ConfigBlock } from '@src/helpers/DocBlocks';
-import File from './File';
+import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
+import File from "./File";
 
 # File
 
 > Input file field with wrapper, predefined extensions and ability to customize
 
 <CodeBlock>
-  <File maxFileSize={3}/>
+  <File maxFileSize={3} />
 </CodeBlock>
 
 ## Configuration
@@ -31,10 +31,14 @@ import File from './File';
   <File className="test" prefixClassName="pretest" />
 </CodeBlock>
 
-<CodeBlock title="Custom Upload">
-  <File customUpload={(file, index, numFiles)=>{
-    console.log(file, index, numFiles);
-  }}/>
+<CodeBlock title="Custom Upload - Image">
+  <File
+    customUpload={(file, index, numFiles) => {
+      {
+        alert("Custom upload called");
+      }
+    }}
+  />
 </CodeBlock>
 
 <CodeBlock title="Type: Custom Extension">

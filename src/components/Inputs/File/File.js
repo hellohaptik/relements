@@ -30,6 +30,12 @@ class File extends React.Component {
     previewURL: undefined,
   };
 
+  _newCustomUploadItem = {
+    isUploading: false,
+    uploadedPercent: 100,
+    previewURL: undefined,
+  };
+
   constructor() {
     super();
     this.state = {
@@ -135,12 +141,13 @@ class File extends React.Component {
 
   _renderImagePreview = (upload, i) => {
     const { isUploading, uploadedPercent, previewURL, value } = upload;
+    const { customUpload } = this.props;
     const imageRatio = this.props.ratio || 1.77;
     const width = this.props.baseWidth || 290;
     const minWidth = width;
     const height = width / imageRatio;
     const URL = value || previewURL;
-    return (
+    return !customUpload ? (
       <div
         key={i}
         className={`${styles.imageInputWrapper} ${this.props.prefixClassName}-image-wrapper`}
@@ -155,18 +162,26 @@ class File extends React.Component {
           maxFileSize={this.props.maxFileSize}
         />
       </div>
+    ) : (
+      <div
+        key={i}
+        className={`${styles.customPreviewWrapper} ${this.props.prefixClassName}-file-wrapper`}
+      >
+        {this._renderCustomUploadFile(i)}
+      </div>
     );
   };
 
   _renderFilePreview = (upload, i) => {
     const { isUploading, uploadedPercent, previewURL, value } = upload;
+    const { customUpload } = this.props;
     const URL = value || previewURL;
-    return (
+    return !customUpload ? (
       <div
         key={i}
         className={`${styles.filePreviewWrapper} ${this.props.prefixClassName}-file-wrapper`}
       >
-        {this._renderFile(URL, value, isUploading, i)}
+        {this._renderFile(URL, isUploading, i)}
         {this._renderLoader(isUploading)}
         <ImageProgressBar
           prefixClassName={`${this.props.prefixClassName}-progressbar`}
@@ -174,6 +189,32 @@ class File extends React.Component {
           active={isUploading}
           maxFileSize={this.props.maxFileSize}
         />
+      </div>
+    ) : (
+      <div
+        key={i}
+        className={`${styles.customPreviewWrapper} ${this.props.prefixClassName}-file-wrapper`}
+      >
+        {this._renderCustomUploadFile(i)}
+      </div>
+    );
+  };
+
+  _renderCustomUploadFile = index => {
+    return (
+      <div
+        className={`${styles.filePreview} ${this.props.prefixClassName}-file-preview`}
+      >
+        {this.state.filenames[index] || "Attachment"}
+        <div
+          onClick={() => this._deleteFile(index)}
+          className={`${styles.filePreview} ${this.props.prefixClassName}-file-preview-delete-wrapper`}
+        >
+          <Icon
+            src={TrashIcon}
+            className={`${styles.filePreviewDeleteIcon} ${this.props.prefixClassName}-file-preview-delete-icon`}
+          />
+        </div>
       </div>
     );
   };
@@ -275,11 +316,21 @@ class File extends React.Component {
 
   _deleteFile = index => {
     let value = "";
-    if (this.props.multiple) {
-      value = this.props.value.filter((_, i) => i !== index);
+    const { customUpload } = this.props;
+    if (customUpload) {
+      let uploads;
+      let filenames;
+      this.setState(prevState => {
+        uploads = prevState.uploads.filter((_, i) => i !== index);
+        filenames = prevState.filenames.filter((_, i) => i !== index);
+        return { uploads, filenames };
+      });
+    } else {
+      if (this.props.multiple) {
+        value = this.props.value.filter((_, i) => i !== index);
+      }
+      this.props.onChange(value);
     }
-
-    this.props.onChange(value);
   };
 
   _handleFile = e => {
@@ -289,7 +340,7 @@ class File extends React.Component {
     const files = this._getValidFiles(selectedFiles);
     const filenames = [];
     const uploads = [...files].map((file, i) => {
-      if (customUpload && typeof customUpload === "function") {
+      if (customUpload) {
         customUpload(file, i, files.length);
       } else {
         this._uploadFile(file, i, files.length);
@@ -304,9 +355,8 @@ class File extends React.Component {
         fileType: isImage ? "image" : "file",
       };
     });
-    if (!customUpload) {
-      this.setState({ uploads, filenames });
-    }
+
+    this.setState({ uploads, filenames });
   };
 
   _uploadFile = (file, index, numFiles) => {
@@ -425,7 +475,7 @@ File.propTypes = {
   onChange: PropTypes.func,
   /** Overrides default upload, a function can be passed to override. Returns 'file, index and numFiles' in
    * parameters  */
-  customUpload: PropTypes.oneOf([PropTypes.bool, PropTypes.func]),
+  customUpload: PropTypes.func,
   /** Boolean value to allow multiple files */
   multiple: PropTypes.bool,
   /** ratio of the preview image to be generated */
@@ -453,7 +503,7 @@ File.propTypes = {
 File.defaultProps = {
   value: "",
   onChange: () => {},
-  customUpload: false,
+  customUpload: null,
   multiple: false,
   ratio: "",
   baseWidth: 290,

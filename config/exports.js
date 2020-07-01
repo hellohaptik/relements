@@ -10,7 +10,7 @@ export default {
   'ui/odometer': 'src/components/UI/Odometer/index.js',
   'ui/loader': 'src/components/UI/Loader/index.js',
   'ui/label': 'src/components/Inputs/_common/Label.js',
-  'ui/AlertBar': 'src/components/UI/AlertBar/index.js',
+  'ui/alertbar': 'src/components/UI/AlertBar/index.js',
   
   'input/date': 'src/components/Inputs/Date/index.js',
   'input/file': 'src/components/Inputs/File/index.js',
