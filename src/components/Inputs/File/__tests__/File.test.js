@@ -89,9 +89,18 @@ test("Prefix Placeholder Class", async () => {
     "test-custom-upload-preview-delete-icon",
   ];
 
+  const customFileUploadClassNames = [
+    "test-custom-upload-wrapper",
+    "test-custom-upload-preview",
+    "test-custom-upload-preview-delete-wrapper",
+    "test-custom-upload-preview-delete-icon",
+  ];
+
   const classNames = Object.keys(FileComponent.classNames).map(className =>
     className.replace("$prefix", "test"),
   );
+
+  const customUpload = jest.fn();
 
   const { rerender } = render(
     <FileComponent value="" prefixClassName="test" />,
@@ -139,6 +148,22 @@ test("Prefix Placeholder Class", async () => {
       expect(
         document.getElementsByClassName(className).length,
         className,
+      ).toBeGreaterThanOrEqual(1);
+    });
+
+  rerender(
+    <FileComponent
+      prefixClassName="test"
+      value="hi.csv"
+      customUpload={customUpload}
+    />,
+  );
+
+  classNames
+    .filter(className => customFileUploadClassNames.includes(className))
+    .forEach(className => {
+      expect(
+        document.getElementsByClassName(className).length,
       ).toBeGreaterThanOrEqual(1);
     });
 });
@@ -442,34 +467,4 @@ test("Custom Upload test", async () => {
 
   fireEvent.change(input);
   expect(customUpload).toHaveBeenCalled();
-});
-
-test("Prefix Custom Upload class", async () => {
-  const customUpload = jest.fn();
-  const classNames = Object.keys(FileComponent.classNames).map(className =>
-    className.replace("$prefix", "test"),
-  );
-
-  const customFileUploadClassNames = [
-    "test-custom-upload-wrapper",
-    "test-custom-upload-preview",
-    "test-custom-upload-preview-delete-wrapper",
-    "test-custom-upload-preview-delete-icon",
-  ];
-
-  render(
-    <FileComponent
-      prefixClassName="test"
-      value="hi.csv"
-      customUpload={customUpload}
-    />,
-  );
-
-  classNames
-    .filter(className => customFileUploadClassNames.includes(className))
-    .forEach(className => {
-      expect(
-        document.getElementsByClassName(className).length,
-      ).toBeGreaterThanOrEqual(1);
-    });
 });
