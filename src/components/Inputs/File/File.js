@@ -129,6 +129,7 @@ class File extends React.Component {
   };
 
   _renderPreview = (upload, i) => {
+    if (this.props.customUpload) return this._renderCustomUploadPreview(i);
     if (upload.fileType === "file") return this._renderFilePreview(upload, i);
     return this._renderImagePreview(upload, i);
   };
@@ -185,39 +186,31 @@ class File extends React.Component {
   };
 
   /**
-   * Renders the preview wrapper of the file which has been selected via customUpload prop
-   * @param index index of the file selected
-   * */
-  _renderCustomUpload = index => (
-    <div
-      key={index}
-      className={`${styles.customPreviewWrapper} ${this.props.prefixClassName}-custom-upload-wrapper`}
-    >
-      {this._renderCustomUploadPreview(index)}
-    </div>
-  );
-
-  /**
    * Renders the preview of the file which has been selected via customUpload prop
    * @param index index of the file selected
    * */
   _renderCustomUploadPreview = index => (
     <div
-      className={`${styles.filePreview} ${this.props.prefixClassName}-custom-upload-preview`}
+      key={index}
+      className={`${styles.customPreviewWrapper} ${this.props.prefixClassName}-custom-upload-wrapper`}
     >
-      <span className={styles.customFileName}>
-        {this.state.filenames[index] || "Attachment"}
-      </span>
       <div
-        onClick={() => this._deleteFile(index)}
-        className={`${styles.filePreview} ${styles.customDeleteWrapper} 
-          ${this.props.prefixClassName}-custom-upload-preview-delete-wrapper`}
+        className={`${styles.filePreview} ${this.props.prefixClassName}-custom-upload-preview`}
       >
-        <Icon
-          src={TrashIcon}
-          className={`${styles.filePreviewDeleteIcon} 
+        <span className={styles.customFileName}>
+          {this.state.filenames[index] || "Attachment"}
+        </span>
+        <div
+          onClick={() => this._deleteFile(index)}
+          className={`${styles.filePreview} ${styles.customDeleteWrapper} 
+          ${this.props.prefixClassName}-custom-upload-preview-delete-wrapper`}
+        >
+          <Icon
+            src={TrashIcon}
+            className={`${styles.filePreviewDeleteIcon} 
             ${this.props.prefixClassName}-custom-upload-preview-delete-icon`}
-        />
+          />
+        </div>
       </div>
     </div>
   );
