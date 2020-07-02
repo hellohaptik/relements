@@ -184,39 +184,43 @@ class File extends React.Component {
     );
   };
 
-  _renderCustomUpload = index => {
-    return (
-      <div
-        key={index}
-        className={`${styles.customPreviewWrapper} ${this.props.prefixClassName}-custom-upload-wrapper`}
-      >
-        {this._renderCustomUploadPreview(index)}
-      </div>
-    );
-  };
+  /**
+   * Renders the preview wrapper of the file which has been selected via customUpload prop
+   * @param index index of the file selected
+   * */
+  _renderCustomUpload = index => (
+    <div
+      key={index}
+      className={`${styles.customPreviewWrapper} ${this.props.prefixClassName}-custom-upload-wrapper`}
+    >
+      {this._renderCustomUploadPreview(index)}
+    </div>
+  );
 
-  _renderCustomUploadPreview = index => {
-    return (
+  /**
+   * Renders the preview of the file which has been selected via customUpload prop
+   * @param index index of the file selected
+   * */
+  _renderCustomUploadPreview = index => (
+    <div
+      className={`${styles.filePreview} ${this.props.prefixClassName}-custom-upload-preview`}
+    >
+      <span className={styles.customFileName}>
+        {this.state.filenames[index] || "Attachment"}
+      </span>
       <div
-        className={`${styles.filePreview} ${this.props.prefixClassName}-custom-upload-preview`}
-      >
-        <span className={styles.customFileName}>
-          {this.state.filenames[index] || "Attachment"}
-        </span>
-        <div
-          onClick={() => this._deleteFile(index)}
-          className={`${styles.filePreview} ${styles.customDeleteWrapper} 
+        onClick={() => this._deleteFile(index)}
+        className={`${styles.filePreview} ${styles.customDeleteWrapper} 
           ${this.props.prefixClassName}-custom-upload-preview-delete-wrapper`}
-        >
-          <Icon
-            src={TrashIcon}
-            className={`${styles.filePreviewDeleteIcon} 
+      >
+        <Icon
+          src={TrashIcon}
+          className={`${styles.filePreviewDeleteIcon} 
             ${this.props.prefixClassName}-custom-upload-preview-delete-icon`}
-          />
-        </div>
+        />
       </div>
-    );
-  };
+    </div>
+  );
 
   _renderImage = (previewURL, isUploading, index) => {
     const isUploadingClassName = isUploading ? styles.isUploading : "";
