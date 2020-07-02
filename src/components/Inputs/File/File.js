@@ -136,13 +136,12 @@ class File extends React.Component {
 
   _renderImagePreview = (upload, i) => {
     const { isUploading, uploadedPercent, previewURL, value } = upload;
-    const { customUpload } = this.props;
     const imageRatio = this.props.ratio || 1.77;
     const width = this.props.baseWidth || 290;
     const minWidth = width;
     const height = width / imageRatio;
     const URL = value || previewURL;
-    return !customUpload ? (
+    return (
       <div
         key={i}
         className={`${styles.imageInputWrapper} ${this.props.prefixClassName}-image-wrapper`}
@@ -157,16 +156,13 @@ class File extends React.Component {
           maxFileSize={this.props.maxFileSize}
         />
       </div>
-    ) : (
-      this._renderCustomUpload(i)
     );
   };
 
   _renderFilePreview = (upload, i) => {
     const { isUploading, uploadedPercent, previewURL, value } = upload;
-    const { customUpload } = this.props;
     const URL = value || previewURL;
-    return !customUpload ? (
+    return (
       <div
         key={i}
         className={`${styles.filePreviewWrapper} ${this.props.prefixClassName}-file-wrapper`}
@@ -180,8 +176,6 @@ class File extends React.Component {
           maxFileSize={this.props.maxFileSize}
         />
       </div>
-    ) : (
-      this._renderCustomUpload(i)
     );
   };
 
