@@ -171,6 +171,10 @@ $IMAGE_HEIGHT: 180px / 1.5;
   }
 }
 
+.customPreviewWrapper {
+  margin-right: 16px;
+}
+
 .filePreviewWrapper,
 .customPreviewWrapper {
   position: relative;
@@ -184,6 +188,14 @@ $IMAGE_HEIGHT: 180px / 1.5;
     align-items: center;
     justify-content: space-between;
     transition: 0.2s ease-out;
+    .customFileName {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    &.customDeleteWrapper {
+      padding-left: 10px;
+    }
     &Title {
       font-size: 18px;
       font-weight: 600;

@@ -157,12 +157,7 @@ class File extends React.Component {
         />
       </div>
     ) : (
-      <div
-        key={i}
-        className={`${styles.customPreviewWrapper} ${this.props.prefixClassName}-custom-upload-wrapper`}
-      >
-        {this._renderCustomUploadFile(i)}
-      </div>
+      this._renderCustomUpload(i)
     );
   };
 
@@ -185,24 +180,33 @@ class File extends React.Component {
         />
       </div>
     ) : (
+      this._renderCustomUpload(i)
+    );
+  };
+
+  _renderCustomUpload = index => {
+    return (
       <div
-        key={i}
+        key={index}
         className={`${styles.customPreviewWrapper} ${this.props.prefixClassName}-custom-upload-wrapper`}
       >
-        {this._renderCustomUploadFile(i)}
+        {this._renderCustomUploadPreview(index)}
       </div>
     );
   };
 
-  _renderCustomUploadFile = index => {
+  _renderCustomUploadPreview = index => {
     return (
       <div
         className={`${styles.filePreview} ${this.props.prefixClassName}-custom-upload-preview`}
       >
-        {this.state.filenames[index] || "Attachment"}
+        <span className={styles.customFileName}>
+          {this.state.filenames[index] || "Attachment"}
+        </span>
         <div
           onClick={() => this._deleteFile(index)}
-          className={`${styles.filePreview} ${this.props.prefixClassName}-custom-upload-preview-delete-wrapper`}
+          className={`${styles.filePreview} ${styles.customDeleteWrapper} 
+          ${this.props.prefixClassName}-custom-upload-preview-delete-wrapper`}
         >
           <Icon
             src={TrashIcon}
@@ -313,11 +317,9 @@ class File extends React.Component {
     let value = "";
     const { customUpload } = this.props;
     if (customUpload) {
-      let uploads;
-      let filenames;
       this.setState(prevState => {
-        uploads = prevState.uploads.filter((_, i) => i !== index);
-        filenames = prevState.filenames.filter((_, i) => i !== index);
+        const uploads = prevState.uploads.filter((_, i) => i !== index);
+        const filenames = prevState.filenames.filter((_, i) => i !== index);
         return { uploads, filenames };
       });
     } else {
