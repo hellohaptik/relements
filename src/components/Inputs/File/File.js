@@ -129,7 +129,7 @@ class File extends React.Component {
   };
 
   _renderPreview = (upload, i) => {
-    if (this.props.onUpload) return this._renderCustomUploadPreview(i);
+    if (this.props.onUpload) return this._renderOnUploadPreview(i);
     if (upload.fileType === "file") return this._renderFilePreview(upload, i);
     return this._renderImagePreview(upload, i);
   };
@@ -183,26 +183,26 @@ class File extends React.Component {
    * Renders the preview of the file which has been selected via onUpload prop
    * @param {Number} index index of the file selected
    * */
-  _renderCustomUploadPreview = index => (
+  _renderOnUploadPreview = index => (
     <div
       key={index}
-      className={`${styles.customPreviewWrapper} ${this.props.prefixClassName}-custom-upload-wrapper`}
+      className={`${styles.onUploadPreviewWrapper} ${this.props.prefixClassName}-on-upload-wrapper`}
     >
       <div
-        className={`${styles.filePreview} ${this.props.prefixClassName}-custom-upload-preview`}
+        className={`${styles.filePreview} ${this.props.prefixClassName}-on-upload-preview`}
       >
-        <span className={styles.customFileName}>
+        <span className={styles.onUploadFileName}>
           {this.state.filenames[index] || "Attachment"}
         </span>
         <div
           onClick={() => this._deleteFile(index)}
-          className={`${styles.filePreview} ${styles.customDeleteWrapper} 
-          ${this.props.prefixClassName}-custom-upload-preview-delete-wrapper`}
+          className={`${styles.filePreview} ${styles.onUploadDeleteWrapper} 
+          ${this.props.prefixClassName}-on-upload-preview-delete-wrapper`}
         >
           <Icon
             src={TrashIcon}
             className={`${styles.filePreviewDeleteIcon} 
-            ${this.props.prefixClassName}-custom-upload-preview-delete-icon`}
+            ${this.props.prefixClassName}-on-upload-preview-delete-icon`}
           />
         </div>
       </div>
@@ -517,11 +517,11 @@ File.classNames = {
   "$prefix-file-preview-title": "Title of the file in the preview",
   "$prefix-file-preview-delete-wrapper": "Delete icon wrapper over the preview",
   "$prefix-file-preview-delete-icon": "File delete icon",
-  "$prefix-custom-upload-wrapper": "Wrapper of individual file divs",
-  "$prefix-custom-upload-preview": "Preview individual custom file wrapper",
-  "$prefix-custom-upload-preview-delete-wrapper":
+  "$prefix-on-upload-wrapper": "Wrapper of individual file divs",
+  "$prefix-on-upload-preview": "Preview individual custom file wrapper",
+  "$prefix-on-upload-preview-delete-wrapper":
     "Delete icon wrapper over the preview",
-  "$prefix-custom-upload-preview-delete-icon": "File delete icon",
+  "$prefix-on-upload-preview-delete-icon": "File delete icon",
   "$prefix-loader": "Loader for the file component",
   "$prefix-progressbar-wrapper": "Wrapper for the progress bar",
   "$prefix-progressbar-bar": "Progress bar inside the wrapper",

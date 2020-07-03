@@ -171,7 +171,7 @@ $IMAGE_HEIGHT: 180px / 1.5;
   }
 }
 
-.customPreviewWrapper {
+.onUploadPreviewWrapper {
   display: flex;
   align-items: center;
   margin-right: 16px;
@@ -181,7 +181,7 @@ $IMAGE_HEIGHT: 180px / 1.5;
 }
 
 .filePreviewWrapper,
-.customPreviewWrapper {
+.onUploadPreviewWrapper {
   position: relative;
   width: 100%;
   border: 1px solid #ddd;
@@ -193,12 +193,12 @@ $IMAGE_HEIGHT: 180px / 1.5;
     align-items: center;
     justify-content: space-between;
     transition: 0.2s ease-out;
-    .customFileName {
+    .onUploadFileName {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    &.customDeleteWrapper {
+    &.onUploadDeleteWrapper {
       width: auto;
       padding-left: 10px;
     }

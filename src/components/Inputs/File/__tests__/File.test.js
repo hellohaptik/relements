@@ -32,10 +32,10 @@ test("Prefix Placeholder Class", async () => {
     "test-file-preview-title",
     "test-file-preview-delete-wrapper",
     "test-file-preview-delete-icon",
-    "test-custom-upload-wrapper",
-    "test-custom-upload-preview",
-    "test-custom-upload-preview-delete-wrapper",
-    "test-custom-upload-preview-delete-icon",
+    "test-on-upload-wrapper",
+    "test-on-upload-preview",
+    "test-on-upload-preview-delete-wrapper",
+    "test-on-upload-preview-delete-icon",
     "test-image-preview-image",
     "test-image-preview-delete",
     "test-image-preview-delete-icon",
@@ -48,10 +48,10 @@ test("Prefix Placeholder Class", async () => {
     "test-file-preview-title",
     "test-file-preview-delete-wrapper",
     "test-file-preview-delete-icon",
-    "test-custom-upload-wrapper",
-    "test-custom-upload-preview",
-    "test-custom-upload-preview-delete-wrapper",
-    "test-custom-upload-preview-delete-icon",
+    "test-on-upload-wrapper",
+    "test-on-upload-preview",
+    "test-on-upload-preview-delete-wrapper",
+    "test-on-upload-preview-delete-icon",
     "test-loader",
     "test-progressbar-wrapper",
     "test-progressbar-bar",
@@ -83,17 +83,17 @@ test("Prefix Placeholder Class", async () => {
     "test-image-preview-image",
     "test-image-preview-delete",
     "test-image-preview-delete-icon",
-    "test-custom-upload-wrapper",
-    "test-custom-upload-preview",
-    "test-custom-upload-preview-delete-wrapper",
-    "test-custom-upload-preview-delete-icon",
+    "test-on-upload-wrapper",
+    "test-on-upload-preview",
+    "test-on-upload-preview-delete-wrapper",
+    "test-on-upload-preview-delete-icon",
   ];
 
-  const customFileUploadClassNames = [
-    "test-custom-upload-wrapper",
-    "test-custom-upload-preview",
-    "test-custom-upload-preview-delete-wrapper",
-    "test-custom-upload-preview-delete-icon",
+  const onUploadClassNames = [
+    "test-on-upload-wrapper",
+    "test-on-upload-preview",
+    "test-on-upload-preview-delete-wrapper",
+    "test-on-upload-preview-delete-icon",
   ];
 
   const classNames = Object.keys(FileComponent.classNames).map(className =>
@@ -156,7 +156,7 @@ test("Prefix Placeholder Class", async () => {
   );
 
   classNames
-    .filter(className => customFileUploadClassNames.includes(className))
+    .filter(className => onUploadClassNames.includes(className))
     .forEach(className => {
       expect(
         document.getElementsByClassName(className).length,
