@@ -100,7 +100,7 @@ test("Prefix Placeholder Class", async () => {
     className.replace("$prefix", "test"),
   );
 
-  const customUpload = jest.fn();
+  const onUpload = jest.fn();
 
   const { rerender } = render(
     <FileComponent value="" prefixClassName="test" />,
@@ -152,11 +152,7 @@ test("Prefix Placeholder Class", async () => {
     });
 
   rerender(
-    <FileComponent
-      prefixClassName="test"
-      value="hi.csv"
-      customUpload={customUpload}
-    />,
+    <FileComponent prefixClassName="test" value="hi.csv" onUpload={onUpload} />,
   );
 
   classNames
@@ -449,14 +445,14 @@ test("Multiple - Custom Extension Test", async () => {
 });
 //#endregion
 
-test("Custom Upload test", async () => {
-  const customUpload = jest.fn();
+test("On Upload test", async () => {
+  const onUpload = jest.fn();
   const file = new File(["dummy content"], "example.png", {
     type: "image/png",
   });
 
   const { rerender } = render(
-    <FileComponent prefixClassName="test" customUpload={customUpload} />,
+    <FileComponent prefixClassName="test" onUpload={onUpload} />,
   );
 
   const input = document.getElementsByClassName("test-input")[0];
@@ -466,5 +462,5 @@ test("Custom Upload test", async () => {
   });
 
   fireEvent.change(input);
-  expect(customUpload).toHaveBeenCalled();
+  expect(onUpload).toHaveBeenCalled();
 });

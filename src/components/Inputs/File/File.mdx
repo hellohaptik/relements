@@ -31,11 +31,11 @@ import File from "./File";
   <File className="test" prefixClassName="pretest" />
 </CodeBlock>
 
-<CodeBlock title="Custom Upload">
+<CodeBlock title="OnUpload">
   <File
-    customUpload={(file, index, numFiles) => {
+    onUpload={(file, index, numFiles) => {
       {
-        alert("Custom upload called");
+        alert("onUpload called");
       }
     }}
   />

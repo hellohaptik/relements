@@ -129,7 +129,7 @@ class File extends React.Component {
   };
 
   _renderPreview = (upload, i) => {
-    if (this.props.customUpload) return this._renderCustomUploadPreview(i);
+    if (this.props.onUpload) return this._renderCustomUploadPreview(i);
     if (upload.fileType === "file") return this._renderFilePreview(upload, i);
     return this._renderImagePreview(upload, i);
   };
@@ -180,7 +180,7 @@ class File extends React.Component {
   };
 
   /**
-   * Renders the preview of the file which has been selected via customUpload prop
+   * Renders the preview of the file which has been selected via onUpload prop
    * @param {Number} index index of the file selected
    * */
   _renderCustomUploadPreview = index => (
@@ -306,8 +306,8 @@ class File extends React.Component {
 
   _deleteFile = index => {
     let value = "";
-    const { customUpload } = this.props;
-    if (customUpload) {
+    const { onUpload } = this.props;
+    if (onUpload) {
       this.setState(prevState => {
         const uploads = prevState.uploads.filter((_, i) => i !== index);
         const filenames = prevState.filenames.filter((_, i) => i !== index);
@@ -320,14 +320,14 @@ class File extends React.Component {
   };
 
   _handleFile = e => {
-    const { customUpload } = this.props;
+    const { onUpload } = this.props;
     const selectedFiles = e.target.files;
     // Only upload valid files
     const files = this._getValidFiles(selectedFiles);
     const filenames = [];
     const uploads = [...files].map((file, i) => {
-      if (customUpload) {
-        customUpload(file, i, files.length);
+      if (onUpload) {
+        onUpload(file, i, files.length);
       } else {
         this._uploadFile(file, i, files.length);
       }
@@ -461,7 +461,7 @@ File.propTypes = {
   onChange: PropTypes.func,
   /** Overrides default upload, a function can be passed to override. Returns 'file, index and numFiles' in
    * parameters  */
-  customUpload: PropTypes.func,
+  onUpload: PropTypes.func,
   /** Boolean value to allow multiple files */
   multiple: PropTypes.bool,
   /** ratio of the preview image to be generated */
@@ -489,7 +489,7 @@ File.propTypes = {
 File.defaultProps = {
   value: "",
   onChange: () => {},
-  customUpload: null,
+  onUpload: null,
   multiple: false,
   ratio: "",
   baseWidth: 290,
