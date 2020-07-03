@@ -1,12 +1,12 @@
-import { CodeBlock, ConfigBlock } from '@src/helpers/DocBlocks';
-import File from './File';
+import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
+import File from "./File";
 
 # File
 
 > Input file field with wrapper, predefined extensions and ability to customize
 
 <CodeBlock>
-  <File maxFileSize={3}/>
+  <File maxFileSize={3} />
 </CodeBlock>
 
 ## Configuration
@@ -29,6 +29,20 @@ import File from './File';
 
 <CodeBlock title="Type: Custom Class name and Prefix class name">
   <File className="test" prefixClassName="pretest" />
+</CodeBlock>
+
+<CodeBlock title="OnUpload">
+  <File
+    onUpload={(file, index, numFiles) => {
+      {
+        alert("onUpload called");
+      }
+    }}
+  />
+</CodeBlock>
+
+<CodeBlock title="OnUpload - multiple">
+  <File multiple={true} onUpload={(file, index, numFiles) => {}} />
 </CodeBlock>
 
 <CodeBlock title="Type: Custom Extension">

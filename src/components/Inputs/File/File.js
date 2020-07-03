@@ -129,6 +129,7 @@ class File extends React.Component {
   };
 
   _renderPreview = (upload, i) => {
+    if (this.props.onUpload) return this._renderOnUploadPreview(i);
     if (upload.fileType === "file") return this._renderFilePreview(upload, i);
     return this._renderImagePreview(upload, i);
   };
@@ -177,6 +178,36 @@ class File extends React.Component {
       </div>
     );
   };
+
+  /**
+   * Renders the preview of the file which has been selected via onUpload prop
+   * @param {Number} index index of the file selected
+   * */
+  _renderOnUploadPreview = index => (
+    <div
+      key={index}
+      className={`${styles.onUploadPreviewWrapper} ${this.props.prefixClassName}-on-upload-wrapper`}
+    >
+      <div
+        className={`${styles.filePreview} ${this.props.prefixClassName}-on-upload-preview`}
+      >
+        <span className={styles.onUploadFileName}>
+          {this.state.filenames[index] || "Attachment"}
+        </span>
+        <div
+          onClick={() => this._deleteFile(index)}
+          className={`${styles.filePreview} ${styles.onUploadDeleteWrapper} 
+          ${this.props.prefixClassName}-on-upload-preview-delete-wrapper`}
+        >
+          <Icon
+            src={TrashIcon}
+            className={`${styles.filePreviewDeleteIcon} 
+            ${this.props.prefixClassName}-on-upload-preview-delete-icon`}
+          />
+        </div>
+      </div>
+    </div>
+  );
 
   _renderImage = (previewURL, isUploading, index) => {
     const isUploadingClassName = isUploading ? styles.isUploading : "";
@@ -275,20 +306,31 @@ class File extends React.Component {
 
   _deleteFile = index => {
     let value = "";
-    if (this.props.multiple) {
+    const { onUpload } = this.props;
+    if (onUpload) {
+      this.setState(prevState => {
+        const uploads = prevState.uploads.filter((_, i) => i !== index);
+        const filenames = prevState.filenames.filter((_, i) => i !== index);
+        return { uploads, filenames };
+      });
+    } else if (this.props.multiple) {
       value = this.props.value.filter((_, i) => i !== index);
     }
-
     this.props.onChange(value);
   };
 
   _handleFile = e => {
+    const { onUpload } = this.props;
     const selectedFiles = e.target.files;
     // Only upload valid files
     const files = this._getValidFiles(selectedFiles);
     const filenames = [];
     const uploads = [...files].map((file, i) => {
-      this._uploadFile(file, i, files.length);
+      if (onUpload) {
+        onUpload(file, i, files.length);
+      } else {
+        this._uploadFile(file, i, files.length);
+      }
       filenames[i] = file.name;
       const extenstionRegex = /(?:\.([^.]+))?$/;
       const fileExtension = extenstionRegex.exec(file.name)[1];
@@ -299,6 +341,7 @@ class File extends React.Component {
         fileType: isImage ? "image" : "file",
       };
     });
+
     this.setState({ uploads, filenames });
   };
 
@@ -416,6 +459,9 @@ File.propTypes = {
   value: PropTypes.oneOf([PropTypes.string, PropTypes.array]),
   /** on change function for input */
   onChange: PropTypes.func,
+  /** Overrides default upload, a function can be passed to override. Returns 'file, index and numFiles' in
+   * parameters  */
+  onUpload: PropTypes.func,
   /** Boolean value to allow multiple files */
   multiple: PropTypes.bool,
   /** ratio of the preview image to be generated */
@@ -443,6 +489,7 @@ File.propTypes = {
 File.defaultProps = {
   value: "",
   onChange: () => {},
+  onUpload: null,
   multiple: false,
   ratio: "",
   baseWidth: 290,
@@ -470,6 +517,11 @@ File.classNames = {
   "$prefix-file-preview-title": "Title of the file in the preview",
   "$prefix-file-preview-delete-wrapper": "Delete icon wrapper over the preview",
   "$prefix-file-preview-delete-icon": "File delete icon",
+  "$prefix-on-upload-wrapper": "Wrapper of individual file divs",
+  "$prefix-on-upload-preview": "Preview individual custom file wrapper",
+  "$prefix-on-upload-preview-delete-wrapper":
+    "Delete icon wrapper over the preview",
+  "$prefix-on-upload-preview-delete-icon": "File delete icon",
   "$prefix-loader": "Loader for the file component",
   "$prefix-progressbar-wrapper": "Wrapper for the progress bar",
   "$prefix-progressbar-bar": "Progress bar inside the wrapper",

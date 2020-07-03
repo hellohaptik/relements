@@ -171,7 +171,17 @@ $IMAGE_HEIGHT: 180px / 1.5;
   }
 }
 
-.filePreviewWrapper {
+.onUploadPreviewWrapper {
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+  .filePreview {
+    width: 100%;
+  }
+}
+
+.filePreviewWrapper,
+.onUploadPreviewWrapper {
   position: relative;
   width: 100%;
   border: 1px solid #ddd;
@@ -183,6 +193,15 @@ $IMAGE_HEIGHT: 180px / 1.5;
     align-items: center;
     justify-content: space-between;
     transition: 0.2s ease-out;
+    .onUploadFileName {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    &.onUploadDeleteWrapper {
+      width: auto;
+      padding-left: 10px;
+    }
     &Title {
       font-size: 18px;
       font-weight: 600;

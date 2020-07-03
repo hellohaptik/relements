@@ -32,6 +32,10 @@ test("Prefix Placeholder Class", async () => {
     "test-file-preview-title",
     "test-file-preview-delete-wrapper",
     "test-file-preview-delete-icon",
+    "test-on-upload-wrapper",
+    "test-on-upload-preview",
+    "test-on-upload-preview-delete-wrapper",
+    "test-on-upload-preview-delete-icon",
     "test-image-preview-image",
     "test-image-preview-delete",
     "test-image-preview-delete-icon",
@@ -44,6 +48,10 @@ test("Prefix Placeholder Class", async () => {
     "test-file-preview-title",
     "test-file-preview-delete-wrapper",
     "test-file-preview-delete-icon",
+    "test-on-upload-wrapper",
+    "test-on-upload-preview",
+    "test-on-upload-preview-delete-wrapper",
+    "test-on-upload-preview-delete-icon",
     "test-loader",
     "test-progressbar-wrapper",
     "test-progressbar-bar",
@@ -75,11 +83,24 @@ test("Prefix Placeholder Class", async () => {
     "test-image-preview-image",
     "test-image-preview-delete",
     "test-image-preview-delete-icon",
+    "test-on-upload-wrapper",
+    "test-on-upload-preview",
+    "test-on-upload-preview-delete-wrapper",
+    "test-on-upload-preview-delete-icon",
+  ];
+
+  const onUploadClassNames = [
+    "test-on-upload-wrapper",
+    "test-on-upload-preview",
+    "test-on-upload-preview-delete-wrapper",
+    "test-on-upload-preview-delete-icon",
   ];
 
   const classNames = Object.keys(FileComponent.classNames).map(className =>
     className.replace("$prefix", "test"),
   );
+
+  const onUpload = jest.fn();
 
   const { rerender } = render(
     <FileComponent value="" prefixClassName="test" />,
@@ -127,6 +148,18 @@ test("Prefix Placeholder Class", async () => {
       expect(
         document.getElementsByClassName(className).length,
         className,
+      ).toBeGreaterThanOrEqual(1);
+    });
+
+  rerender(
+    <FileComponent prefixClassName="test" value="hi.csv" onUpload={onUpload} />,
+  );
+
+  classNames
+    .filter(className => onUploadClassNames.includes(className))
+    .forEach(className => {
+      expect(
+        document.getElementsByClassName(className).length,
       ).toBeGreaterThanOrEqual(1);
     });
 });
@@ -411,3 +444,23 @@ test("Multiple - Custom Extension Test", async () => {
   expect(error).toHaveBeenCalledTimes(1);
 });
 //#endregion
+
+test("On Upload test", async () => {
+  const onUpload = jest.fn();
+  const file = new File(["dummy content"], "example.png", {
+    type: "image/png",
+  });
+
+  const { rerender } = render(
+    <FileComponent prefixClassName="test" onUpload={onUpload} />,
+  );
+
+  const input = document.getElementsByClassName("test-input")[0];
+
+  Object.defineProperty(input, "files", {
+    value: [file],
+  });
+
+  fireEvent.change(input);
+  expect(onUpload).toHaveBeenCalled();
+});
