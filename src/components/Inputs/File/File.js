@@ -167,7 +167,7 @@ class File extends React.Component {
         key={i}
         className={`${styles.filePreviewWrapper} ${this.props.prefixClassName}-file-wrapper`}
       >
-        {this._renderFile(URL, isUploading, i)}
+        {this._renderFile(URL, value, isUploading, i)}
         {this._renderLoader(isUploading)}
         <ImageProgressBar
           prefixClassName={`${this.props.prefixClassName}-progressbar`}
@@ -181,7 +181,7 @@ class File extends React.Component {
 
   /**
    * Renders the preview of the file which has been selected via customUpload prop
-   * @param index index of the file selected
+   * @param {Number} index index of the file selected
    * */
   _renderCustomUploadPreview = index => (
     <div
@@ -313,12 +313,10 @@ class File extends React.Component {
         const filenames = prevState.filenames.filter((_, i) => i !== index);
         return { uploads, filenames };
       });
-    } else {
-      if (this.props.multiple) {
-        value = this.props.value.filter((_, i) => i !== index);
-      }
-      this.props.onChange(value);
+    } else if (this.props.multiple) {
+      value = this.props.value.filter((_, i) => i !== index);
     }
+    this.props.onChange(value);
   };
 
   _handleFile = e => {

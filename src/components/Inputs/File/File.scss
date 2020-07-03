@@ -172,7 +172,12 @@ $IMAGE_HEIGHT: 180px / 1.5;
 }
 
 .customPreviewWrapper {
+  display: flex;
+  align-items: center;
   margin-right: 16px;
+  .filePreview {
+    width: 100%;
+  }
 }
 
 .filePreviewWrapper,
@@ -194,6 +199,7 @@ $IMAGE_HEIGHT: 180px / 1.5;
       text-overflow: ellipsis;
     }
     &.customDeleteWrapper {
+      width: auto;
       padding-left: 10px;
     }
     &Title {
