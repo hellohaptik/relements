@@ -12,7 +12,6 @@ import { ALERTBAR_TYPES } from "./constants";
  * return the same
  */
 export function renderAlertBarIcon(type, customIcon = false) {
-  let icon = "";
   let iconPath = "";
   if (customIcon) {
     iconPath = customIcon;
@@ -23,6 +22,6 @@ export function renderAlertBarIcon(type, customIcon = false) {
   } else {
     iconPath = "error_response";
   }
-  icon = <Icon src={iconPath} />;
-  return icon;
+
+  return <Icon src={iconPath} />;
 }
