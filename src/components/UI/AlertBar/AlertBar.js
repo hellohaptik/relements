@@ -35,16 +35,13 @@ const AlertBar = ({
     >
       <div className={`${styles.inner} ${prefixClassName}-inner`}>
         {renderIcon}
-        <div
-          className={`${styles.message}
-          ${noIcon && styles.noIcon} ${prefixClassName}-inner-message`}
-        >
+        <div className={`${styles.message} ${prefixClassName}-inner-message`}>
           {message}
         </div>
       </div>
       {!alwaysActive && (
         <div
-          className={`${styles.dismiss} ${prefixClassName}-dismiss`}
+          className={`${prefixClassName}-dismiss`}
           onClick={() => {
             setIsActive(false);
             onDismiss();
