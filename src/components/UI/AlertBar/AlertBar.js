@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Icon from "components/UI/Icon";
 import ErrorIcon from "icons/close.svg";
 
+import { ALERTBAR_TYPES } from "./constants";
 import * as Utils from "./utils";
 import styles from "./AlertBar.scss";
 
@@ -103,11 +104,6 @@ AlertBar.classNames = {
   "$prefix-dismiss-icon": "Dismiss icon for message",
 };
 
-AlertBar.TYPES = {
-  DEFAULT: "default",
-  SUCCESS: "success",
-  WARNING: "warning",
-  ERROR: "error",
-};
+AlertBar.TYPES = { ...ALERTBAR_TYPES };
 
 export default AlertBar;
