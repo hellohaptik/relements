@@ -12,6 +12,7 @@
   opacity: 0;
   transform: translateY(20px);
   margin: 0px;
+  padding: 0 8px;
   z-index: -1;
   -webkit-box-shadow: $boxShadowConfig;
   -moz-box-shadow: $boxShadowConfig;
@@ -20,34 +21,9 @@
   transition-duration: 0.2s;
   transition-timing-function: ease;
 
-  [class*="Icon"] {
-    width: 25px;
-    height: auto;
-    padding: $internalPadding;
-    svg {
-      width: 25px;
-    }
-  }
-
   &:global(.default) {
     background-color: $default;
-    color: #333333;
-    .inner {
-      [data-testid="icon"] {
-        svg {
-          g {
-            fill: transparent;
-          }
-        }
-      }
-    }
-    .dismiss {
-      svg {
-        g {
-          stroke: #333333;
-        }
-      }
-    }
+    color: $black;
   }
 
   &:global(.success) {
@@ -56,15 +32,6 @@
 
   &:global(.warning) {
     background-color: $warning;
-
-    svg {
-      g {
-        stroke: $warning;
-      }
-      path {
-        fill: $warning;
-      }
-    }
   }
 
   &:global(.error) {
@@ -76,35 +43,11 @@
     align-items: center;
     [class*="Icon"] {
       cursor: initial;
-      svg {
-        g {
-          fill: white;
-        }
-
-        circle {
-          stroke: transparent;
-        }
-      }
     }
+
     .message {
       font-size: 15px;
       padding: 10px 15px 10px 5px;
-
-      &.noIcon {
-        padding-left: 18px;
-        width: 100%;
-      }
-    }
-  }
-
-  .dismiss {
-    svg {
-      g {
-        stroke: white;
-      }
-      circle {
-        fill: transparent;
-      }
     }
   }
 
@@ -115,5 +58,43 @@
     opacity: 1;
     margin: 12px 0;
     z-index: 1;
+  }
+
+  &Error {
+    svg {
+      g {
+        fill: white;
+      }
+
+      circle {
+        stroke: transparent;
+      }
+    }
+  }
+
+  &Warning {
+    svg {
+      g {
+        fill: #fff;
+        stroke: $warning;
+      }
+      path {
+        fill: $warning;
+      }
+      circle {
+        stroke: transparent;
+      }
+    }
+  }
+
+  &Success {
+    svg {
+      g {
+        fill: #fff;
+      }
+      circle {
+        stroke: transparent;
+      }
+    }
   }
 }
