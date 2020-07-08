@@ -1,0 +1,27 @@
+import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
+import SearchBar from "./SearchBar";
+
+# SearchBar
+
+> A simple customizable and expandable search bar to do magical things.
+
+<CodeBlock title="Default">
+  <SearchBar
+    onClick={value => {
+      console.log(value);
+    }}
+  />
+</CodeBlock>
+
+## Configuration
+
+<ConfigBlock of={SearchBar} />
+
+<CodeBlock title="Always Active">
+  <SearchBar
+    alwaysActive={true}
+    onClick={value => {
+      console.log(value);
+    }}
+  />
+</CodeBlock>
