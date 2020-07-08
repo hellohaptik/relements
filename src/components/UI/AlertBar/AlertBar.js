@@ -20,10 +20,19 @@ const AlertBar = ({
   customIcon,
 }) => {
   const [isActive, setIsActive] = React.useState(false);
+
   React.useEffect(() => {
     setIsActive(active || alwaysActive);
   }, [active || alwaysActive]);
-  const renderIcon = !noIcon && Utils.renderAlertBarIcon(type, customIcon);
+
+  const handleOnDismiss = React.useCallback(() => {
+    setIsActive(false);
+    onDismiss();
+  }, []);
+
+  const renderIcon =
+    !noIcon && Utils.renderAlertBarIcon(type, customIcon, prefixClassName);
+
   return (
     <div
       data-testid="AlertBar"
@@ -40,13 +49,7 @@ const AlertBar = ({
         </div>
       </div>
       {!alwaysActive && (
-        <div
-          className={`${prefixClassName}-dismiss`}
-          onClick={() => {
-            setIsActive(false);
-            onDismiss();
-          }}
-        >
+        <div className={`${prefixClassName}-dismiss`} onClick={handleOnDismiss}>
           <Icon src={ErrorIcon} className={`${prefixClassName}-dismiss-icon`} />
         </div>
       )}
@@ -97,6 +100,7 @@ AlertBar.classNames = {
   $prefix: "Outermost element",
   "$prefix-inner": "Child of the Main Alert Bar Component",
   "$prefix-inner-message": "Message of the alert bar",
+  "$prefix-alertbar-icon": "Attaches to outer container of the icon",
   "$prefix-dismiss": "Dismiss container",
   "$prefix-dismiss-icon": "Dismiss icon for message",
 };

@@ -11,7 +11,7 @@ import { ALERTBAR_TYPES } from "./constants";
  * @param {boolean}   customIcon  when passed as true, it will set the icon as the custom icon passed and
  * return the same
  */
-export function renderAlertBarIcon(type, customIcon = false) {
+export function renderAlertBarIcon(type, customIcon = false, prefixClassName) {
   let iconPath = "";
   if (customIcon) {
     iconPath = customIcon;
@@ -23,5 +23,11 @@ export function renderAlertBarIcon(type, customIcon = false) {
     iconPath = "error_response";
   }
 
-  return <Icon src={iconPath} />;
+  return (
+    <Icon
+      className={`${prefixClassName}-alertbar-icon`}
+      prefixClassName={prefixClassName}
+      src={iconPath}
+    />
+  );
 }
