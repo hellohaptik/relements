@@ -2,9 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Icon from "components/UI/Icon";
-import ErrorIcon from "icons/close.svg";
 
-import * as Utils from "./utils";
+import { ALERTBAR_TYPES } from "./constants";
 import styles from "./AlertBar.scss";
 
 const AlertBar = ({
@@ -19,10 +18,46 @@ const AlertBar = ({
   customIcon,
 }) => {
   const [isActive, setIsActive] = React.useState(false);
+
   React.useEffect(() => {
     setIsActive(active || alwaysActive);
   }, [active || alwaysActive]);
-  const renderIcon = !noIcon && Utils.renderAlertBarIcon(type, customIcon);
+
+  const handleOnDismiss = React.useCallback(() => {
+    setIsActive(false);
+    onDismiss();
+  }, []);
+
+  const renderIcon = React.useCallback(() => {
+    if (noIcon) return null;
+
+    let iconPath = "";
+    let className = "";
+
+    if (customIcon) {
+      iconPath = customIcon;
+    } else if (type === ALERTBAR_TYPES.SUCCESS) {
+      iconPath = "tick";
+      className = `${styles.alertBarSuccess}`;
+    } else if (type === ALERTBAR_TYPES.DEFAULT) {
+      iconPath = "infoV2";
+    } else {
+      iconPath = "error_response";
+      className =
+        type === ALERTBAR_TYPES.WARNING
+          ? `${styles.alertBarWarning}`
+          : `${styles.alertBarError}`;
+    }
+
+    return (
+      <Icon
+        className={`${className} ${prefixClassName}-alertbar-icon`}
+        prefixClassName={prefixClassName}
+        src={iconPath}
+      />
+    );
+  }, [noIcon, type, customIcon, prefixClassName]);
+
   return (
     <div
       data-testid="AlertBar"
@@ -33,23 +68,14 @@ const AlertBar = ({
             ${isActive ? styles.active : styles.inactive}`}
     >
       <div className={`${styles.inner} ${prefixClassName}-inner`}>
-        {renderIcon}
-        <div
-          className={`${styles.message}
-          ${noIcon && styles.noIcon} ${prefixClassName}-inner-message`}
-        >
+        {renderIcon()}
+        <div className={`${styles.message} ${prefixClassName}-inner-message`}>
           {message}
         </div>
       </div>
       {!alwaysActive && (
-        <div
-          className={`${styles.dismiss} ${prefixClassName}-dismiss`}
-          onClick={() => {
-            setIsActive(false);
-            onDismiss();
-          }}
-        >
-          <Icon src={ErrorIcon} className={`${prefixClassName}-dismiss-icon`} />
+        <div className={`${prefixClassName}-dismiss`} onClick={handleOnDismiss}>
+          <Icon src="closeV2" className={`${prefixClassName}-dismiss-icon`} />
         </div>
       )}
     </div>
@@ -99,15 +125,11 @@ AlertBar.classNames = {
   $prefix: "Outermost element",
   "$prefix-inner": "Child of the Main Alert Bar Component",
   "$prefix-inner-message": "Message of the alert bar",
+  "$prefix-alertbar-icon": "Attaches to outer container of the icon",
   "$prefix-dismiss": "Dismiss container",
   "$prefix-dismiss-icon": "Dismiss icon for message",
 };
 
-AlertBar.TYPES = {
-  DEFAULT: "default",
-  SUCCESS: "success",
-  WARNING: "warning",
-  ERROR: "error",
-};
+AlertBar.TYPES = { ...ALERTBAR_TYPES };
 
 export default AlertBar;

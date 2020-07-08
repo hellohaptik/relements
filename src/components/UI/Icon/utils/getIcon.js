@@ -1,4 +1,5 @@
 import InfoIcon from "icons/info.svg";
+import InfoIconV2 from "icons/infoV2.svg";
 import UserSaysIcon from "icons/user-says.svg";
 import BotSaysIcon from "icons/bot-says.svg";
 import EntitiesIcon from "icons/entities.svg";
@@ -89,6 +90,7 @@ import ShrinkIcon from "icons/shrink.svg";
 
 export const ICON_MAP = {
   info: InfoIcon,
+  infoV2: InfoIconV2,
   "user-says": UserSaysIcon,
   "bot-says": BotSaysIcon,
   entities: EntitiesIcon,
