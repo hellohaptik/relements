@@ -59,4 +59,42 @@
     margin: 12px 0;
     z-index: 1;
   }
+
+  &Error {
+    svg {
+      g {
+        fill: white;
+      }
+
+      circle {
+        stroke: transparent;
+      }
+    }
+  }
+
+  &Warning {
+    svg {
+      g {
+        fill: #fff;
+        stroke: $warning;
+      }
+      path {
+        fill: $warning;
+      }
+      circle {
+        stroke: transparent;
+      }
+    }
+  }
+
+  &Success {
+    svg {
+      g {
+        fill: #fff;
+      }
+      circle {
+        stroke: transparent;
+      }
+    }
+  }
 }
