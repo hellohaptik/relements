@@ -8,6 +8,7 @@ import styles from "./ModalHeader.scss";
 
 const ModalHeader = ({
   children,
+  customCloseIcon,
   onClose,
   onSave,
   className,
@@ -22,7 +23,7 @@ const ModalHeader = ({
           onClick={onClose}
           prefixClassName={`${prefixClassName}-icon`}
           className={styles.icon}
-          src={CloseIcon}
+          src={customCloseIcon || CloseIcon}
         />
         {children}
       </div>
@@ -58,11 +59,15 @@ ModalHeader.propTypes = {
   saveTitle: PropTypes.string,
   /** Whether to disable the save button */
   withSave: PropTypes.bool,
+  /** Custom close icon for modal header, can either be a string identifier
+   * for the icon (angle-down) or a react node  */
+  customCloseIcon: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
 };
 
 ModalHeader.defaultProps = {
   children: "",
   className: "",
+  customCloseIcon: "",
   onClose: () => {},
   onSave: () => {},
   prefixClassName: "",
