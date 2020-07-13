@@ -1,11 +1,22 @@
 @import "./variables.scss";
 
-.searchBar {
+.expandableSearchBar {
   * {
     transition: all 0.3s ease;
   }
   max-width: 330px;
   width: fit-content;
+
+  &.label {
+    &.active {
+      margin-top: 24px;
+      [class*="Label__container"] {
+        position: absolute;
+        top: -24px;
+        display: block !important;
+      }
+    }
+  }
 
   &.active {
     width: 100%;
@@ -23,9 +34,35 @@
       .actionButton {
         border-top-left-radius: 0px;
         border-bottom-left-radius: 0px;
-        max-width: 90px;
         width: 100%;
       }
+    }
+  }
+
+  &:global(.success) {
+    .message {
+      color: $success;
+    }
+  }
+
+  &:global(.warning) {
+    .message {
+      color: $warning;
+    }
+  }
+
+  &:global(.error) {
+    .inner {
+      .textContent {
+        [class*="TextInput__inputWrapper"] {
+          border: 1px solid $error !important;
+          border-right: 0px !important;
+        }
+      }
+    }
+
+    .message {
+      color: $error;
     }
   }
 
@@ -47,7 +84,7 @@
       }
 
       .inputText {
-        [class*="Label"] {
+        [class*="Label__container"] {
           display: none;
         }
         [class*="TextInput__inputWrapper"] {
@@ -61,6 +98,22 @@
 
     .actionButton {
       height: 32px;
+      max-width: 100px;
     }
+
+    .loader {
+      position: absolute;
+      top: 9px;
+      right: 12px;
+    }
+  }
+
+  .message {
+    font-size: 12px;
+    margin: 6px 4px 0px 4px;
+  }
+
+  .hidden {
+    display: none;
   }
 }

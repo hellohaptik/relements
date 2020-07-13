@@ -1,0 +1,77 @@
+import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
+import ExpandableSearchBar from "./ExpandableSearchBar";
+
+# ExpandableSearchBar
+
+> A simple customizable and expandable search bar to do magical things.
+
+<CodeBlock title="Default">
+  <ExpandableSearchBar
+    buttonText="Find User"
+    placeholder="Search users"
+    expandedButtonText="Find them!"
+    message={{ text: "I'm default and I'm neutral.", type: "default" }}
+    onClick={value => {
+      console.log(value);
+    }}
+  />
+</CodeBlock>
+
+## Configuration
+
+<ConfigBlock of={ExpandableSearchBar} />
+
+<CodeBlock title="Success">
+  <ExpandableSearchBar
+    buttonText="Find Success"
+    placeholder="Yess!"
+    alwaysActive={true}
+    message={{ text: "Okay, this is cool.", type: "success" }}
+  />
+</CodeBlock>
+
+<CodeBlock title="Warning">
+  <ExpandableSearchBar
+    buttonText="Find Warning"
+    placeholder="Huh!"
+    value="Test"
+    alwaysActive={true}
+    message={{ text: "Okay, this is kinda cool.", type: "warning" }}
+  />
+</CodeBlock>
+
+<CodeBlock title="Error">
+  <ExpandableSearchBar
+    buttonText="Find Error"
+    placeholder="Not again."
+    alwaysActive={true}
+    message={{ text: "Okay, this is not cool.", type: "error" }}
+  />
+</CodeBlock>
+
+<CodeBlock title="Loader">
+  <ExpandableSearchBar
+    buttonText="Loader here"
+    value="I'm doing something"
+    showLoader={true}
+  />
+</CodeBlock>
+
+<CodeBlock title="Label">
+  <ExpandableSearchBar
+    buttonText="Label"
+    placeholder="I got label yo!"
+    label="What you got?"
+    alwaysActive={true}
+  />
+</CodeBlock>
+
+<CodeBlock title="Tooltip">
+  <ExpandableSearchBar
+    buttonText="Search"
+    placeholder="Placeholder here"
+    label="What does this search do?"
+    tooltip="I do something, that's for sure."
+    alwaysActive={true}
+  />
+</CodeBlock>
