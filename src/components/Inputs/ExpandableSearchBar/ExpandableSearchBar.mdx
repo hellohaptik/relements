@@ -10,9 +10,8 @@ import ExpandableSearchBar from "./ExpandableSearchBar";
     buttonText="Find User"
     placeholder="Search users"
     expandedButtonText="Find them!"
-    message={{ text: "I'm default and I'm neutral.", type: "default" }}
     onClick={value => {
-      console.log(value);
+      alert("Search term: " + value);
     }}
   />
 </CodeBlock>
@@ -34,7 +33,6 @@ import ExpandableSearchBar from "./ExpandableSearchBar";
   <ExpandableSearchBar
     buttonText="Find Warning"
     placeholder="Huh!"
-    value="Test"
     alwaysActive={true}
     message={{ text: "Okay, this is kinda cool.", type: "warning" }}
   />

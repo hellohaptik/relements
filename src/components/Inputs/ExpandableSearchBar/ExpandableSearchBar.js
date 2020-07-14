@@ -6,7 +6,7 @@ import Button from "components/UI/Button";
 import Icon from "components/UI/Icon";
 import Loader from "components/UI/Loader";
 
-import { SEARCHBAR_TYPES } from "./constants";
+import { SEARCHBAR_MESSAGE_TYPES } from "./constants";
 
 import styles from "./ExpandableSearchBar.scss";
 
@@ -45,13 +45,13 @@ const ExpandableSearchBar = ({
   const handleOnDismiss = () => {
     if (!alwaysActive) {
       setIsActive(false);
-      onDismiss();
     }
     setInputValue("");
     setMessageBody({
       text: "",
       type: "default",
     });
+    onDismiss();
   };
 
   const handleOnClick = React.useCallback(() => {
@@ -92,7 +92,7 @@ const ExpandableSearchBar = ({
             value={inputValue}
             placeholder={placeholder}
             onChange={handleTextChange}
-            className={styles.inputText}
+            className={`${styles.inputText} ${prefixClassName}-inner-input`}
             disabled={disabled || showLoader}
             onFocus={onFocus}
             onBlur={onBlur}
@@ -100,16 +100,20 @@ const ExpandableSearchBar = ({
             innerRef={innerRef}
             label={label}
             tooltip={tooltip}
+            prefixClassName={prefixClassName}
           />
 
           {isActive && !showLoader ? (
             <Icon
               src="close"
               onClick={handleOnDismiss}
-              className={`${dismissIconClass} ${styles.dismissIcon}`}
+              className={`${dismissIconClass} ${styles.dismissIcon} ${prefixClassName}-dismiss-icon`}
             />
           ) : (
-            <Loader size={14} className={styles.loader} />
+            <Loader
+              size={14}
+              className={`${styles.loader} ${prefixClassName}-loader`}
+            />
           )}
         </div>
 
@@ -117,7 +121,7 @@ const ExpandableSearchBar = ({
           onClick={buttonAction}
           type={buttonType}
           disabled={buttonDisabled}
-          className={styles.actionButton}
+          className={`${styles.actionButton} ${prefixClassName}-inner-button`}
         >
           {ctaText}
         </Button>
@@ -136,7 +140,9 @@ ExpandableSearchBar.propTypes = {
   className: PropTypes.string,
   /** The text on the action button before expanding */
   buttonText: PropTypes.string,
-  /** The text on the action button after expanding */
+  /** The text on the action button after expanding,
+   * if not provided, will use buttonText
+   */
   expandedButtonText: PropTypes.string,
   /** Placeholder text on the input after expanding */
   placeholder: PropTypes.string,
@@ -204,13 +210,13 @@ ExpandableSearchBar.defaultProps = {
 
 ExpandableSearchBar.classNames = {
   $prefix: "Outermost element",
-  "$prefix-inner": "Child of the Main Search Bar Component",
-  "$prefix-inner-message": "Message of the alert bar",
-  "$prefix-alertbar-icon": "Attaches to outer container of the icon",
-  "$prefix-dismiss": "Dismiss container",
-  "$prefix-dismiss-icon": "Dismiss icon for message",
+  "$prefix-inner": "Child of the Main Searchbar",
+  "$prefix-inner-input": "Text input Searchbar",
+  "$prefix-inner-button": "Action button of Searchbar",
+  "$prefix-dismiss-icon": "Dismiss icon of Searchbar",
+  "$prefix-loader": "Loader for Searchbar",
 };
 
-ExpandableSearchBar.TYPES = { ...SEARCHBAR_TYPES };
+ExpandableSearchBar.TYPES = { ...SEARCHBAR_MESSAGE_TYPES };
 
 export default ExpandableSearchBar;
