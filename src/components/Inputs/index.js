@@ -12,6 +12,7 @@ import Date from "./Date";
 import Time from "./Time";
 import RangeSlider from "./RangeSlider";
 import NumberCounter from "./NumberCounter";
+import ExpandableSearchBar from "./ExpandableSearchBar";
 
 const Input = {
   Toggle,
@@ -28,6 +29,7 @@ const Input = {
   Time,
   RangeSlider,
   NumberCounter,
+  ExpandableSearchBar,
 };
 
 export default Input;
