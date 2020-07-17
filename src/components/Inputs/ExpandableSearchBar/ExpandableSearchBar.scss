@@ -105,7 +105,7 @@
   }
 
   .hidden {
-    display: none!important;
+    display: none !important;
   }
 
   &:global(.success) {
@@ -123,9 +123,13 @@
   &:global(.error) {
     .inner {
       .textContent {
-        [class*="TextInput__inputWrapper"] {
-          border: 1px solid $error !important;
-          border-right: 0px !important;
+        .inputText {
+          .searchBarText {
+            &:global(-textinput) {
+              border: 1px solid $error !important;
+              border-right: 0px !important;
+            }
+          }
         }
       }
     }
