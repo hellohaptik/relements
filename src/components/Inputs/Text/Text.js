@@ -51,7 +51,7 @@ const Text = ({
         disabled={disabled}
         tooltip={tooltip}
       >
-        <span>{label}</span>
+        <span data-testid="labelText">{label}</span>
       </Label>
       <TextInput
         inputRef={handleRef}

@@ -1,5 +1,6 @@
 import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
 import ExpandableSearchBar from "./ExpandableSearchBar";
+import { SEARCHBAR_MESSAGE_TYPES } from "./constants";
 
 # ExpandableSearchBar
 
@@ -25,7 +26,7 @@ import ExpandableSearchBar from "./ExpandableSearchBar";
     buttonText="Find Success"
     placeholder="Yess!"
     alwaysActive={true}
-    message={{ text: "Okay, this is cool.", type: "success" }}
+    message={{ text: "Okay, this is cool.", type: SEARCHBAR_MESSAGE_TYPES.SUCCESS }}
   />
 </CodeBlock>
 
@@ -34,7 +35,7 @@ import ExpandableSearchBar from "./ExpandableSearchBar";
     buttonText="Find Warning"
     placeholder="Huh!"
     alwaysActive={true}
-    message={{ text: "Okay, this is kinda cool.", type: "warning" }}
+    message={{ text: "Okay, this is kinda cool.", type: SEARCHBAR_MESSAGE_TYPES.WARNING }}
   />
 </CodeBlock>
 
@@ -43,7 +44,7 @@ import ExpandableSearchBar from "./ExpandableSearchBar";
     buttonText="Find Error"
     placeholder="Not again."
     alwaysActive={true}
-    message={{ text: "Okay, this is not cool.", type: "error" }}
+    message={{ text: "Okay, this is not cool.", type: SEARCHBAR_MESSAGE_TYPES.ERROR }}
   />
 </CodeBlock>
 

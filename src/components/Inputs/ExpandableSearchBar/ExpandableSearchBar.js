@@ -75,6 +75,7 @@ const ExpandableSearchBar = ({
       : Button.TYPES.OUTLINE;
   const ctaText = isActive ? expandedButtonText || buttonText : buttonText;
   const dismissIconClass = alwaysActive && !inputValue && styles.hidden;
+  const activeClasses = `${styles.active} ${messageBody.type}`;
 
   return (
     <div
@@ -82,9 +83,8 @@ const ExpandableSearchBar = ({
       className={`
                 ${styles.expandableSearchBar}
                 ${className}
-                ${isActive ? styles.active : styles.inactive}
-                ${isActive && messageBody.type}
-                ${label && styles.label}`}
+                ${isActive ? activeClasses : styles.inactive}
+                ${label && styles.hasLabel}`}
     >
       <div className={`${styles.inner} ${prefixClassName}-inner`}>
         <div className={styles.textContent}>
@@ -100,7 +100,7 @@ const ExpandableSearchBar = ({
             innerRef={innerRef}
             label={label}
             tooltip={tooltip}
-            prefixClassName={prefixClassName}
+            prefixClassName={styles.searchBarText}
           />
 
           {isActive && !showLoader ? (

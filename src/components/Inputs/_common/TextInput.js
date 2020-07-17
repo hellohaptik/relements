@@ -67,6 +67,7 @@ export const TextInput = ({
         value={textValue}
         onChange={handleChange}
         placeholder={placeholder}
+        data-testid="inputText"
         type="text"
         ref={handleRef}
         className={`${prefixClassName}-input`}

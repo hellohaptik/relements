@@ -29,8 +29,7 @@ test("Prefix class", async () => {
     <ExpandableSearchBar prefixClassName="test" alwaysActive={true} />,
   );
 
-  classNames.shift();
-
+  // Check that loader should not be present when dismiss icon is visible
   classNames
     .filter(className => classesNotAllowed[1] === className)
     .forEach(className => {
@@ -40,8 +39,10 @@ test("Prefix class", async () => {
       ).toBeGreaterThanOrEqual(1);
     });
 
+  //Re-render with loader
   rerender(<ExpandableSearchBar prefixClassName="test" showLoader={true} />);
 
+  // Check that dismiss icon should not be present when loader is visible
   classNames
     .filter(className => classesNotAllowed[0] === className)
     .forEach(className => {
@@ -53,30 +54,29 @@ test("Prefix class", async () => {
 });
 
 test("Label", async () => {
-  const { container } = render(
+  const { getByTestId } = render(
     <ExpandableSearchBar prefixClassName="test" label="Test" />,
   );
-  const label = container.getElementsByClassName("test-label");
-  expect(label.length).toBe(1);
+
+  const actionButton = document.getElementsByClassName("test-inner-button")[0];
+  fireEvent.click(actionButton);
+
+  const label = getByTestId("labelText");
+  expect(label.textContent.length).toBeGreaterThan(1);
 });
 
 test("OnClick Test", async () => {
   const onClick = jest.fn();
 
-  const { container } = render(
+  const { getByTestId } = render(
     <ExpandableSearchBar prefixClassName="test" onClick={onClick} />,
   );
 
   const actionButton = document.getElementsByClassName("test-inner-button")[0];
   fireEvent.click(actionButton);
 
-  const inputElementWrapper = container.getElementsByClassName(
-    "test-inner-input",
-  )[0];
-  const inputDOMElement =
-    inputElementWrapper.children[1].children[0].children[0];
+  const inputDOMElement = getByTestId("inputText");
 
-  fireEvent.focus(inputElementWrapper);
   fireEvent.change(inputDOMElement, { target: { value: "test" } });
 
   fireEvent.click(actionButton);
@@ -86,18 +86,14 @@ test("OnClick Test", async () => {
 test("onChange Test", async () => {
   const onChange = jest.fn();
 
-  const { container } = render(
+  const { getByTestId } = render(
     <ExpandableSearchBar prefixClassName="test" onChange={onChange} />,
   );
 
   const actionButton = document.getElementsByClassName("test-inner-button")[0];
   fireEvent.click(actionButton);
 
-  const inputElementWrapper = container.getElementsByClassName(
-    "test-inner-input",
-  )[0];
-  const inputDOMElement =
-    inputElementWrapper.children[1].children[0].children[0];
+  const inputDOMElement = getByTestId("inputText");
 
   fireEvent.change(inputDOMElement, { target: { value: "test" } });
 
@@ -107,18 +103,14 @@ test("onChange Test", async () => {
 test("onBlur Test", async () => {
   const onBlur = jest.fn();
 
-  const { container } = render(
+  const { getByTestId } = render(
     <ExpandableSearchBar prefixClassName="test" onBlur={onBlur} />,
   );
 
   const actionButton = document.getElementsByClassName("test-inner-button")[0];
   fireEvent.click(actionButton);
 
-  const inputElementWrapper = container.getElementsByClassName(
-    "test-inner-input",
-  )[0];
-  const inputDOMElement =
-    inputElementWrapper.children[1].children[0].children[0];
+  const inputDOMElement = getByTestId("inputText");
 
   fireEvent.blur(inputDOMElement);
 
@@ -128,18 +120,14 @@ test("onBlur Test", async () => {
 test("onFocus Test", async () => {
   const onFocus = jest.fn();
 
-  const { container } = render(
+  const { getByTestId } = render(
     <ExpandableSearchBar prefixClassName="test" onFocus={onFocus} />,
   );
 
   const actionButton = document.getElementsByClassName("test-inner-button")[0];
   fireEvent.click(actionButton);
 
-  const inputElementWrapper = container.getElementsByClassName(
-    "test-inner-input",
-  )[0];
-  const inputDOMElement =
-    inputElementWrapper.children[1].children[0].children[0];
+  const inputDOMElement = getByTestId("inputText");
 
   fireEvent.click(inputDOMElement);
   expect(true).toBe(true);
@@ -148,7 +136,7 @@ test("onFocus Test", async () => {
 test("OnDismiss Test", async () => {
   const onDismiss = jest.fn();
 
-  const { container, rerender } = render(
+  const { container, rerender, getByTestId } = render(
     <ExpandableSearchBar prefixClassName="test" onDismiss={onDismiss} />,
   );
 
@@ -169,11 +157,7 @@ test("OnDismiss Test", async () => {
     />,
   );
 
-  const inputElementWrapper = container.getElementsByClassName(
-    "test-inner-input",
-  )[0];
-  const inputDOMElement =
-    inputElementWrapper.children[1].children[0].children[0];
+  const inputDOMElement = getByTestId("inputText");
 
   fireEvent.change(inputDOMElement, { target: { value: "test" } });
 
@@ -184,18 +168,14 @@ test("OnDismiss Test", async () => {
 test("onKeyDown Test", async () => {
   const onKeyDown = jest.fn();
 
-  const { container } = render(
+  const { getByTestId } = render(
     <ExpandableSearchBar prefixClassName="test" onKeyDown={onKeyDown} />,
   );
 
   const actionButton = document.getElementsByClassName("test-inner-button")[0];
   fireEvent.click(actionButton);
 
-  const inputElementWrapper = container.getElementsByClassName(
-    "test-inner-input",
-  )[0];
-  const inputDOMElement =
-    inputElementWrapper.children[1].children[0].children[0];
+  const inputDOMElement = getByTestId("inputText");
 
   fireEvent.keyDown(inputDOMElement, {
     key: "enter",
