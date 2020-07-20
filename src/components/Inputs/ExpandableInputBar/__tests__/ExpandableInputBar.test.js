@@ -195,3 +195,11 @@ test("Type variations check", async () => {
     expect(getByTestId("ExpandableInputBar")).toBeInTheDocument();
   });
 });
+
+test("Disabled", async () => {
+  const { container } = render(
+    <ExpandableInputBar prefixClassName="test" disabled={true} />,
+  );
+  const actionButton = container.getElementsByClassName("test-inner-button")[0];
+  expect(actionButton.hasAttribute("disabled")).toEqual(true);
+});
