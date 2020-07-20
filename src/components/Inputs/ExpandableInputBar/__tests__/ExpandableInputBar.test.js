@@ -3,6 +3,7 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
 import { render, cleanup, fireEvent } from "@testing-library/react";
+
 import { KEY_CODES } from "constants";
 
 import ExpandableInputBar from "../ExpandableInputBar";

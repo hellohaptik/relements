@@ -14,6 +14,7 @@ const ExpandableInputBar = ({
   prefixClassName = "",
   className = "",
   buttonText,
+  buttonType,
   expandedButtonText,
   showLoader,
   disabled,
@@ -69,10 +70,6 @@ const ExpandableInputBar = ({
 
   const buttonAction = isActive ? handleOnClick : activateSearchBar;
   const buttonDisabled = disabled || (isActive && !inputValue) || showLoader;
-  const buttonType =
-    messageBody.type === ExpandableInputBar.TYPES.ERROR
-      ? Button.TYPES.WARNING
-      : Button.TYPES.OUTLINE;
   const ctaText = isActive ? expandedButtonText || buttonText : buttonText;
   const dismissIconClass = alwaysActive && !inputValue && styles.hidden;
   const activeClasses = `${styles.active} ${messageBody.type}`;
@@ -87,7 +84,9 @@ const ExpandableInputBar = ({
                 ${label && styles.hasLabel}`}
     >
       <div className={`${styles.inner} ${prefixClassName}-inner`}>
-        <div className={styles.textContent}>
+        <div
+          className={`${styles.textContent} ${prefixClassName}-inner-text-content`}
+        >
           <Text
             value={inputValue}
             placeholder={placeholder}
@@ -105,7 +104,7 @@ const ExpandableInputBar = ({
 
           {isActive && !showLoader ? (
             <Icon
-              src="close"
+              src="closeV2"
               onClick={handleOnDismiss}
               className={`${dismissIconClass} ${styles.dismissIcon} ${prefixClassName}-dismiss-icon`}
             />
@@ -140,6 +139,16 @@ ExpandableInputBar.propTypes = {
   className: PropTypes.string,
   /** The text on the action button before expanding */
   buttonText: PropTypes.string,
+  /** The type of the button (primary, secondary, grey etc.) */
+  buttonType: PropTypes.oneOf([
+    Button.TYPES.DEFAULT,
+    Button.TYPES.PRIMARY,
+    Button.TYPES.SECONDARY,
+    Button.TYPES.OUTLINE,
+    Button.TYPES.GREY,
+    Button.TYPES.WARNING,
+    Button.TYPES.YELLOW,
+  ]),
   /** The text on the action button after expanding,
    * if not provided, will use buttonText
    */
@@ -186,6 +195,7 @@ ExpandableInputBar.defaultProps = {
   prefixClassName: "",
   className: "",
   buttonText: "",
+  buttonType: Button.TYPES.OUTLINE,
   expandedButtonText: "",
   placeholder: "",
   label: "",
@@ -210,11 +220,12 @@ ExpandableInputBar.defaultProps = {
 
 ExpandableInputBar.classNames = {
   $prefix: "Outermost element",
-  "$prefix-inner": "Child of the Main Searchbar",
-  "$prefix-inner-input": "Text input Searchbar",
-  "$prefix-inner-button": "Action button of Searchbar",
-  "$prefix-dismiss-icon": "Dismiss icon of Searchbar",
-  "$prefix-loader": "Loader for Searchbar",
+  "$prefix-inner": "Child of the Main element",
+  "$prefix-text-content": "Text input container",
+  "$prefix-inner-input": "Text input",
+  "$prefix-inner-button": "Action button of Inputbar",
+  "$prefix-dismiss-icon": "Dismiss icon of Inputbar",
+  "$prefix-loader": "Loader for Inputbar",
 };
 
 ExpandableInputBar.TYPES = { ...INPUTBAR_MESSAGE_TYPES };

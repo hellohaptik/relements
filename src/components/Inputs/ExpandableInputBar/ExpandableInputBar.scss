@@ -132,6 +132,9 @@
           }
         }
       }
+      .actionButton {
+        border: 1px solid $error !important;
+      }
     }
 
     .message {
