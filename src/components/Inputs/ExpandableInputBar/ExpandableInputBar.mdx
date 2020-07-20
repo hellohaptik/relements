@@ -1,13 +1,13 @@
 import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
-import ExpandableSearchBar from "./ExpandableSearchBar";
-import { SEARCHBAR_MESSAGE_TYPES } from "./constants";
+import ExpandableInputBar from "./ExpandableInputBar";
+import { INPUTBAR_MESSAGE_TYPES } from "./constants";
 
-# ExpandableSearchBar
+# ExpandableInputBar
 
-> A simple customizable and expandable search bar to do magical things.
+> A simple customizable and expandable input bar to do magical things.
 
 <CodeBlock title="Default">
-  <ExpandableSearchBar
+  <ExpandableInputBar
     buttonText="Find User"
     placeholder="Search users"
     expandedButtonText="Find them!"
@@ -19,37 +19,37 @@ import { SEARCHBAR_MESSAGE_TYPES } from "./constants";
 
 ## Configuration
 
-<ConfigBlock of={ExpandableSearchBar} />
+<ConfigBlock of={ExpandableInputBar} />
 
 <CodeBlock title="Success">
-  <ExpandableSearchBar
+  <ExpandableInputBar
     buttonText="Find Success"
     placeholder="Yess!"
     alwaysActive={true}
-    message={{ text: "Okay, this is cool.", type: SEARCHBAR_MESSAGE_TYPES.SUCCESS }}
+    message={{ text: "Okay, this is cool.", type: INPUTBAR_MESSAGE_TYPES.SUCCESS }}
   />
 </CodeBlock>
 
 <CodeBlock title="Warning">
-  <ExpandableSearchBar
+  <ExpandableInputBar
     buttonText="Find Warning"
     placeholder="Huh!"
     alwaysActive={true}
-    message={{ text: "Okay, this is kinda cool.", type: SEARCHBAR_MESSAGE_TYPES.WARNING }}
+    message={{ text: "Okay, this is kinda cool.", type: INPUTBAR_MESSAGE_TYPES.WARNING }}
   />
 </CodeBlock>
 
 <CodeBlock title="Error">
-  <ExpandableSearchBar
+  <ExpandableInputBar
     buttonText="Find Error"
     placeholder="Not again."
     alwaysActive={true}
-    message={{ text: "Okay, this is not cool.", type: SEARCHBAR_MESSAGE_TYPES.ERROR }}
+    message={{ text: "Okay, this is not cool.", type: INPUTBAR_MESSAGE_TYPES.ERROR }}
   />
 </CodeBlock>
 
 <CodeBlock title="Loader">
-  <ExpandableSearchBar
+  <ExpandableInputBar
     buttonText="Loader here"
     value="I'm doing something"
     showLoader={true}
@@ -57,7 +57,7 @@ import { SEARCHBAR_MESSAGE_TYPES } from "./constants";
 </CodeBlock>
 
 <CodeBlock title="Label">
-  <ExpandableSearchBar
+  <ExpandableInputBar
     buttonText="Label"
     placeholder="I got label yo!"
     label="What you got?"
@@ -66,7 +66,7 @@ import { SEARCHBAR_MESSAGE_TYPES } from "./constants";
 </CodeBlock>
 
 <CodeBlock title="Tooltip">
-  <ExpandableSearchBar
+  <ExpandableInputBar
     buttonText="Search"
     placeholder="Placeholder here"
     label="What does this search do?"

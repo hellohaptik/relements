@@ -5,28 +5,28 @@ import "@testing-library/jest-dom/extend-expect";
 import { render, cleanup, fireEvent } from "@testing-library/react";
 import { KEY_CODES } from "constants";
 
-import ExpandableSearchBar from "../ExpandableSearchBar";
+import ExpandableInputBar from "../ExpandableInputBar";
 
 afterEach(cleanup);
 
 test("Smoke", async () => {
-  const { getByTestId } = render(<ExpandableSearchBar />);
-  expect(getByTestId("ExpandableSearchBar")).toBeInTheDocument();
+  const { getByTestId } = render(<ExpandableInputBar />);
+  expect(getByTestId("ExpandableInputBar")).toBeInTheDocument();
 });
 
 test("Custom class", async () => {
-  const { getByTestId } = render(<ExpandableSearchBar className="test" />);
-  expect(getByTestId("ExpandableSearchBar")).toHaveClass("test");
+  const { getByTestId } = render(<ExpandableInputBar className="test" />);
+  expect(getByTestId("ExpandableInputBar")).toHaveClass("test");
 });
 
 test("Prefix class", async () => {
-  const classNames = Object.keys(ExpandableSearchBar.classNames).map(
-    className => className.replace("$prefix", "test"),
+  const classNames = Object.keys(ExpandableInputBar.classNames).map(className =>
+    className.replace("$prefix", "test"),
   );
 
   const classesNotAllowed = ["text-dismiss-icon", "text-loader"];
   const { rerender } = render(
-    <ExpandableSearchBar prefixClassName="test" alwaysActive={true} />,
+    <ExpandableInputBar prefixClassName="test" alwaysActive={true} />,
   );
 
   // Check that loader should not be present when dismiss icon is visible
@@ -40,7 +40,7 @@ test("Prefix class", async () => {
     });
 
   //Re-render with loader
-  rerender(<ExpandableSearchBar prefixClassName="test" showLoader={true} />);
+  rerender(<ExpandableInputBar prefixClassName="test" showLoader={true} />);
 
   // Check that dismiss icon should not be present when loader is visible
   classNames
@@ -55,7 +55,7 @@ test("Prefix class", async () => {
 
 test("Label", async () => {
   const { getByTestId } = render(
-    <ExpandableSearchBar prefixClassName="test" label="Test" />,
+    <ExpandableInputBar prefixClassName="test" label="Test" />,
   );
 
   const actionButton = document.getElementsByClassName("test-inner-button")[0];
@@ -69,7 +69,7 @@ test("OnClick Test", async () => {
   const onClick = jest.fn();
 
   const { getByTestId } = render(
-    <ExpandableSearchBar prefixClassName="test" onClick={onClick} />,
+    <ExpandableInputBar prefixClassName="test" onClick={onClick} />,
   );
 
   const actionButton = document.getElementsByClassName("test-inner-button")[0];
@@ -87,7 +87,7 @@ test("onChange Test", async () => {
   const onChange = jest.fn();
 
   const { getByTestId } = render(
-    <ExpandableSearchBar prefixClassName="test" onChange={onChange} />,
+    <ExpandableInputBar prefixClassName="test" onChange={onChange} />,
   );
 
   const actionButton = document.getElementsByClassName("test-inner-button")[0];
@@ -104,7 +104,7 @@ test("onBlur Test", async () => {
   const onBlur = jest.fn();
 
   const { getByTestId } = render(
-    <ExpandableSearchBar prefixClassName="test" onBlur={onBlur} />,
+    <ExpandableInputBar prefixClassName="test" onBlur={onBlur} />,
   );
 
   const actionButton = document.getElementsByClassName("test-inner-button")[0];
@@ -121,7 +121,7 @@ test("onFocus Test", async () => {
   const onFocus = jest.fn();
 
   const { getByTestId } = render(
-    <ExpandableSearchBar prefixClassName="test" onFocus={onFocus} />,
+    <ExpandableInputBar prefixClassName="test" onFocus={onFocus} />,
   );
 
   const actionButton = document.getElementsByClassName("test-inner-button")[0];
@@ -137,7 +137,7 @@ test("OnDismiss Test", async () => {
   const onDismiss = jest.fn();
 
   const { container, rerender, getByTestId } = render(
-    <ExpandableSearchBar prefixClassName="test" onDismiss={onDismiss} />,
+    <ExpandableInputBar prefixClassName="test" onDismiss={onDismiss} />,
   );
 
   const actionButton = document.getElementsByClassName("test-inner-button")[0];
@@ -150,7 +150,7 @@ test("OnDismiss Test", async () => {
   expect(onDismiss).toHaveBeenCalled();
 
   rerender(
-    <ExpandableSearchBar
+    <ExpandableInputBar
       prefixClassName="test"
       onDismiss={onDismiss}
       alwaysActive={true}
@@ -169,7 +169,7 @@ test("onKeyDown Test", async () => {
   const onKeyDown = jest.fn();
 
   const { getByTestId } = render(
-    <ExpandableSearchBar prefixClassName="test" onKeyDown={onKeyDown} />,
+    <ExpandableInputBar prefixClassName="test" onKeyDown={onKeyDown} />,
   );
 
   const actionButton = document.getElementsByClassName("test-inner-button")[0];
@@ -186,13 +186,11 @@ test("onKeyDown Test", async () => {
 });
 
 test("Type variations check", async () => {
-  const { getByTestId, rerender } = render(<ExpandableSearchBar />);
-  Object.keys(ExpandableSearchBar.TYPES).forEach(type => {
+  const { getByTestId, rerender } = render(<ExpandableInputBar />);
+  Object.keys(ExpandableInputBar.TYPES).forEach(type => {
     rerender(
-      <ExpandableSearchBar
-        message={{ type: ExpandableSearchBar.TYPES[type] }}
-      />,
+      <ExpandableInputBar message={{ type: ExpandableInputBar.TYPES[type] }} />,
     );
-    expect(getByTestId("ExpandableSearchBar")).toBeInTheDocument();
+    expect(getByTestId("ExpandableInputBar")).toBeInTheDocument();
   });
 });

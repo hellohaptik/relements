@@ -6,11 +6,11 @@ import Button from "components/UI/Button";
 import Icon from "components/UI/Icon";
 import Loader from "components/UI/Loader";
 
-import { SEARCHBAR_MESSAGE_TYPES } from "./constants";
+import { INPUTBAR_MESSAGE_TYPES } from "./constants";
 
-import styles from "./ExpandableSearchBar.scss";
+import styles from "./ExpandableInputBar.scss";
 
-const ExpandableSearchBar = ({
+const ExpandableInputBar = ({
   prefixClassName = "",
   className = "",
   buttonText,
@@ -70,7 +70,7 @@ const ExpandableSearchBar = ({
   const buttonAction = isActive ? handleOnClick : activateSearchBar;
   const buttonDisabled = disabled || (isActive && !inputValue) || showLoader;
   const buttonType =
-    messageBody.type === ExpandableSearchBar.TYPES.ERROR
+    messageBody.type === ExpandableInputBar.TYPES.ERROR
       ? Button.TYPES.WARNING
       : Button.TYPES.OUTLINE;
   const ctaText = isActive ? expandedButtonText || buttonText : buttonText;
@@ -79,9 +79,9 @@ const ExpandableSearchBar = ({
 
   return (
     <div
-      data-testid="ExpandableSearchBar"
+      data-testid="ExpandableInputBar"
       className={`
-                ${styles.expandableSearchBar}
+                ${styles.expandableInputBar}
                 ${className}
                 ${isActive ? activeClasses : styles.inactive}
                 ${label && styles.hasLabel}`}
@@ -133,7 +133,7 @@ const ExpandableSearchBar = ({
   );
 };
 
-ExpandableSearchBar.propTypes = {
+ExpandableInputBar.propTypes = {
   /** The classname to be prefixed on the outermost element */
   prefixClassName: PropTypes.string,
   /** The classname to appended to the outermost element */
@@ -182,7 +182,7 @@ ExpandableSearchBar.propTypes = {
   innerRef: PropTypes.func,
 };
 
-ExpandableSearchBar.defaultProps = {
+ExpandableInputBar.defaultProps = {
   prefixClassName: "",
   className: "",
   buttonText: "",
@@ -208,7 +208,7 @@ ExpandableSearchBar.defaultProps = {
   innerRef: () => {},
 };
 
-ExpandableSearchBar.classNames = {
+ExpandableInputBar.classNames = {
   $prefix: "Outermost element",
   "$prefix-inner": "Child of the Main Searchbar",
   "$prefix-inner-input": "Text input Searchbar",
@@ -217,6 +217,6 @@ ExpandableSearchBar.classNames = {
   "$prefix-loader": "Loader for Searchbar",
 };
 
-ExpandableSearchBar.TYPES = { ...SEARCHBAR_MESSAGE_TYPES };
+ExpandableInputBar.TYPES = { ...INPUTBAR_MESSAGE_TYPES };
 
-export default ExpandableSearchBar;
+export default ExpandableInputBar;
