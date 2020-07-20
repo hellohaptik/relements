@@ -3,16 +3,15 @@
 .expandableInputBar {
   max-width: 330px;
   width: fit-content;
+  transition: all 0.3s ease;
 
   .inner {
     display: flex;
     align-items: center;
 
     .textContent {
-      width: 0;
-      opacity: 0;
+      display: none;
       position: relative;
-      transition: all 0.3s ease;
 
       .dismissIcon {
         position: absolute;
@@ -56,8 +55,9 @@
 
     .inner {
       .textContent {
+        display: block;
         width: 100%;
-        opacity: 1;
+        animation: slideLeft 0.3s ease;
 
         .dismissIcon {
           display: block;
@@ -139,6 +139,17 @@
 
     .message {
       color: $error;
+    }
+  }
+
+  @keyframes slideLeft {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateX(100px);
+    }
+    100% {
+      opacity: 1;
+      -webkit-transform: translateX(0);
     }
   }
 }
