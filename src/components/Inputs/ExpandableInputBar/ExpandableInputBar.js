@@ -40,9 +40,7 @@ const ExpandableInputBar = ({
   const [messageBody, setMessageBody] = React.useState(message);
 
   React.useEffect(() => {
-    if (message.text) {
-      setMessageBody(message);
-    }
+    setMessageBody(message);
   }, [message]);
 
   const activateSearchBar = React.useCallback(() => {
