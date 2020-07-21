@@ -1,0 +1,76 @@
+import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
+import ExpandableInputBar from "./ExpandableInputBar";
+import { INPUTBAR_MESSAGE_TYPES } from "./constants";
+
+# ExpandableInputBar
+
+> A simple customizable and expandable input bar to do magical things.
+
+<CodeBlock title="Default">
+  <ExpandableInputBar
+    buttonText="Find User"
+    placeholder="Search users"
+    expandedButtonText="Find them!"
+    onClick={value => {
+      alert("Search term: " + value);
+    }}
+  />
+</CodeBlock>
+
+## Configuration
+
+<ConfigBlock of={ExpandableInputBar} />
+
+<CodeBlock title="Success">
+  <ExpandableInputBar
+    buttonText="Find Success"
+    placeholder="Yess!"
+    alwaysActive={true}
+    message={{ text: "Okay, this is cool.", type: INPUTBAR_MESSAGE_TYPES.SUCCESS }}
+  />
+</CodeBlock>
+
+<CodeBlock title="Warning">
+  <ExpandableInputBar
+    buttonText="Find Warning"
+    placeholder="Huh!"
+    alwaysActive={true}
+    message={{ text: "Okay, this is kinda cool.", type: INPUTBAR_MESSAGE_TYPES.WARNING }}
+  />
+</CodeBlock>
+
+<CodeBlock title="Error">
+  <ExpandableInputBar
+    buttonText="Find Error"
+    placeholder="Not again."
+    alwaysActive={true}
+    message={{ text: "Okay, this is not cool.", type: INPUTBAR_MESSAGE_TYPES.ERROR }}
+  />
+</CodeBlock>
+
+<CodeBlock title="Loader">
+  <ExpandableInputBar
+    buttonText="Loader here"
+    value="I'm doing something"
+    showLoader={true}
+  />
+</CodeBlock>
+
+<CodeBlock title="Label">
+  <ExpandableInputBar
+    buttonText="Label"
+    placeholder="I got label yo!"
+    label="What you got?"
+    alwaysActive={true}
+  />
+</CodeBlock>
+
+<CodeBlock title="Tooltip">
+  <ExpandableInputBar
+    buttonText="Search"
+    placeholder="Placeholder here"
+    label="What does this search do?"
+    tooltip="I do something, that's for sure."
+    alwaysActive={true}
+  />
+</CodeBlock>

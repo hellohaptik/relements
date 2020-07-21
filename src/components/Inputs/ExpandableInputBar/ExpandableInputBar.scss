@@ -1,0 +1,155 @@
+@import "./variables.scss";
+
+.expandableInputBar {
+  max-width: 330px;
+  width: fit-content;
+  transition: all 0.3s ease;
+
+  .inner {
+    display: flex;
+    align-items: center;
+
+    .textContent {
+      display: none;
+      position: relative;
+
+      .dismissIcon {
+        position: absolute;
+        top: 7px;
+        right: 7px;
+        width: 17px;
+        height: 17px;
+      }
+
+      .inputText {
+        .searchBarText {
+          &:global(-label) {
+            display: none;
+          }
+
+          &:global(-textinput) {
+            padding: 0px;
+            border: 0px;
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+          }
+        }
+      }
+    }
+
+    .actionButton {
+      height: 32px;
+      max-width: 100px;
+      margin: auto 0px 0px;
+    }
+
+    .loader {
+      position: absolute;
+      top: 9px;
+      right: 12px;
+    }
+  }
+
+  &.active {
+    width: 100%;
+
+    .inner {
+      .textContent {
+        display: block;
+        width: 100%;
+        animation: slideLeft 0.3s ease;
+
+        .dismissIcon {
+          display: block;
+        }
+
+        .searchBarText {
+          &:global(-textinput) {
+            padding: 0 30px 0 8px !important;
+            border: 1px solid #ddd !important;
+            border-right: 0px !important;
+          }
+        }
+      }
+
+      .actionButton {
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+        width: 100%;
+      }
+    }
+
+    &.hasLabel {
+      .inner {
+        .textContent {
+          .dismissIcon {
+            top: 32px !important;
+          }
+
+          .searchBarText {
+            &:global(-label) {
+              display: block !important;
+            }
+          }
+        }
+        .loader {
+          top: 34px !important;
+        }
+      }
+    }
+  }
+
+  .message {
+    font-size: 12px;
+    margin: 6px 4px 0px 4px;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  &:global(.success) {
+    .message {
+      color: $success;
+    }
+  }
+
+  &:global(.warning) {
+    .message {
+      color: $warning;
+    }
+  }
+
+  &:global(.error) {
+    .inner {
+      .textContent {
+        .inputText {
+          .searchBarText {
+            &:global(-textinput) {
+              border: 1px solid $error !important;
+              border-right: 0px !important;
+            }
+          }
+        }
+      }
+      .actionButton {
+        border: 1px solid $error !important;
+      }
+    }
+
+    .message {
+      color: $error;
+    }
+  }
+
+  @keyframes slideLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(100px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}

@@ -21,6 +21,7 @@ export default {
   'input/checkbox': 'src/components/Inputs/Checkbox/index.js',
   'input/chips': 'src/components/Inputs/Chips/index.js',
   'input/text': 'src/components/Inputs/Text/index.js',
+  'input/expandableInputBar': 'src/components/Inputs/ExpandableInputBar/index.js',
   'input/radio': 'src/components/Inputs/Radio/index.js',
   'input/tab': 'src/components/Inputs/Tab/index.js',
   'input/numberCounter': 'src/components/Inputs/NumberCounter/index.js',
