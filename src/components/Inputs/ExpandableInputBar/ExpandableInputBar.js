@@ -59,9 +59,9 @@ const ExpandableInputBar = ({
     onDismiss();
   };
 
-  const handleOnClick = React.useCallback(() => {
+  const handleOnClick = () => {
     onClick(inputValue);
-  }, [inputValue]);
+  };
 
   const handleTextChange = value => {
     setMessageBody({
