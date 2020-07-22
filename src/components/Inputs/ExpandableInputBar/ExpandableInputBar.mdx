@@ -13,6 +13,8 @@ import { INPUTBAR_MESSAGE_TYPES } from "./constants";
       placeholder="Search users"
       expandedButtonText="Find them!"
       onChange={setValue}
+      value={value}
+      onDismiss={() => setValue("")}
       onClick={() => alert("Search term: " + value)}
     />
   )}
