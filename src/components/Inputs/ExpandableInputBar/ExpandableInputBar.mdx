@@ -7,14 +7,15 @@ import { INPUTBAR_MESSAGE_TYPES } from "./constants";
 > A simple customizable and expandable input bar to do magical things.
 
 <CodeBlock title="Default">
-  <ExpandableInputBar
-    buttonText="Find User"
-    placeholder="Search users"
-    expandedButtonText="Find them!"
-    onClick={value => {
-      alert("Search term: " + value);
-    }}
-  />
+  {(value, setValue) => (
+    <ExpandableInputBar
+      buttonText="Find User"
+      placeholder="Search users"
+      expandedButtonText="Find them!"
+      onChange={setValue}
+      onClick={() => alert("Search term: " + value)}
+    />
+  )}
 </CodeBlock>
 
 ## Configuration
@@ -26,7 +27,10 @@ import { INPUTBAR_MESSAGE_TYPES } from "./constants";
     buttonText="Find Success"
     placeholder="Yess!"
     alwaysActive={true}
-    message={{ text: "Okay, this is cool.", type: INPUTBAR_MESSAGE_TYPES.SUCCESS }}
+    message={{
+      text: "Okay, this is cool.",
+      type: INPUTBAR_MESSAGE_TYPES.SUCCESS,
+    }}
   />
 </CodeBlock>
 
@@ -35,7 +39,10 @@ import { INPUTBAR_MESSAGE_TYPES } from "./constants";
     buttonText="Find Warning"
     placeholder="Huh!"
     alwaysActive={true}
-    message={{ text: "Okay, this is kinda cool.", type: INPUTBAR_MESSAGE_TYPES.WARNING }}
+    message={{
+      text: "Okay, this is kinda cool.",
+      type: INPUTBAR_MESSAGE_TYPES.WARNING,
+    }}
   />
 </CodeBlock>
 
@@ -44,7 +51,10 @@ import { INPUTBAR_MESSAGE_TYPES } from "./constants";
     buttonText="Find Error"
     placeholder="Not again."
     alwaysActive={true}
-    message={{ text: "Okay, this is not cool.", type: INPUTBAR_MESSAGE_TYPES.ERROR }}
+    message={{
+      text: "Okay, this is not cool.",
+      type: INPUTBAR_MESSAGE_TYPES.ERROR,
+    }}
   />
 </CodeBlock>
 

@@ -59,20 +59,16 @@ const ExpandableInputBar = ({
     onDismiss();
   };
 
-  const handleOnClick = () => {
-    onClick(inputValue);
-  };
-
   const handleTextChange = value => {
     setMessageBody({
       text: "",
       type: "default",
     });
     setInputValue(value);
-    onChange();
+    onChange(value);
   };
 
-  const buttonAction = isActive ? handleOnClick : activateSearchBar;
+  const buttonAction = isActive ? onClick : activateSearchBar;
   const buttonDisabled = disabled || (isActive && !inputValue) || showLoader;
   const ctaText = isActive ? expandedButtonText || buttonText : buttonText;
   const dismissIconClass = alwaysActive && !inputValue && styles.hidden;
