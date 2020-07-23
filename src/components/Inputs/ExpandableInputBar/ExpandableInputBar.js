@@ -36,7 +36,6 @@ const ExpandableInputBar = ({
   const [isActive, setIsActive] = React.useState(
     false || alwaysActive || showLoader,
   );
-  const [inputValue, setInputValue] = React.useState(value);
   const [messageBody, setMessageBody] = React.useState(message);
 
   React.useEffect(() => {
@@ -51,7 +50,6 @@ const ExpandableInputBar = ({
     if (!alwaysActive) {
       setIsActive(false);
     }
-    setInputValue("");
     setMessageBody({
       text: "",
       type: "default",
@@ -59,23 +57,18 @@ const ExpandableInputBar = ({
     onDismiss();
   };
 
-  const handleOnClick = React.useCallback(() => {
-    onClick(inputValue);
-  }, [inputValue]);
-
   const handleTextChange = value => {
     setMessageBody({
       text: "",
       type: "default",
     });
-    setInputValue(value);
-    onChange();
+    onChange(value);
   };
 
-  const buttonAction = isActive ? handleOnClick : activateSearchBar;
-  const buttonDisabled = disabled || (isActive && !inputValue) || showLoader;
+  const buttonAction = isActive ? onClick : activateSearchBar;
+  const buttonDisabled = disabled || (isActive && !value) || showLoader;
   const ctaText = isActive ? expandedButtonText || buttonText : buttonText;
-  const dismissIconClass = alwaysActive && !inputValue && styles.hidden;
+  const dismissIconClass = alwaysActive && !value && styles.hidden;
   const activeClasses = `${styles.active} ${messageBody.type}`;
 
   return (
@@ -92,7 +85,7 @@ const ExpandableInputBar = ({
           className={`${styles.textContent} ${prefixClassName}-inner-text-content`}
         >
           <Text
-            value={inputValue}
+            value={value}
             placeholder={placeholder}
             onChange={handleTextChange}
             className={`${styles.inputText} ${prefixClassName}-inner-input`}
