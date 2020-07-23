@@ -70,7 +70,11 @@ test("OnClick Test", async () => {
   const onClick = jest.fn();
 
   const { getByTestId } = render(
-    <ExpandableInputBar prefixClassName="test" onClick={onClick} />,
+    <ExpandableInputBar
+      prefixClassName="test"
+      onClick={onClick}
+      value="test"
+    />,
   );
 
   const actionButton = document.getElementsByClassName("test-inner-button")[0];
@@ -78,7 +82,7 @@ test("OnClick Test", async () => {
 
   const inputDOMElement = getByTestId("inputText");
 
-  fireEvent.change(inputDOMElement, { target: { value: "test" } });
+  fireEvent.change(inputDOMElement, { target: { value: "test2" } });
 
   fireEvent.click(actionButton);
   expect(onClick).toHaveBeenCalled();
