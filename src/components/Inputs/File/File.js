@@ -64,11 +64,12 @@ class File extends React.Component {
   }
 
   _renderPlaceholder = () => {
-    if (this.props.type === "file") {
+    if (this.props.type !== "image") {
       return (
         <FilePlaceholder
           prefixClassName={`${this.props.prefixClassName}-placeholder`}
           maxFileSize={this.props.maxFileSize}
+          customIcon={this.props.customIcon}
         />
       );
     }
@@ -78,6 +79,7 @@ class File extends React.Component {
         maxFileSize={this.props.maxFileSize}
         type={this.props.type}
         dimensions={this.props.dimensions}
+        customIcon={this.props.customIcon}
       />
     );
   };
@@ -459,6 +461,8 @@ File.propTypes = {
   value: PropTypes.oneOf([PropTypes.string, PropTypes.array]),
   /** on change function for input */
   onChange: PropTypes.func,
+  /** Custom Icon for File upload */
+  customIcon: PropTypes.string,
   /** Overrides default upload, a function can be passed to override. Returns 'file, index and numFiles' in
    * parameters  */
   onUpload: PropTypes.func,
@@ -489,6 +493,7 @@ File.propTypes = {
 File.defaultProps = {
   value: "",
   onChange: () => {},
+  customIcon: "",
   onUpload: null,
   multiple: false,
   ratio: "",

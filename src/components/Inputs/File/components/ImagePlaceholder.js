@@ -10,7 +10,7 @@ const ImagePlaceholder = props => (
   >
     <Icon
       className={`${styles.imagePlaceholderIcon} ${props.prefixClassName}-icon`}
-      src={PlaceholderIcon}
+      src={props.customIcon || PlaceholderIcon}
     />
     <div
       className={`${styles.imagePlaceholderText} ${props.prefixClassName}-text-wrapper`}
@@ -44,6 +44,7 @@ ImagePlaceholder.propTypes = {
   maxFileSize: PropTypes.number,
   type: PropTypes.string,
   dimensions: PropTypes.string,
+  customIcon: PropTypes.string,
 };
 
 export default ImagePlaceholder;

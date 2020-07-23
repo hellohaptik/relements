@@ -1,3 +1,5 @@
+import React from "react";
+
 import InfoIcon from "icons/info.svg";
 import InfoIconV2 from "icons/infoV2.svg";
 import UserSaysIcon from "icons/user-says.svg";
@@ -184,9 +186,19 @@ export const ICON_MAP = {
  * Based on the icon identifier (string), it returns the
  * icon component.
  * @export
- * @param {string} iconType icon identifier
+ * @param {string} iconType icon identifier or path to custom icon
  * @returns {Object} the react component corresponding to the iconType
  */
 export function getIcon(iconType) {
-  return ICON_MAP[iconType] || (() => null);
+  return (
+    ICON_MAP[iconType] ||
+    (() => (
+      <img
+        src={iconType}
+        onError={e => {
+          e.target.remove();
+        }}
+      />
+    ))
+  );
 }

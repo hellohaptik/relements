@@ -8,7 +8,7 @@ const FilePlaceholder = props => (
   <div className={`${styles.filePlaceholder} ${props.prefixClassName}-wrapper`}>
     <Icon
       className={`${styles.filePlaceholderIcon} ${props.prefixClassName}-icon`}
-      src={PlaceholderIcon}
+      src={props.customIcon || PlaceholderIcon}
     />
     <div
       className={`${styles.filePlaceholderText} ${props.prefixClassName}-text-wrapper`}
@@ -35,6 +35,7 @@ const FilePlaceholder = props => (
 FilePlaceholder.propTypes = {
   prefixClassName: PropTypes.string,
   maxFileSize: PropTypes.number,
+  customIcon: PropTypes.string,
 };
 
 export default FilePlaceholder;

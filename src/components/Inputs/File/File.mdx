@@ -6,7 +6,7 @@ import File from "./File";
 > Input file field with wrapper, predefined extensions and ability to customize
 
 <CodeBlock>
-  <File maxFileSize={3} />
+  <File maxFileSize={3} type=".png, .jpeg" />
 </CodeBlock>
 
 ## Configuration
@@ -21,6 +21,10 @@ import File from "./File";
 
 <CodeBlock title="Type: File">
   <File type="file" />
+</CodeBlock>
+
+<CodeBlock title="Custom Icon">
+  <File customIcon='add' />
 </CodeBlock>
 
 <CodeBlock title="Type: Multiple">
