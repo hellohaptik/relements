@@ -64,22 +64,32 @@ class File extends React.Component {
   }
 
   _renderPlaceholder = () => {
-    if (this.props.type !== "image") {
+    const {
+      type,
+      maxFileSize,
+      prefixClassName,
+      customIcon,
+      dimensions,
+    } = this.props;
+
+    if (type !== "image") {
+      const extensionTypes = type === "file" ? FILE_ACCEPT_TYPES : type;
       return (
         <FilePlaceholder
-          prefixClassName={`${this.props.prefixClassName}-placeholder`}
-          maxFileSize={this.props.maxFileSize}
-          customIcon={this.props.customIcon}
+          prefixClassName={`${prefixClassName}-placeholder`}
+          maxFileSize={maxFileSize}
+          type={extensionTypes}
+          customIcon={customIcon}
         />
       );
     }
     return (
       <ImagePlaceholder
-        prefixClassName={`${this.props.prefixClassName}-placeholder`}
-        maxFileSize={this.props.maxFileSize}
-        type={this.props.type}
-        dimensions={this.props.dimensions}
-        customIcon={this.props.customIcon}
+        prefixClassName={`${prefixClassName}-placeholder`}
+        maxFileSize={maxFileSize}
+        type={IMAGE_ACCEPT_TYPES}
+        dimensions={dimensions}
+        customIcon={customIcon}
       />
     );
   };
