@@ -28,7 +28,9 @@ const Input = ({
   const focusedClassName = focused ? styles.focused : "";
   const reversedClassName = isReversed ? styles.reversed : "";
   const className = `${styles.input} ${focusedClassName} ${reversedClassName}`;
-  const postfixComponent = <Icon src={AngleDownIcon} />;
+  const postfixComponent = (
+    <Icon className={`${prefixClassName}-icon`} src={AngleDownIcon} />
+  );
   const commonProps = {
     innerRef,
     inputRef,
