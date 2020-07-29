@@ -462,7 +462,7 @@ File.propTypes = {
   /** on change function for input */
   onChange: PropTypes.func,
   /** Custom Icon for File upload */
-  customIcon: PropTypes.string,
+  customIcon: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   /** Overrides default upload, a function can be passed to override. Returns 'file, index and numFiles' in
    * parameters  */
   onUpload: PropTypes.func,
