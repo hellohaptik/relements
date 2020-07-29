@@ -25,6 +25,8 @@ const Dropdown = ({
   onFocus,
   onBlur,
   disabled,
+  tooltip,
+  arrowTooltip,
   withSearch,
   withCreate,
   withMultiple,
@@ -212,6 +214,7 @@ const Dropdown = ({
       <Label
         focused={focused}
         error={error}
+        tooltip={tooltip}
         className={`${styles.dropdownLabel} ${prefixClassName}-label ${prefixClassName}-error`}
       >
         {label}
@@ -225,6 +228,7 @@ const Dropdown = ({
         onChange={handleChange}
         isReversed={isReversed}
         focused={focused}
+        tooltip={arrowTooltip}
         placeholder={placeholder}
         withSearch={withSearch}
         withMultiple={withMultiple}
@@ -283,6 +287,10 @@ Dropdown.propTypes = {
   withMultiple: PropTypes.bool,
   /**  Whether the input is disabled or not */
   disabled: PropTypes.bool,
+  /** Tooltip any if required (gets attached to the label) */
+  tooltip: PropTypes.string,
+  /** tooltip any if required (gets attached to the arrow icon) */
+  arrowTooltip: PropTypes.string,
   /**  Keys in the options to search for when using withSearch */
   searchKeys: PropTypes.arrayOf(PropTypes.string),
 };
@@ -298,6 +306,8 @@ Dropdown.defaultProps = {
   options: [],
   onChange: () => {},
   placeholder: "",
+  tooltip: "",
+  arrowTooltip: "",
   createPrefix: "+ Create",
   searchKeys: [],
   onFocus: () => {},

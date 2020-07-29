@@ -6,6 +6,7 @@ import Icon from "@src/components/UI/Icon";
 import AngleDownIcon from "@src/icons/angle-down.svg";
 import { TextInput } from "@src/components/Inputs/_common/TextInput";
 import { ChipsInput } from "@src/components/Inputs/_common/ChipsInput";
+import WithTooltip from "@src/components/Overlays/WithTooltip";
 
 import styles from "./Input.scss";
 
@@ -22,15 +23,25 @@ const Input = ({
   isReversed,
   placeholder,
   optionKey,
+  tooltip,
   prefixClassName,
   disabled,
 }) => {
   const focusedClassName = focused ? styles.focused : "";
   const reversedClassName = isReversed ? styles.reversed : "";
   const className = `${styles.input} ${focusedClassName} ${reversedClassName}`;
-  const postfixComponent = (
+  const postfixComponent = tooltip ? (
+    <WithTooltip
+      className={`${prefixClassName}-tooltip`}
+      tooltip={tooltip}
+      position="BOTTOM"
+    >
+      <Icon className={`${prefixClassName}-icon`} src={AngleDownIcon} />
+    </WithTooltip>
+  ) : (
     <Icon className={`${prefixClassName}-icon`} src={AngleDownIcon} />
   );
+
   const commonProps = {
     innerRef,
     inputRef,
@@ -93,6 +104,7 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   prefixClassName: PropTypes.string,
   text: PropTypes.string,
+  tooltip: PropTypes.string,
   value: PropTypes.arrayOf(PropTypes.shape({})),
   withMultiple: PropTypes.bool,
   withSearch: PropTypes.bool,
@@ -109,6 +121,7 @@ Input.defaultProps = {
   optionKey: "",
   placeholder: "",
   prefixClassName: "",
+  tooltip: "",
   text: "",
 };
 
