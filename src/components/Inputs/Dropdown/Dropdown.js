@@ -312,7 +312,7 @@ Dropdown.classNames = {
   $prefix: "Prefix ClassName",
   "$prefix-label": "Prefix ClassName applied to the Label",
   "$prefix-input": "Prefix ClassName applied to the input element",
-  "$prefix-input-icon": "Prefix ClassName for the arrow down icon",
+  "$prefix-input-icon": 'Prefix ClassName applied to the "arrow down" icon',
   "$prefix-error": "Prefix ClassName applied in case of error",
   "$prefix-options": "Prefix ClassName applied to the options container",
   "$prefix-option": "Prefix ClassName applied to the individual option",
