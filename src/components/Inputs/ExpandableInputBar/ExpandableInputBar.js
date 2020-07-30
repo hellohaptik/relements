@@ -67,7 +67,8 @@ const ExpandableInputBar = ({
   };
 
   const buttonAction = isActive ? onClick : activateSearchBar;
-  const buttonDisabled = disabled || (isActive && !value) || showLoader;
+  const isButtonDisabled =
+    disabled || (isActive && !value) || showLoader || disableOnlyButton;
   const ctaText = isActive ? expandedButtonText || buttonText : buttonText;
   const dismissIconClass = alwaysActive && !value && styles.hidden;
   const activeClasses = `${styles.active} ${messageBody.type}`;
@@ -117,7 +118,7 @@ const ExpandableInputBar = ({
         <Button
           onClick={buttonAction}
           type={buttonType}
-          disabled={buttonDisabled || disableOnlyButton}
+          disabled={isButtonDisabled}
           className={`${styles.actionButton} ${prefixClassName}-inner-button`}
         >
           {ctaText}
