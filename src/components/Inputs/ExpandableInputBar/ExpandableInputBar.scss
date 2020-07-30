@@ -1,6 +1,7 @@
 @import "./variables.scss";
 
 .expandableInputBar {
+  position: relative;
   max-width: 330px;
   width: fit-content;
   transition: all 0.3s ease;
@@ -101,7 +102,9 @@
 
   .message {
     font-size: 12px;
-    margin: 6px 4px 0px 4px;
+    position: absolute;
+    bottom: -22px;
+    left: 3px;
   }
 
   .hidden {

@@ -3,9 +3,7 @@
         <g id="debug_user_says_already_exist" transform="translate(-392.000000, -56.000000)">
             <g id="Test-bot" transform="translate(64.000000, 48.000000)">
                 <g id="ic_cross" transform="translate(328.000000, 8.000000)">
-                    <rect id="base" x="0" y="0" width="24" height="24"></rect>
                     <g transform="translate(6.000000, 6.000000)" id="Line" stroke="#333333" stroke-linecap="round" stroke-width="2">
-                        <line x1="5.59552404e-14" y1="11.3137085" x2="11.3137085" y2="5.59552404e-14"></line>
                         <line x1="5.59552404e-14" y1="5.59552404e-14" x2="11.3137085" y2="11.3137085"></line>
                     </g>
                 </g>

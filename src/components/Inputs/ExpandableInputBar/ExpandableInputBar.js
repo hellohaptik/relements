@@ -18,6 +18,7 @@ const ExpandableInputBar = ({
   expandedButtonText,
   showLoader,
   disabled,
+  disableOnlyButton,
   onDismiss,
   alwaysActive,
   onClick,
@@ -52,7 +53,7 @@ const ExpandableInputBar = ({
     }
     setMessageBody({
       text: "",
-      type: "default",
+      type: ExpandableInputBar.TYPES.DEFAULT,
     });
     onDismiss();
   };
@@ -60,7 +61,7 @@ const ExpandableInputBar = ({
   const handleTextChange = value => {
     setMessageBody({
       text: "",
-      type: "default",
+      type: ExpandableInputBar.TYPES.DEFAULT,
     });
     onChange(value);
   };
@@ -116,14 +117,16 @@ const ExpandableInputBar = ({
         <Button
           onClick={buttonAction}
           type={buttonType}
-          disabled={buttonDisabled}
+          disabled={buttonDisabled || disableOnlyButton}
           className={`${styles.actionButton} ${prefixClassName}-inner-button`}
         >
           {ctaText}
         </Button>
       </div>
       {isActive && messageBody.text && (
-        <div className={styles.message}>{messageBody.text}</div>
+        <div className={`${styles.message} ${prefixClassName}-message`}>
+          {messageBody.text}
+        </div>
       )}
     </div>
   );
@@ -157,6 +160,8 @@ ExpandableInputBar.propTypes = {
   showLoader: PropTypes.bool,
   /** Determines if search bar should be disabled */
   disabled: PropTypes.bool,
+  /** Flag to disable the button */
+  disableOnlyButton: PropTypes.bool,
   /** Function which will be called when dismissing the search bar.
    * A required prop when driving from parent.
    */
@@ -198,6 +203,7 @@ ExpandableInputBar.defaultProps = {
   label: "",
   showLoader: false,
   disabled: false,
+  disableOnlyButton: false,
   onDismiss: () => {},
   alwaysActive: false,
   onClick: () => {},
@@ -223,6 +229,7 @@ ExpandableInputBar.classNames = {
   "$prefix-inner-button": "Action button of Inputbar",
   "$prefix-dismiss-icon": "Dismiss icon of Inputbar",
   "$prefix-loader": "Loader for Inputbar",
+  "$prefix-message": "Error/Success message for InputBar",
 };
 
 ExpandableInputBar.TYPES = { ...INPUTBAR_MESSAGE_TYPES };
