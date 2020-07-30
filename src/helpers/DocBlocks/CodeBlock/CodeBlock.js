@@ -7,7 +7,7 @@ import useActivify from "@src/hooks/useActivify";
 
 import styles from "./CodeBlock.scss";
 
-const CodeBlock = ({ children, title, defaultValue }) => {
+const CodeBlock = ({ customStyles = {}, children, title, defaultValue }) => {
   const codeRef = React.useRef();
   const childRef = React.useRef();
   const [value, setValue] = React.useState(defaultValue);
@@ -36,7 +36,7 @@ const CodeBlock = ({ children, title, defaultValue }) => {
   return (
     <div className={styles.codeBlockWrapper}>
       {title ? <div className={styles.codeBlockTitle}>{title}</div> : null}
-      <div className={styles.codeBlock}>
+      <div className={styles.codeBlock} style={customStyles}>
         <div className={`${styles.codeBlockPreview} ${toggledClassName}`}>
           {child}
         </div>
