@@ -52,6 +52,7 @@ test("Prefix Placeholder Class", async () => {
     "test-on-upload-preview",
     "test-on-upload-preview-delete-wrapper",
     "test-on-upload-preview-delete-icon",
+    "test-placeholder-image-dimensions",
     "test-loader",
     "test-progressbar-wrapper",
     "test-progressbar-bar",

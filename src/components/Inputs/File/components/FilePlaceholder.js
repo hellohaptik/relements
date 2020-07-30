@@ -8,7 +8,7 @@ const FilePlaceholder = props => (
   <div className={`${styles.filePlaceholder} ${props.prefixClassName}-wrapper`}>
     <Icon
       className={`${styles.filePlaceholderIcon} ${props.prefixClassName}-icon`}
-      src={PlaceholderIcon}
+      src={props.customIcon || PlaceholderIcon}
     />
     <div
       className={`${styles.filePlaceholderText} ${props.prefixClassName}-text-wrapper`}
@@ -26,7 +26,7 @@ const FilePlaceholder = props => (
       <span
         className={`${styles.filePlaceholderTextSubtitle} ${props.prefixClassName}-format`}
       >
-        Supported Formats: .jpg, .png, .pdf, .docx
+        {`Supported Formats: ${props.type}`}
       </span>
     </div>
   </div>
@@ -35,6 +35,8 @@ const FilePlaceholder = props => (
 FilePlaceholder.propTypes = {
   prefixClassName: PropTypes.string,
   maxFileSize: PropTypes.number,
+  type: PropTypes.string,
+  customIcon: PropTypes.string,
 };
 
 export default FilePlaceholder;
