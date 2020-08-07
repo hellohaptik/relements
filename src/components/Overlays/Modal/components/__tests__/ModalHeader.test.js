@@ -47,7 +47,6 @@ test("Prefix class", async () => {
   const classNames = Object.keys(ModalHeader.classNames).map(className =>
     className.replace("$prefix", "test"),
   );
-  console.log(classNames);
   render(<Component prefixClassName="test" withSave />);
 
   classNames.forEach(className => {
