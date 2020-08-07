@@ -15,14 +15,25 @@ const ModalHeader = ({
   prefixClassName,
   withSave,
   saveTitle,
+  isCloseOnRight,
 }) => {
+  const closeIconPositionClass = isCloseOnRight ? styles.closeOnRight : "";
+  const rightMarginClass =
+    isCloseOnRight && !withSave ? styles.iconWithoutRightMargin : "";
+
   return (
-    <div className={`${styles.modalHeader} ${prefixClassName} ${className}`}>
-      <div className={`${styles.leftColumn} ${prefixClassName}-column-left`}>
+    <div
+      data-testid="modal-header"
+      className={`${styles.modalHeader} ${prefixClassName} ${className}`}
+    >
+      <div
+        data-testid="modal-header-left-column"
+        className={`${styles.leftColumn} ${closeIconPositionClass} ${prefixClassName}-column-left`}
+      >
         <Icon
           onClick={onClose}
           prefixClassName={`${prefixClassName}-icon`}
-          className={styles.icon}
+          className={`${styles.icon} ${rightMarginClass}`}
           src={customCloseIcon || CloseIcon}
         />
         {children}
@@ -59,6 +70,8 @@ ModalHeader.propTypes = {
   saveTitle: PropTypes.string,
   /** Whether to disable the save button */
   withSave: PropTypes.bool,
+  /** Whether to put close icon on the right of the header title */
+  isCloseOnRight: PropTypes.bool,
   /** Custom close icon for modal header, can either be a string identifier
    * for the icon (angle-down) or a react node  */
   customCloseIcon: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
@@ -73,6 +86,7 @@ ModalHeader.defaultProps = {
   prefixClassName: "",
   saveTitle: "",
   withSave: false,
+  isCloseOnRight: false,
 };
 
 ModalHeader.classNames = {

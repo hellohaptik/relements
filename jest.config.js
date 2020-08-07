@@ -4,15 +4,15 @@
 module.exports = {
   // Automatically clear mock calls and instances between every test
   clearMocks: true,
-  coverageDirectory: 'coverage',
-  testPathIgnorePatterns: ['/node_modules/'],
+  coverageDirectory: "coverage",
+  testPathIgnorePatterns: ["/node_modules/"],
   transform: {
-    '^.+\\.js$': 'babel-jest',
+    "^.+\\.js$": "babel-jest",
   },
   moduleNameMapper: {
-    '\\.(css|less|scss)$': '<rootDir>/.jest/styleMock.js',
-    '\\.(mdx|md)$': '<rootDir>/.jest/docsMock.js',
-    '\\.(svg)$': '<rootDir>/.jest/svgMock.js',
+    "^.+\\.(css|less|scss)$": "identity-obj-proxy",
+    "\\.(mdx|md)$": "<rootDir>/.jest/docsMock.js",
+    "\\.(svg)$": "<rootDir>/.jest/svgMock.js",
   },
-  setupFilesAfterEnv: ['jest-expect-message', '<rootDir>/.jest/setup.js'],
+  setupFilesAfterEnv: ["jest-expect-message", "<rootDir>/.jest/setup.js"],
 };

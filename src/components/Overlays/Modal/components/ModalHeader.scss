@@ -1,4 +1,4 @@
-@import 'constants/index.scss';
+@import "constants/index.scss";
 
 .modalHeader {
   display: flex;
@@ -6,7 +6,7 @@
   justify-content: space-between;
   padding: 8px 16px;
   border-bottom: 1px solid #eee;
-  font-size:  18px;
+  font-size: 18px;
   font-weight: 500;
 }
 
@@ -16,10 +16,19 @@
   align-items: center;
 }
 
+.closeOnRight {
+  flex-grow: 1;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
 .icon {
   margin-right: 8px;
   cursor: pointer;
   opacity: 0.7;
+  &WithoutRightMargin {
+    margin-right: 0px;
+  }
   &:hover {
     opacity: 1;
   }
