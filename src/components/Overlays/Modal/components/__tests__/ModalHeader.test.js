@@ -16,11 +16,13 @@ const Component = ({
   withSave,
   saveTitle,
   isCloseOnRight,
+  isWithoutUnderline,
   children,
 }) => (
   <ModalHeader
     className={className}
     prefixClassName={prefixClassName}
+    isWithoutUnderline={isWithoutUnderline}
     onClose={onClose}
     onSave={onSave}
     withSave={withSave}
@@ -99,4 +101,16 @@ test("Left Column to have closeOnRight class with save button", async () => {
   const { getByTestId } = render(<Component isCloseOnRight withSave />);
   const leftColumn = getByTestId("modal-header-left-column");
   expect(leftColumn).toHaveClass("closeOnRight");
+});
+
+test("Without Underline", async () => {
+  const { getByTestId } = render(<Component isWithoutUnderline />);
+  const modalHeader = getByTestId("modal-header");
+  expect(modalHeader).toHaveClass("modalHeaderWithoutUnderline");
+});
+
+test("With Underline", async () => {
+  const { getByTestId } = render(<Component isWithoutUnderline={false} />);
+  const modalHeader = getByTestId("modal-header");
+  expect(modalHeader).not.toHaveClass("modalHeaderWithoutUnderline");
 });

@@ -8,6 +8,9 @@
   border-bottom: 1px solid #eee;
   font-size: 18px;
   font-weight: 500;
+  &WithoutUnderline {
+    border-bottom: none;
+  }
 }
 
 .leftColumn,

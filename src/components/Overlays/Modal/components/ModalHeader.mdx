@@ -19,6 +19,16 @@ import ModalHeader from "./ModalHeader";
 
 <ConfigBlock of={ModalHeader} />
 
+> Without underline.
+
+<CodeBlock>
+  {(value, setValue) => (
+    <ModalHeader onClose={() => setValue(false)} isWithoutUnderline>
+      Hello, world!
+    </ModalHeader>
+  )}
+</CodeBlock>
+
 > With custom save button.
 
 <CodeBlock>

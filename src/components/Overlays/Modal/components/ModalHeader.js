@@ -16,15 +16,19 @@ const ModalHeader = ({
   withSave,
   saveTitle,
   isCloseOnRight,
+  isWithoutUnderline,
 }) => {
   const closeIconPositionClass = isCloseOnRight ? styles.closeOnRight : "";
+  const underlineClass = isWithoutUnderline
+    ? styles.modalHeaderWithoutUnderline
+    : "";
   const rightMarginClass =
     isCloseOnRight && !withSave ? styles.iconWithoutRightMargin : "";
 
   return (
     <div
       data-testid="modal-header"
-      className={`${styles.modalHeader} ${prefixClassName} ${className}`}
+      className={`${styles.modalHeader} ${prefixClassName} ${className} ${underlineClass}`}
     >
       <div
         data-testid="modal-header-left-column"
@@ -72,6 +76,8 @@ ModalHeader.propTypes = {
   withSave: PropTypes.bool,
   /** Whether to put close icon on the right of the header title */
   isCloseOnRight: PropTypes.bool,
+  /** Whether to put underline */
+  isWithoutUnderline: PropTypes.bool,
   /** Custom close icon for modal header, can either be a string identifier
    * for the icon (angle-down) or a react node  */
   customCloseIcon: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
@@ -87,6 +93,7 @@ ModalHeader.defaultProps = {
   saveTitle: "",
   withSave: false,
   isCloseOnRight: false,
+  isWithoutUnderline: false,
 };
 
 ModalHeader.classNames = {
