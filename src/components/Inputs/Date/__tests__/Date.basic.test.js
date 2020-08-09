@@ -35,6 +35,7 @@ const Component = ({
   disabled,
   error,
   label = "Enter date",
+  postfixNode,
 }) => (
   <Date
     label={label}
@@ -47,6 +48,7 @@ const Component = ({
     withComparison={withComparison}
     disabled={disabled}
     error={error}
+    postfixNode={postfixNode}
     withTime
   />
 );
@@ -162,4 +164,18 @@ test("On Comparison Toggle", async () => {
   expect(mockFn).toHaveBeenCalledTimes(2);
   expect(mockFn.mock.calls[1][0].comparisonStartDate).toBe(null);
   expect(mockFn.mock.calls[1][0].comparisonEndDate).toBe(null);
+});
+
+test("Should Have Custom Node", async () => {
+  const postfixNode = <div data-testid="custom-postfix-node"></div>;
+  const { getByTestId } = render(
+    <Component
+      label={null}
+      value={undefined}
+      onChange={console.debug}
+      postfixNode={postfixNode}
+    />,
+  );
+  const date = getByTestId("date");
+  expect(date).toContainHTML('<div data-testid="custom-postfix-node"></div>');
 });

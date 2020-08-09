@@ -117,7 +117,13 @@ class Date extends React.Component {
 
   renderInput() {
     const { focused, active } = this.state;
-    const { placeholder, prefixClassName, onFocus, onBlur } = this.props;
+    const {
+      placeholder,
+      prefixClassName,
+      onFocus,
+      onBlur,
+      postfixNode,
+    } = this.props;
     const parsedValue = this._getParsedDate();
     return (
       <TextInput
@@ -132,7 +138,7 @@ class Date extends React.Component {
         value={parsedValue}
         placeholder={placeholder}
         editable={false}
-        postfixComponent={<Icon src={AngleDownIcon} />}
+        postfixComponent={postfixNode}
       />
     );
   }
@@ -251,6 +257,8 @@ Date.propTypes = {
   withTime: PropTypes.bool,
   /** Number of months to show at a time */
   numMonths: PropTypes.number,
+  /** Node to put at the end of the input element */
+  postfixNode: PropTypes.node,
 };
 
 Date.defaultProps = {
@@ -272,6 +280,7 @@ Date.defaultProps = {
   comparisonMinDate: null,
   numMonths: 1,
   withTime: false,
+  postfixNode: <Icon src={AngleDownIcon} />,
 };
 
 Date.classNames = {
