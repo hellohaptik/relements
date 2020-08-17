@@ -19,7 +19,7 @@ import ImageProgressBar from "./components/ImageProgressBar";
 
 const FILE_ACCEPT_TYPES =
   // eslint-disable-next-line max-len
-  "image/png, image/jpeg, application/pdf, application/ vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword";
+  "image/png, image/jpeg, application/pdf, application/ vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword, text/csv, application/vnd.ms-excel";
 const IMAGE_ACCEPT_TYPES = "image/png, image/jpeg";
 
 @ToastMessage()
@@ -413,7 +413,13 @@ class File extends React.Component {
 
     // Accepts the file extenstions and the selected file's type to validate
     const fileValidation = (allowedFileTypes, file, fileType) => {
-      if (!allowedFileTypes.includes(fileType)) {
+      // TEMPORARY FIX: Windows may/may not identify file type for csv files
+      const validFileTypeCheck =
+        fileType !== ""
+          ? !allowedFileTypes.includes(fileType)
+          : file.name.split(".")[1] !== "csv";
+
+      if (validFileTypeCheck) {
         const errorMsg =
           files.length > 1
             ? "Some of the files selected are invalid."
