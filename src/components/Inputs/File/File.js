@@ -414,10 +414,12 @@ class File extends React.Component {
     // Accepts the file extenstions and the selected file's type to validate
     const fileValidation = (allowedFileTypes, file, fileType) => {
       // TEMPORARY FIX: Windows may/may not identify file type for csv files
+      // TODO: Find a permenant solution for this issue
+
       const validFileTypeCheck =
         fileType !== ""
           ? !allowedFileTypes.includes(fileType)
-          : file.name.split(".")[1] !== "csv";
+          : !file.name.includes(".csv");
 
       if (validFileTypeCheck) {
         const errorMsg =
