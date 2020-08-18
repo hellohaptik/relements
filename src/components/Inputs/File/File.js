@@ -413,15 +413,7 @@ class File extends React.Component {
 
     // Accepts the file extenstions and the selected file's type to validate
     const fileValidation = (allowedFileTypes, file, fileType) => {
-      // TEMPORARY FIX: Windows may/may not identify file type for csv files
-      // TODO: Find a permenant solution for this issue
-
-      const validFileTypeCheck =
-        fileType !== ""
-          ? !allowedFileTypes.includes(fileType)
-          : !file.name.includes(".csv");
-
-      if (validFileTypeCheck) {
+      if (!allowedFileTypes.includes(fileType)) {
         const errorMsg =
           files.length > 1
             ? "Some of the files selected are invalid."
@@ -456,7 +448,18 @@ class File extends React.Component {
         // Removed all the dots from the extensions to match the types with filetypes
         const allowedTypes = type.replace(/\./g, "").split(", ");
         const formattedFileType = file.type.split("/");
-        const fileType = formattedFileType[formattedFileType.length - 1];
+        let fileType = formattedFileType[formattedFileType.length - 1];
+
+        // TEMPORARY FIX: Windows may/may not identify file type for csv files
+        // TODO: Find a permenant solution for this issue
+        if (allowedTypes.includes("csv")) {
+          allowedTypes.push("vnd.ms-excel");
+
+          if (fileType === "") {
+            fileType = "text/csv";
+          }
+        }
+
         fileValidation(allowedTypes, file, fileType);
       }
     });
