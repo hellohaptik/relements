@@ -455,8 +455,8 @@ class File extends React.Component {
         if (allowedTypes.includes("csv")) {
           allowedTypes.push("vnd.ms-excel");
 
-          if (fileType === "") {
-            fileType = "text/csv";
+          if (fileType === "" && file.name.includes(".csv")) {
+            fileType = "csv";
           }
         }
 
