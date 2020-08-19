@@ -19,7 +19,7 @@ import ImageProgressBar from "./components/ImageProgressBar";
 
 const FILE_ACCEPT_TYPES =
   // eslint-disable-next-line max-len
-  "image/png, image/jpeg, application/pdf, application/ vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword";
+  "image/png, image/jpeg, application/pdf, application/ vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword, text/csv, application/vnd.ms-excel";
 const IMAGE_ACCEPT_TYPES = "image/png, image/jpeg";
 
 @ToastMessage()
@@ -409,23 +409,30 @@ class File extends React.Component {
     // Validate the file and add them to the below arrays accordingly
     const validFiles = [];
     const errorMessages = [];
-    const { type, maxFileSize } = this.props;
+    const { type, maxFileSize, customValidate } = this.props;
 
     // Accepts the file extenstions and the selected file's type to validate
     const fileValidation = (allowedFileTypes, file, fileType) => {
-      if (!allowedFileTypes.includes(fileType)) {
-        const errorMsg =
-          files.length > 1
-            ? "Some of the files selected are invalid."
-            : "Invalid File selected.";
+      const errorMsg =
+        files.length > 1
+          ? "Some of the files selected are invalid."
+          : "Invalid File selected.";
+
+      if (customValidate && !customValidate(allowedFileTypes, file, fileType)) {
+        errorMessages.push(errorMsg);
+      } else if (!allowedFileTypes.includes(fileType)) {
         errorMessages.push(
           `${errorMsg} Supported formats: ${allowedFileTypes}`,
         );
-      } else if (file.size > 1024 * 1024 * maxFileSize) {
+      }
+
+      if (file.size > 1024 * 1024 * maxFileSize) {
         errorMessages.push(
           `File: ${file.name} must be less than ${maxFileSize}MB`,
         );
-      } else {
+      }
+
+      if (errorMessages.length === 0) {
         validFiles.push(file);
       }
     };
@@ -473,8 +480,11 @@ File.propTypes = {
   onChange: PropTypes.func,
   /** Custom Icon for File upload */
   customIcon: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  /** Provides a custom validate callback. Returns 'allowedFileTypes, file, fileType' in parameters
+   * (Should always return 'true' or 'false' if validation passes/fails respectively)   */
+  customValidate: PropTypes.func,
   /** Overrides default upload, a function can be passed to override. Returns 'file, index and numFiles' in
-   * parameters  */
+   * parameters. */
   onUpload: PropTypes.func,
   /** Boolean value to allow multiple files */
   multiple: PropTypes.bool,
@@ -505,6 +515,7 @@ File.defaultProps = {
   onChange: () => {},
   customIcon: "",
   onUpload: null,
+  customValidate: null,
   multiple: false,
   ratio: "",
   baseWidth: 290,

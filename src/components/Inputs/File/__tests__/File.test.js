@@ -465,3 +465,23 @@ test("On Upload test", async () => {
   fireEvent.change(input);
   expect(onUpload).toHaveBeenCalled();
 });
+
+test("Custom Validate test", async () => {
+  const customValidate = jest.fn();
+  const file = new File(["dummy content"], "example.png", {
+    type: "image/png",
+  });
+
+  render(
+    <FileComponent prefixClassName="test" customValidate={customValidate} />,
+  );
+
+  const input = document.getElementsByClassName("test-input")[0];
+
+  Object.defineProperty(input, "files", {
+    value: [file],
+  });
+
+  fireEvent.change(input);
+  expect(customValidate).toHaveBeenCalled();
+});
