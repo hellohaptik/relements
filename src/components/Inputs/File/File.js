@@ -409,23 +409,33 @@ class File extends React.Component {
     // Validate the file and add them to the below arrays accordingly
     const validFiles = [];
     const errorMessages = [];
-    const { type, maxFileSize } = this.props;
+    const { type, maxFileSize, customValidate } = this.props;
 
     // Accepts the file extenstions and the selected file's type to validate
     const fileValidation = (allowedFileTypes, file, fileType) => {
-      if (!allowedFileTypes.includes(fileType)) {
-        const errorMsg =
-          files.length > 1
-            ? "Some of the files selected are invalid."
-            : "Invalid File selected.";
+      const errorMsg =
+        files.length > 1
+          ? "Some of the files selected are invalid."
+          : "Invalid File selected.";
+
+      if (customValidate) {
+        const isValid = customValidate(allowedFileTypes, file, fileType);
+        if (!isValid) {
+          errorMessages.push(errorMsg);
+        }
+      } else if (!allowedFileTypes.includes(fileType)) {
         errorMessages.push(
           `${errorMsg} Supported formats: ${allowedFileTypes}`,
         );
-      } else if (file.size > 1024 * 1024 * maxFileSize) {
+      }
+
+      if (file.size > 1024 * 1024 * maxFileSize) {
         errorMessages.push(
           `File: ${file.name} must be less than ${maxFileSize}MB`,
         );
-      } else {
+      }
+
+      if (errorMessages.length === 0) {
         validFiles.push(file);
       }
     };
@@ -448,18 +458,7 @@ class File extends React.Component {
         // Removed all the dots from the extensions to match the types with filetypes
         const allowedTypes = type.replace(/\./g, "").split(", ");
         const formattedFileType = file.type.split("/");
-        let fileType = formattedFileType[formattedFileType.length - 1];
-
-        // TEMPORARY FIX: Windows may/may not identify file type for csv files
-        // TODO: Find a permenant solution for this issue
-        if (allowedTypes.includes("csv")) {
-          allowedTypes.push("vnd.ms-excel");
-
-          if (fileType === "" && file.name.includes(".csv")) {
-            fileType = "csv";
-          }
-        }
-
+        const fileType = formattedFileType[formattedFileType.length - 1];
         fileValidation(allowedTypes, file, fileType);
       }
     });
@@ -484,8 +483,11 @@ File.propTypes = {
   onChange: PropTypes.func,
   /** Custom Icon for File upload */
   customIcon: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  /** Provides a custom validate callback. Returns 'allowedFileTypes, file, fileType' in parameters
+   * (Should always return 'true' or 'false' if validation passes/fails respectively)   */
+  customValidate: PropTypes.func,
   /** Overrides default upload, a function can be passed to override. Returns 'file, index and numFiles' in
-   * parameters  */
+   * parameters. */
   onUpload: PropTypes.func,
   /** Boolean value to allow multiple files */
   multiple: PropTypes.bool,
@@ -516,6 +518,7 @@ File.defaultProps = {
   onChange: () => {},
   customIcon: "",
   onUpload: null,
+  customValidate: null,
   multiple: false,
   ratio: "",
   baseWidth: 290,
