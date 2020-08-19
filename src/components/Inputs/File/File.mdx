@@ -61,11 +61,7 @@ import File from "./File";
   <File
     type=".csv"
     customValidate={(allowedFileTypes, file, fileType) => {
-      let isValid;
-      if (allowedFileTypes.includes("csv")) {
-        allowedFileTypes.push("vnd.ms-excel");
-      }
-      isValid = file.name.includes(".csv");
+      let isValid = file.name.includes(".csv");
       return isValid;
     }}
   />
