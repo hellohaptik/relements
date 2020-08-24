@@ -418,8 +418,10 @@ class File extends React.Component {
           ? "Some of the files selected are invalid."
           : "Invalid File selected.";
 
-      if (customValidate && !customValidate(allowedFileTypes, file, fileType)) {
-        errorMessages.push(errorMsg);
+      if (customValidate) {
+        if (!customValidate(allowedFileTypes, file, fileType)) {
+          errorMessages.push(errorMsg);
+        }
       } else if (!allowedFileTypes.includes(fileType)) {
         errorMessages.push(
           `${errorMsg} Supported formats: ${allowedFileTypes}`,
