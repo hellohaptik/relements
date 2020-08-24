@@ -1,6 +1,6 @@
 {
   "name": "relements",
-  "version": "2.2.0-develop.70",
+  "version": "2.2.0-develop.71",
   "description": "UI Components Library for React",
   "main": "build/bundle.umd.js",
   "module": "build/bundle.mjs",
