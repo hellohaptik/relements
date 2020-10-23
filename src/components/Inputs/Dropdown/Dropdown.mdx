@@ -97,6 +97,71 @@ import Dropdown from "./Dropdown";
     )
 }
 </CodeBlock>
+<CodeBlock title="With Multiple, withSearch & UseCheckbox" defaultValue={[{ title: "Option text 1" }]}>
+{
+    (value, setValue) => (
+        <Dropdown
+            placeholder="Test placeholder"
+            className="my-dropdown"
+            prefixClassName="my-yoooo"
+            options={[
+            { label: 'All', title: "Option text 1" },
+            { label: 'All', title: "Option text 2" },
+            { label: 'All', title: "Option text 3" },
+            { label: 'All', title: "Option text 4" },
+            { label: 'All', title: "Option text 5" },
+            { label: 'All', title: "Option text 6" },
+            { label: 'All', title: "Option text 7" },
+            { label: 'All', title: "Option text 8" },
+            { label: 'All', title: "Option text 9" },
+            { label: 'All', title: "Option text 10" },
+            { label: 'All', title: "Option text 11" },
+            { label: 'All', title: "Option text 12" },
+                ]}
+            label="This is the label"
+            value={value}
+            onChange={setValue}
+            optionKey="title"
+            searchKeys={['title']}
+            withMultiple
+            withSearch
+            useCheckbox
+        />
+    )
+}
+</CodeBlock>
+<CodeBlock title="With Multiple & UseCheckbox" defaultValue={[{ title: "Option text 1" }]}>
+{
+    (value, setValue) => (
+        <Dropdown
+            placeholder="Test placeholder"
+            className="my-dropdown"
+            prefixClassName="my-yoooo"
+            options={[
+            { label: 'All', title: "Option text 1" },
+            { label: 'All', title: "Option text 2" },
+            { label: 'All', title: "Option text 3" },
+            { label: 'All', title: "Option text 4" },
+            { label: 'All', title: "Option text 5" },
+            { label: 'All', title: "Option text 6" },
+            { label: 'All', title: "Option text 7" },
+            { label: 'All', title: "Option text 8" },
+            { label: 'All', title: "Option text 9" },
+            { label: 'All', title: "Option text 10" },
+            { label: 'All', title: "Option text 11" },
+            { label: 'All', title: "Option text 12" },
+                ]}
+            label="This is the label"
+            value={value}
+            onChange={setValue}
+            optionKey="title"
+            searchKeys={['title']}
+            withMultiple
+            useCheckbox
+        />
+    )
+}
+</CodeBlock>
 <CodeBlock title="With Search">
 {
     (value, setValue) => (
@@ -146,7 +211,7 @@ import Dropdown from "./Dropdown";
       placeholder="Test placeholder"
       className="my-dropdown"
       prefixClassName="my-yoooo"
-      value={[{text: "Option text 1" }]}
+      value={[{ text: "Option text 1" }]}
       options={[
         { text: "Option text 1" },
         { text: "Option text 2" },
@@ -168,10 +233,10 @@ import Dropdown from "./Dropdown";
       prefixClassName="my-yoooo"
       value={value}
       options={[
-        {text: "Option text 1"},
-        {text: "Option text 2"},
-        {text: "Option text 3"},
-        {text: "Option text 4"},
+        { text: "Option text 1" },
+        { text: "Option text 2" },
+        { text: "Option text 3" },
+        { text: "Option text 4" },
       ]}
       label="This is the label"
       onChange={setValue}

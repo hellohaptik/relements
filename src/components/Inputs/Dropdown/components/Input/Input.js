@@ -95,8 +95,8 @@ const Input = ({
 Input.propTypes = {
   disabled: PropTypes.bool,
   focused: PropTypes.bool,
-  innerRef: PropTypes.shape({}),
   inputRef: PropTypes.shape({}),
+  innerRef: PropTypes.shape({}),
   isReversed: PropTypes.bool,
   onChange: PropTypes.func,
   onTextChange: PropTypes.func,

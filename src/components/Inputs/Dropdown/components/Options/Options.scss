@@ -42,3 +42,36 @@
   top: 0;
   left: 0;
 }
+
+.checkboxOptions {
+  max-height: inherit;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  &Search {
+    width: -webkit-fill-available;
+    font-size: 14px;
+    outline: none;
+    border: 0;
+    border-radius: 0;
+    border-bottom: 1px solid #d0d0d0;
+    margin: 12px;
+    padding: 4px;
+
+    &.hidden {
+      opacity: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      max-height: 2px !important;
+    }
+  }
+
+  &Wrapper {
+    overflow: auto;
+  }
+
+  &Option {
+    margin: 4px 12px;
+  }
+}

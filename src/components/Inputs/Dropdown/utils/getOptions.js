@@ -19,7 +19,10 @@ export default function getOptions({
   withCreate,
   value,
   text,
+  useCheckbox = false,
+  withMultiple = false,
 }) {
+  const isUsingCheckbox = useCheckbox && withMultiple;
   // ===first===
   // filter out the already selected options
   // based on the value.
@@ -35,10 +38,11 @@ export default function getOptions({
   const flatValue = value.map(valueItem => valueItem[optionKey]);
   const flatOptions = options.map(valueItem => valueItem[optionKey]);
   let filteredOptions = options
-    .filter(option => !flatValue.includes(option[optionKey]))
+    .filter(option => isUsingCheckbox || !flatValue.includes(option[optionKey]))
     .map(option => ({
       label: option[optionKey],
       value: option,
+      [isUsingCheckbox && "isSelected"]: flatValue.includes(option[optionKey]),
     }));
 
   // if creation is allowed we check if the typed text is the same as an option
