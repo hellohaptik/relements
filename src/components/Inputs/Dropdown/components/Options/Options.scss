@@ -1,7 +1,5 @@
 @import "constants/index.scss";
 
-@import "constants/index.scss";
-
 .dropdownOptions {
   position: absolute;
   z-index: $z-index + 2;
@@ -77,6 +75,12 @@
   }
 
   &Option {
-    margin: 4px 12px;
+    padding: 4px 12px;
+    margin: 0;
+
+    &:hover {
+      background-color: #fafafa;
+      cursor: pointer;
+    }
   }
 }
