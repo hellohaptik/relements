@@ -25,6 +25,8 @@ const Options = ({
   useCheckbox,
   withMultiple,
   withSearch,
+  onMouseEnter,
+  onMouseLeave,
   className,
 }) => {
   const { visible, enabled } = useActivify(focused);
@@ -124,7 +126,11 @@ const Options = ({
           onBlur={onBlur}
         >
           {useCheckbox && withMultiple ? (
-            <div className={styles.checkboxOptions}>
+            <div
+              className={styles.checkboxOptions}
+              onMouseEnter={onMouseEnter}
+              onMouseLeave={onMouseLeave}
+            >
               <input
                 ref={inputRef}
                 className={`${styles.checkboxOptionsSearch} ${!withSearch &&
@@ -137,6 +143,21 @@ const Options = ({
               />
               <div className={styles.checkboxOptionsWrapper}>
                 {options.map((option, i) => {
+                  // we return option if zero state is present (no options present)
+                  if (option.isZeroState)
+                    return (
+                      <Option
+                        key={`${option.label}-${i}`}
+                        selected={highlightIndex === i}
+                        innerRef={dropdownDOMs.current[i]}
+                        isZeroState={option.isZeroState}
+                        className={`${prefixClassName}-option ${styles.checkboxOptionsZeroState}`}
+                      >
+                        {option.label}
+                      </Option>
+                    );
+
+                  // TODO: Add "create mode" as and when required
                   return (
                     <Checkbox.Item
                       key={`${option.label}-${i}`}
@@ -188,6 +209,8 @@ Options.propTypes = {
   withSearch: PropTypes.bool,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
   inputRef: PropTypes.shape({}),
   attachTo: PropTypes.shape({
     current: PropTypes.node,

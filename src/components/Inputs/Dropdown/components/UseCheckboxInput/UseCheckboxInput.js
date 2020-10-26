@@ -23,14 +23,19 @@ const UseCheckboxInput = ({
   const reversedClassName = isReversed ? styles.reversed : "";
   return (
     <div
-      className={`${styles.useCheckboxInput} ${focusedClassName} ${reversedClassName}`}
+      data-testid="dropdownCheckboxWrapper"
+      className={`${styles.useCheckboxInput} ${focusedClassName} ${reversedClassName} ${prefixClassName}-checkbox`}
       style={focusedStyle}
       ref={innerRef}
     >
-      <div className={styles.useCheckboxInputText}>
+      <div
+        className={`${styles.useCheckboxInputText} ${prefixClassName}-checkbox-text`}
+      >
         {value.map(valueObject => valueObject[optionKey]).join(", ")}
       </div>
-      <div className={styles.useCheckboxInputIcon}>
+      <div
+        className={`${styles.useCheckboxInputIcon}  ${prefixClassName}-checkbox-icon`}
+      >
         {tooltip ? (
           <WithTooltip
             className={`${prefixClassName}-tooltip`}

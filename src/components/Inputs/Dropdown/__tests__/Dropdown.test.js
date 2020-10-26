@@ -269,3 +269,17 @@ test("Adding Chips/Deleting Chips", async () => {
   const optionsAfterDelete = document.getElementsByClassName("test-option");
   expect(optionsAfterDelete.length).toBe(4);
 });
+
+test("Rendering checkbox style", async () => {
+  const mockFn = jest.fn();
+  const { getByTestId } = render(
+    component({
+      withMultiple: true,
+      withSearch: true,
+      onChange: mockFn,
+      useCheckbox: true,
+    }),
+  );
+
+  expect(getByTestId("dropdownCheckboxWrapper")).toBeInTheDocument();
+});

@@ -112,7 +112,6 @@ const Dropdown = ({
   const handleBlur = e => {
     if (disabled) return;
 
-    console.log("isMouseOnOptions", isMouseOnOptions);
     if (withMultiple && useCheckbox && isMouseOnOptions) {
       handleFocus(e);
       return;
@@ -262,8 +261,6 @@ const Dropdown = ({
       tabIndex="0"
       onFocus={handleFocus}
       onBlur={handleBlur}
-      onMouseEnter={mouseEnter}
-      onMouseLeave={mouseLeave}
     >
       <Label
         focused={focused}
@@ -282,7 +279,7 @@ const Dropdown = ({
           disabled={disabled}
           focused={focused}
           isReversed={isReversed}
-          prefixClassName={`${prefixClassName}-checkbox`}
+          prefixClassName={`${prefixClassName}-input`}
         />
       ) : (
         <Input
@@ -319,6 +316,8 @@ const Dropdown = ({
         withSearch={withSearch}
         withMultiple={withMultiple}
         useCheckbox={useCheckbox}
+        onMouseEnter={mouseEnter}
+        onMouseLeave={mouseLeave}
       />
     </div>
   );
@@ -368,6 +367,7 @@ Dropdown.propTypes = {
   arrowTooltip: PropTypes.string,
   /**  Keys in the options to search for when using withSearch */
   searchKeys: PropTypes.arrayOf(PropTypes.string),
+  /** Flag to use checkbox style of dropdown (NOTE: Can be only used withMultiple flag) */
   useCheckbox: PropTypes.bool,
 };
 
