@@ -97,7 +97,7 @@ import Dropdown from "./Dropdown";
     )
 }
 </CodeBlock>
-<CodeBlock title="With Multiple, withSearch & UseCheckbox" defaultValue={[{ title: "Option text 1" }]}>
+<CodeBlock title="With Multiple, withSearch & withCheckbox" defaultValue={[{ title: "Option text 1" }]}>
 {
     (value, setValue) => (
         <Dropdown
@@ -125,12 +125,12 @@ import Dropdown from "./Dropdown";
             searchKeys={['title']}
             withMultiple
             withSearch
-            useCheckbox
+            withCheckbox
         />
     )
 }
 </CodeBlock>
-<CodeBlock title="With Multiple & UseCheckbox" defaultValue={[{ title: "Option text 1" }]}>
+<CodeBlock title="With Multiple & withCheckbox" defaultValue={[{ title: "Option text 1" }]}>
 {
     (value, setValue) => (
         <Dropdown
@@ -157,7 +157,7 @@ import Dropdown from "./Dropdown";
             optionKey="title"
             searchKeys={['title']}
             withMultiple
-            useCheckbox
+            withCheckbox
         />
     )
 }

@@ -4,6 +4,8 @@ import { Portal } from "react-portal";
 import useActivify from "@src/hooks/useActivify";
 import Context from "@src/components/Context";
 import Checkbox from "@src/components/Inputs/Checkbox";
+import Icon from "@src/components/UI/Icon";
+import SearchIcon from "@src/icons/search.svg";
 
 import Option from "../Option";
 import useKeyboardSelect from "../../hooks/useKeyboardSelect";
@@ -22,7 +24,7 @@ const Options = ({
   handleOnSearchBlur,
   handleSearchText,
   isReversed,
-  useCheckbox,
+  withCheckbox,
   withMultiple,
   withSearch,
   onMouseEnter,
@@ -115,6 +117,68 @@ const Options = ({
     width: rect.width,
   };
 
+  const renderWithCheckbox = () => {
+    return (
+      <div
+        className={styles.checkboxOptions}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
+        <div
+          className={`${styles.checkboxOptionsSearchWrapper}  ${!withSearch &&
+            styles.noBorder}`}
+          style={{ borderColor: focused ? primaryColor : undefined }}
+        >
+          <Icon
+            src={SearchIcon}
+            className={`${
+              styles.checkboxOptionsSearchIcon
+            } ${prefixClassName}-icon  ${!withSearch && styles.noDisplay}`}
+          />
+          <input
+            ref={inputRef}
+            className={`${styles.checkboxOptionsSearch} ${!withSearch &&
+              styles.hidden}`}
+            style={focusedSearchStyle}
+            placeholder="Search here"
+            onChange={e => handleSearchText(e.target.value)}
+            onFocus={handleOnSearchFocus}
+            onBlur={handleOnSearchBlur}
+          />
+        </div>
+        <div className={styles.checkboxOptionsWrapper}>
+          {options.map((option, i) => {
+            if (option.isZeroState) {
+              return (
+                <Option
+                  key={`${option.label}-${i}`}
+                  selected={highlightIndex === i}
+                  innerRef={dropdownDOMs.current[i]}
+                  isZeroState={option.isZeroState}
+                  className={`${prefixClassName}-option ${styles.checkboxOptionsWrapperZeroState}`}
+                >
+                  {option.label}
+                </Option>
+              );
+            }
+            // TODO: Add "create mode" as and when required
+            return (
+              <Checkbox.Item
+                key={`${option.label}-${i}`}
+                label={option.label}
+                value={option.isSelected}
+                onChange={() => {
+                  onChange(option.value);
+                }}
+                className={`${styles.checkboxOptionsOption} ${prefixClassName}-option`}
+              />
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <Portal>
       <div className={`${styles.dropdownOptionsWrapper}  ${className}`}>
@@ -125,53 +189,8 @@ const Options = ({
           className={`${styles.dropdownOptions} ${activeClassName} ${reverseModeClassName} ${prefixClassName}-options`}
           onBlur={onBlur}
         >
-          {useCheckbox && withMultiple ? (
-            <div
-              className={styles.checkboxOptions}
-              onMouseEnter={onMouseEnter}
-              onMouseLeave={onMouseLeave}
-            >
-              <input
-                ref={inputRef}
-                className={`${styles.checkboxOptionsSearch} ${!withSearch &&
-                  styles.hidden}`}
-                style={focusedSearchStyle}
-                placeholder="Search here"
-                onChange={e => handleSearchText(e.target.value)}
-                onFocus={handleOnSearchFocus}
-                onBlur={handleOnSearchBlur}
-              />
-              <div className={styles.checkboxOptionsWrapper}>
-                {options.map((option, i) => {
-                  // we return option if zero state is present (no options present)
-                  if (option.isZeroState)
-                    return (
-                      <Option
-                        key={`${option.label}-${i}`}
-                        selected={highlightIndex === i}
-                        innerRef={dropdownDOMs.current[i]}
-                        isZeroState={option.isZeroState}
-                        className={`${prefixClassName}-option ${styles.checkboxOptionsZeroState}`}
-                      >
-                        {option.label}
-                      </Option>
-                    );
-
-                  // TODO: Add "create mode" as and when required
-                  return (
-                    <Checkbox.Item
-                      key={`${option.label}-${i}`}
-                      label={option.label}
-                      value={option.isSelected}
-                      onChange={() => {
-                        onChange(option.value);
-                      }}
-                      className={`${styles.checkboxOptionsOption} ${prefixClassName}-option`}
-                    />
-                  );
-                })}
-              </div>
-            </div>
+          {withCheckbox && withMultiple ? (
+            renderWithCheckbox()
           ) : (
             <>
               {options.map((option, i) => {
@@ -204,7 +223,7 @@ Options.propTypes = {
   className: PropTypes.string,
   focused: PropTypes.bool,
   isReversed: PropTypes.bool,
-  useCheckbox: PropTypes.bool,
+  withCheckbox: PropTypes.bool,
   withMultiple: PropTypes.bool,
   withSearch: PropTypes.bool,
   onBlur: PropTypes.func,
@@ -232,7 +251,7 @@ Options.defaultProps = {
   className: "",
   focused: false,
   isReversed: false,
-  useCheckbox: false,
+  withCheckbox: false,
   withMultiple: false,
   isSearchFocused: false,
   withSearch: false,

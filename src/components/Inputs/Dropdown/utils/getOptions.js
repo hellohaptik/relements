@@ -19,10 +19,10 @@ export default function getOptions({
   withCreate,
   value,
   text,
-  useCheckbox = false,
+  withCheckbox = false,
   withMultiple = false,
 }) {
-  const isUsingCheckbox = useCheckbox && withMultiple;
+  const isUsingCheckbox = withCheckbox && withMultiple;
   // ===first===
   // filter out the already selected options
   // based on the value.

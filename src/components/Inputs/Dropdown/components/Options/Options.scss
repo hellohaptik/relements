@@ -53,9 +53,34 @@
     outline: none;
     border: 0;
     border-radius: 0;
-    border-bottom: 1px solid #d0d0d0;
-    margin: 12px;
     padding: 4px;
+
+    &Wrapper {
+      display: flex;
+      margin: 12px;
+      border: 1px solid $border-color;
+      padding: 2px;
+      border-radius: 8px;
+
+      &.noBorder {
+        border: 0 !important;
+        margin-top: 0;
+        margin-bottom: 4px;
+      }
+
+      &ZeroState {
+        padding: 12px;
+        padding-top: 0;
+      }
+    }
+
+    &Icon {
+      margin-top: 2px;
+
+      &.noDisplay {
+        display: none;
+      }
+    }
 
     &.hidden {
       opacity: 0 !important;
@@ -63,11 +88,6 @@
       padding: 0 !important;
       max-height: 2px !important;
     }
-  }
-
-  &ZeroState {
-    padding: 12px;
-    padding-top: 0;
   }
 
   &Wrapper {

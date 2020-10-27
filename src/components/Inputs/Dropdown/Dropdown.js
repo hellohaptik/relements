@@ -7,7 +7,7 @@ import { useSearch } from "./hooks/useSearch";
 import styles from "./Dropdown.scss";
 import Options from "./components/Options";
 import Input from "./components/Input";
-import UseCheckboxInput from "./components/UseCheckboxInput";
+import WithCheckboxInput from "./components/WithCheckboxInput";
 import getOptions from "./utils/getOptions";
 
 const Dropdown = ({
@@ -31,7 +31,7 @@ const Dropdown = ({
   withSearch,
   withCreate,
   withMultiple,
-  useCheckbox,
+  withCheckbox,
 }) => {
   // stores the currently typed input (in case of withSearch)
   const [text, setText] = React.useState("");
@@ -95,7 +95,7 @@ const Dropdown = ({
     withCreate,
     createPrefix,
     text,
-    useCheckbox,
+    withCheckbox,
     withMultiple,
     value: inputValue,
   });
@@ -112,7 +112,7 @@ const Dropdown = ({
   const handleBlur = e => {
     if (disabled) return;
 
-    if (withMultiple && useCheckbox && isMouseOnOptions) {
+    if (withMultiple && withCheckbox && isMouseOnOptions) {
       handleFocus(e);
       return;
     }
@@ -188,7 +188,7 @@ const Dropdown = ({
 
     let newValue;
 
-    if (useCheckbox && withMultiple) {
+    if (withCheckbox && withMultiple) {
       const isValueAlreadyPresent = inputValue.filter(
         value => value[optionKey] === e[optionKey],
       ).length;
@@ -250,9 +250,9 @@ const Dropdown = ({
   }, [firstValueLabel]);
 
   const mouseEnter = () =>
-    useCheckbox && withMultiple && setIsMouseOnOptions(true);
+    withCheckbox && withMultiple && setIsMouseOnOptions(true);
   const mouseLeave = () =>
-    useCheckbox && withMultiple && setIsMouseOnOptions(false);
+    withCheckbox && withMultiple && setIsMouseOnOptions(false);
 
   return (
     <div
@@ -270,8 +270,8 @@ const Dropdown = ({
       >
         {label}
       </Label>
-      {withMultiple && useCheckbox ? (
-        <UseCheckboxInput
+      {withMultiple && withCheckbox ? (
+        <WithCheckboxInput
           innerRef={inputWrapperRef}
           value={inputValue}
           optionKey={optionKey}
@@ -315,9 +315,9 @@ const Dropdown = ({
         prefixClassName={prefixClassName}
         withSearch={withSearch}
         withMultiple={withMultiple}
-        useCheckbox={useCheckbox}
         onMouseEnter={mouseEnter}
         onMouseLeave={mouseLeave}
+        withCheckbox={withCheckbox}
       />
     </div>
   );
@@ -368,7 +368,7 @@ Dropdown.propTypes = {
   /**  Keys in the options to search for when using withSearch */
   searchKeys: PropTypes.arrayOf(PropTypes.string),
   /** Flag to use checkbox style of dropdown (NOTE: Can be only used withMultiple flag) */
-  useCheckbox: PropTypes.bool,
+  withCheckbox: PropTypes.bool,
 };
 
 Dropdown.defaultProps = {
@@ -392,7 +392,7 @@ Dropdown.defaultProps = {
   withSearch: false,
   withCreate: false,
   withMultiple: false,
-  useCheckbox: false,
+  withCheckbox: false,
 };
 
 Dropdown.classNames = {

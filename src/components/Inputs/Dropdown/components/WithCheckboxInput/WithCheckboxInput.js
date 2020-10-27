@@ -6,9 +6,9 @@ import Icon from "@src/components/UI/Icon";
 import WithTooltip from "@src/components/Overlays/WithTooltip";
 import AngleDownIcon from "@src/icons/angle-down.svg";
 
-import styles from "./UseCheckboxInput.scss";
+import styles from "./WithCheckboxInput.scss";
 
-const UseCheckboxInput = ({
+const WithCheckboxInput = ({
   value,
   innerRef,
   optionKey,
@@ -23,19 +23,15 @@ const UseCheckboxInput = ({
   const reversedClassName = isReversed ? styles.reversed : "";
   return (
     <div
-      data-testid="dropdownCheckboxWrapper"
-      className={`${styles.useCheckboxInput} ${focusedClassName} ${reversedClassName} ${prefixClassName}-checkbox`}
+      className={`${styles.withCheckboxInput} ${focusedClassName} ${reversedClassName}`}
       style={focusedStyle}
       ref={innerRef}
+      data-testid="dropdownCheckboxWrapper"
     >
-      <div
-        className={`${styles.useCheckboxInputText} ${prefixClassName}-checkbox-text`}
-      >
+      <div className={styles.withCheckboxInputText}>
         {value.map(valueObject => valueObject[optionKey]).join(", ")}
       </div>
-      <div
-        className={`${styles.useCheckboxInputIcon}  ${prefixClassName}-checkbox-icon`}
-      >
+      <div className={styles.withCheckboxInputIcon}>
         {tooltip ? (
           <WithTooltip
             className={`${prefixClassName}-tooltip`}
@@ -52,7 +48,7 @@ const UseCheckboxInput = ({
   );
 };
 
-UseCheckboxInput.propTypes = {
+WithCheckboxInput.propTypes = {
   value: PropTypes.arrayOf(PropTypes.shape({})),
   innerRef: PropTypes.shape({}),
   optionKey: PropTypes.string,
@@ -62,4 +58,4 @@ UseCheckboxInput.propTypes = {
   isReversed: PropTypes.bool,
 };
 
-export default UseCheckboxInput;
+export default WithCheckboxInput;

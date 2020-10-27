@@ -277,7 +277,7 @@ test("Rendering checkbox style", async () => {
       withMultiple: true,
       withSearch: true,
       onChange: mockFn,
-      useCheckbox: true,
+      withCheckbox: true,
     }),
   );
 
