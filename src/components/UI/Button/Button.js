@@ -91,7 +91,7 @@ const Button = ({
   });
 
   return (
-    <div className={styles.button_container}>
+    <div className={styles.buttonContainer}>
       <button
         data-testid="button"
         type="button"
