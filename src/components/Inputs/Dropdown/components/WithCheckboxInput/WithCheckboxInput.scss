@@ -24,6 +24,9 @@
     width: 95%;
     font-size: 14px;
     padding: 0 8px 0 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   &Icon {
