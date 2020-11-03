@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { rgba } from "@src/utils/generic";
+
 import styles from "./Button.scss";
 import Context from "../../Context";
 
@@ -24,6 +25,7 @@ const Button = ({
   onSecondaryClick,
 }) => {
   const { primaryColor } = React.useContext(Context);
+
   /**
    * Get the styles classname corresponding to the type prop
    * @returns {string} classname of the type styles to be applied
