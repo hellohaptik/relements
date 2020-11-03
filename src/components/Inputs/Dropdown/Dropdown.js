@@ -7,6 +7,7 @@ import { useSearch } from "./hooks/useSearch";
 import styles from "./Dropdown.scss";
 import Options from "./components/Options";
 import Input from "./components/Input";
+import WithCheckboxInput from "./components/WithCheckboxInput";
 import getOptions from "./utils/getOptions";
 
 const Dropdown = ({
@@ -30,6 +31,7 @@ const Dropdown = ({
   withSearch,
   withCreate,
   withMultiple,
+  withCheckbox,
 }) => {
   // stores the currently typed input (in case of withSearch)
   const [text, setText] = React.useState("");
@@ -44,6 +46,8 @@ const Dropdown = ({
 
   const [createdOption, setCreatedOption] = React.useState();
   const [focused, setFocused] = React.useState(false);
+  const [isSearchFocused, setIsSearchFocused] = React.useState(false);
+  const [isMouseOnOptions, setIsMouseOnOptions] = React.useState(false);
 
   // simple mode is when the options are an array of strings instead of objects
   // and the value and onChange also expect strings.
@@ -91,6 +95,8 @@ const Dropdown = ({
     withCreate,
     createPrefix,
     text,
+    withCheckbox,
+    withMultiple,
     value: inputValue,
   });
 
@@ -105,6 +111,12 @@ const Dropdown = ({
   // on blurring we clear + blur the input
   const handleBlur = e => {
     if (disabled) return;
+
+    if (withMultiple && withCheckbox && isMouseOnOptions) {
+      handleFocus(e);
+      return;
+    }
+
     setFocused(false);
     onBlur(e);
     if (inputRef.current) inputRef.current.blur();
@@ -143,7 +155,9 @@ const Dropdown = ({
 
     // sometimes the input isn't immediately available
     // only available on the next tick (hence the timeout is 0)
-    setTimeout(() => inputRef.current && inputRef.current.focus(), 0);
+    setTimeout(() => {
+      inputRef.current && inputRef.current.focus();
+    }, 0);
     clearTimeout(timeoutRef.current);
   };
 
@@ -171,8 +185,40 @@ const Dropdown = ({
     // based on if multiple selection is allowed
     // then we append the new option to the existing value array
     // otherwise we return the value as is
-    const newValue = withMultiple ? [...inputValue, e] : e;
+
+    let newValue;
+
+    if (withCheckbox && withMultiple) {
+      const isValueAlreadyPresent = inputValue.filter(
+        value => value[optionKey] === e[optionKey],
+      ).length;
+
+      if (isValueAlreadyPresent) {
+        newValue = inputValue.filter(
+          value => value[optionKey] !== e[optionKey],
+        );
+      } else {
+        newValue = [...inputValue, e];
+      }
+    } else if (withMultiple) {
+      newValue = [...inputValue, e];
+    } else {
+      newValue = e;
+    }
+
     handleChange(newValue);
+  };
+
+  const handleOnSearchFocus = () => {
+    setIsSearchFocused(true);
+  };
+
+  const handleOnSearchBlur = () => {
+    setIsSearchFocused(false);
+  };
+
+  const handleSearchText = text => {
+    setText(text);
   };
 
   React.useEffect(() => {
@@ -203,6 +249,11 @@ const Dropdown = ({
     setText(firstValueLabel || "");
   }, [firstValueLabel]);
 
+  const mouseEnter = () =>
+    withCheckbox && withMultiple && setIsMouseOnOptions(true);
+  const mouseLeave = () =>
+    withCheckbox && withMultiple && setIsMouseOnOptions(false);
+
   return (
     <div
       className={`${styles.dropdown} ${prefixClassName} ${className}`}
@@ -219,31 +270,54 @@ const Dropdown = ({
       >
         {label}
       </Label>
-      <Input
-        innerRef={inputWrapperRef}
-        inputRef={inputRef}
-        value={inputValue}
-        text={text}
-        onTextChange={setText}
-        onChange={handleChange}
-        isReversed={isReversed}
-        focused={focused}
-        tooltip={arrowTooltip}
-        placeholder={placeholder}
-        withSearch={withSearch}
-        withMultiple={withMultiple}
-        optionKey={optionKey}
-        disabled={disabled}
-        prefixClassName={`${prefixClassName}-input`}
-      />
+      {withMultiple && withCheckbox ? (
+        <WithCheckboxInput
+          innerRef={inputWrapperRef}
+          value={inputValue}
+          optionKey={optionKey}
+          tooltip={arrowTooltip}
+          disabled={disabled}
+          focused={focused}
+          isReversed={isReversed}
+          prefixClassName={`${prefixClassName}-input`}
+        />
+      ) : (
+        <Input
+          innerRef={inputWrapperRef}
+          inputRef={inputRef}
+          value={inputValue}
+          text={text}
+          onTextChange={setText}
+          onChange={handleChange}
+          isReversed={isReversed}
+          focused={focused}
+          tooltip={arrowTooltip}
+          placeholder={placeholder}
+          withSearch={withSearch}
+          withMultiple={withMultiple}
+          optionKey={optionKey}
+          disabled={disabled}
+          prefixClassName={`${prefixClassName}-input`}
+        />
+      )}
       <Options
         attachTo={inputWrapperRef}
+        inputRef={inputRef}
         focused={focused}
         options={dropdownOptions}
         onChange={handleOptionClick}
+        handleOnSearchFocus={handleOnSearchFocus}
+        handleOnSearchBlur={handleOnSearchBlur}
+        handleSearchText={handleSearchText}
+        isSearchFocused={isSearchFocused}
         isReversed={isReversed}
         onBlur={handleBlur}
         prefixClassName={prefixClassName}
+        withSearch={withSearch}
+        withMultiple={withMultiple}
+        onMouseEnter={mouseEnter}
+        onMouseLeave={mouseLeave}
+        withCheckbox={withCheckbox}
       />
     </div>
   );
@@ -293,6 +367,8 @@ Dropdown.propTypes = {
   arrowTooltip: PropTypes.string,
   /**  Keys in the options to search for when using withSearch */
   searchKeys: PropTypes.arrayOf(PropTypes.string),
+  /** Flag to use checkbox style of dropdown (NOTE: Can be only used withMultiple flag) */
+  withCheckbox: PropTypes.bool,
 };
 
 Dropdown.defaultProps = {
@@ -316,6 +392,7 @@ Dropdown.defaultProps = {
   withSearch: false,
   withCreate: false,
   withMultiple: false,
+  withCheckbox: false,
 };
 
 Dropdown.classNames = {
