@@ -113,7 +113,11 @@ const Button = ({
         {children}
       </button>
       {showSecondaryIcon && (
-        <span className={styles.secondaryIcon} onClick={onSecondaryClick}>
+        <span
+          data-testid="secondry-icon"
+          className={styles.secondaryIcon}
+          onClick={onSecondaryClick}
+        >
           {secondaryIcon}
         </span>
       )}
@@ -175,8 +179,8 @@ Button.propTypes = {
   ]).isRequired,
   /** Determines whether to show the secondary icon */
   showSecondaryIcon: PropTypes.bool,
-  /** html element to render as secondary icon */
-  secondaryIcon: PropTypes.oneOfType([PropTypes.element]),
+  /** <Icon /> element to render as secondary icon */
+  secondaryIcon: PropTypes.element,
   /** secondary icon onClick callback */
   onSecondaryClick: PropTypes.func,
 };
