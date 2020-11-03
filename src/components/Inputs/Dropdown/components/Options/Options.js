@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import { Portal } from "react-portal";
 import useActivify from "@src/hooks/useActivify";
 import Context from "@src/components/Context";
+import Checkbox from "@src/components/Inputs/Checkbox";
+import Icon from "@src/components/UI/Icon";
+import SearchIcon from "@src/icons/search.svg";
 
 import Option from "../Option";
 import useKeyboardSelect from "../../hooks/useKeyboardSelect";
@@ -14,8 +17,18 @@ const Options = ({
   onBlur,
   attachTo,
   focused,
+  inputRef,
   prefixClassName,
+  isSearchFocused,
+  handleOnSearchFocus,
+  handleOnSearchBlur,
+  handleSearchText,
   isReversed,
+  withCheckbox,
+  withMultiple,
+  withSearch,
+  onMouseEnter,
+  onMouseLeave,
   className,
 }) => {
   const { visible, enabled } = useActivify(focused);
@@ -41,6 +54,9 @@ const Options = ({
 
   const activeClassName = visible ? styles.active : "";
   const focusedStyle = focused ? { borderColor: primaryColor } : {};
+  const focusedSearchStyle = isSearchFocused
+    ? { borderColor: primaryColor }
+    : {};
   const reverseModeClassName = isReversed ? styles.reverse : "";
 
   /* Dropdown refs useEffect
@@ -88,7 +104,7 @@ const Options = ({
 
   if (!enabled) return null;
 
-  const rect = attachTo.current.getBoundingClientRect();
+  const rect = attachTo.current && attachTo.current.getBoundingClientRect();
   // based on if the dropdown options should show above (isReversed) or below
   // the input, we assign positional properties that will be applied to the outermost
   // options div.
@@ -101,6 +117,68 @@ const Options = ({
     width: rect.width,
   };
 
+  const renderWithCheckbox = () => {
+    return (
+      <div
+        className={styles.checkboxOptions}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
+        <div
+          className={`${styles.checkboxOptionsSearchWrapper}  ${!withSearch &&
+            styles.noBorder}`}
+          style={{ borderColor: focused ? primaryColor : undefined }}
+        >
+          <Icon
+            src={SearchIcon}
+            className={`${
+              styles.checkboxOptionsSearchIcon
+            } ${prefixClassName}-icon  ${!withSearch && styles.noDisplay}`}
+          />
+          <input
+            ref={inputRef}
+            className={`${styles.checkboxOptionsSearch} ${!withSearch &&
+              styles.hidden}`}
+            style={focusedSearchStyle}
+            placeholder="Search here"
+            onChange={e => handleSearchText(e.target.value)}
+            onFocus={handleOnSearchFocus}
+            onBlur={handleOnSearchBlur}
+          />
+        </div>
+        <div className={styles.checkboxOptionsWrapper}>
+          {options.map((option, i) => {
+            if (option.isZeroState) {
+              return (
+                <Option
+                  key={`${option.label}-${i}`}
+                  selected={highlightIndex === i}
+                  innerRef={dropdownDOMs.current[i]}
+                  isZeroState={option.isZeroState}
+                  className={`${prefixClassName}-option ${styles.checkboxOptionsWrapperZeroState}`}
+                >
+                  {option.label}
+                </Option>
+              );
+            }
+            // TODO: Add "create mode" as and when required
+            return (
+              <Checkbox.Item
+                key={`${option.label}-${i}`}
+                label={option.label}
+                value={option.isSelected}
+                onChange={() => {
+                  onChange(option.value);
+                }}
+                className={`${styles.checkboxOptionsOption} ${prefixClassName}-option`}
+              />
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <Portal>
       <div className={`${styles.dropdownOptionsWrapper}  ${className}`}>
@@ -109,24 +187,31 @@ const Options = ({
           ref={scrollContainer}
           style={{ ...position, ...focusedStyle }}
           className={`${styles.dropdownOptions} ${activeClassName} ${reverseModeClassName} ${prefixClassName}-options`}
+          onBlur={onBlur}
         >
-          {options.map((option, i) => {
-            return (
-              <Option
-                key={`${option.label}-${i}`}
-                selected={highlightIndex === i}
-                innerRef={dropdownDOMs.current[i]}
-                onClick={() => {
-                  onChange(option.value);
-                }}
-                isZeroState={option.isZeroState}
-                isNew={option.isNew}
-                className={`${prefixClassName}-option`}
-              >
-                {option.label}
-              </Option>
-            );
-          })}
+          {withCheckbox && withMultiple ? (
+            renderWithCheckbox()
+          ) : (
+            <>
+              {options.map((option, i) => {
+                return (
+                  <Option
+                    key={`${option.label}-${i}`}
+                    selected={highlightIndex === i}
+                    innerRef={dropdownDOMs.current[i]}
+                    onClick={() => {
+                      onChange(option.value);
+                    }}
+                    isZeroState={option.isZeroState}
+                    isNew={option.isNew}
+                    className={`${prefixClassName}-option`}
+                  >
+                    {option.label}
+                  </Option>
+                );
+              })}
+            </>
+          )}
         </div>
       </div>
     </Portal>
@@ -138,8 +223,14 @@ Options.propTypes = {
   className: PropTypes.string,
   focused: PropTypes.bool,
   isReversed: PropTypes.bool,
+  withCheckbox: PropTypes.bool,
+  withMultiple: PropTypes.bool,
+  withSearch: PropTypes.bool,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
+  inputRef: PropTypes.shape({}),
   attachTo: PropTypes.shape({
     current: PropTypes.node,
   }),
@@ -149,6 +240,10 @@ Options.propTypes = {
       value: PropTypes.shape({}),
     }),
   ),
+  isSearchFocused: PropTypes.bool,
+  handleOnSearchFocus: PropTypes.func,
+  handleOnSearchBlur: PropTypes.func,
+  handleSearchText: PropTypes.func,
 };
 
 Options.defaultProps = {
@@ -156,8 +251,15 @@ Options.defaultProps = {
   className: "",
   focused: false,
   isReversed: false,
+  withCheckbox: false,
+  withMultiple: false,
+  isSearchFocused: false,
+  withSearch: false,
   onBlur: () => {},
   onChange: () => {},
+  handleOnSearchFocus: () => {},
+  handleOnSearchBlur: () => {},
+  handleSearchText: () => {},
   options: [],
   attachTo: {},
 };

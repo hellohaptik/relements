@@ -1,7 +1,5 @@
 @import "constants/index.scss";
 
-@import "constants/index.scss";
-
 .dropdownOptions {
   position: absolute;
   z-index: $z-index + 2;
@@ -41,4 +39,68 @@
   height: 100%;
   top: 0;
   left: 0;
+}
+
+.checkboxOptions {
+  max-height: inherit;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  &Search {
+    width: -webkit-fill-available;
+    font-size: 14px;
+    outline: none;
+    border: 0;
+    border-radius: 0;
+    padding: 4px;
+
+    &Wrapper {
+      display: flex;
+      margin: 12px;
+      border: 1px solid $border-color;
+      padding: 2px;
+      border-radius: 8px;
+
+      &.noBorder {
+        border: 0 !important;
+        margin-top: 0;
+        margin-bottom: 4px;
+      }
+
+      &ZeroState {
+        padding: 12px;
+        padding-top: 0;
+      }
+    }
+
+    &Icon {
+      margin-top: 2px;
+
+      &.noDisplay {
+        display: none;
+      }
+    }
+
+    &.hidden {
+      opacity: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      max-height: 2px !important;
+    }
+  }
+
+  &Wrapper {
+    overflow: auto;
+  }
+
+  &Option {
+    padding: 4px 12px;
+    margin: 0;
+
+    &:hover {
+      background-color: #fafafa;
+      cursor: pointer;
+    }
+  }
 }
