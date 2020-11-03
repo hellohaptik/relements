@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { rgba } from "@src/utils/generic";
-
 import styles from "./Button.scss";
 import Context from "../../Context";
 
@@ -20,9 +19,11 @@ const Button = ({
   onClick,
   innerRef,
   children,
+  showSecondaryIcon,
+  secondaryIcon,
+  onSecondaryClick,
 }) => {
   const { primaryColor } = React.useContext(Context);
-
   /**
    * Get the styles classname corresponding to the type prop
    * @returns {string} classname of the type styles to be applied
@@ -90,24 +91,31 @@ const Button = ({
   });
 
   return (
-    <button
-      data-testid="button"
-      type="button"
-      disabled={disabled}
-      ref={innerRef}
-      onClick={onClick}
-      style={!disabled ? getColorStyles() : undefined}
-      className={`
-        ${styles.button}
-        ${prefixClassName}
-        ${className}
-        ${getDisabledClassName()}
-        ${getTypeClassName()}
-        ${getSizeClassName()}
-      `}
-    >
-      {children}
-    </button>
+    <div className={styles.button_container}>
+      <button
+        data-testid="button"
+        type="button"
+        disabled={disabled}
+        ref={innerRef}
+        onClick={onClick}
+        style={!disabled ? getColorStyles() : undefined}
+        className={`
+          ${styles.button}
+          ${prefixClassName}
+          ${className}
+          ${getDisabledClassName()}
+          ${getTypeClassName()}
+          ${getSizeClassName()}
+        `}
+      >
+        {children}
+      </button>
+      {showSecondaryIcon && (
+        <span className={styles.secondaryIcon} onClick={onSecondaryClick}>
+          {secondaryIcon}
+        </span>
+      )}
+    </div>
   );
 };
 
@@ -163,6 +171,12 @@ Button.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]).isRequired,
+  /** Determines whether to show the secondary icon */
+  showSecondaryIcon: PropTypes.bool,
+  /** html element to render as secondary icon */
+  secondaryIcon: PropTypes.oneOfType([PropTypes.element]),
+  /** secondary icon onClick callback */
+  onSecondaryClick: PropTypes.func,
 };
 
 Button.defaultProps = {
@@ -172,6 +186,8 @@ Button.defaultProps = {
   size: Button.SIZES.MEDIUM,
   disabled: false,
   onClick: () => {},
+  showSecondaryIcon: false,
+  onSecondaryClick: () => {},
 };
 
 Button.classNames = {

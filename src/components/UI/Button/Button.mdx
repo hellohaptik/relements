@@ -1,5 +1,6 @@
 import { CodeBlock, ConfigBlock } from '@src/helpers/DocBlocks';
 import Button from './Button';
+import InfoIcon from "icons/infoV2.svg";
 
 # Button
 
@@ -53,4 +54,13 @@ import Button from './Button';
 
 <CodeBlock title="Size: Big">
   <Button size={Button.SIZES.BIG}>Click Me</Button>
+</CodeBlock>
+
+<CodeBlock title="With secondary icon">
+  <Button 
+    showSecondaryIcon={true} 
+    secondaryIcon={<InfoIcon />}
+  >
+   Click Me
+  </Button>
 </CodeBlock>
