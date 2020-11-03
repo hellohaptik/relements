@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { rgba } from "@src/utils/generic";
+import Icon from "components/UI/Icon";
 
 import styles from "./Button.scss";
 import Context from "../../Context";
@@ -118,7 +119,7 @@ const Button = ({
           className={styles.secondaryIcon}
           onClick={onSecondaryClick}
         >
-          {secondaryIcon}
+          <Icon src={secondaryIcon} />
         </span>
       )}
     </div>
@@ -179,8 +180,8 @@ Button.propTypes = {
   ]).isRequired,
   /** Determines whether to show the secondary icon */
   showSecondaryIcon: PropTypes.bool,
-  /** <Icon /> element to render as secondary icon */
-  secondaryIcon: PropTypes.element,
+  /** String identifier for the icon supported by relements <Icon /> or a react node */
+  secondaryIcon: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   /** secondary icon onClick callback */
   onSecondaryClick: PropTypes.func,
 };
