@@ -21,7 +21,6 @@ const Button = ({
   onClick,
   innerRef,
   children,
-  showSecondaryIcon,
   secondaryIcon,
   onSecondaryClick,
 }) => {
@@ -113,7 +112,7 @@ const Button = ({
       >
         {children}
       </button>
-      {showSecondaryIcon && (
+      {secondaryIcon && (
         <span
           data-testid="secondry-icon"
           className={styles.secondaryIcon}
@@ -178,9 +177,7 @@ Button.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]).isRequired,
-  /** Determines whether to show the secondary icon */
-  showSecondaryIcon: PropTypes.bool,
-  /** String identifier for the icon supported by relements <Icon /> or a react node */
+  /** String identifier for the icon supported by relements <Icon /> or a react node. Optional. */
   secondaryIcon: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   /** secondary icon onClick callback */
   onSecondaryClick: PropTypes.func,
@@ -193,7 +190,6 @@ Button.defaultProps = {
   size: Button.SIZES.MEDIUM,
   disabled: false,
   onClick: () => {},
-  showSecondaryIcon: false,
   onSecondaryClick: () => {},
 };
 
