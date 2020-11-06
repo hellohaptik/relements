@@ -22,7 +22,7 @@ const Button = ({
   innerRef,
   children,
   secondaryIcon,
-  onSecondaryClick,
+  onSecondaryIconClick,
 }) => {
   const { primaryColor } = React.useContext(Context);
 
@@ -116,7 +116,7 @@ const Button = ({
         <span
           data-testid="secondry-icon"
           className={styles.secondaryIcon}
-          onClick={onSecondaryClick}
+          onClick={onSecondaryIconClick}
         >
           <Icon src={secondaryIcon} />
         </span>
@@ -180,7 +180,7 @@ Button.propTypes = {
   /** String identifier for the icon supported by relements <Icon /> or a react node. Optional. */
   secondaryIcon: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   /** secondary icon onClick callback */
-  onSecondaryClick: PropTypes.func,
+  onSecondaryIconClick: PropTypes.func,
 };
 
 Button.defaultProps = {
@@ -190,7 +190,7 @@ Button.defaultProps = {
   size: Button.SIZES.MEDIUM,
   disabled: false,
   onClick: () => {},
-  onSecondaryClick: () => {},
+  onSecondaryIconClick: () => {},
 };
 
 Button.classNames = {

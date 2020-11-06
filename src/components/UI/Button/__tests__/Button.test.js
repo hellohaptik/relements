@@ -82,7 +82,7 @@ test("secondary icon click", async () => {
     <Button
       showSecondaryIcon={true}
       secondaryIcon={InfoIcon}
-      onSecondaryClick={mockOnClick}
+      onSecondaryIconClick={mockOnClick}
     >
       Button
     </Button>,
