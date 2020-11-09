@@ -1,74 +1,85 @@
 @import "constants/index.scss";
+.buttonContainer {
+  display: inline-block;
+  position: relative;
 
-.button {
-  outline: none;
-  border: none;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  padding: 6px 10px;
-  border-radius: 8px;
-  font-size: 12px;
-  transition: 0.2s ease-out;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  .button {
+    outline: none;
+    border: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    transition: 0.2s ease-out;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  &.small {
-    font-size: 10px;
-  }
+    &.small {
+      font-size: 10px;
+    }
 
-  &.primary {
-    color: #fff;
-  }
+    &.primary {
+      color: #fff;
+    }
 
-  &.grey {
-    background-color: #f2f2f2;
-    border-color: #dddddd;
-  }
-
-  &:hover {
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    transform: translateY(-2px);
-  }
-
-  &:active {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transform: translateY(-1px);
-  }
-
-  &.disabled {
-    background-color: #f2f2f2;
-    cursor: not-allowed;
-    border-color: #dddddd;
+    &.grey {
+      background-color: #f2f2f2;
+      border-color: #dddddd;
+    }
 
     &:hover {
-      box-shadow: none;
-      transform: none;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transform: translateY(-1px);
+    }
+
+    &.disabled {
+      background-color: #f2f2f2;
+      cursor: not-allowed;
+      border-color: #dddddd;
+
+      &:hover {
+        box-shadow: none;
+        transform: none;
+      }
+    }
+
+    &.big {
+      font-size: 14px;
+    }
+
+    &.warning {
+      background-color: rgba($warning-color, 0.1);
+      color: $warning-color;
+      border-color: $warning-color;
+      &:hover {
+        background-color: rgba($warning-color, 0.2);
+        color: darken($warning-color, 10);
+      }
+    }
+
+    &.yellow {
+      background-color: rgba($yellow-color, 0.1);
+      color: darken($yellow-color, 10);
+      border-color: $yellow-color;
+      &:hover {
+        background-color: rgba($yellow-color, 0.2);
+        color: darken($yellow-color, 20);
+      }
     }
   }
 
-  &.big {
-    font-size: 14px;
-  }
-
-  &.warning {
-    background-color: rgba($warning-color, 0.1);
-    color: $warning-color;
-    border-color: $warning-color;
-    &:hover {
-      background-color: rgba($warning-color, 0.2);
-      color: darken($warning-color, 10);
-    }
-  }
-
-  &.yellow {
-    background-color: rgba($yellow-color, 0.1);
-    color: darken($yellow-color, 10);
-    border-color: $yellow-color;
-    &:hover {
-      background-color: rgba($yellow-color, 0.2);
-      color: darken($yellow-color, 20);
-    }
+  .secondaryIcon {
+    position: absolute;
+    right: -10px;
+    top: 14px;
+    cursor: pointer;
   }
 }
