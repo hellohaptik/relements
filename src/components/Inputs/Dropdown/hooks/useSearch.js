@@ -34,7 +34,7 @@ export function useSearch(text, options, searchKeys) {
       keys: searchKeys ? searchKeys : defaultFuseOptions.keys,
     };
     _fuse.current = new Fuse(options, fuseOptions);
-    setSearchResults(options);
+    handleSearch(text);
   };
 
   const handleSearch = searchTerm => {
