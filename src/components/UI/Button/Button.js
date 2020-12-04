@@ -115,9 +115,9 @@ const Button = ({
     );
   };
 
-  if (!secondaryIcon) return renderButton();
-
-  return (
+  return !secondaryIcon ? (
+    renderButton()
+  ) : (
     <div className={styles.buttonContainer}>
       {renderButton()}
       <span
