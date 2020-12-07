@@ -86,7 +86,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.2",
     "flatpickr": "^4.5.7",
-    "husky": "^3.0.0",
+    "husky": "^4.3.0",
     "jest": "^24.8.0",
     "jest-expect-message": "^1.0.2",
     "json-loader": "^0.5.7",
