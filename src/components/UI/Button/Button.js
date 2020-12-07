@@ -92,8 +92,8 @@ const Button = ({
     return disabled ? styles.disabled : "";
   });
 
-  return (
-    <div className={styles.buttonContainer}>
+  const renderButton = () => {
+    return (
       <button
         data-testid="button"
         type="button"
@@ -112,15 +112,21 @@ const Button = ({
       >
         {children}
       </button>
-      {secondaryIcon && (
-        <span
-          data-testid="secondry-icon"
-          className={styles.secondaryIcon}
-          onClick={onSecondaryIconClick}
-        >
-          <Icon src={secondaryIcon} />
-        </span>
-      )}
+    );
+  };
+
+  return !secondaryIcon ? (
+    renderButton()
+  ) : (
+    <div className={styles.buttonContainer}>
+      {renderButton()}
+      <span
+        data-testid="secondry-icon"
+        className={styles.secondaryIcon}
+        onClick={onSecondaryIconClick}
+      >
+        <Icon src={secondaryIcon} />
+      </span>
     </div>
   );
 };
