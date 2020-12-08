@@ -125,6 +125,12 @@ const Dropdown = ({
     blurCount.current += 1;
 
     const target = e.target;
+
+    // clear search if search with useChecbox
+    if (withCheckbox && withSearch && withMultiple) {
+      setText("");
+    }
+
     // we set a timeout to give the component enough time to dispatch both the events.
     // once both the events fire, we can ignore the second one. (when blurCount is 2)
     // otherwise it will reset the text to the old value.
@@ -167,7 +173,7 @@ const Dropdown = ({
     // we don't blur if multiple options can be selected
     // this is a UX decision.
     if (!withMultiple) handleBlur(e);
-    else setText("");
+    else if (!withCheckbox) setText("");
 
     // if we allow creation and the new option selected
     // is a new option (does not exist in the options list)
