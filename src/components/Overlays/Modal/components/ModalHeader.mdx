@@ -18,3 +18,53 @@ import ModalHeader from "./ModalHeader";
 ## Configuration
 
 <ConfigBlock of={ModalHeader} />
+
+> Without underline.
+
+<CodeBlock>
+  {(value, setValue) => (
+    <ModalHeader onClose={() => setValue(false)} isWithoutUnderline>
+      Hello, world!
+    </ModalHeader>
+  )}
+</CodeBlock>
+
+> With custom save button.
+
+<CodeBlock>
+  {(value, setValue) => (
+    <ModalHeader onClose={() => setValue(false)} saveTitle="Custom Save Title" withSave>
+      Hello, world!
+    </ModalHeader>
+  )}
+</CodeBlock>
+
+> Without save button.
+
+<CodeBlock>
+  {(value, setValue) => (
+    <ModalHeader onClose={() => setValue(false)} >
+      Hello, world!
+    </ModalHeader>
+  )}
+</CodeBlock>
+
+> With close button on the right.
+
+<CodeBlock>
+  {(value, setValue) => (
+    <ModalHeader onClose={() => setValue(false)} isCloseOnRight>
+      Hello, world!
+    </ModalHeader>
+  )}
+</CodeBlock>
+
+> With save button and close button on the right.
+
+<CodeBlock>
+  {(value, setValue) => (
+    <ModalHeader onClose={() => setValue(false)} isCloseOnRight withSave>
+      Hello, world!
+    </ModalHeader>
+  )}
+</CodeBlock>

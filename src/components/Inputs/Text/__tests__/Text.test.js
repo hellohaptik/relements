@@ -26,13 +26,15 @@ test("Label", async () => {
 });
 
 test("Error", async () => {
-  const { container } = render(component({ error: "error" }));
-  expect(container.getElementsByClassName("error").length).toBe(1);
+  const { getByTestId } = render(component({ error: "error" }));
+  const text = getByTestId("text");
+  expect(text).toHaveClass("error");
 });
 
 test("Disabled", async () => {
-  const { container } = render(component({ disabled: true }));
-  expect(container.getElementsByClassName("disabled").length).toBe(1);
+  const { getByTestId } = render(component({ disabled: true }));
+  const text = getByTestId("text");
+  expect(text).toHaveClass("disabled");
 });
 
 test("Prefix class", async () => {
