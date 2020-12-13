@@ -24,7 +24,7 @@
   "author": "Pratham Agrawal",
   "license": "MIT",
   "engines": {
-    "node": ">=10.19.0"
+    "node": ">=10.22.0"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
