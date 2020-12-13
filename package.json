@@ -23,6 +23,9 @@
   },
   "author": "Pratham Agrawal",
   "license": "MIT",
+  "engines": {
+    "node": ">=10.19.0"
+  },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "@mdx-js/loader": "^1.0.21",
