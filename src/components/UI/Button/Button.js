@@ -24,7 +24,7 @@ const Button = ({
   secondaryIcon,
   onSecondaryIconClick,
 }) => {
-  const { primaryColor } = React.useContext(Context);
+  const { primaryColor, button } = React.useContext(Context);
 
   /**
    * Get the styles classname corresponding to the type prop
@@ -92,6 +92,13 @@ const Button = ({
     return disabled ? styles.disabled : "";
   });
 
+  const buttonStyles = React.useCallback(() => {
+    return {
+      ...button,
+      ...button[type],
+    };
+  });
+
   const renderButton = () => {
     return (
       <button
@@ -100,7 +107,9 @@ const Button = ({
         disabled={disabled}
         ref={innerRef}
         onClick={onClick}
-        style={!disabled ? getColorStyles() : undefined}
+        style={
+          !disabled ? { ...getColorStyles(), ...buttonStyles() } : undefined
+        }
         className={`
           ${styles.button}
           ${prefixClassName}
