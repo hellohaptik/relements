@@ -1,18 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ThemeContext from "./Context";
+import { ThemeProvider } from "styled-components";
 
-const Provider = ({ children, theme }) => {
-  return (
-    <ThemeContext.Provider value={{ ...theme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
-};
+import { Theme } from "./Theme";
+
+const Provider = ({ children }) => (
+  <ThemeProvider theme={Theme}>{children}</ThemeProvider>
+);
 
 Provider.propTypes = {
   children: PropTypes.node,
-  theme: PropTypes.shape({}),
 };
 
 export default Provider;

@@ -6,25 +6,31 @@ import Icon from "components/UI/Icon";
 
 import styles from "./Button.scss";
 import Context from "../../Context";
+import ThemeButton from "./ThemeButton";
 
 /**
  * Button component. Renders a button
  * based on type and size. Uses the children prop
  * to render the contents of the button.
  */
-const Button = ({
-  prefixClassName = "",
-  className = "",
-  type,
-  size,
-  disabled,
-  onClick,
-  innerRef,
-  children,
-  secondaryIcon,
-  onSecondaryIconClick,
-}) => {
-  const { primaryColor, button } = React.useContext(Context);
+const Button = props => {
+  if (props.themed)
+    return <ThemeButton {...props}>{props.children}</ThemeButton>;
+
+  const {
+    prefixClassName = "",
+    className = "",
+    type,
+    size,
+    disabled,
+    onClick,
+    innerRef,
+    children,
+    secondaryIcon,
+    onSecondaryIconClick,
+  } = props;
+
+  const { primaryColor } = React.useContext(Context);
 
   /**
    * Get the styles classname corresponding to the type prop
@@ -92,13 +98,6 @@ const Button = ({
     return disabled ? styles.disabled : "";
   });
 
-  const buttonStyles = React.useCallback(() => {
-    return {
-      ...button,
-      ...button[type],
-    };
-  });
-
   const renderButton = () => {
     return (
       <button
@@ -107,9 +106,7 @@ const Button = ({
         disabled={disabled}
         ref={innerRef}
         onClick={onClick}
-        style={
-          !disabled ? { ...getColorStyles(), ...buttonStyles() } : undefined
-        }
+        style={!disabled ? getColorStyles() : undefined}
         className={`
           ${styles.button}
           ${prefixClassName}
@@ -196,6 +193,7 @@ Button.propTypes = {
   secondaryIcon: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   /** secondary icon onClick callback */
   onSecondaryIconClick: PropTypes.func,
+  themed: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -206,6 +204,7 @@ Button.defaultProps = {
   disabled: false,
   onClick: () => {},
   onSecondaryIconClick: () => {},
+  themed: false,
 };
 
 Button.classNames = {
