@@ -1,6 +1,4 @@
 import colors from "./colors";
-import fontSizes from "./fontSizes";
-import space from "./space";
 
 export const buttonColors = {
   primary: {
@@ -23,18 +21,18 @@ export const buttonColors = {
 
 export const buttonSizes = {
   small: {
-    fontSize: fontSizes.xs,
-    paddingX: space.sm,
-    paddingY: space.xs,
+    fontSize: "xs",
+    paddingX: "sm",
+    paddingY: "xs",
   },
   regular: {
-    fontSize: fontSizes.sm,
-    paddingX: space.md,
-    paddingY: space.sm,
+    fontSize: "sm",
+    paddingX: "md",
+    paddingY: "sm",
   },
   large: {
-    fontSize: fontSizes.md,
-    paddingX: space.lg,
-    paddingY: space.md,
+    fontSize: "md",
+    paddingX: "lg",
+    paddingY: "md",
   },
 };
