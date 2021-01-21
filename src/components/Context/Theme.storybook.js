@@ -3,34 +3,42 @@ import { storiesOf } from "@storybook/react";
 import Provider from "./Provider";
 import Button from "../UI/Button/Button";
 
-storiesOf("Theme/Spec", module).add("Default", () => {
+storiesOf("Theme/Spec", module).add("Color variants", () => {
   const story = (
     <Provider>
-      <Button
-        themed
-        bg="blue.haptik"
-        color="white"
-        fontSize={2}
-        borderRadius="2"
-        borderWidth="0"
-        px="3"
-        py="2"
-      >
-        Theme Button - Regular
+      <Button themed size="regular">
+        Theme Button - Default
       </Button>
       <br />
+      <Button themed size="regular" variant="success">
+        Theme Button - Success
+      </Button>
       <br />
-      <Button
-        themed
-        bg="red.haptik"
-        color="white"
-        fontSize={3}
-        borderRadius="2"
-        borderWidth="0"
-        px="4"
-        py="3"
-      >
-        Theme Button - Large
+      <Button themed size="regular" variant="danger">
+        Theme Button - Danger
+      </Button>
+      <br />
+      <Button themed size="regular" variant="disabled">
+        Theme Button - Disabled
+      </Button>
+    </Provider>
+  );
+  return story;
+});
+
+storiesOf("Theme/Spec", module).add("Size variants", () => {
+  const story = (
+    <Provider>
+      <Button themed size="small">
+        Theme Button - small
+      </Button>
+      <br />
+      <Button themed size="regular">
+        Theme Button - regular
+      </Button>
+      <br />
+      <Button themed size="large">
+        Theme Button - large
       </Button>
     </Provider>
   );
