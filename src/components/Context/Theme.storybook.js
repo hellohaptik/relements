@@ -50,6 +50,10 @@ storiesOf("Theme/Spec", module).add("Button Click Events", () => {
       >
         Success
       </Button>
+      <br />
+      <Button themed size="regular" variant="disabled">
+        Disabled
+      </Button>
     </Provider>
   );
   return story;
