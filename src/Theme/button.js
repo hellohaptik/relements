@@ -19,6 +19,27 @@ export const buttonColors = {
   },
 };
 
+export const buttonHover = {
+  default: {
+    "&:hover": {
+      cursor: "pointer",
+      transform: "translateY(-1px)",
+      boxShadow: "0px 2px 4px 1px rgba(0,0,0,0.15)",
+      opacity: 0.8,
+    },
+  },
+  disabled: {
+    "&:hover": {
+      cursor: "not-allowed",
+    },
+  },
+};
+
+// TODO: Optimize this. Use buttonHover.default as default without specifying variant
+buttonHover.primary = buttonHover.default;
+buttonHover.success = buttonHover.default;
+buttonHover.danger = buttonHover.default;
+
 export const buttonSizes = {
   small: {
     fontSize: "xs",

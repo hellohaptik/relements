@@ -6,6 +6,14 @@ const ButtonColor = variant({
   variants: {},
 });
 
+const ButtonHover = variant({
+  scale: "buttonHover",
+  variants: {
+    default: {},
+    disabled: {},
+  },
+});
+
 const ButtonSize = variant({
   prop: "size",
   scale: "buttonSizes",
@@ -15,15 +23,6 @@ const ButtonSize = variant({
     large: {},
   },
 });
-
-const ButtonHover = {
-  "&:hover": {
-    cursor: "pointer",
-    transform: "translateY(-1px)",
-    boxShadow: '0px 2px 4px 1px rgba(0,0,0,0.15)',
-    opacity: 0.8
-  },
-};
 
 const ThemeButton = styled("button")(
   {
@@ -43,7 +42,7 @@ const ThemeButton = styled("button")(
 ThemeButton.defaultProps = {
   borderRadius: 2,
   borderWidth: 0,
-  borderColor: 'transparent',
+  borderColor: "transparent",
   margin: "xs",
   variant: "primary",
   size: "regular",
