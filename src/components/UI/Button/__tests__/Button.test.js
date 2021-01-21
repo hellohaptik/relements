@@ -90,3 +90,16 @@ test("secondary icon click", async () => {
   fireEvent.click(getByTestId("secondry-icon"));
   expect(mockOnClick).toHaveBeenCalledTimes(1);
 });
+
+// Test for Themed Button
+test("Themed Button", async () => {
+  const { getByTestId } = render(<Button themed>Button</Button>);
+  expect(getByTestId("themedButton")).toBeInTheDocument();
+});
+
+test("Themed Button Click", async () => {
+  const mockOnClick = jest.fn();
+  const { getByTestId } = render(<Button themed onClick={mockOnClick}>Button</Button>);
+  fireEvent.click(getByTestId("themedButton"));
+  expect(mockOnClick).toHaveBeenCalledTimes(1);
+});

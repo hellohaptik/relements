@@ -18,10 +18,10 @@ const ButtonSize = variant({
 
 const ButtonHover = {
   "&:hover": {
-    backgroundColor: 'transparent',
     cursor: "pointer",
-    color: `inherit`,
-    border: `1px solid`
+    transform: "translateY(-1px)",
+    boxShadow: '0px 2px 4px 1px rgba(0,0,0,0.15)',
+    opacity: 0.8
   },
 };
 
@@ -42,11 +42,12 @@ const ThemeButton = styled("button")(
 
 ThemeButton.defaultProps = {
   borderRadius: 2,
-  borderWidth: 1,
+  borderWidth: 0,
   borderColor: 'transparent',
   margin: "xs",
   variant: "primary",
   size: "regular",
+  fontFamily: `"Proxima Nova", sans-serif`,
 };
 
 export default ThemeButton;

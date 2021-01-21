@@ -31,8 +31,7 @@ export const textColors = {
   muted: {
     color: colors.grey.haptik,
   },
-};
-
-export const fonts = {
-  fontFamily: "'Proxima Nova', sans-serif",
+  white: {
+    color: colors.white
+  }
 };
