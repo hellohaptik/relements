@@ -6,6 +6,14 @@ const ButtonColor = variant({
   variants: {},
 });
 
+const ButtonHover = variant({
+  scale: "buttonHover",
+  variants: {
+    default: {},
+    disabled: {},
+  },
+});
+
 const ButtonSize = variant({
   prop: "size",
   scale: "buttonSizes",
@@ -15,15 +23,6 @@ const ButtonSize = variant({
     large: {},
   },
 });
-
-const ButtonHover = {
-  "&:hover": {
-    backgroundColor: 'transparent',
-    cursor: "pointer",
-    color: `inherit`,
-    border: `1px solid`
-  },
-};
 
 const ThemeButton = styled("button")(
   {
@@ -42,8 +41,8 @@ const ThemeButton = styled("button")(
 
 ThemeButton.defaultProps = {
   borderRadius: 2,
-  borderWidth: 1,
-  borderColor: 'transparent',
+  borderWidth: 0,
+  borderColor: "transparent",
   margin: "xs",
   variant: "primary",
   size: "regular",
