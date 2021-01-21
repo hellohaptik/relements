@@ -27,6 +27,34 @@ storiesOf("Theme/Spec", module).add("Color variants", () => {
   return story;
 });
 
+storiesOf("Theme/Spec", module).add("Button Click Events", () => {
+  const story = (
+    <Provider>
+      <Button
+        themed
+        size="regular"
+        onClick={() => {
+          alert("Clicked default");
+        }}
+      >
+        Default
+      </Button>
+      <br />
+      <Button
+        themed
+        size="regular"
+        variant="success"
+        onClick={() => {
+          alert("Clicked success");
+        }}
+      >
+        Success
+      </Button>
+    </Provider>
+  );
+  return story;
+});
+
 storiesOf("Theme/Spec", module).add("Size variants", () => {
   const story = (
     <Provider>
