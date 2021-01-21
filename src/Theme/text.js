@@ -32,7 +32,3 @@ export const textColors = {
     color: colors.grey.haptik,
   },
 };
-
-export const fonts = {
-  fontFamily: "'Proxima Nova', sans-serif",
-};

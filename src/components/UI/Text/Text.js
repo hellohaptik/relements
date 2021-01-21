@@ -27,6 +27,7 @@ const Text = styled("span")(color, typography, sizeVariant, colorVariant);
 Text.defaultProps = {
   size: "regular",
   variant: "default",
+  fontFamily: `"Proxima Nova", sans-serif`,
 };
 
 export default Text;
