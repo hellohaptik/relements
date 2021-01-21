@@ -1,6 +1,7 @@
 import colors from "./colors";
 import fontSizes from "./fontSizes";
 import space from "./space";
+import * as textTheme from "./text";
 import * as buttonTheme from "./button";
 
 const radii = [2, 4, 6];
@@ -16,4 +17,5 @@ export const Theme = {
   borderWidths,
   colors,
   ...buttonTheme,
+  ...textTheme,
 };
