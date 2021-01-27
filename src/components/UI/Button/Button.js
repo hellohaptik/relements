@@ -14,8 +14,14 @@ import ThemeButton from "./ThemeButton";
  * to render the contents of the button.
  */
 const Button = props => {
-  if (props.themed)
-    return <ThemeButton {...props}>{props.children}</ThemeButton>;
+  if (props.themed) {
+    const buttonProps = {
+      ...props,
+      ref: props.innerRef,
+      "data-testid": "button",
+    };
+    return <ThemeButton {...buttonProps}>{props.children}</ThemeButton>;
+  }
 
   const {
     prefixClassName = "",
