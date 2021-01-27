@@ -4,6 +4,9 @@ import Provider from "./Provider";
 import Button from "../UI/Button/Button";
 import Text from "../UI/Text";
 
+import Table from "../UI/Table/Table";
+import { DATA } from "../UI/Table/Table.storybook";
+
 storiesOf("Theme/Spec", module).add("Color variants", () => {
   const story = (
     <Provider>
@@ -114,6 +117,36 @@ storiesOf("Theme/Spec", module).add("Typography color variants", () => {
       <Text size="regular" variant="muted">
         Muted - Lorem ipsum dolor sit amet.
       </Text>
+      <br />
+    </Provider>
+  );
+  return story;
+});
+
+storiesOf("Theme/Spec", module).add("Table color variants", () => {
+  const tableProps = {
+    sortable: true,
+    sortKey: "title",
+    sortOrder: -1,
+    columns: DATA.columns,
+    rows: DATA.data,
+  };
+  const story = (
+    <Provider>
+      <h3>Not themed</h3>
+      <Table {...tableProps} />
+      <br />
+      <h3>Default</h3>
+      <Table themed {...tableProps} />
+      <br />
+      <h3>Compact</h3>
+      <Table themed space="compact" size="small" {...tableProps} />
+      <br />
+      <h3>No border</h3>
+      <Table themed appearance="noBorder" {...tableProps} />
+      <br />
+      <h3>Extra small text</h3>
+      <Table themed appearance="noBorder" size="xSmall" {...tableProps} />
       <br />
     </Provider>
   );

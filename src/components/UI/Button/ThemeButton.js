@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { space, color, border, typography, variant } from "styled-system";
+import space from "@styled-system/space";
+import color from "@styled-system/color";
+import border from "@styled-system/border";
+import variant from "@styled-system/variant";
+import typography from "@styled-system/typography";
 
 const ButtonColor = variant({
   scale: "buttonColors",
