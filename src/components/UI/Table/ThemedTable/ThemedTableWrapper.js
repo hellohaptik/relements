@@ -15,6 +15,7 @@ const style = {
   display: "flex",
   flexDirection: "column",
   overflow: "hidden",
+  transition: "all 0.3s ease-in",
 };
 
 const ThemedTableWrapper = styled("div")(style, color, border, tableBorder);
@@ -24,7 +25,7 @@ ThemedTableWrapper.defaultProps = {
   borderWidth: "xs",
   borderColor: "grey.haptik",
   borderStyle: "solid",
-  backgroundColor: "white",
+  backgroundColor: "background",
   borderRadius: "3",
 };
 

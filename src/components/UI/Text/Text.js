@@ -22,7 +22,18 @@ const colorVariant = variant({
     muted: {},
   },
 });
-const Text = styled("span")(color, typography, sizeVariant, colorVariant);
+
+const style = {
+  transition: "all 0.3s ease-in",
+};
+
+const Text = styled("span")(
+  style,
+  color,
+  typography,
+  sizeVariant,
+  colorVariant,
+);
 
 Text.defaultProps = {
   size: "regular",

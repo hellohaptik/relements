@@ -1,6 +1,6 @@
-export default {
-  white: "#ffffff",
-  black: "#000000",
+export const colors = {
+  text: "#000000",
+  background: "#ffffff",
   blue: {
     pastel: "#CFE5FF",
     soft: "#6FB2FF",
@@ -47,7 +47,7 @@ export default {
     neon: "#FF0998",
     haptik: "#D7007D",
     deep: "#B30068",
-    dark: "#6C0haptikF",
+    dark: "#6C003F",
   },
   teal: {
     pastel: "#CAF8FF",
@@ -56,5 +56,12 @@ export default {
     haptik: "#00A5BF",
     deep: "#00899F",
     dark: "#005260",
+  },
+};
+
+export const modes = {
+  dark: {
+    text: colors.background,
+    background: colors.text,
   },
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { storiesOf } from "@storybook/react";
 import Provider from "./Provider";
 import Button from "../UI/Button/Button";
@@ -6,6 +6,8 @@ import Text from "../UI/Text";
 
 import Table from "../UI/Table/Table";
 import { DATA } from "../UI/Table/Table.storybook";
+import Box from "../UI/Box";
+import Toggle from "../Inputs/Toggle/Toggle";
 
 storiesOf("Theme/Spec", module).add("Color variants", () => {
   const story = (
@@ -149,6 +151,33 @@ storiesOf("Theme/Spec", module).add("Table color variants", () => {
       <Table themed appearance="noBorder" size="xSmall" {...tableProps} />
       <br />
     </Provider>
+  );
+  return story;
+});
+
+storiesOf("Theme/Spec", module).add("Color modes", () => {
+  const [mode, setMode] = useState("dark");
+  const tableProps = {
+    sortable: true,
+    sortKey: "title",
+    sortOrder: -1,
+    columns: DATA.columns,
+    rows: DATA.data,
+  };
+  const story = (
+    <React.Fragment>
+      <Toggle
+        value={mode === "dark"}
+        onChange={() => setMode(mode === "dark" ? "light" : "dark")}
+      />
+      <br />
+      <Provider mode={mode}>
+        <Box borderRadius="2" padding="md">
+          <Text fontWeight="heading">Color modes</Text>
+          <Table themed {...tableProps} />
+        </Box>
+      </Provider>
+    </React.Fragment>
   );
   return story;
 });
