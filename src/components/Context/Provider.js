@@ -5,12 +5,26 @@ import { ThemeProvider } from "styled-components";
 import { Theme } from "@src/Theme/Theme";
 import GlobalStyle from "@src/fonts/global";
 
-const Provider = ({ children }) => (
-  <ThemeProvider theme={Theme}>
-    {children}
-    <GlobalStyle />
-  </ThemeProvider>
-);
+const modes = ["light", "dark"];
+
+const getTheme = mode => ({
+  ...Theme,
+  colors: {
+    ...Theme.colors,
+    ...Theme.modes[mode],
+  },
+});
+
+const Provider = ({ children, mode = modes[0] }) => {
+  const theme = getTheme(mode);
+
+  return (
+    <ThemeProvider theme={theme}>
+      {children}
+      <GlobalStyle />
+    </ThemeProvider>
+  );
+};
 
 Provider.propTypes = {
   children: PropTypes.node,

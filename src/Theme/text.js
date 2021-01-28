@@ -1,5 +1,3 @@
-import colors from "./colors";
-
 export const textSizes = {
   xSmall: {
     fontSize: "xs",
@@ -17,18 +15,21 @@ export const textSizes = {
 
 export const textColors = {
   default: {
-    color: colors.black,
+    color: "text",
   },
   primary: {
-    color: colors.blue.haptik,
+    color: "blue.haptik",
   },
   success: {
-    color: colors.green.haptik,
+    color: "green.haptik",
   },
   danger: {
-    color: colors.red.haptik,
+    color: "red.haptik",
   },
   muted: {
-    color: colors.grey.haptik,
+    color: "grey.haptik",
+  },
+  white: {
+    color: "grey.pastel",
   },
 };

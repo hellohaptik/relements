@@ -1,20 +1,20 @@
-import colors from "./colors";
+import { colors } from "./colors";
 
 export const buttonColors = {
   primary: {
-    color: colors.white,
+    color: colors.grey.pastel,
     backgroundColor: colors.blue.haptik,
   },
   success: {
-    color: colors.white,
+    color: colors.grey.pastel,
     backgroundColor: colors.green.haptik,
   },
   danger: {
-    color: colors.white,
+    color: colors.grey.pastel,
     backgroundColor: colors.red.haptik,
   },
   disabled: {
-    color: colors.white,
+    color: colors.grey.pastel,
     backgroundColor: colors.grey.haptik,
     "&:hover": {
       cursor: "not-allowed",

@@ -1,8 +1,8 @@
-import colors from "./colors";
 import fontSizes from "./fontSizes";
 import space from "./space";
 import borderWidths from "./borderWidths";
 import fontWeights from "./fontWeights";
+import { colors, modes } from "./colors";
 
 import * as textTheme from "./text";
 import * as buttonTheme from "./button";
@@ -17,6 +17,7 @@ export const Theme = {
   fontWeights,
   borderWidths,
   colors,
+  modes,
   ...buttonTheme,
   ...tableTheme,
   ...textTheme,
