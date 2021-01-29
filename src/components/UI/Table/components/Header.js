@@ -43,7 +43,7 @@ function Header({
               {column.prefixComponent || null}
               <Text
                 {...designProps}
-                fontWeight="heading"
+                fontWeight="bold"
                 variant={isActive ? "primary" : "default"}
               >
                 {column.title}
