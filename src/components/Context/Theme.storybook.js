@@ -86,13 +86,13 @@ storiesOf("Theme/Spec", module).add("Size variants", () => {
 storiesOf("Theme/Spec", module).add("Typography size variants", () => {
   const story = (
     <Provider>
-      <Text size="xSmall">Extra Small - Lorem ipsum dolor sit amet.</Text>
+      <Text variant="tertiary">Tertiary - Lorem ipsum dolor sit amet.</Text>
       <br />
-      <Text size="small">Small - Lorem ipsum dolor sit amet.</Text>
+      <Text variant="secondary">Secondary - Lorem ipsum dolor sit amet.</Text>
       <br />
-      <Text size="regular">Regular - Lorem ipsum dolor sit amet.</Text>
+      <Text variant="body">Body - Lorem ipsum dolor sit amet.</Text>
       <br />
-      <Text size="large">Large - Lorem ipsum dolor sit amet.</Text>
+      <Text variant="heading">Heading - Lorem ipsum dolor sit amet.</Text>
       <br />
     </Provider>
   );
@@ -102,23 +102,15 @@ storiesOf("Theme/Spec", module).add("Typography size variants", () => {
 storiesOf("Theme/Spec", module).add("Typography color variants", () => {
   const story = (
     <Provider>
-      <Text size="regular">Default - Lorem ipsum dolor sit amet.</Text>
+      <Text>Default - Lorem ipsum dolor sit amet.</Text>
       <br />
-      <Text size="regular" variant="primary">
-        Primary - Lorem ipsum dolor sit amet.
-      </Text>
+      <Text color="blue.haptik">Primary - Lorem ipsum dolor sit amet.</Text>
       <br />
-      <Text size="regular" variant="success">
-        Success - Lorem ipsum dolor sit amet.
-      </Text>
+      <Text color="green.haptik">Success - Lorem ipsum dolor sit amet.</Text>
       <br />
-      <Text size="regular" variant="danger">
-        Danger - Lorem ipsum dolor sit amet.
-      </Text>
+      <Text color="red.haptik">Danger - Lorem ipsum dolor sit amet.</Text>
       <br />
-      <Text size="regular" variant="muted">
-        Muted - Lorem ipsum dolor sit amet.
-      </Text>
+      <Text color="grey.haptik">Muted - Lorem ipsum dolor sit amet.</Text>
       <br />
     </Provider>
   );
@@ -142,13 +134,13 @@ storiesOf("Theme/Spec", module).add("Table color variants", () => {
       <Table themed {...tableProps} />
       <br />
       <h3>Compact</h3>
-      <Table themed space="compact" size="small" {...tableProps} />
+      <Table themed space="compact" fontSize="sm" {...tableProps} />
       <br />
       <h3>No border</h3>
       <Table themed appearance="noBorder" {...tableProps} />
       <br />
       <h3>Extra small text</h3>
-      <Table themed appearance="noBorder" size="xSmall" {...tableProps} />
+      <Table themed appearance="noBorder" fontSize="xs" {...tableProps} />
       <br />
     </Provider>
   );
@@ -173,7 +165,7 @@ storiesOf("Theme/Spec", module).add("Color modes", () => {
       <br />
       <Provider mode={mode}>
         <Box borderRadius="2" padding="md">
-          <Text fontWeight="heading">Color modes</Text>
+          <Text fontSize="md">Color modes</Text>
           <Table themed {...tableProps} />
         </Box>
       </Provider>

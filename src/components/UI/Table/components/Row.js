@@ -41,9 +41,7 @@ function Row({
                 minWidth: widths[i],
               }}
             >
-              <Text {...designProps} fontWeight="body">
-                {column.content}
-              </Text>
+              <Text {...designProps}>{column.content}</Text>
             </ThemedRowItem>
           );
         }
