@@ -19,7 +19,6 @@ const Text = styled("span")(style, color, typography, textVariant);
 
 Text.defaultProps = {
   variant: "body",
-  fontSize: "md",
   color: "text",
   fontFamily: `"Proxima Nova", sans-serif`,
 };

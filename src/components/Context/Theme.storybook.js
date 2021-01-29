@@ -117,7 +117,7 @@ storiesOf("Theme/Spec", module).add("Typography color variants", () => {
   return story;
 });
 
-storiesOf("Theme/Spec", module).add("Table color variants", () => {
+storiesOf("Theme/Spec", module).add("Table variants", () => {
   const tableProps = {
     sortable: true,
     sortKey: "title",
@@ -134,13 +134,11 @@ storiesOf("Theme/Spec", module).add("Table color variants", () => {
       <Table themed {...tableProps} />
       <br />
       <h3>Compact</h3>
-      <Table themed space="compact" fontSize="sm" {...tableProps} />
+      <Table themed space="compact" {...tableProps} />
       <br />
       <h3>No border</h3>
       <Table themed appearance="noBorder" {...tableProps} />
       <br />
-      <h3>Extra small text</h3>
-      <Table themed appearance="noBorder" fontSize="xs" {...tableProps} />
       <br />
     </Provider>
   );
