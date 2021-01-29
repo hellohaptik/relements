@@ -5,6 +5,10 @@ import useActivify from "@src/hooks/useActivify";
 import usePositioner from "@src/hooks/usePositioner";
 import useEscapeKey from "@src/hooks/useEscapeKey";
 
+import ThemedWrapper from "./ThemedTooltip/ThemedWrapper";
+import ThemedArrow from "./ThemedTooltip/ThemedArrow";
+import ThemedContent from "./ThemedTooltip/ThemedContent";
+
 import styles from "./Tooltip.scss";
 
 let modalRoot = document.getElementById("portal-root");
@@ -24,6 +28,9 @@ function Tooltip({
   children,
   offset,
   dismissable,
+  themed,
+  variant,
+  size,
 }) {
   const [dismissed, setDismissed] = React.useState(false);
   const tooltipRef = React.useRef();
@@ -47,6 +54,47 @@ function Tooltip({
 
   if (!attachTo || !enabled) return null;
 
+  const renderTooltipContent = () => {
+    if (themed) {
+      const arrowPosition = position.toLowerCase() || "bottom";
+
+      return (
+        <ThemedWrapper
+          ref={tooltipRef}
+          style={coordinates}
+          mode={activeClassName ? "active" : "inactive"}
+          variant={variant}
+          size={size}
+        >
+          <ThemedContent>
+            <ThemedArrow
+              variant={`${variant}.${[arrowPosition]}`}
+              position={arrowPosition}
+            />
+            {children}
+          </ThemedContent>
+        </ThemedWrapper>
+      );
+    }
+    return (
+      <div
+        className={`${styles.tooltip} ${activeClassName} ${prefixClassName}-inner`}
+        ref={tooltipRef}
+        style={coordinates}
+      >
+        <div
+          className={`${styles.tooltipArrow} ${topPositionClassName} ${prefixClassName}-caret`}
+        />
+
+        <div
+          className={`${styles.tooltipContent} ${topPositionClassName} ${prefixClassName}-body`}
+        >
+          {children}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <Portal node={document && document.getElementById("portal-root")}>
       <div
@@ -56,20 +104,7 @@ function Tooltip({
           onClick={handleClose}
           className={`${styles.tooltipOverlay} ${prefixClassName}-overlay`}
         />
-        <div
-          className={`${styles.tooltip} ${activeClassName} ${prefixClassName}-inner`}
-          ref={tooltipRef}
-          style={coordinates}
-        >
-          <div
-            className={`${styles.tooltipArrow} ${topPositionClassName} ${prefixClassName}-caret`}
-          />
-          <div
-            className={`${styles.tooltipContent} ${topPositionClassName} ${prefixClassName}-body`}
-          >
-            {children}
-          </div>
-        </div>
+        {renderTooltipContent()}
       </div>
     </Portal>
   );
@@ -84,6 +119,9 @@ Tooltip.propTypes = {
   prefixClassName: PropTypes.string,
   onClose: PropTypes.func,
   position: PropTypes.string,
+  themed: PropTypes.bool,
+  variant: PropTypes.string,
+  size: PropTypes.string,
   offset: PropTypes.shape({
     top: PropTypes.number,
     left: PropTypes.number,
@@ -99,6 +137,9 @@ Tooltip.defaultProps = {
   position: "",
   onClose: () => {},
   offset: null,
+  themed: false,
+  variant: "primary",
+  size: "regular",
 };
 
 export default Tooltip;
