@@ -43,8 +43,8 @@ function Header({
               {column.prefixComponent || null}
               <Text
                 {...designProps}
-                fontWeight="bold"
-                variant={isActive ? "primary" : "default"}
+                variant="heading"
+                color={isActive ? "blue.haptik" : "text"}
               >
                 {column.title}
               </Text>
