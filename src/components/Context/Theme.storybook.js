@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { CodeBlock } from "@src/helpers/DocBlocks";
 import { storiesOf } from "@storybook/react";
 import Provider from "./Provider";
 import Button from "../UI/Button/Button";
 import Text from "../UI/Text";
 
 import Table from "../UI/Table/Table";
+import Tooltip from "../Overlays/Tooltip/Tooltip";
 import { DATA } from "../UI/Table/Table.storybook";
 import Box from "../UI/Box";
 import Toggle from "../Inputs/Toggle/Toggle";
@@ -169,5 +171,198 @@ storiesOf("Theme/Spec", module).add("Color modes", () => {
       </Provider>
     </React.Fragment>
   );
+  return story;
+});
+
+storiesOf("Theme/Spec", module).add("Tooltips", () => {
+  const story = (
+    <Provider>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "50% 50%",
+          gridColumnGap: "15px",
+        }}
+      >
+        <div>
+          <h3>Default</h3>
+          <CodeBlock>
+            {(value, setValue, ref) => (
+              <>
+                <Button
+                  themed
+                  size="regular"
+                  innerRef={ref}
+                  onClick={() => setValue(true)}
+                >
+                  Open Tooltip
+                </Button>
+                <Tooltip
+                  themed
+                  attachTo={ref}
+                  onClose={() => setValue(false)}
+                  active={value}
+                >
+                  <div>Default Tooltip</div>
+                </Tooltip>
+              </>
+            )}
+          </CodeBlock>
+        </div>
+
+        <div>
+          <h3>Default - Top</h3>
+          <CodeBlock>
+            {(value, setValue, ref) => (
+              <>
+                <Button
+                  themed
+                  size="regular"
+                  innerRef={ref}
+                  onClick={() => setValue(true)}
+                >
+                  Open Tooltip
+                </Button>
+                <Tooltip
+                  themed
+                  attachTo={ref}
+                  onClose={() => setValue(false)}
+                  active={value}
+                  position="TOP"
+                >
+                  <div>Yoo! 🥳</div>
+                </Tooltip>
+              </>
+            )}
+          </CodeBlock>
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "50% 50%",
+          gridColumnGap: "15px",
+        }}
+      >
+        <div>
+          <h3>Success</h3>
+          <CodeBlock>
+            {(value, setValue, ref) => (
+              <>
+                <Button
+                  themed
+                  size="regular"
+                  innerRef={ref}
+                  onClick={() => setValue(true)}
+                >
+                  Open Tooltip
+                </Button>
+                <Tooltip
+                  themed
+                  variant="success"
+                  attachTo={ref}
+                  onClose={() => setValue(false)}
+                  active={value}
+                >
+                  <div>Awesome! 😎</div>
+                </Tooltip>
+              </>
+            )}
+          </CodeBlock>
+        </div>
+
+        <div>
+          <h3>Danger</h3>
+          <CodeBlock>
+            {(value, setValue, ref) => (
+              <>
+                <Button
+                  themed
+                  size="regular"
+                  innerRef={ref}
+                  onClick={() => setValue(true)}
+                >
+                  Open Tooltip
+                </Button>
+                <Tooltip
+                  themed
+                  variant="danger"
+                  attachTo={ref}
+                  onClose={() => setValue(false)}
+                  active={value}
+                >
+                  <div>Careful! 😵</div>
+                </Tooltip>
+              </>
+            )}
+          </CodeBlock>
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "50% 50%",
+          gridColumnGap: "15px",
+        }}
+      >
+        <div>
+          <h3>Small Size</h3>
+          <CodeBlock>
+            {(value, setValue, ref) => (
+              <>
+                <Button
+                  themed
+                  size="regular"
+                  innerRef={ref}
+                  onClick={() => setValue(true)}
+                >
+                  Open Tooltip
+                </Button>
+                <Tooltip
+                  themed
+                  size="small"
+                  attachTo={ref}
+                  onClose={() => setValue(false)}
+                  active={value}
+                >
+                  <div>Hey 🐭</div>
+                </Tooltip>
+              </>
+            )}
+          </CodeBlock>
+        </div>
+
+        <div>
+          <h3>Large Size</h3>
+          <CodeBlock>
+            {(value, setValue, ref) => (
+              <>
+                <Button
+                  themed
+                  size="regular"
+                  innerRef={ref}
+                  onClick={() => setValue(true)}
+                >
+                  Open Tooltip
+                </Button>
+                <Tooltip
+                  themed
+                  size="large"
+                  attachTo={ref}
+                  onClose={() => setValue(false)}
+                  active={value}
+                >
+                  <div>'sup? 🐘</div>
+                </Tooltip>
+              </>
+            )}
+          </CodeBlock>
+        </div>
+      </div>
+    </Provider>
+  );
+
   return story;
 });
