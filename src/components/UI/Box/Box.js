@@ -8,6 +8,8 @@ const Box = styled("div")(color, space, border, shadow);
 
 Box.defaultProps = {
   backgroundColor: "background",
+  borderStyle: "solid",
+  borderWidth: "zero",
   padding: "sm",
 };
 

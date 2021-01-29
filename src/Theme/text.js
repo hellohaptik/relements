@@ -1,35 +1,18 @@
-export const textSizes = {
-  xSmall: {
-    fontSize: "xs",
-  },
-  small: {
-    fontSize: "sm",
-  },
-  regular: {
-    fontSize: "md",
-  },
-  large: {
+export const textVariant = {
+  heading: {
     fontSize: "lg",
+    fontWeight: "bold",
   },
-};
-
-export const textColors = {
-  default: {
-    color: "text",
+  body: {
+    fontSize: "md",
+    fontWeight: "normal",
   },
-  primary: {
-    color: "blue.haptik",
+  secondary: {
+    fontSize: "sm",
+    fontWeight: "normal",
   },
-  success: {
-    color: "green.haptik",
-  },
-  danger: {
-    color: "red.haptik",
-  },
-  muted: {
-    color: "grey.haptik",
-  },
-  white: {
-    color: "grey.pastel",
+  tertiary: {
+    fontSize: "xs",
+    fontWeight: "thin",
   },
 };

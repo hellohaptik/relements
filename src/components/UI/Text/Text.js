@@ -1,25 +1,13 @@
 import styled from "styled-components";
 import { color, variant, typography } from "styled-system";
 
-const sizeVariant = variant({
-  prop: "size",
-  scale: "textSizes",
+const textVariant = variant({
+  scale: "textVariant",
   variants: {
-    xSmall: {},
-    small: {},
-    regular: {},
-    large: {},
-  },
-});
-
-const colorVariant = variant({
-  scale: "textColors",
-  variants: {
-    default: {},
-    primary: {},
-    success: {},
-    danger: {},
-    muted: {},
+    heading: {},
+    body: {},
+    secondary: {},
+    tertiary: {},
   },
 });
 
@@ -27,17 +15,11 @@ const style = {
   transition: "all 0.3s ease-in",
 };
 
-const Text = styled("span")(
-  style,
-  color,
-  typography,
-  sizeVariant,
-  colorVariant,
-);
+const Text = styled("span")(style, color, typography, textVariant);
 
 Text.defaultProps = {
-  size: "regular",
-  variant: "default",
+  variant: "body",
+  fontSize: "md",
   fontFamily: `"Proxima Nova", sans-serif`,
 };
 
