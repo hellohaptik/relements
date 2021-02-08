@@ -24,7 +24,7 @@ const ButtonSize = variant({
 const style = {
   appearance: "button",
   outline: 0,
-  transition: "all 0.3s ease",
+  transition: "opacity 0.3s ease, transform 0.3s ease",
   "&:hover": {
     cursor: "pointer",
     transform: "translateY(-1px)",

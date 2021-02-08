@@ -99,7 +99,11 @@ test("Themed Button", async () => {
 
 test("Themed Button Click", async () => {
   const mockOnClick = jest.fn();
-  const { getByTestId } = render(<Button themed onClick={mockOnClick}>Button</Button>);
+  const { getByTestId } = render(
+    <Button themed onClick={mockOnClick}>
+      Button
+    </Button>,
+  );
   fireEvent.click(getByTestId("themedButton"));
   expect(mockOnClick).toHaveBeenCalledTimes(1);
 });

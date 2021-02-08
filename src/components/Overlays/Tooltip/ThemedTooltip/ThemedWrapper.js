@@ -34,7 +34,7 @@ const style = {
   borderRadius: 8,
   outline: "none",
   filter: "drop-shadow(rgba(0, 0, 0, 0.2) 3px 0px 12px)",
-  transition: "all 0.2s ease",
+  transition: "opacity 0.2s ease, transform 0.2s ease",
 };
 
 const ThemedWrapper = styled("div")(

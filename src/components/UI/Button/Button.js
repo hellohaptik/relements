@@ -18,8 +18,9 @@ const Button = props => {
     const buttonProps = {
       ...props,
       ref: props.innerRef,
-      "data-testid": "button",
+      "data-testid": "themedButton",
     };
+    // eslint-disable-next-line react/jsx-props-no-spreading
     return <ThemeButton {...buttonProps}>{props.children}</ThemeButton>;
   }
 
