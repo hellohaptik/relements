@@ -12,7 +12,7 @@ const textVariant = variant({
 });
 
 const style = {
-  transition: "all 0.3s ease-in",
+  transition: "color 0.3s ease-in, font-size 0.3s ease-in",
 };
 
 const Text = styled("span")(style, color, typography, textVariant);
