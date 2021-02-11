@@ -1,7 +1,9 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
 import PropTypes from "prop-types";
-import ThemedRowItem from "../ThemedTable/ThemedRowItem";
 import Text from "@src/components/UI/Text";
+
+import ThemedRowItem from "../ThemedTable/ThemedRowItem";
 
 import styles from "./Row.scss";
 
@@ -84,6 +86,8 @@ Row.propTypes = {
       }),
     ),
   ),
+  themed: PropTypes.bool,
+  designProps: PropTypes.shape({}),
 };
 
 export default Row;

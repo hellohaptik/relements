@@ -28,6 +28,7 @@ const Provider = ({ children, mode = modes[0] }) => {
 
 Provider.propTypes = {
   children: PropTypes.node,
+  mode: PropTypes.string,
 };
 
 export default Provider;

@@ -29,6 +29,7 @@ function Table(props) {
 
   if (themed) {
     return (
+      // eslint-disable-next-line react/jsx-props-no-spreading
       <ThemedTableWrapper {...designProps}>
         <Header
           prefixClassName={`${prefixClassName}-header`}

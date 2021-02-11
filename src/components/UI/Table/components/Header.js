@@ -1,9 +1,11 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
 import PropTypes from "prop-types";
 import Context from "@src/components/Context";
+import Text from "@src/components/UI/Text";
+
 import ThemedHeader from "../ThemedTable/ThemedHeader";
 import ThemedHeaderItem from "../ThemedTable/ThemedHeaderItem";
-import Text from "@src/components/UI/Text";
 
 import styles from "./Header.scss";
 
@@ -107,6 +109,8 @@ Header.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.object),
   sortOrder: PropTypes.number,
   sortKey: PropTypes.string,
+  themed: PropTypes.bool,
+  designProps: PropTypes.shape({}),
 };
 
 Header.defaultProps = {
