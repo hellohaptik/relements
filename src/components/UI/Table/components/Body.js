@@ -37,6 +37,8 @@ Body.propTypes = {
   onRowClick: PropTypes.func,
   rows: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)),
   columns: PropTypes.arrayOf(PropTypes.object),
+  themed: PropTypes.bool,
+  designProps: PropTypes.shape({}),
 };
 
 Body.defaultProps = {
