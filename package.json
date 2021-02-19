@@ -29,6 +29,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "@mdx-js/loader": "^1.0.21",
+    "@rollup/plugin-url": "^6.0.0",
     "fuse.js": "^3.4.4",
     "jsx-to-string": "^1.4.0",
     "react": "16.9.0",

@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import { color, variant, typography } from "styled-system";
+import color from "@styled-system/color";
+import variant from "@styled-system/variant";
+import typography from "@styled-system/typography";
 
 const textVariant = variant({
   scale: "textVariant",
