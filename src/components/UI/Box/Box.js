@@ -18,7 +18,7 @@ const Box = styled("div")(
 );
 
 Box.defaultProps = {
-  backgroundColor: "background",
+  backgroundColor: "inherit",
   borderStyle: "solid",
   borderWidth: "zero",
   padding: "sm",
