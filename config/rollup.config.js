@@ -70,6 +70,9 @@ const styledEsmModule = [
   "border",
   "variant",
   "typography",
+  "layout",
+  "position",
+  "flexbox",
 ];
 
 const globalFiles = {
