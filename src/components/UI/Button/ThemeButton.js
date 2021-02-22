@@ -45,7 +45,7 @@ const ThemeButton = styled("button")(
 
 // Customizable CSS props
 ThemeButton.defaultProps = {
-  borderRadius: 2,
+  borderRadius: "sm",
   borderWidth: 0,
   margin: "xs",
   variant: "primary",

@@ -22,6 +22,7 @@ Box.defaultProps = {
   borderStyle: "solid",
   borderWidth: "zero",
   padding: "sm",
+  display: "flex",
 };
 
 export default Box;
