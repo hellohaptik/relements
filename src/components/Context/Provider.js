@@ -1,18 +1,34 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ThemeContext from "./Context";
+import { ThemeProvider } from "styled-components";
 
-const Provider = ({ children, theme }) => {
+import { Theme } from "@src/Theme/Theme";
+import GlobalStyle from "@src/fonts/global";
+
+const modes = ["light", "dark"];
+
+const getTheme = mode => ({
+  ...Theme,
+  colors: {
+    ...Theme.colors,
+    ...Theme.modes[mode],
+  },
+});
+
+const Provider = ({ children, mode = modes[0] }) => {
+  const theme = getTheme(mode);
+
   return (
-    <ThemeContext.Provider value={{ ...theme }}>
+    <ThemeProvider theme={theme}>
       {children}
-    </ThemeContext.Provider>
+      <GlobalStyle />
+    </ThemeProvider>
   );
 };
 
 Provider.propTypes = {
   children: PropTypes.node,
-  theme: PropTypes.shape({}),
+  mode: PropTypes.string,
 };
 
 export default Provider;

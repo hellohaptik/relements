@@ -6,24 +6,36 @@ import Icon from "components/UI/Icon";
 
 import styles from "./Button.scss";
 import Context from "../../Context";
+import ThemeButton from "./ThemeButton";
 
 /**
  * Button component. Renders a button
  * based on type and size. Uses the children prop
  * to render the contents of the button.
  */
-const Button = ({
-  prefixClassName = "",
-  className = "",
-  type,
-  size,
-  disabled,
-  onClick,
-  innerRef,
-  children,
-  secondaryIcon,
-  onSecondaryIconClick,
-}) => {
+const Button = props => {
+  if (props.themed) {
+    const buttonProps = {
+      ...props,
+      ref: props.innerRef,
+      "data-testid": "themedButton",
+    };
+    return <ThemeButton {...buttonProps}>{props.children}</ThemeButton>;
+  }
+
+  const {
+    prefixClassName = "",
+    className = "",
+    type,
+    size,
+    disabled,
+    onClick,
+    innerRef,
+    children,
+    secondaryIcon,
+    onSecondaryIconClick,
+  } = props;
+
   const { primaryColor } = React.useContext(Context);
 
   /**
@@ -187,6 +199,7 @@ Button.propTypes = {
   secondaryIcon: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   /** secondary icon onClick callback */
   onSecondaryIconClick: PropTypes.func,
+  themed: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -197,6 +210,7 @@ Button.defaultProps = {
   disabled: false,
   onClick: () => {},
   onSecondaryIconClick: () => {},
+  themed: false,
 };
 
 Button.classNames = {

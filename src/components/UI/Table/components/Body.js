@@ -4,7 +4,15 @@ import PropTypes from "prop-types";
 
 import Row from "./Row";
 
-function Body({ className, prefixClassName, onRowClick, rows, columns }) {
+function Body({
+  className,
+  prefixClassName,
+  onRowClick,
+  rows,
+  columns,
+  themed,
+  designProps,
+}) {
   return (
     <div className={`${prefixClassName} ${className}`}>
       {rows.map((_, index) => (
@@ -15,6 +23,8 @@ function Body({ className, prefixClassName, onRowClick, rows, columns }) {
           onClick={onRowClick}
           widths={columns.map(column => column.width)}
           prefixClassName={`${prefixClassName}-row`}
+          themed={themed}
+          designProps={designProps}
         />
       ))}
     </div>
@@ -27,6 +37,8 @@ Body.propTypes = {
   onRowClick: PropTypes.func,
   rows: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)),
   columns: PropTypes.arrayOf(PropTypes.object),
+  themed: PropTypes.bool,
+  designProps: PropTypes.shape({}),
 };
 
 Body.defaultProps = {
