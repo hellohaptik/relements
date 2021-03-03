@@ -1,0 +1,24 @@
+name-template: $NEXT_PATCH_VERSION
+tag-template: $NEXT_PATCH_VERSION
+branches: master
+template: |
+    # What's Changed
+    $CHANGES
+categories:
+  - title: 🚀 Features
+    label: feature
+  - title: 🐛 Bug Fixes
+    label: bug
+  - title: 📖 Documentation
+    label: docs
+  - title: 💯 Enhancements
+    label: enhancement
+  - title: 🧪 Tests
+    label: test
+  - title: 📎 Dependencies
+    label: dependencies
+  - title: 👺 Miscellaneous 
+    label: miscellaneous
+exclude-labels:
+  - miscellaneous
+  - release
