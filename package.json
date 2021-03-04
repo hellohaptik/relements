@@ -100,7 +100,7 @@
     "majestic": "^1.6.0",
     "node-sass": "^4.14.1",
     "prettier": "^1.18.2",
-    "prismjs": "^1.16.0",
+    "prismjs": "^1.23.0",
     "prop-types": "^15.7.2",
     "react-docgen-external-proptypes-handler": "^1.0.3",
     "require-context": "^1.1.0",
