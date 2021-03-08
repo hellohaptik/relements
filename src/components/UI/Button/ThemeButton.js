@@ -24,7 +24,7 @@ const ButtonSize = variant({
 const style = props => ({
   appearance: "button",
   outline: 0,
-  transition: "opacity 0.3s ease, transform 0.3s ease",
+  transition: "box-shadow 0.3s ease",
   "&:hover": {
     cursor: "pointer",
     boxShadow: props.theme.shadows.md,
