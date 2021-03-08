@@ -1,0 +1,26 @@
+import Table from "@src/components/UI/Table";
+import { COLORS_DATA } from "./constants.js";
+
+# Colors
+
+### Introduction
+
+We interpret colors based on tokens which will be helpful enough to bridge the gap
+between designers and developers, thereby establishing a clear communication.
+
+<div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
+
+### Color Models
+
+We have grouped the colors based on their appearance and their meaning to our system. The groups
+help our design team to realize the expected outcome and provide a resolution accordingly.
+
+Keeping these terms in mind we have the following color models along with their tokens:
+
+<CodeBlock>
+  <Table columns={COLORS_DATA.columns} rows={COLORS_DATA.data} />
+</CodeBlock>
+
+#### Usage
+
+    <Text color="blue.haptik">Tertiary - Lorem ipsum dolor sit amet.</Text>

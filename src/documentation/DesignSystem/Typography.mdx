@@ -1,0 +1,33 @@
+import Table from "@src/components/UI/Table";
+import Text from "@src/components/UI/Text";
+
+import { FONT_DATA } from "./constants.js";
+
+# Typography
+
+### Introduction
+
+Understanding the application content and theming layout, the need for concise and clear
+communication to the user is evident. Typography is probably the only component of a design which
+affects every other component, element and thus the whole application or the tool itself.
+
+<div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
+
+### Font
+
+In order to implement an accurate font system, its vital to choose the font itself first.
+Here at Haptik, we rely on Roboto but we are making a switch to <strong>Proxima Nova</strong> - keeping the
+upcoming design optimsations in mind and the need for a clear-type font system.
+
+#### Font Sizes
+
+Here is the summary of the tokens and the font sizes and weights used:
+
+<CodeBlock>
+  <Table columns={FONT_DATA.columns} rows={FONT_DATA.data} />
+</CodeBlock>
+
+#### Usage
+
+    <Text variant="primary">Tertiary - Lorem ipsum dolor sit amet.</Text>
+
