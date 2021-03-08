@@ -1,4 +1,5 @@
 import space from "./space";
+import shadows from "./shadows";
 import radii from "./radii";
 import borderWidths from "./borderWidths";
 import fontSizes from "./fontSizes";
@@ -17,6 +18,7 @@ export const Theme = {
   fontWeights,
   borderWidths,
   colors,
+  shadows,
   modes,
   ...buttonTheme,
   ...tableTheme,
