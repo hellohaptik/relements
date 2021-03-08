@@ -1,64 +1,62 @@
-import { CodeBlock, ConfigBlock } from '@src/helpers/DocBlocks';
-import Button from './Button';
+import { CodeBlock } from "@src/helpers/DocBlocks";
+import Button from "./Button";
 
 # Button
 
-> A clickable UI element with active and hover states. Indicates to the user that it's clickable.
+> Button Components which adheres to the Haptik Design System.
 
 <CodeBlock>
-  <Button>Click Me</Button>
+  <Button size="regular" themed>
+    Default Button
+  </Button>
 </CodeBlock>
-
-## Configuration
-
-<ConfigBlock of={Button} />
 
 ## Examples
 
-<CodeBlock title="Type: Primary">
-  <Button type={Button.TYPES.PRIMARY}>Click Me</Button>
+<CodeBlock title="variant: Primary">
+  <Button size="regular" themed>
+    Primary
+  </Button>
 </CodeBlock>
 
-<CodeBlock title="Type: Secondary">
-  <Button type={Button.TYPES.SECONDARY}>Click Me</Button>
+<CodeBlock title="variant: Secondary">
+  <Button size="regular" themed variant="secondary">
+    Secondary
+  </Button>
 </CodeBlock>
 
-<CodeBlock title="Type: Outline">
-  <Button type={Button.TYPES.OUTLINE}>Click Me</Button>
+<CodeBlock title="variant: Danger">
+  <Button size="regular" themed variant="danger">
+    Danger
+  </Button>
 </CodeBlock>
 
-<CodeBlock title="Type: Grey">
-  <Button type={Button.TYPES.GREY}>Click Me</Button>
+<CodeBlock title="variant: Warning">
+  <Button size="regular" themed variant="warning">
+    Warning
+  </Button>
 </CodeBlock>
 
-<CodeBlock title="Type: Warning">
-  <Button type={Button.TYPES.WARNING}>Click Me</Button>
+<CodeBlock title="variant: Disabled">
+  <Button size="regular" themed variant="disabled">
+    Disabled
+  </Button>
 </CodeBlock>
 
-<CodeBlock title="Type: Yellow">
-  <Button type={Button.TYPES.YELLOW}>Click Me</Button>
+<CodeBlock title="size: Small">
+  <Button size="small" themed variant="secondary">
+    small
+  </Button>
 </CodeBlock>
 
-<CodeBlock title="Type: Disabled">
-  <Button disabled>Click Me</Button>
+<CodeBlock title="size: Medium">
+  <Button size="medium" themed variant="secondary">
+    medium
+  </Button>
 </CodeBlock>
 
-<CodeBlock title="Size: Small">
-  <Button size={Button.SIZES.SMALL}>Click Me</Button>
-</CodeBlock>
-
-<CodeBlock title="Size: Medium">
-  <Button size={Button.SIZES.MEDIUM}>Click Me</Button>
-</CodeBlock>
-
-<CodeBlock title="Size: Big">
-  <Button size={Button.SIZES.BIG}>Click Me</Button>
-</CodeBlock>
-
-<CodeBlock title="With secondary icon">
-  <Button 
-    secondaryIcon="infoV2"
-  >
-   Click Me
+<CodeBlock title="size: Large">
+  <Button size="large" themed variant="secondary">
+    large
   </Button>
 </CodeBlock>

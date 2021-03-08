@@ -21,17 +21,18 @@ const ButtonSize = variant({
 });
 
 // Non customizable CSS props
-const style = {
+const style = props => ({
   appearance: "button",
   outline: 0,
   transition: "opacity 0.3s ease, transform 0.3s ease",
   "&:hover": {
     cursor: "pointer",
-    transform: "translateY(-1px)",
-    boxShadow: "0px 2px 4px 1px rgba(0,0,0,0.15)",
-    opacity: 0.8,
+    boxShadow: props.theme.shadows.md,
   },
-};
+  "&:active": {
+    boxShadow: props.theme.shadows.sm,
+  },
+});
 
 const ThemeButton = styled("button")(
   style,
@@ -47,9 +48,14 @@ const ThemeButton = styled("button")(
 ThemeButton.defaultProps = {
   borderRadius: "sm",
   borderWidth: 0,
+  borderStyle: "solid",
   margin: "xs",
+  paddingY: "sm",
+  paddingX: "md",
   variant: "primary",
-  size: "regular",
+  size: "medium",
+  fontWeight: "semiBold",
+  fontFamily: `"Proxima Nova", sans-serif`,
 };
 
 export default ThemeButton;

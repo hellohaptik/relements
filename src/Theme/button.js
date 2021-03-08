@@ -1,23 +1,37 @@
 import { colors } from "./colors";
+import borderWidths from "./borderWidths";
 
 export const buttonColors = {
   primary: {
     color: colors.grey.pastel,
-    backgroundColor: colors.blue.haptik,
+    backgroundColor: colors.blue.dark,
   },
-  success: {
-    color: colors.grey.pastel,
-    backgroundColor: colors.green.haptik,
+  secondary: {
+    color: colors.blue.dark,
+    backgroundColor: colors.grey.pastel,
+    borderWidth: borderWidths.xs,
+    borderColor: colors.blue.dark,
   },
   danger: {
-    color: colors.grey.pastel,
-    backgroundColor: colors.red.haptik,
+    color: colors.red.deep,
+    backgroundColor: colors.red.pastel,
+    borderWidth: borderWidths.xs,
+    borderColor: colors.red.deep,
+  },
+  warning: {
+    color: colors.yellow.deep,
+    backgroundColor: colors.yellow.pastel,
+    borderWidth: borderWidths.xs,
+    borderColor: colors.yellow.deep,
   },
   disabled: {
-    color: colors.grey.pastel,
-    backgroundColor: colors.grey.haptik,
+    color: colors.grey.haptik,
+    backgroundColor: colors.grey.soft,
+    borderWidth: borderWidths.xs,
+    borderColor: colors.grey.haptik,
     "&:hover": {
       cursor: "not-allowed",
+      boxShadow: "none",
     },
   },
 };
@@ -25,17 +39,11 @@ export const buttonColors = {
 export const buttonSizes = {
   small: {
     fontSize: "xs",
-    paddingX: "sm",
-    paddingY: "xs",
   },
-  regular: {
+  medium: {
     fontSize: "sm",
-    paddingX: "md",
-    paddingY: "sm",
   },
   large: {
     fontSize: "md",
-    paddingX: "lg",
-    paddingY: "md",
   },
 };
