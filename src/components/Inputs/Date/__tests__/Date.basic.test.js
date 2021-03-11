@@ -34,6 +34,8 @@ const Component = ({
   withComparison,
   disabled,
   error,
+  maxDate,
+  minDate,
   label = "Enter date",
 }) => (
   <Date
@@ -45,6 +47,8 @@ const Component = ({
     numMonths={numMonths}
     withRange={withRange}
     withComparison={withComparison}
+    maxDate={maxDate}
+    minDate={minDate}
     disabled={disabled}
     error={error}
     withTime

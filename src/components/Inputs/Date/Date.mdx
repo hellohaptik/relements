@@ -8,7 +8,13 @@ import Date from "./Date";
 
 <CodeBlock defaultValue={dayjs()}>
   {(value, onChange) => (
-    <Date label="Select Date" value={value} onChange={onChange} numMonths={2} withTime/>
+    <Date
+      label="Select Date"
+      value={value}
+      onChange={onChange}
+      numMonths={2}
+      withTime
+    />
   )}
 </CodeBlock>
 
@@ -35,6 +41,7 @@ import Date from "./Date";
       onChange={onChange}
       numMonths={2}
       withRange
+      maxDate={dayjs().add(7, "d")}
     />
   )}
 </CodeBlock>
