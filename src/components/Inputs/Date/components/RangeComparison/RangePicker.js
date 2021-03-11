@@ -217,8 +217,8 @@ RangePicker.defaultProps = {
   withComparison: false,
   numMonths: 2,
   prefixClassName: "",
-  maxDate: dayjs(),
-  minDate: dayjs(),
+  maxDate: null,
+  minDate: null,
   value: {
     startDate: dayjs(),
     endDate: dayjs(),
