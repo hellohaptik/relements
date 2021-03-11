@@ -44,7 +44,7 @@ export default class RangePicker extends React.Component {
       });
     }
 
-    const { prefixClassName, numMonths } = this.props;
+    const { prefixClassName, numMonths, maxDate, minDate } = this.props;
 
     return (
       <div className={`${styles.rangePicker} ${prefixClassName}`}>
@@ -55,6 +55,8 @@ export default class RangePicker extends React.Component {
             value={value}
             onChange={this._handleCellClick}
             numMonths={numMonths}
+            maxDate={maxDate}
+            minDate={minDate}
             prefixClassName={`${prefixClassName}-calendar`}
           />
         </div>
@@ -201,6 +203,8 @@ RangePicker.propTypes = {
   withComparison: PropTypes.bool,
   prefixClassName: PropTypes.string,
   numMonths: PropTypes.number,
+  maxDate: PropTypes.object,
+  minDate: PropTypes.object,
   value: PropTypes.shape({
     startDate: PropTypes.object,
     endDate: PropTypes.object,
@@ -213,6 +217,8 @@ RangePicker.defaultProps = {
   withComparison: false,
   numMonths: 2,
   prefixClassName: "",
+  maxDate: dayjs(),
+  minDate: dayjs(),
   value: {
     startDate: dayjs(),
     endDate: dayjs(),
