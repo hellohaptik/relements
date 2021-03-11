@@ -110,6 +110,29 @@ test("Prefix class", async () => {
   });
 });
 
+test("max date, min date", async () => {
+  const mockFn = jest.fn();
+  render(
+    <Component
+      value={{
+        startDate: dayjs().toDate(),
+        endDate: dayjs()
+          .add(1, "d")
+          .toDate(),
+      }}
+      prefixClassName="test"
+      onChange={mockFn}
+      withRange
+      withComparison
+      numCalender
+      maxDate={dayjs()
+        .add(1, "d")
+        .toDate()}
+      minDate={dayjs().toDate()}
+    />,
+  );
+});
+
 test("On Comparison Toggle", async () => {
   const mockFn = jest.fn();
   render(
