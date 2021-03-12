@@ -203,8 +203,8 @@ RangePicker.propTypes = {
   withComparison: PropTypes.bool,
   prefixClassName: PropTypes.string,
   numMonths: PropTypes.number,
-  maxDate: PropTypes.object,
-  minDate: PropTypes.object,
+  maxDate: PropTypes.instanceOf(Date),
+  minDate: PropTypes.instanceOf(Date),
   value: PropTypes.shape({
     startDate: PropTypes.object,
     endDate: PropTypes.object,
