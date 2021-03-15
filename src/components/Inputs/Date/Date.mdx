@@ -47,7 +47,7 @@ import Date from "./Date";
 
 <CodeBlock
   title="Comparison"
-  defaultValue={{ startDate: dayjs(), endDate: dayjs().add(7, "d") }}
+  defaultValue={{ startDate: dayjs().subtract(7, "d"), endDate: dayjs() }}
 >
   {(value, onChange) => (
     <Date
@@ -57,6 +57,8 @@ import Date from "./Date";
       numMonths={2}
       withRange
       withComparison
+      maxDate={dayjs()}
+      comparisonMaxDate={dayjs()}
       position="TOP"
     />
   )}
