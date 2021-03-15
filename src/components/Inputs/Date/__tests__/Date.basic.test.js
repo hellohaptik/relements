@@ -34,6 +34,8 @@ const Component = ({
   withComparison,
   disabled,
   error,
+  maxDate,
+  minDate,
   label = "Enter date",
 }) => (
   <Date
@@ -45,6 +47,8 @@ const Component = ({
     numMonths={numMonths}
     withRange={withRange}
     withComparison={withComparison}
+    maxDate={maxDate}
+    minDate={minDate}
     disabled={disabled}
     error={error}
     withTime
@@ -104,6 +108,71 @@ test("Prefix class", async () => {
       className,
     ).toBeGreaterThanOrEqual(1);
   });
+});
+
+test("max date, min date", async () => {
+  const mockFn = jest.fn();
+  render(
+    <Component
+      value={{
+        startDate: dayjs().toDate(),
+        endDate: dayjs()
+          .add(1, "d")
+          .toDate(),
+      }}
+      prefixClassName="test"
+      onChange={mockFn}
+      withRange
+      withComparison
+      numCalender
+      maxDate={dayjs()
+        .add(1, "d")
+        .toDate()}
+      minDate={dayjs().toDate()}
+    />,
+  );
+});
+
+test("min date", async () => {
+  const mockFn = jest.fn();
+  render(
+    <Component
+      value={{
+        startDate: dayjs().toDate(),
+        endDate: dayjs()
+          .add(1, "d")
+          .toDate(),
+      }}
+      prefixClassName="test"
+      onChange={mockFn}
+      withRange
+      withComparison
+      numCalender
+      minDate={dayjs().toDate()}
+    />,
+  );
+});
+
+test("max date", async () => {
+  const mockFn = jest.fn();
+  render(
+    <Component
+      value={{
+        startDate: dayjs().toDate(),
+        endDate: dayjs()
+          .add(1, "d")
+          .toDate(),
+      }}
+      prefixClassName="test"
+      onChange={mockFn}
+      withRange
+      withComparison
+      numCalender
+      maxDate={dayjs()
+        .add(1, "d")
+        .toDate()}
+    />,
+  );
 });
 
 test("On Comparison Toggle", async () => {

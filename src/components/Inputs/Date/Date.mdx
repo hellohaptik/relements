@@ -8,7 +8,13 @@ import Date from "./Date";
 
 <CodeBlock defaultValue={dayjs()}>
   {(value, onChange) => (
-    <Date label="Select Date" value={value} onChange={onChange} numMonths={2} withTime/>
+    <Date
+      label="Select Date"
+      value={value}
+      onChange={onChange}
+      numMonths={2}
+      withTime
+    />
   )}
 </CodeBlock>
 
@@ -51,6 +57,57 @@ import Date from "./Date";
       numMonths={2}
       withRange
       withComparison
+      position="TOP"
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock
+  title="Minimum Selectable Dates"
+  defaultValue={{ startDate: dayjs(), endDate: dayjs().add(7, "d") }}
+>
+  {(value, onChange) => (
+    <Date
+      label="Select Date"
+      value={value}
+      onChange={onChange}
+      numMonths={2}
+      withRange
+      minDate={dayjs().subtract(30, "d")}
+    />
+  )}
+</CodeBlock>
+<CodeBlock
+  title="Maximum Selectable Dates"
+  defaultValue={{ startDate: dayjs(), endDate: dayjs().add(7, "d") }}
+>
+  {(value, onChange) => (
+    <Date
+      label="Select Date"
+      value={value}
+      onChange={onChange}
+      numMonths={2}
+      withRange
+      maxDate={dayjs().add(7, "d")}
+      position="TOP"
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock
+  title="Minimum & Maximum Selectable Dates"
+  defaultValue={{ startDate: dayjs(), endDate: dayjs().add(7, "d") }}
+>
+  {(value, onChange) => (
+    <Date
+      label="Select Date"
+      value={value}
+      onChange={onChange}
+      numMonths={2}
+      withRange
+      maxDate={dayjs().add(7, "d")}
+      minDate={dayjs().subtract(30, "d")}
+      position="TOP"
     />
   )}
 </CodeBlock>
