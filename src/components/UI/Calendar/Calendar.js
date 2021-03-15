@@ -103,7 +103,8 @@ const renderGridRow = (
     maxDate,
     comparisonMaxDate,
     toggled,
-    value,
+    startDate,
+    endDate,
   },
 ) => {
   return new Array(7).fill(0).map((_, columnIndex) => {
@@ -158,12 +159,7 @@ const renderGridRow = (
     if (maxDate && dayjs(maxDate).isBefore(day)) isDisabled = true;
     if (toggled && comparisonMaxDate && dayjs(comparisonMaxDate).isBefore(day))
       isDisabled = true;
-    if (
-      value[0] &&
-      value[0].from &&
-      !value[0].to &&
-      dayjs(value[0].from).isAfter(day)
-    )
+    if (startDate && !endDate && dayjs(startDate).isAfter(day))
       isDisabled = true;
     const classNames = {
       gridRowItem: cc([
@@ -244,6 +240,8 @@ const Calendar = ({
   minDate,
   comparisonMaxDate,
   toggled,
+  startDate,
+  endDate,
 }) => {
   const ranges = Array.isArray(value) ? value : [{ from: value, to: value }];
   const [viewingMonth, setViewingMonth] = React.useState(dayjs());
@@ -268,7 +266,8 @@ const Calendar = ({
     minDate,
     comparisonMaxDate,
     toggled,
-    value,
+    startDate,
+    endDate,
   };
 
   return (
@@ -308,6 +307,10 @@ Calendar.propTypes = {
   onChange: PropTypes.func,
   /** when specifying multiple ranges, this is the color for conflicting ranges */
   mergeColor: PropTypes.string,
+  /** start date of the range * */
+  startDate: PropTypes.string,
+  /** end date of the range* */
+  endDate: PropTypes.string,
   /** Dates after this date would be disabled * */
   maxDate: PropTypes.string,
   /** Dates before this date would be disabled * */

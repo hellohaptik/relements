@@ -33,6 +33,8 @@ export default class RangePicker extends React.Component {
       endDate,
       comparisonStartDate,
       comparisonEndDate,
+      compare,
+      selectingKey,
     } = this.state;
 
     let value = [{ from: startDate, to: endDate }];
@@ -59,6 +61,8 @@ export default class RangePicker extends React.Component {
         >
           <Calendar
             value={value}
+            startDate={startDate}
+            endDate={endDate}
             onChange={this._handleCellClick}
             numMonths={numMonths}
             maxDate={maxDate}
@@ -83,12 +87,12 @@ export default class RangePicker extends React.Component {
           />
           {this.props.withComparison ? (
             <Comparison
-              selectingKey={this.state.selectingKey}
+              selectingKey={selectingKey}
               startDate={startDate}
               endDate={endDate}
               comparisonStartDate={comparisonStartDate}
               comparisonEndDate={comparisonEndDate}
-              toggled={this.state.compare}
+              toggled={compare}
               onChange={this._setComparisonDates}
               prefixClassName={`${prefixClassName}-column-comparison`}
               onToggle={this._onToggle}
@@ -198,6 +202,7 @@ export default class RangePicker extends React.Component {
         comparisonEndDate: comparisonEnd,
       });
     } else {
+      // reset comparison dates as compare is off
       this.setState({ comparisonStartDate: null, comparisonEndDate: null });
     }
   };
