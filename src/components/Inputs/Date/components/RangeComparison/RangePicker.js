@@ -143,8 +143,9 @@ export default class RangePicker extends React.Component {
       const { startDate, endDate } = this.state;
       const numDays = endDate && endDate.diff(startDate, "d");
       const compMaxDate =
-        comparisonMaxDate && comparisonMaxDate.isBefore(day.add(numDays, "d"))
-          ? comparisonMaxDate
+        comparisonMaxDate &&
+        dayjs(comparisonMaxDate).isBefore(day.add(numDays, "d"))
+          ? dayjs(comparisonMaxDate)
           : day.add(numDays, "d");
       this.setState({
         selectingKey: "comparisonStartDate",
