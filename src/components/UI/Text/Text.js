@@ -6,10 +6,7 @@ import typography from "@styled-system/typography";
 const textVariant = variant({
   scale: "textVariant",
   variants: {
-    heading: {},
-    body: {},
-    secondary: {},
-    tertiary: {},
+    body: { lg: {} },
   },
 });
 
@@ -20,7 +17,7 @@ const style = {
 const Text = styled("span")(style, color, typography, textVariant);
 
 Text.defaultProps = {
-  variant: "body",
+  variant: "body.lg",
   color: "text",
   fontFamily: `"Proxima Nova", sans-serif`,
 };
