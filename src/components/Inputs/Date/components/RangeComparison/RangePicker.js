@@ -185,24 +185,27 @@ export default class RangePicker extends React.Component {
     const { startDate, endDate } = this.state;
     const { comparisonMaxDate } = this.props;
     const numDays = endDate && endDate.diff(startDate, "d") + 1;
+
     this.setState({
       compare: newCompare,
       selectingKey: newCompare ? "comparisonStartDate" : "startDate",
     });
 
     if (newCompare && startDate && endDate) {
-      const comparisonStart = startDate.subtract(numDays, "d") || null;
+      const comparisonStart = startDate.subtract(numDays, "d");
+
       // setting maximum selectable compare date as comparisonEndDate
       const comparisonEnd =
         comparisonMaxDate && comparisonMaxDate < startDate.subtract(1, "d")
           ? comparisonMaxDate
-          : startDate.subtract(1, "d") || null;
+          : startDate.subtract(1, "d");
+
       this.setState({
         comparisonStartDate: comparisonStart,
         comparisonEndDate: comparisonEnd,
       });
     } else {
-      // reset comparison dates as compare is off
+      // reset comparison dates when compare is off
       this.setState({ comparisonStartDate: null, comparisonEndDate: null });
     }
   };
