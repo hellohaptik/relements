@@ -33,6 +33,8 @@ export default class RangePicker extends React.Component {
       endDate,
       comparisonStartDate,
       comparisonEndDate,
+      compare,
+      selectingKey,
     } = this.state;
 
     let value = [{ from: startDate, to: endDate }];
@@ -44,7 +46,13 @@ export default class RangePicker extends React.Component {
       });
     }
 
-    const { prefixClassName, numMonths, maxDate, minDate } = this.props;
+    const {
+      prefixClassName,
+      numMonths,
+      maxDate,
+      minDate,
+      comparisonMaxDate,
+    } = this.props;
 
     return (
       <div className={`${styles.rangePicker} ${prefixClassName}`}>
@@ -53,10 +61,14 @@ export default class RangePicker extends React.Component {
         >
           <Calendar
             value={value}
+            startDate={startDate}
+            endDate={endDate}
             onChange={this._handleCellClick}
             numMonths={numMonths}
             maxDate={maxDate}
             minDate={minDate}
+            toggled={this.state.compare}
+            comparisonMaxDate={comparisonMaxDate}
             prefixClassName={`${prefixClassName}-calendar`}
           />
         </div>
@@ -75,31 +87,15 @@ export default class RangePicker extends React.Component {
           />
           {this.props.withComparison ? (
             <Comparison
-              selectingKey={this.state.selectingKey}
+              selectingKey={selectingKey}
               startDate={startDate}
               endDate={endDate}
               comparisonStartDate={comparisonStartDate}
               comparisonEndDate={comparisonEndDate}
-              toggled={this.state.compare}
+              toggled={compare}
               onChange={this._setComparisonDates}
               prefixClassName={`${prefixClassName}-column-comparison`}
-              onToggle={newCompare =>
-                this.setState({
-                  compare: newCompare,
-                  selectingKey: "comparisonStartDate",
-                  comparisonStartDate:
-                    newCompare && startDate && endDate
-                      ? startDate.subtract(
-                          endDate.diff(startDate, "d") + 1,
-                          "d",
-                        )
-                      : null,
-                  comparisonEndDate:
-                    newCompare && startDate && endDate
-                      ? startDate.subtract(1, "d")
-                      : null,
-                })
-              }
+              onToggle={this._onToggle}
               onFocus={key => {
                 this.setState({ selectingKey: key });
               }}
@@ -136,18 +132,23 @@ export default class RangePicker extends React.Component {
    * We use this.state.selectingKey to track this
    */
   _handleCellClick = day => {
-    const { selectingKey } = this.state;
+    const { selectingKey, compare } = this.state;
+    const { comparisonMaxDate } = this.props;
     if (selectingKey === "startDate") {
       this.setState({
         selectingKey: "endDate",
         endDate: null,
       });
-    } else if (selectingKey === "comparisonStartDate") {
+    } else if (compare && selectingKey === "comparisonStartDate") {
       const { startDate, endDate } = this.state;
-      const numDays = endDate.diff(startDate, "d");
+      const numDays = endDate && endDate.diff(startDate, "d");
+      const compMaxDate =
+        comparisonMaxDate && comparisonMaxDate.isBefore(day.add(numDays, "d"))
+          ? comparisonMaxDate
+          : day.add(numDays, "d");
       this.setState({
         selectingKey: "comparisonStartDate",
-        comparisonEndDate: day.add(numDays, "d"),
+        comparisonEndDate: compMaxDate,
       });
     } else {
       this.setState({ selectingKey: "startDate" });
@@ -180,6 +181,34 @@ export default class RangePicker extends React.Component {
     });
   };
 
+  _onToggle = newCompare => {
+    const { startDate, endDate } = this.state;
+    const { comparisonMaxDate } = this.props;
+    const numDays = endDate && endDate.diff(startDate, "d") + 1;
+    let comparisonStart = null;
+    let comparisonEnd = null;
+
+    this.setState({
+      compare: newCompare,
+      selectingKey: newCompare ? "comparisonStartDate" : "startDate",
+    });
+
+    if (newCompare && startDate && endDate) {
+      comparisonStart = startDate.subtract(numDays, "d");
+
+      // setting maximum selectable compare date as comparisonEndDate
+      comparisonEnd =
+        comparisonMaxDate && comparisonMaxDate < startDate.subtract(1, "d")
+          ? comparisonMaxDate
+          : startDate.subtract(1, "d");
+    }
+
+    this.setState({
+      comparisonStartDate: comparisonStart,
+      comparisonEndDate: comparisonEnd,
+    });
+  };
+
   _getParsedValue = () => {
     const { value = {} } = this.props;
     const startDate = dayjs(value.startDate);
@@ -205,6 +234,7 @@ RangePicker.propTypes = {
   numMonths: PropTypes.number,
   maxDate: PropTypes.instanceOf(Date),
   minDate: PropTypes.instanceOf(Date),
+  comparisonMaxDate: PropTypes.instanceOf(Date),
   value: PropTypes.shape({
     startDate: PropTypes.object,
     endDate: PropTypes.object,
@@ -219,6 +249,7 @@ RangePicker.defaultProps = {
   prefixClassName: "",
   maxDate: null,
   minDate: null,
+  comparisonMaxDate: null,
   value: {
     startDate: dayjs(),
     endDate: dayjs(),

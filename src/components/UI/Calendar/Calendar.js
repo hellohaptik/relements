@@ -95,7 +95,17 @@ const renderGridRow = (
   rowIndex,
   date,
   ranges,
-  { handleCellClick, mergeColor, prefixClassName, minDate, maxDate },
+  {
+    handleCellClick,
+    mergeColor,
+    prefixClassName,
+    minDate,
+    maxDate,
+    comparisonMaxDate,
+    toggled,
+    startDate,
+    endDate,
+  },
 ) => {
   return new Array(7).fill(0).map((_, columnIndex) => {
     const { text, day, invisible } = getTextForCell(
@@ -147,7 +157,10 @@ const renderGridRow = (
     let isDisabled = false;
     if (minDate && dayjs(minDate).isAfter(day)) isDisabled = true;
     if (maxDate && dayjs(maxDate).isBefore(day)) isDisabled = true;
-
+    if (toggled && comparisonMaxDate && dayjs(comparisonMaxDate).isBefore(day))
+      isDisabled = true;
+    if (startDate && !endDate && dayjs(startDate).isAfter(day))
+      isDisabled = true;
     const classNames = {
       gridRowItem: cc([
         styles.calendarGridRowItem,
@@ -225,6 +238,10 @@ const Calendar = ({
   prefixClassName,
   maxDate,
   minDate,
+  comparisonMaxDate,
+  toggled,
+  startDate,
+  endDate,
 }) => {
   const ranges = Array.isArray(value) ? value : [{ from: value, to: value }];
   const [viewingMonth, setViewingMonth] = React.useState(dayjs());
@@ -247,6 +264,10 @@ const Calendar = ({
     prefixClassName,
     maxDate,
     minDate,
+    comparisonMaxDate,
+    toggled,
+    startDate,
+    endDate,
   };
 
   return (
@@ -286,12 +307,20 @@ Calendar.propTypes = {
   onChange: PropTypes.func,
   /** when specifying multiple ranges, this is the color for conflicting ranges */
   mergeColor: PropTypes.string,
+  /** start date of the range * */
+  startDate: PropTypes.string,
+  /** end date of the range* */
+  endDate: PropTypes.string,
   /** Dates after this date would be disabled * */
   maxDate: PropTypes.string,
   /** Dates before this date would be disabled * */
   minDate: PropTypes.string,
+  /** Dates after this date would be disabled * */
+  comparisonMaxDate: PropTypes.string,
   /** number of months to show in the calendar at a time */
   numMonths: PropTypes.number,
+  /**  when compare is enabled */
+  toggled: PropTypes.bool,
   /** The dates to highlight, can be an array of objects or a single a object */
   value: PropTypes.oneOfType([
     PropTypes.arrayOf(
@@ -314,6 +343,8 @@ Calendar.defaultProps = {
   prefixClassName: "",
   minDate: undefined,
   maxDate: undefined,
+  comparisonMaxDate: undefined,
+  toggled: false,
 };
 
 Calendar.classNames = {
