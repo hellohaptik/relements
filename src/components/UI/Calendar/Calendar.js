@@ -341,9 +341,9 @@ Calendar.defaultProps = {
   mergeColor: "#F00",
   className: "",
   prefixClassName: "",
-  minDate: undefined,
-  maxDate: undefined,
-  comparisonMaxDate: undefined,
+  minDate: null,
+  maxDate: null,
+  comparisonMaxDate: null,
   toggled: false,
 };
 
