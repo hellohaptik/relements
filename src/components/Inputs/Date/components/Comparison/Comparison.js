@@ -46,8 +46,10 @@ function Shortcuts({
         onClick={() => {
           onChange(null, null, "comparisonStartDate");
         }}
-        className={`${styles.inputsButton} ${styles.comparison} ${prefixClassName}-button`}
-        type={!isPreviousPeriod ? "primary" : "default"}
+        className={`${styles.inputsButton} ${
+          !isPreviousPeriod ? styles.compare : ""
+        } ${prefixClassName}-button`}
+        primary={!isPreviousPeriod}
       >
         Custom
       </Button>
