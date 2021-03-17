@@ -250,13 +250,13 @@ const Calendar = ({
 
   React.useEffect(() => {
     startDate && endDate && setViewingMonth(endDate);
-  }, [startDate]);
+  }, [endDate]);
 
   React.useEffect(() => {
     comparisonStartDate &&
       comparisonEndDate &&
       setViewingMonth(comparisonEndDate);
-  }, [comparisonStartDate]);
+  }, [comparisonEndDate]);
 
   const viewNextMonth = React.useCallback(() => {
     setViewingMonth(viewingMonth.add(1, "month"));
@@ -320,19 +320,19 @@ Calendar.propTypes = {
   /** when specifying multiple ranges, this is the color for conflicting ranges */
   mergeColor: PropTypes.string,
   /** start date of the range * */
-  startDate: PropTypes.instanceOf(Date),
+  startDate: PropTypes.string,
   /** end date of the range* */
-  endDate: PropTypes.instanceOf(Date),
+  endDate: PropTypes.string,
   /** start date of the range * */
-  comparisonStartDate: PropTypes.instanceOf(Date),
+  comparisonStartDate: PropTypes.string,
   /** end date of the range* */
-  comparisonEndDate: PropTypes.instanceOf(Date),
+  comparisonEndDate: PropTypes.string,
   /** Dates after this date would be disabled * */
-  maxDate: PropTypes.instanceOf(Date),
+  maxDate: PropTypes.string,
   /** Dates before this date would be disabled * */
-  minDate: PropTypes.instanceOf(Date),
+  minDate: PropTypes.string,
   /** Dates after this date would be disabled * */
-  comparisonMaxDate: PropTypes.instanceOf(Date),
+  comparisonMaxDate: PropTypes.string,
   /** number of months to show in the calendar at a time */
   numMonths: PropTypes.number,
   /**  when compare is enabled */
