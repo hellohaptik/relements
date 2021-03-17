@@ -1,23 +1,23 @@
-@import 'constants/index.scss';
+@import "constants/index.scss";
 
 .inputs {
   &Column {
     display: flex;
     flex-direction: column;
     padding: 20px 12px;
-  
+
     &Label {
       font-size: 14px;
       margin-bottom: 2px;
     }
-  
+
     &Hint {
       font-size: 10px;
       color: #999;
       margin-bottom: 14px;
     }
   }
-  
+
   &Items {
     display: flex;
     margin-bottom: 24px;
@@ -27,7 +27,7 @@
       margin-bottom: 0;
     }
   }
-  
+
   &Buttons {
     display: flex;
     margin-bottom: 12px;
