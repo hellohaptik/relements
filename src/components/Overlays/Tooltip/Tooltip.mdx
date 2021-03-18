@@ -6,22 +6,29 @@ import Tooltip from "./Tooltip";
 # Tooltip
 
 > A clickable UI element with active and hover states. Indicates to the user that it's clickable.
+> Adheres to Haptik Design System.
 
 <CodeBlock>
   {(value, setValue, ref) => (
-    <div>
-      <Button innerRef={ref} onClick={() => setValue(true)}>
+    <>
+      <Button
+        themed
+        variant="secondary"
+        innerRef={ref}
+        onClick={() => setValue(true)}
+      >
         Open Tooltip
       </Button>
       <Tooltip
         attachTo={ref}
+        themed
         onClose={() => setValue(false)}
         active={value}
         offset={{ top: 8 }}
       >
-        <div style={{ padding: 8, background: "#28394B", color: "#FFF" }}>This is a Tooltip</div>
+        <div>This is a Tooltip</div>
       </Tooltip>
-    </div>
+    </>
   )}
 </CodeBlock>
 
@@ -30,3 +37,125 @@ import Tooltip from "./Tooltip";
 <ConfigBlock of={Tooltip} />
 
 ## Examples
+
+<CodeBlock title="Position: Top">
+  {(value, setValue, ref) => (
+    <>
+      <Button
+        themed
+        size="regular"
+        innerRef={ref}
+        onClick={() => setValue(true)}
+      >
+        Open Tooltip
+      </Button>
+      <Tooltip
+        themed
+        attachTo={ref}
+        onClose={() => setValue(false)}
+        active={value}
+        position="TOP"
+      >
+        <div>Yoo! 🥳</div>
+      </Tooltip>
+    </>
+  )}
+</CodeBlock>
+
+<CodeBlock title="Size: Small">
+  {(value, setValue, ref) => (
+    <>
+      <Button
+        themed
+        size="regular"
+        innerRef={ref}
+        onClick={() => setValue(true)}
+      >
+        Open Tooltip
+      </Button>
+      <Tooltip
+        themed
+        size="small"
+        attachTo={ref}
+        onClose={() => setValue(false)}
+        active={value}
+      >
+        <div>Hey 🐭</div>
+      </Tooltip>
+    </>
+  )}
+</CodeBlock>
+
+<CodeBlock title="Size: Large">
+  {(value, setValue, ref) => (
+    <>
+      <Button
+        themed
+        size="regular"
+        variant="secondary"
+        innerRef={ref}
+        onClick={() => setValue(true)}
+      >
+        Open Tooltip
+      </Button>
+      <Tooltip
+        themed
+        size="large"
+        attachTo={ref}
+        onClose={() => setValue(false)}
+        active={value}
+      >
+        <div>'sup? 🐘</div>
+      </Tooltip>
+    </>
+  )}
+</CodeBlock>
+
+<CodeBlock title="Variant: Success">
+  {(value, setValue, ref) => (
+    <>
+      <Button
+        themed
+        size="regular"
+        innerRef={ref}
+        onClick={() => setValue(true)}
+      >
+        Open Tooltip
+      </Button>
+      <Tooltip
+        themed
+        variant="success"
+        attachTo={ref}
+        onClose={() => setValue(false)}
+        active={value}
+      >
+        <div>Awesome! 😎</div>
+      </Tooltip>
+    </>
+  )}
+</CodeBlock>
+
+<CodeBlock title="Variant: Danger">
+  {(value, setValue, ref) => (
+    <>
+      <Button
+        themed
+        size="regular"
+        variant="danger"
+        innerRef={ref}
+        onClick={() => setValue(true)}
+      >
+        Open Tooltip
+      </Button>
+      <Tooltip
+        themed
+        variant="danger"
+        attachTo={ref}
+        onClose={() => setValue(false)}
+        active={value}
+      >
+        <div>Careful! 😵</div>
+      </Tooltip>
+    </>
+  )}
+</CodeBlock>
