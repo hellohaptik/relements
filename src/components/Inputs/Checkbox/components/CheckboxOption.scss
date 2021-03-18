@@ -12,7 +12,6 @@
   }
 
   &.disabled {
-    filter: grayscale(1);
     pointer-events: none;
     opacity: 0.8;
   }
@@ -31,8 +30,8 @@
 }
 
 .checkboxOptionBoxTick {
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,5 +52,4 @@
   font-size: 14px;
   font-weight: 400;
   transition: 0.2s ease-out;
-  color: #666;
 }

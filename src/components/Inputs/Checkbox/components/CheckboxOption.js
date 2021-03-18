@@ -2,9 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import cc from "classcat";
 
-import Context from "@src/components/Context";
 import Icon from "@src/components/UI/Icon";
 import TickIcon from "@src/icons/checkmark.svg";
+
+import { colors } from "@src/Theme/colors";
 
 import styles from "./CheckboxOption.scss";
 
@@ -17,7 +18,6 @@ const CheckboxOption = ({
   prefixClassName,
   disabled,
 }) => {
-  const { primaryColor } = React.useContext(Context);
   const classNames = {
     main: cc([
       styles.checkboxOption,
@@ -39,15 +39,20 @@ const CheckboxOption = ({
   const colorStyles = {
     box: value
       ? {
-          background: primaryColor,
-          borderColor: primaryColor,
+          background: disabled ? colors.grey.deep : colors.blue.dark,
+          borderColor: disabled ? colors.grey.deep : colors.blue.dark,
         }
-      : {},
+      : {
+          background: colors.background,
+          borderColor: disabled ? colors.grey.deep : colors.blue.dark,
+        },
     label: value
       ? {
-          color: primaryColor,
+          color: disabled ? colors.grey.deep : colors.grey.dark,
         }
-      : {},
+      : {
+          color: colors.grey.deep,
+        },
   };
 
   return (
