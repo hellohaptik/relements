@@ -69,6 +69,8 @@ export default class RangePicker extends React.Component {
             minDate={minDate}
             toggled={this.state.compare}
             comparisonMaxDate={comparisonMaxDate}
+            comparisonEndDate={comparisonEndDate}
+            comparisonStartDate={comparisonStartDate}
             prefixClassName={`${prefixClassName}-calendar`}
           />
         </div>

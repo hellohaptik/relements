@@ -242,9 +242,21 @@ const Calendar = ({
   toggled,
   startDate,
   endDate,
+  comparisonEndDate,
+  comparisonStartDate,
 }) => {
   const ranges = Array.isArray(value) ? value : [{ from: value, to: value }];
   const [viewingMonth, setViewingMonth] = React.useState(dayjs());
+
+  React.useEffect(() => {
+    startDate && endDate && setViewingMonth(endDate);
+  }, [endDate]);
+
+  React.useEffect(() => {
+    comparisonStartDate &&
+      comparisonEndDate &&
+      setViewingMonth(comparisonEndDate);
+  }, [comparisonEndDate]);
 
   const viewNextMonth = React.useCallback(() => {
     setViewingMonth(viewingMonth.add(1, "month"));
@@ -311,6 +323,10 @@ Calendar.propTypes = {
   startDate: PropTypes.string,
   /** end date of the range* */
   endDate: PropTypes.string,
+  /** start date of the range * */
+  comparisonStartDate: PropTypes.string,
+  /** end date of the range* */
+  comparisonEndDate: PropTypes.string,
   /** Dates after this date would be disabled * */
   maxDate: PropTypes.string,
   /** Dates before this date would be disabled * */
