@@ -117,20 +117,10 @@ const renderGridRow = (
     let selected = false;
     let hasLeftEdgeBorder = false;
     let hasRightEdgeBorder = false;
-    let hasBottomEdgeBorder = false;
     let style = {};
-    let lastColor = "";
     ranges.forEach(({ from, to, color = "#1b9cfc" }) => {
-      const adjacentCell = day.add(7, "d");
-      const adjacentCellIsInThisMonth = adjacentCell.month() === day.month();
-
-      lastColor = color;
-
       if (invisible) return;
-      if (adjacentCell.isSame(from, "d") && adjacentCellIsInThisMonth)
-        hasBottomEdgeBorder = true;
-      if (adjacentCell.isSame(to, "d") && adjacentCellIsInThisMonth)
-        hasBottomEdgeBorder = true;
+
       if (day.isSame(from, "d")) hasLeftEdgeBorder = true;
       if (day.isSame(to, "d")) hasRightEdgeBorder = true;
       if (isSelected(day, from, to)) {
@@ -187,7 +177,6 @@ const renderGridRow = (
         style={{
           borderLeftWidth: hasLeftEdgeBorder ? 1 : 0,
           borderRightWidth: hasRightEdgeBorder ? 1 : 0,
-          borderBottomColor: hasBottomEdgeBorder ? lastColor : undefined,
           ...style,
         }}
         className={classNames.gridRowItem}
@@ -249,14 +238,22 @@ const Calendar = ({
   const [viewingMonth, setViewingMonth] = React.useState(dayjs());
 
   React.useEffect(() => {
-    startDate && endDate && setViewingMonth(endDate);
+    toggleMonth(startDate, endDate);
   }, [endDate]);
 
   React.useEffect(() => {
-    comparisonStartDate &&
-      comparisonEndDate &&
-      setViewingMonth(comparisonEndDate);
+    toggleMonth(comparisonStartDate, comparisonEndDate);
   }, [comparisonEndDate]);
+
+  const toggleMonth = (start, end) => {
+    start &&
+      end &&
+      viewingMonth.format("M") !==
+        dayjs(end)
+          .add(1, "month")
+          .format("M") &&
+      setViewingMonth(end);
+  };
 
   const viewNextMonth = React.useCallback(() => {
     setViewingMonth(viewingMonth.add(1, "month"));
