@@ -117,20 +117,10 @@ const renderGridRow = (
     let selected = false;
     let hasLeftEdgeBorder = false;
     let hasRightEdgeBorder = false;
-    let hasBottomEdgeBorder = false;
     let style = {};
-    let lastColor = "";
     ranges.forEach(({ from, to, color = "#1b9cfc" }) => {
-      const adjacentCell = day.add(7, "d");
-      const adjacentCellIsInThisMonth = adjacentCell.month() === day.month();
-
-      lastColor = color;
-
       if (invisible) return;
-      if (adjacentCell.isSame(from, "d") && adjacentCellIsInThisMonth)
-        hasBottomEdgeBorder = true;
-      if (adjacentCell.isSame(to, "d") && adjacentCellIsInThisMonth)
-        hasBottomEdgeBorder = true;
+
       if (day.isSame(from, "d")) hasLeftEdgeBorder = true;
       if (day.isSame(to, "d")) hasRightEdgeBorder = true;
       if (isSelected(day, from, to)) {
@@ -187,7 +177,6 @@ const renderGridRow = (
         style={{
           borderLeftWidth: hasLeftEdgeBorder ? 1 : 0,
           borderRightWidth: hasRightEdgeBorder ? 1 : 0,
-          borderBottomColor: hasBottomEdgeBorder ? lastColor : undefined,
           ...style,
         }}
         className={classNames.gridRowItem}
@@ -242,21 +231,19 @@ const Calendar = ({
   toggled,
   startDate,
   endDate,
-  comparisonEndDate,
-  comparisonStartDate,
 }) => {
   const ranges = Array.isArray(value) ? value : [{ from: value, to: value }];
   const [viewingMonth, setViewingMonth] = React.useState(dayjs());
 
   React.useEffect(() => {
-    startDate && endDate && setViewingMonth(endDate);
+    startDate &&
+      endDate &&
+      viewingMonth.format("M") !==
+        dayjs(endDate)
+          .add(1, "month")
+          .format("M") &&
+      setViewingMonth(endDate);
   }, [endDate]);
-
-  React.useEffect(() => {
-    comparisonStartDate &&
-      comparisonEndDate &&
-      setViewingMonth(comparisonEndDate);
-  }, [comparisonEndDate]);
 
   const viewNextMonth = React.useCallback(() => {
     setViewingMonth(viewingMonth.add(1, "month"));
@@ -323,10 +310,6 @@ Calendar.propTypes = {
   startDate: PropTypes.string,
   /** end date of the range* */
   endDate: PropTypes.string,
-  /** start date of the range * */
-  comparisonStartDate: PropTypes.string,
-  /** end date of the range* */
-  comparisonEndDate: PropTypes.string,
   /** Dates after this date would be disabled * */
   maxDate: PropTypes.string,
   /** Dates before this date would be disabled * */
