@@ -14,7 +14,7 @@ export const colors = {
     soft: "#FAFAFA",
     neon: "#EFEFEF",
     haptik: "#D5D5D5",
-    deep: "#858585",
+    deep: "#464646",
     dark: "#1B1B1B",
   },
   red: {

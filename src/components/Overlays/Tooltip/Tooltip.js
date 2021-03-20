@@ -5,9 +5,7 @@ import useActivify from "@src/hooks/useActivify";
 import usePositioner from "@src/hooks/usePositioner";
 import useEscapeKey from "@src/hooks/useEscapeKey";
 
-import ThemedWrapper from "./ThemedTooltip/ThemedWrapper";
-import ThemedArrow from "./ThemedTooltip/ThemedArrow";
-import ThemedContent from "./ThemedTooltip/ThemedContent";
+import { ThemedWrapper, ThemedContent, ThemedArrow } from "./ThemedTooltip";
 
 import styles from "./Tooltip.scss";
 
@@ -31,6 +29,7 @@ function Tooltip({
   themed,
   variant,
   size,
+  withTooltip,
 }) {
   const [dismissed, setDismissed] = React.useState(false);
   const tooltipRef = React.useRef();
@@ -43,12 +42,21 @@ function Tooltip({
 
   const { enabled, visible } = useActivify(active && !dismissed);
   const activeClassName = visible ? styles.tooltipActive : "";
-  const topPositionClassName = position === "TOP" ? styles.top : styles.bottom;
+  const tooltipPosition = position ? position.toLowerCase() : "bottom";
+  const topPositionClassName = styles[tooltipPosition];
 
   const handleClose = React.useCallback(() => {
     if (dismissable) setDismissed(true);
     onClose();
   });
+
+  React.useEffect(() => {
+    if (!withTooltip && themed && activeClassName) {
+      // setTimeout(() => {
+      //   handleClose();
+      // }, 2500);
+    }
+  }, [withTooltip, themed, activeClassName]);
 
   useEscapeKey(handleClose);
 
@@ -57,12 +65,16 @@ function Tooltip({
   const renderTooltipContent = () => {
     if (themed) {
       const arrowPosition = position.toLowerCase() || "bottom";
+      const tooltipActiveMode =
+        tooltipRef.current !== "undefined" &&
+        activeClassName &&
+        coordinates.top;
 
       return (
         <ThemedWrapper
           ref={tooltipRef}
           style={coordinates}
-          mode={activeClassName ? "active" : "inactive"}
+          mode={tooltipActiveMode ? "active" : "inactive"}
           variant={variant}
           size={size}
         >
@@ -76,6 +88,7 @@ function Tooltip({
         </ThemedWrapper>
       );
     }
+
     return (
       <div
         className={`${styles.tooltip} ${activeClassName} ${prefixClassName}-inner`}
@@ -126,6 +139,7 @@ Tooltip.propTypes = {
     top: PropTypes.number,
     left: PropTypes.number,
   }),
+  withTooltip: PropTypes.bool,
 };
 
 Tooltip.defaultProps = {
@@ -140,6 +154,7 @@ Tooltip.defaultProps = {
   themed: false,
   variant: "primary",
   size: "regular",
+  withTooltip: false,
 };
 
 export default Tooltip;

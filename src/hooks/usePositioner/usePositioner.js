@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export default function usePositioner({
   attachTo,
   attachee,
-  position = 'TOP',
+  position = "TOP",
   offset,
 }) {
   const [value, setValue] = useState({});
@@ -14,18 +14,42 @@ export default function usePositioner({
     const tooltipRect = attachee.current.getBoundingClientRect();
     const coordinates = {};
 
-    if (position === 'TOP') {
-      coordinates.top = rect.top - tooltipRect.height - 10;
-      coordinates.left = rect.left - tooltipRect.width / 2 + rect.width / 2;
-    } else {
-      coordinates.top = rect.bottom + 10;
-      coordinates.left = rect.left - tooltipRect.width / 2 + rect.width / 2;
+    switch (position) {
+      case "TOP": {
+        coordinates.top = rect.top - tooltipRect.height - 10;
+        coordinates.left = rect.left - tooltipRect.width / 2 + rect.width / 2;
+        break;
+      }
+
+      case "RIGHT": {
+        coordinates.top = rect.top + 5;
+        coordinates.left = rect.right + 10;
+        break;
+      }
+
+      case "BOTTOM": {
+        coordinates.top = rect.bottom + 10;
+        coordinates.left = rect.left - tooltipRect.width / 2 + rect.width / 2;
+        break;
+      }
+
+      case "LEFT": {
+        coordinates.top = rect.top + 5;
+        coordinates.left = rect.left - tooltipRect.width - 10;
+        break;
+      }
+
+      default: {
+        coordinates.top = rect.bottom + 10;
+        coordinates.left = rect.left - tooltipRect.width / 2 + rect.width / 2;
+      }
     }
 
     let leftDiff = rect.left + rect.width / 2 - tooltipRect.width / 2 - 8;
-    let rightDiff = window.innerWidth
-      - (rect.left + rect.width / 2 + tooltipRect.width / 2)
-      - 8;
+    let rightDiff =
+      window.innerWidth -
+      (rect.left + rect.width / 2 + tooltipRect.width / 2) -
+      8;
 
     if (leftDiff < 0) {
       coordinates.left -= leftDiff;

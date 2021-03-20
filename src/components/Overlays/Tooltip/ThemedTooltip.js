@@ -26,8 +26,20 @@ const TooltipMode = variant({
   variants: {},
 });
 
+const ThemeTooltipArrowColor = variant({
+  prop: "variant",
+  scale: "tooltipArrowColors",
+  variants: {},
+});
+
+const ThemeTooltipArrowPositon = variant({
+  prop: "position",
+  scale: "tooltipArrowPositions",
+  variants: {},
+});
+
 // Non customizable CSS props
-const style = {
+const wrapperStyle = {
   position: "absolute",
   pointerEvents: "auto",
   zIndex: 2,
@@ -37,8 +49,23 @@ const style = {
   transition: "opacity 0.2s ease, transform 0.2s ease",
 };
 
+const contentStyle = {
+  maxHeight: "inherit",
+  maxWidth: 550,
+  overflow: "hidden",
+  overflowX: "auto",
+  lineHeight: 1.4,
+};
+
+const arrowStyle = {
+  position: "absolute",
+  left: "50%",
+  marginLeft: "-5px",
+  border: "6px solid",
+};
+
 const ThemedWrapper = styled("div")(
-  style,
+  wrapperStyle,
   space,
   color,
   border,
@@ -46,6 +73,23 @@ const ThemedWrapper = styled("div")(
   TooltipColor,
   TooltipSize,
   TooltipMode,
+);
+
+const ThemedContent = styled("div")(
+  contentStyle,
+  space,
+  color,
+  border,
+  typography,
+);
+
+const ThemedArrow = styled("div")(
+  arrowStyle,
+  space,
+  color,
+  border,
+  ThemeTooltipArrowColor,
+  ThemeTooltipArrowPositon,
 );
 
 // Customizable CSS props
@@ -57,4 +101,13 @@ ThemedWrapper.defaultProps = {
   fontFamily: `"Proxima Nova", sans-serif`,
 };
 
-export default ThemedWrapper;
+ThemedContent.defaultProps = {
+  padding: 0,
+};
+
+ThemedArrow.defaultProps = {
+  position: "top",
+  variant: "primary.bottom",
+};
+
+export { ThemedWrapper, ThemedContent, ThemedArrow };

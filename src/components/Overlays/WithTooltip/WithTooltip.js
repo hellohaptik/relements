@@ -12,6 +12,7 @@ function WithTooltip({
   tooltip,
   position,
   disabled,
+  themed,
 }) {
   const [tooltipActive, setTooltipActive] = React.useState();
   const DOMRef = React.useRef();
@@ -27,6 +28,32 @@ function WithTooltip({
     setTooltipActive(false);
   });
 
+  const defaultProps = {
+    tooltipArrowColor: "rgba(0,0,0,0.7)",
+    tooltipArrowSmall: true,
+    className: styles.withTooltipTooltip,
+    prefixClassName: `${prefixClassName}-inner`,
+  };
+
+  const tooltipProps = {
+    active: tooltipActive && !disabled,
+    position,
+    attachTo: DOMRef,
+    onClose: handleMouseLeave,
+    withTooltip: true,
+    themed,
+  };
+
+  const withTooltipProps = !themed
+    ? { ...tooltipProps, ...defaultProps }
+    : tooltipProps;
+
+  console.log(withTooltipProps);
+
+  const tooltipContentClassName = !themed
+    ? `${styles.withTooltip} ${prefixClassName}-inner-wrapper`
+    : "";
+
   return (
     <span
       ref={DOMRef}
@@ -36,24 +63,11 @@ function WithTooltip({
       className={`${styles.withTooltipWrapper} ${className} ${prefixClassName}`}
     >
       {children}
-      {tooltip ? (
-        <Tooltip
-          active={tooltipActive && !disabled}
-          position={position}
-          attachTo={DOMRef}
-          onClose={handleMouseLeave}
-          tooltipArrowColor="rgba(0,0,0,0.7)"
-          tooltipArrowSmall
-          className={styles.withTooltipTooltip}
-          prefixClassName={`${prefixClassName}-inner`}
-        >
-          <div
-            className={`${styles.withTooltip} ${prefixClassName}-inner-wrapper`}
-          >
-            {tooltip}
-          </div>
+      {tooltip && (
+        <Tooltip {...withTooltipProps}>
+          <div className={tooltipContentClassName}>{tooltip}</div>
         </Tooltip>
-      ) : null}
+      )}
     </span>
   );
 }
@@ -66,6 +80,7 @@ WithTooltip.propTypes = {
   position: PropTypes.string,
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
+  themed: PropTypes.bool,
 };
 
 WithTooltip.defaultProps = {
@@ -75,6 +90,7 @@ WithTooltip.defaultProps = {
   position: "TOP",
   disabled: false,
   onClick: () => {},
+  themed: false,
 };
 
 export default WithTooltip;
