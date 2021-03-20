@@ -11,18 +11,20 @@ import styles from "./Inputs.scss";
  * such as if the combination of dates matches any of the helper buttons
  * (Today, Yesterday, Last 7 days etc.)
  */
-function getDateStats(startDate, endDate) {
+const getDateStats = (startDate, endDate) => {
   const today = dayjs();
   const yesterday = dayjs().subtract(1, "d");
   const isSame = startDate.isSame(endDate, "d");
   const isToday = isSame && startDate.isSame(today, "d");
   const isYesterday = isSame && startDate.isSame(yesterday, "d");
   const isLast7Days =
-    startDate.subtract(7, "d").isSame(endDate, "d") &&
-    startDate.isSame(today, "d");
+    today.subtract(6, "d").isSame(startDate, "d") &&
+    endDate &&
+    endDate.isSame(today, "d");
   const isLast30Days =
-    startDate.subtract(30, "d").isSame(endDate, "d") &&
-    startDate.isSame(today, "d");
+    today.subtract(29, "d").isSame(startDate, "d") &&
+    endDate &&
+    endDate.isSame(today, "d");
 
   return {
     isToday,
@@ -30,7 +32,7 @@ function getDateStats(startDate, endDate) {
     isLast7Days,
     isLast30Days,
   };
-}
+};
 
 function Shortcuts({ startDate, endDate, onChange, prefixClassName }) {
   const { isToday, isYesterday, isLast7Days, isLast30Days } = getDateStats(
@@ -43,6 +45,7 @@ function Shortcuts({ startDate, endDate, onChange, prefixClassName }) {
     <div className={`${styles.inputsButtons} ${prefixClassName}`}>
       <Button
         primary={isToday}
+        type={isToday ? "primary" : "default"}
         className={`${styles.inputsButton} ${prefixClassName}-button`}
         onClick={() => onChange(today, today.endOf("day"))}
       >
@@ -50,6 +53,7 @@ function Shortcuts({ startDate, endDate, onChange, prefixClassName }) {
       </Button>
       <Button
         primary={isYesterday}
+        type={isYesterday ? "primary" : "default"}
         className={`${styles.inputsButton} ${prefixClassName}-button`}
         onClick={() =>
           onChange(
@@ -62,6 +66,7 @@ function Shortcuts({ startDate, endDate, onChange, prefixClassName }) {
       </Button>
       <Button
         primary={isLast7Days}
+        type={isLast7Days ? "primary" : "default"}
         className={`${styles.inputsButton} ${prefixClassName}-button`}
         onClick={() =>
           onChange(today.subtract(6, "d").startOf("day"), today.endOf("day"))
@@ -71,6 +76,7 @@ function Shortcuts({ startDate, endDate, onChange, prefixClassName }) {
       </Button>
       <Button
         primary={isLast30Days}
+        type={isLast30Days ? "primary" : "default"}
         className={`${styles.inputsButton} ${prefixClassName}-button`}
         onClick={() =>
           onChange(today.subtract(29, "d").startOf("day"), today.endOf("day"))
