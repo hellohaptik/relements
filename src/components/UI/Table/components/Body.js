@@ -12,21 +12,28 @@ function Body({
   columns,
   themed,
   designProps,
+  activeIndex,
+  highlightActiveRow,
 }) {
   return (
     <div className={`${prefixClassName} ${className}`}>
-      {rows.map((_, index) => (
-        <Row
-          key={index}
-          index={index}
-          data={rows}
-          onClick={onRowClick}
-          widths={columns.map(column => column.width)}
-          prefixClassName={`${prefixClassName}-row`}
-          themed={themed}
-          designProps={designProps}
-        />
-      ))}
+      {rows.map((_, index) => {
+        const isRowActive = index === activeIndex;
+        return (
+          <Row
+            key={index}
+            index={index}
+            data={rows}
+            onClick={onRowClick}
+            widths={columns.map(column => column.width)}
+            prefixClassName={`${prefixClassName}-row`}
+            themed={themed}
+            designProps={designProps}
+            active={isRowActive}
+            highlightActiveRow={highlightActiveRow}
+          />
+        );
+      })}
     </div>
   );
 }
@@ -39,6 +46,8 @@ Body.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.object),
   themed: PropTypes.bool,
   designProps: PropTypes.shape({}),
+  activeIndex: PropTypes.bool,
+  highlightActiveRow: PropTypes.bool,
 };
 
 Body.defaultProps = {

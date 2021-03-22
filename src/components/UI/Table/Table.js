@@ -14,6 +14,7 @@ function Table(props) {
     rows,
     onSort,
     onRowClick,
+    highlightActiveRow,
     sortKey,
     sortOrder,
     className,
@@ -26,6 +27,15 @@ function Table(props) {
   } = props;
 
   const RenderBody = virtual ? BodyVirtual : Body;
+  const [activeIndex, setActiveIndex] = React.useState(-1);
+  const rowProps = onRowClick
+    ? {
+        onRowClick: (index, row) => {
+          setActiveIndex(index);
+          onRowClick(index, row);
+        },
+      }
+    : {};
 
   if (themed) {
     return (
@@ -40,8 +50,10 @@ function Table(props) {
           designProps={designProps}
         />
         <RenderBody
+          {...rowProps}
+          activeIndex={activeIndex}
+          highlightActiveRow={highlightActiveRow}
           prefixClassName={`${prefixClassName}-body`}
-          onRowClick={onRowClick}
           rows={rows}
           columns={columns}
           rowHeight={rowHeight}
@@ -66,8 +78,10 @@ function Table(props) {
         sortKey={sortKey}
       />
       <RenderBody
+        {...rowProps}
+        activeIndex={activeIndex}
+        highlightActiveRow={highlightActiveRow}
         prefixClassName={`${prefixClassName}-body`}
-        onRowClick={onRowClick}
         rows={rows}
         columns={columns}
         rowHeight={rowHeight}

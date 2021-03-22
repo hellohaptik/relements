@@ -13,19 +13,26 @@ function Body({
   columns,
   rowHeight,
   height,
+  activeIndex,
+  highlightActiveRow,
 }) {
   const renderRow = React.memo(
     // eslint-disable-next-line react/prop-types
-    ({ index, style, data }) => (
-      <Row
-        index={index}
-        style={style}
-        data={data}
-        onClick={onRowClick}
-        widths={columns.map(column => column.width)}
-        prefixClassName={`${prefixClassName}-row`}
-      />
-    ),
+    ({ index, style, data }) => {
+      const isRowActive = index === activeIndex;
+      return (
+        <Row
+          index={index}
+          style={style}
+          data={data}
+          onClick={onRowClick}
+          widths={columns.map(column => column.width)}
+          prefixClassName={`${prefixClassName}-row`}
+          active={isRowActive}
+          highlightActiveRow={highlightActiveRow}
+        />
+      );
+    },
     areEqual,
   );
 
@@ -52,6 +59,8 @@ Body.propTypes = {
   rowHeight: PropTypes.number,
   rows: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)),
   columns: PropTypes.arrayOf(PropTypes.object),
+  activeIndex: PropTypes.bool,
+  highlightActiveRow: PropTypes.bool,
 };
 
 Body.defaultProps = {
