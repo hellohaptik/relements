@@ -23,15 +23,21 @@ import { DATA } from "./Table.storybook.js";
 ## Clickable
 
 <CodeBlock defaultValue="bots">
-  <Table
-    sortable
-    sortKey="title"
-    sortOrder={-1}
-    columns={DATA.columns}
-    rows={DATA.data}
-    onRowClick={console.log}
-    highlightActiveRow
-  />
+  {() => {
+    const [activeIndex, setActiveIndex] = React.useState(-1);
+    return (
+      <Table
+        sortable
+        sortKey="title"
+        sortOrder={-1}
+        columns={DATA.columns}
+        rows={DATA.data}
+        onRowClick={(index, row) => setActiveIndex(index)}
+        activeIndex={activeIndex}
+        highlightActiveRow
+      />
+    );
+  }}
 </CodeBlock>
 
 ## Examples

@@ -23,19 +23,12 @@ function Table(props) {
     rowHeight,
     height,
     themed,
+    activeIndex = -1,
     ...designProps
   } = props;
 
   const RenderBody = virtual ? BodyVirtual : Body;
-  const [activeIndex, setActiveIndex] = React.useState(-1);
-  const rowProps = onRowClick
-    ? {
-        onRowClick: (index, row) => {
-          setActiveIndex(index);
-          onRowClick(index, row);
-        },
-      }
-    : {};
+  const rowProps = onRowClick ? { onRowClick } : {};
 
   if (themed) {
     return (
