@@ -29,18 +29,32 @@ function Tooltip({
   themed,
   variant,
   size,
-  withTooltip,
+  tooltip,
+  toggleWithHover,
 }) {
   const [dismissed, setDismissed] = React.useState(false);
+  const [hoverActive, setHoverActive] = React.useState(false);
   const tooltipRef = React.useRef();
+  const DOMRef = React.useRef();
+
+  const handleMouseEnter = React.useCallback(() => {
+    setHoverActive(true);
+  });
+
+  const handleMouseLeave = React.useCallback(() => {
+    setHoverActive(false);
+  });
+
   const coordinates = usePositioner({
-    attachTo,
+    attachTo: toggleWithHover ? DOMRef : attachTo,
     attachee: tooltipRef,
     position,
     offset,
   });
 
-  const { enabled, visible } = useActivify(active && !dismissed);
+  const tooltipActive = toggleWithHover ? hoverActive : active;
+
+  const { enabled, visible } = useActivify(tooltipActive && !dismissed);
   const activeClassName = visible ? styles.tooltipActive : "";
   const tooltipPosition = position ? position.toLowerCase() : "bottom";
   const topPositionClassName = styles[tooltipPosition];
@@ -50,26 +64,15 @@ function Tooltip({
     onClose();
   });
 
-  React.useEffect(() => {
-    if (!withTooltip && themed && activeClassName) {
-      // setTimeout(() => {
-      //   handleClose();
-      // }, 2500);
-    }
-  }, [withTooltip, themed, activeClassName]);
-
   useEscapeKey(handleClose);
 
-  if (!attachTo || !enabled) return null;
+  if (!toggleWithHover && (!attachTo || !enabled)) return null;
 
   const renderTooltipContent = () => {
     if (themed) {
       const arrowPosition = position.toLowerCase() || "bottom";
-      const tooltipActiveMode =
-        tooltipRef.current !== "undefined" &&
-        activeClassName &&
-        coordinates.top;
-
+      const tooltipActiveMode = activeClassName && coordinates.top;
+      console.log(coordinates);
       return (
         <ThemedWrapper
           ref={tooltipRef}
@@ -83,7 +86,7 @@ function Tooltip({
               variant={`${variant}.${[arrowPosition]}`}
               position={arrowPosition}
             />
-            {children}
+            {toggleWithHover ? tooltip : children}
           </ThemedContent>
         </ThemedWrapper>
       );
@@ -108,18 +111,39 @@ function Tooltip({
     );
   };
 
-  return (
-    <Portal node={document && document.getElementById("portal-root")}>
-      <div
-        className={`${styles.tooltipWrapper} ${className} ${prefixClassName}`}
-      >
+  const renderPortal = () => {
+    const hoverEnabledClassName =
+      toggleWithHover && enabled ? styles.tooltipWrapperHover : "";
+    return (
+      <Portal node={document && document.getElementById("portal-root")}>
         <div
-          onClick={handleClose}
-          className={`${styles.tooltipOverlay} ${prefixClassName}-overlay`}
-        />
-        {renderTooltipContent()}
-      </div>
-    </Portal>
+          className={`${styles.tooltipWrapper} ${className} ${prefixClassName} ${hoverEnabledClassName}`}
+        >
+          <div
+            onClick={handleClose}
+            className={`${styles.tooltipOverlay} ${prefixClassName}-overlay`}
+          />
+          {renderTooltipContent()}
+        </div>
+      </Portal>
+    );
+  };
+
+  return (
+    <>
+      {themed && toggleWithHover ? (
+        <span
+          ref={DOMRef}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          {children}
+          {enabled && renderPortal()}
+        </span>
+      ) : (
+        renderPortal()
+      )}
+    </>
   );
 }
 
@@ -139,7 +163,8 @@ Tooltip.propTypes = {
     top: PropTypes.number,
     left: PropTypes.number,
   }),
-  withTooltip: PropTypes.bool,
+  tooltip: PropTypes.string,
+  toggleWithHover: PropTypes.bool,
 };
 
 Tooltip.defaultProps = {
@@ -154,7 +179,8 @@ Tooltip.defaultProps = {
   themed: false,
   variant: "primary",
   size: "regular",
-  withTooltip: false,
+  tooltip: "",
+  toggleWithHover: false,
 };
 
 export default Tooltip;

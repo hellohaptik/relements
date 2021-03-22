@@ -20,16 +20,3 @@ storiesOf("Components|Overlays/WithTooltip", module).add("Default", () => {
   );
   return story;
 });
-
-storiesOf("Components|Overlays/WithTooltip", module).add("Themed", () => {
-  const story = (
-    <WithTooltip
-      themed
-      position="BOTTOM"
-      tooltip="Yo ! This is themed tooltip."
-    >
-      Themed Tooltip Test
-    </WithTooltip>
-  );
-  return story;
-});

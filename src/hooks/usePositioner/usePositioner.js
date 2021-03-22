@@ -22,7 +22,7 @@ export default function usePositioner({
       }
 
       case "RIGHT": {
-        coordinates.top = rect.top + 5;
+        coordinates.top = rect.top - 3;
         coordinates.left = rect.right + 10;
         break;
       }
@@ -34,7 +34,7 @@ export default function usePositioner({
       }
 
       case "LEFT": {
-        coordinates.top = rect.top + 5;
+        coordinates.top = rect.top - 3;
         coordinates.left = rect.left - tooltipRect.width - 10;
         break;
       }

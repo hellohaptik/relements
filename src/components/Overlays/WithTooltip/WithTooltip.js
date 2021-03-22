@@ -12,7 +12,6 @@ function WithTooltip({
   tooltip,
   position,
   disabled,
-  themed,
 }) {
   const [tooltipActive, setTooltipActive] = React.useState();
   const DOMRef = React.useRef();
@@ -40,19 +39,11 @@ function WithTooltip({
     position,
     attachTo: DOMRef,
     onClose: handleMouseLeave,
-    withTooltip: true,
-    themed,
   };
 
-  const withTooltipProps = !themed
-    ? { ...tooltipProps, ...defaultProps }
-    : tooltipProps;
+  const withTooltipProps = { ...tooltipProps, ...defaultProps };
 
-  console.log(withTooltipProps);
-
-  const tooltipContentClassName = !themed
-    ? `${styles.withTooltip} ${prefixClassName}-inner-wrapper`
-    : "";
+  const tooltipContentClassName = `${styles.withTooltip} ${prefixClassName}-inner-wrapper`;
 
   return (
     <span
@@ -80,7 +71,6 @@ WithTooltip.propTypes = {
   position: PropTypes.string,
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
-  themed: PropTypes.bool,
 };
 
 WithTooltip.defaultProps = {
@@ -90,7 +80,6 @@ WithTooltip.defaultProps = {
   position: "TOP",
   disabled: false,
   onClick: () => {},
-  themed: false,
 };
 
 export default WithTooltip;
