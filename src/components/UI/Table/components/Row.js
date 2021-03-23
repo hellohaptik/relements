@@ -15,10 +15,13 @@ function Row({
   widths,
   themed,
   designProps,
+  active = false,
+  highlightActiveRow = false,
 }) {
   const row = data[index];
   const rowColumns = Array.isArray(row) ? row : row.columns;
   const disabledClassName = row.disabled ? styles.disabled : "";
+  const activeClassName = active && highlightActiveRow ? styles.selected : "";
   const rowClassName = row.className || "";
 
   if (row.hidden) return null;
@@ -27,7 +30,7 @@ function Row({
     <div
       style={style}
       key={`${index}-${row.id}`}
-      className={`${styles.tableRow} ${disabledClassName} ${prefixClassName} ${rowClassName}`}
+      className={`${styles.tableRow} ${disabledClassName} ${prefixClassName} ${rowClassName} ${activeClassName}`}
       onClick={() => onClick(index, row)}
     >
       {rowColumns.map((column, i) => {
@@ -74,6 +77,8 @@ Row.propTypes = {
   onClick: PropTypes.func,
   index: PropTypes.number,
   style: PropTypes.shape({}),
+  active: PropTypes.bool,
+  highlightActiveRow: PropTypes.bool,
   data: PropTypes.arrayOf(
     PropTypes.arrayOf(
       PropTypes.shape({

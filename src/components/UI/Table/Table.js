@@ -14,6 +14,7 @@ function Table(props) {
     rows,
     onSort,
     onRowClick,
+    highlightActiveRow,
     sortKey,
     sortOrder,
     className,
@@ -22,10 +23,12 @@ function Table(props) {
     rowHeight,
     height,
     themed,
+    activeIndex = -1,
     ...designProps
   } = props;
 
   const RenderBody = virtual ? BodyVirtual : Body;
+  const rowProps = onRowClick ? { onRowClick } : {};
 
   if (themed) {
     return (
@@ -40,8 +43,10 @@ function Table(props) {
           designProps={designProps}
         />
         <RenderBody
+          {...rowProps}
+          activeIndex={activeIndex}
+          highlightActiveRow={highlightActiveRow}
           prefixClassName={`${prefixClassName}-body`}
-          onRowClick={onRowClick}
           rows={rows}
           columns={columns}
           rowHeight={rowHeight}
@@ -66,8 +71,10 @@ function Table(props) {
         sortKey={sortKey}
       />
       <RenderBody
+        {...rowProps}
+        activeIndex={activeIndex}
+        highlightActiveRow={highlightActiveRow}
         prefixClassName={`${prefixClassName}-body`}
-        onRowClick={onRowClick}
         rows={rows}
         columns={columns}
         rowHeight={rowHeight}
