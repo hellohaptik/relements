@@ -105,17 +105,17 @@ export const tooltipArrowPositions = {
 
 export const tooltipSizes = {
   small: {
-    fontSize: 10,
+    fontSize: "0",
     paddingX: "sm",
     paddingY: "xs",
   },
   regular: {
-    fontSize: 12,
+    fontSize: "1",
     paddingX: "sm",
     paddingY: "xs",
   },
   large: {
-    fontSize: 16,
+    fontSize: "2",
     paddingX: "md",
     paddingY: "sm",
   },
