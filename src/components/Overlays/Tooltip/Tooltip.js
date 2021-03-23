@@ -69,11 +69,26 @@ function Tooltip({
 
   useEscapeKey(handleClose);
 
+  const handleScroll = () => {
+    setTooltipActive(false);
+    onClose();
+  };
+
+  React.useEffect(() => {
+    if (tooltipActive || (themed && active)) {
+      window.addEventListener("scroll", handleScroll, {
+        passive: true,
+      });
+    } else {
+      window.removeEventListener("scroll", handleScroll);
+    }
+  }, [tooltipActive, active]);
+
   if (!triggerEnabled && (!attachTo || !enabled)) return null;
 
   const renderTooltipContent = () => {
     if (themed) {
-      const arrowPosition = position.toLowerCase() || "bottom";
+      const arrowPosition = position ? position.toLowerCase() : "bottom";
       const tooltipActiveMode = activeClassName && coordinates.top;
 
       return (
@@ -148,6 +163,9 @@ function Tooltip({
           onClick={() => {
             if (trigger === "click" && !tooltipActive) {
               setTooltipActive(true);
+              window.addEventListener("scroll", handleScroll, {
+                passive: true,
+              });
             }
           }}
         >
