@@ -26,13 +26,13 @@ const TooltipMode = variant({
   variants: {},
 });
 
-const ThemeTooltipArrowColor = variant({
+const ArrowColorVariant = variant({
   prop: "variant",
   scale: "tooltipArrowColors",
   variants: {},
 });
 
-const ThemeTooltipArrowPositon = variant({
+const ArrowPositionVariant = variant({
   prop: "position",
   scale: "tooltipArrowPositions",
   variants: {},
@@ -88,8 +88,8 @@ const ThemedArrow = styled("div")(
   space,
   color,
   border,
-  ThemeTooltipArrowColor,
-  ThemeTooltipArrowPositon,
+  ArrowColorVariant,
+  ArrowPositionVariant,
 );
 
 // Customizable CSS props
