@@ -59,7 +59,6 @@ const contentStyle = {
 
 const arrowStyle = {
   position: "absolute",
-  left: "50%",
   marginLeft: "-5px",
   border: "6px solid",
 };

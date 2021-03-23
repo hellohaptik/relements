@@ -30,43 +30,46 @@ function Tooltip({
   variant,
   size,
   tooltip,
-  toggleWithHover,
+  trigger,
 }) {
   const [dismissed, setDismissed] = React.useState(false);
-  const [hoverActive, setHoverActive] = React.useState(false);
+  const [tooltipActive, setTooltipActive] = React.useState(false);
   const tooltipRef = React.useRef();
   const DOMRef = React.useRef();
 
+  const triggerEnabled = !attachTo;
+
   const handleMouseEnter = React.useCallback(() => {
-    setHoverActive(true);
+    if (trigger === "hover") setTooltipActive(true);
   });
 
   const handleMouseLeave = React.useCallback(() => {
-    setHoverActive(false);
+    if (trigger === "hover") setTooltipActive(false);
   });
 
   const coordinates = usePositioner({
-    attachTo: toggleWithHover ? DOMRef : attachTo,
+    attachTo: triggerEnabled ? DOMRef : attachTo,
     attachee: tooltipRef,
     position,
     offset,
   });
 
-  const tooltipActive = toggleWithHover ? hoverActive : active;
+  const tooltipActiveStatus = triggerEnabled ? tooltipActive : active;
 
-  const { enabled, visible } = useActivify(tooltipActive && !dismissed);
+  const { enabled, visible } = useActivify(tooltipActiveStatus && !dismissed);
   const activeClassName = visible ? styles.tooltipActive : "";
   const tooltipPosition = position ? position.toLowerCase() : "bottom";
   const topPositionClassName = styles[tooltipPosition];
 
   const handleClose = React.useCallback(() => {
     if (dismissable) setDismissed(true);
+    setTooltipActive(false);
     onClose();
   });
 
   useEscapeKey(handleClose);
 
-  if (!toggleWithHover && (!attachTo || !enabled)) return null;
+  if (!triggerEnabled && (!attachTo || !enabled)) return null;
 
   const renderTooltipContent = () => {
     if (themed) {
@@ -82,11 +85,14 @@ function Tooltip({
           size={size}
         >
           <ThemedContent>
-            <ThemedArrow
-              variant={`${variant}.${[arrowPosition]}`}
-              position={arrowPosition}
-            />
-            {toggleWithHover ? tooltip : children}
+            {coordinates.arrowCoords && (
+              <ThemedArrow
+                variant={`${variant}.${[arrowPosition]}`}
+                position={arrowPosition}
+                style={coordinates.arrowCoords}
+              />
+            )}
+            {triggerEnabled ? tooltip : children}
           </ThemedContent>
         </ThemedWrapper>
       );
@@ -113,7 +119,9 @@ function Tooltip({
 
   const renderPortal = () => {
     const hoverEnabledClassName =
-      toggleWithHover && enabled ? styles.tooltipWrapperHover : "";
+      triggerEnabled && enabled && trigger === "hover"
+        ? styles.tooltipWrapperHover
+        : "";
     return (
       <Portal node={document && document.getElementById("portal-root")}>
         <div
@@ -131,11 +139,17 @@ function Tooltip({
 
   return (
     <>
-      {themed && toggleWithHover ? (
+      {themed && triggerEnabled ? (
         <span
+          style={{ display: "inline-block" }}
           ref={DOMRef}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          onClick={() => {
+            if (trigger === "click" && !tooltipActive) {
+              setTooltipActive(true);
+            }
+          }}
         >
           {children}
           {enabled && renderPortal()}
@@ -164,7 +178,7 @@ Tooltip.propTypes = {
     left: PropTypes.number,
   }),
   tooltip: PropTypes.string,
-  toggleWithHover: PropTypes.bool,
+  trigger: PropTypes.string,
 };
 
 Tooltip.defaultProps = {
@@ -180,7 +194,7 @@ Tooltip.defaultProps = {
   variant: "primary",
   size: "regular",
   tooltip: "",
-  toggleWithHover: false,
+  trigger: "hover",
 };
 
 export default Tooltip;

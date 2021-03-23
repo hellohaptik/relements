@@ -18,30 +18,45 @@ export default function usePositioner({
       case "TOP": {
         coordinates.top = rect.top - tooltipRect.height - 10;
         coordinates.left = rect.left - tooltipRect.width / 2 + rect.width / 2;
+        coordinates.arrowCoords = {
+          left: tooltipRect.width > 150 ? rect.left : "50%",
+        };
         break;
       }
 
       case "RIGHT": {
         coordinates.top = rect.top - tooltipRect.height / 2 + rect.height / 2;
         coordinates.left = rect.right + 10;
+        coordinates.arrowCoords = {
+          left: "-6px",
+        };
         break;
       }
 
       case "BOTTOM": {
         coordinates.top = rect.bottom + 10;
         coordinates.left = rect.left - tooltipRect.width / 2 + rect.width / 2;
+        coordinates.arrowCoords = {
+          left: tooltipRect.width > 150 ? rect.left : "50%",
+        };
         break;
       }
 
       case "LEFT": {
         coordinates.top = rect.top - tooltipRect.height / 2 + rect.height / 2;
         coordinates.left = rect.left - tooltipRect.width - 10;
+        coordinates.arrowCoords = {
+          left: "100%",
+        };
         break;
       }
 
       default: {
         coordinates.top = rect.bottom + 10;
         coordinates.left = rect.left - tooltipRect.width / 2 + rect.width / 2;
+        coordinates.arrowCoords = {
+          left: tooltipRect.width > 150 ? rect.left : "50%",
+        };
       }
     }
 
