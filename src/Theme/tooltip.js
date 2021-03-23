@@ -83,7 +83,7 @@ export const tooltipArrowPositions = {
     borderTopColor: "transparent",
     borderBottomColor: "transparent",
     borderLeftColor: "transparent",
-    left: "-7px",
+    left: "-6px",
     top: "6px",
   },
   bottom: {
@@ -98,7 +98,7 @@ export const tooltipArrowPositions = {
     borderRightColor: "transparent",
     borderBottomColor: "transparent",
     left: "100%",
-    margin: 0,
+    margin: "0 0 0 -1px",
     top: "6px",
   },
 };

@@ -72,7 +72,7 @@ function Tooltip({
     if (themed) {
       const arrowPosition = position.toLowerCase() || "bottom";
       const tooltipActiveMode = activeClassName && coordinates.top;
-      console.log(coordinates);
+
       return (
         <ThemedWrapper
           ref={tooltipRef}
