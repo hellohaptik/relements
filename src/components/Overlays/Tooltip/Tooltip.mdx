@@ -1,32 +1,195 @@
 import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
 import Button from "components/UI/Button";
+import Icon from "components/UI/Icon";
+import Text from "components/UI/Text";
 import Tooltip from "./Tooltip";
-// import { ContextMenuTest } from './Tooltip.storybook.js';
 
 # Tooltip
 
 > A clickable UI element with active and hover states. Indicates to the user that it's clickable.
+> Adheres to Haptik Design System.
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+    marginTop: "3rem"
+  }}
+>
 
 <CodeBlock>
+  <Tooltip themed tooltip="This is how I look now :)">
+    <Button themed>Open Themed Tooltip</Button>
+  </Tooltip>
+</CodeBlock>
+
+<CodeBlock
+  codeString={`<div>
+      <Button
+        themed
+        variant="secondary"
+        innerRef={ref}
+        onClick={...}
+      >
+        Open Default Tooltip
+      </Button>
+      <Tooltip attachTo={ref} onClose={...} active={isActive}>
+        <div style={{ padding: 8, background: "#28394B", color: "#FFF" }}>
+          This is a how I currently look.
+        </div>
+      </Tooltip>
+    </div>`}
+>
   {(value, setValue, ref) => (
     <div>
-      <Button innerRef={ref} onClick={() => setValue(true)}>
-        Open Tooltip
-      </Button>
-      <Tooltip
-        attachTo={ref}
-        onClose={() => setValue(false)}
-        active={value}
-        offset={{ top: 8 }}
+      <Button
+        themed
+        variant="secondary"
+        innerRef={ref}
+        onClick={() => setValue(true)}
       >
-        <div style={{ padding: 8, background: "#28394B", color: "#FFF" }}>This is a Tooltip</div>
+        Open Default Tooltip
+      </Button>
+      <Tooltip attachTo={ref} onClose={() => setValue(false)} active={value}>
+        <div style={{ padding: 8, background: "#28394B", color: "#FFF" }}>
+          This is a how I currently look.
+        </div>
       </Tooltip>
     </div>
   )}
 </CodeBlock>
+
+</div>
+
+> <strong>Note</strong>: Usage of <strong>attachTo</strong> should be avoided.
 
 ## Configuration
 
 <ConfigBlock of={Tooltip} />
 
 ## Examples
+
+#### Positions
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+  }}
+>
+
+<CodeBlock title="Top">
+  <Tooltip
+    themed
+    position="TOP"
+    tooltip="<enter generic statement explaining what this does, here>"
+  >
+    <Icon src="info" />
+  </Tooltip>
+</CodeBlock>
+
+<CodeBlock title="Right">
+  <Tooltip themed position="RIGHT" tooltip="Not sure.">
+    <a>What is this</a>?
+  </Tooltip>
+</CodeBlock>
+
+</div>
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+  }}
+>
+<CodeBlock title="Bottom">
+  <Tooltip themed position="BOTTOM" tooltip="This side down.">
+    <Button themed variant="secondary">
+      Open Tooltip
+    </Button>
+  </Tooltip>
+</CodeBlock>
+
+<CodeBlock title="Left">
+    <Tooltip themed position="LEFT" tooltip="That side.">
+      <Button themed>Open Tooltip</Button>
+    </Tooltip>
+</CodeBlock>
+</div>
+
+<div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
+
+#### Sizes
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+  }}
+>
+
+<CodeBlock title="Small">
+  <Tooltip themed size="small" tooltip="hey">
+    <Button themed>Open Tooltip</Button>
+  </Tooltip>
+</CodeBlock>
+
+<CodeBlock title="Large">
+  <Tooltip themed size="large" tooltip="'sup?">
+    <Button themed variant="secondary">
+      Open Tooltip
+    </Button>
+  </Tooltip>
+</CodeBlock>
+
+</div>
+
+<div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
+
+#### Variants
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+  }}
+>
+
+<CodeBlock title="Success">
+  <Tooltip themed variant="success" tooltip="Aweseome!">
+    <Button themed variant="secondary">
+      Open Tooltip
+    </Button>
+  </Tooltip>
+</CodeBlock>
+
+<CodeBlock title="Danger">
+  <Tooltip themed variant="danger" tooltip="huh :(">
+    <Button themed>Open Tooltip</Button>
+  </Tooltip>
+</CodeBlock>
+
+</div>
+
+<div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
+
+### On Click
+
+> Just add <strong>trigger="click"</strong> 😎
+
+<CodeBlock title="Click">
+  <Tooltip
+    themed
+    trigger="click"
+    tooltip="Thanks for clicking!"
+    variant="danger"
+    position="RIGHT"
+  >
+    <span>Click me Bro!</span>
+  </Tooltip>
+</CodeBlock>

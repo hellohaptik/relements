@@ -5,9 +5,7 @@ import useActivify from "@src/hooks/useActivify";
 import usePositioner from "@src/hooks/usePositioner";
 import useEscapeKey from "@src/hooks/useEscapeKey";
 
-import ThemedWrapper from "./ThemedTooltip/ThemedWrapper";
-import ThemedArrow from "./ThemedTooltip/ThemedArrow";
-import ThemedContent from "./ThemedTooltip/ThemedContent";
+import { ThemedWrapper, ThemedContent, ThemedArrow } from "./ThemedTooltip";
 
 import styles from "./Tooltip.scss";
 
@@ -31,51 +29,90 @@ function Tooltip({
   themed,
   variant,
   size,
+  tooltip,
+  trigger,
 }) {
   const [dismissed, setDismissed] = React.useState(false);
+  const [tooltipActive, setTooltipActive] = React.useState(false);
   const tooltipRef = React.useRef();
+  const DOMRef = React.useRef();
+
+  const triggerEnabled = !attachTo;
+
+  const handleMouseEnter = React.useCallback(() => {
+    if (trigger === "hover") setTooltipActive(true);
+  });
+
+  const handleMouseLeave = React.useCallback(() => {
+    if (trigger === "hover") setTooltipActive(false);
+  });
+
   const coordinates = usePositioner({
-    attachTo,
+    attachTo: triggerEnabled ? DOMRef : attachTo,
     attachee: tooltipRef,
     position,
     offset,
   });
 
-  const { enabled, visible } = useActivify(active && !dismissed);
+  const tooltipActiveStatus = triggerEnabled ? tooltipActive : active;
+
+  const { enabled, visible } = useActivify(tooltipActiveStatus && !dismissed);
   const activeClassName = visible ? styles.tooltipActive : "";
-  const topPositionClassName = position === "TOP" ? styles.top : styles.bottom;
+  const tooltipPosition = position ? position.toLowerCase() : "bottom";
+  const topPositionClassName = styles[tooltipPosition];
 
   const handleClose = React.useCallback(() => {
     if (dismissable) setDismissed(true);
+    setTooltipActive(false);
     onClose();
   });
 
   useEscapeKey(handleClose);
 
-  if (!attachTo || !enabled) return null;
+  const handleScroll = () => {
+    setTooltipActive(false);
+    onClose();
+  };
+
+  React.useEffect(() => {
+    if (tooltipActive || (themed && active)) {
+      window.addEventListener("scroll", handleScroll, {
+        passive: true,
+      });
+    } else {
+      window.removeEventListener("scroll", handleScroll);
+    }
+  }, [tooltipActive, active]);
+
+  if (!triggerEnabled && (!attachTo || !enabled)) return null;
 
   const renderTooltipContent = () => {
     if (themed) {
-      const arrowPosition = position.toLowerCase() || "bottom";
+      const arrowPosition = position ? position.toLowerCase() : "bottom";
+      const tooltipActiveMode = activeClassName && coordinates.top;
 
       return (
         <ThemedWrapper
           ref={tooltipRef}
           style={coordinates}
-          mode={activeClassName ? "active" : "inactive"}
+          mode={tooltipActiveMode ? "active" : "inactive"}
           variant={variant}
           size={size}
         >
           <ThemedContent>
-            <ThemedArrow
-              variant={`${variant}.${[arrowPosition]}`}
-              position={arrowPosition}
-            />
-            {children}
+            {coordinates.arrowCoords && (
+              <ThemedArrow
+                variant={`${variant}.${[arrowPosition]}`}
+                position={arrowPosition}
+                style={coordinates.arrowCoords}
+              />
+            )}
+            {triggerEnabled ? tooltip : children}
           </ThemedContent>
         </ThemedWrapper>
       );
     }
+
     return (
       <div
         className={`${styles.tooltip} ${activeClassName} ${prefixClassName}-inner`}
@@ -95,18 +132,47 @@ function Tooltip({
     );
   };
 
-  return (
-    <Portal node={document && document.getElementById("portal-root")}>
-      <div
-        className={`${styles.tooltipWrapper} ${className} ${prefixClassName}`}
-      >
+  const renderPortal = () => {
+    const hoverEnabledClassName =
+      triggerEnabled && enabled && trigger === "hover"
+        ? styles.tooltipWrapperHover
+        : "";
+    return (
+      <Portal node={document && document.getElementById("portal-root")}>
         <div
-          onClick={handleClose}
-          className={`${styles.tooltipOverlay} ${prefixClassName}-overlay`}
-        />
-        {renderTooltipContent()}
-      </div>
-    </Portal>
+          className={`${styles.tooltipWrapper} ${className} ${prefixClassName} ${hoverEnabledClassName}`}
+        >
+          <div
+            onClick={handleClose}
+            className={`${styles.tooltipOverlay} ${prefixClassName}-overlay`}
+          />
+          {renderTooltipContent()}
+        </div>
+      </Portal>
+    );
+  };
+
+  return (
+    <>
+      {themed && triggerEnabled ? (
+        <span
+          style={{ display: "inline-block" }}
+          ref={DOMRef}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onClick={() => {
+            if (trigger === "click" && !tooltipActive) {
+              setTooltipActive(true);
+            }
+          }}
+        >
+          {children}
+          {enabled && renderPortal()}
+        </span>
+      ) : (
+        renderPortal()
+      )}
+    </>
   );
 }
 
@@ -126,6 +192,8 @@ Tooltip.propTypes = {
     top: PropTypes.number,
     left: PropTypes.number,
   }),
+  tooltip: PropTypes.string,
+  trigger: PropTypes.string,
 };
 
 Tooltip.defaultProps = {
@@ -140,6 +208,8 @@ Tooltip.defaultProps = {
   themed: false,
   variant: "primary",
   size: "regular",
+  tooltip: "",
+  trigger: "hover",
 };
 
 export default Tooltip;
