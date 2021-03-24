@@ -7,7 +7,11 @@ import typography from "@styled-system/typography";
 
 const TooltipColor = variant({
   scale: "tooltipColors",
-  variants: {},
+  variants: {
+    primary: {},
+    success: {},
+    danger: {},
+  },
 });
 
 const TooltipSize = variant({
@@ -23,19 +27,31 @@ const TooltipSize = variant({
 const TooltipMode = variant({
   prop: "mode",
   scale: "tooltipModes",
-  variants: {},
+  variants: {
+    active: {},
+    inactive: {},
+  },
 });
 
 const ArrowColorVariant = variant({
   prop: "variant",
   scale: "tooltipArrowColors",
-  variants: {},
+  variants: {
+    primary: {},
+    success: {},
+    danger: {},
+  },
 });
 
 const ArrowPositionVariant = variant({
   prop: "position",
   scale: "tooltipArrowPositions",
-  variants: {},
+  variants: {
+    top: {},
+    right: {},
+    bottom: {},
+    left: {},
+  },
 });
 
 // Non customizable CSS props
@@ -101,7 +117,7 @@ ThemedWrapper.defaultProps = {
 };
 
 ThemedContent.defaultProps = {
-  padding: 0,
+  padding: "zero",
 };
 
 ThemedArrow.defaultProps = {

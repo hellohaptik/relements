@@ -163,9 +163,6 @@ function Tooltip({
           onClick={() => {
             if (trigger === "click" && !tooltipActive) {
               setTooltipActive(true);
-              window.addEventListener("scroll", handleScroll, {
-                passive: true,
-              });
             }
           }}
         >

@@ -1,4 +1,5 @@
 import { colors } from "./colors";
+import space from "./space";
 
 export const tooltipColors = {
   primary: {
@@ -76,7 +77,7 @@ export const tooltipArrowPositions = {
     borderRightColor: "transparent",
     borderBottomColor: "transparent",
     borderLeftColor: "transparent",
-    marginTop: 0,
+    marginTop: space.zero,
     top: "100%",
   },
   right: {
@@ -98,7 +99,7 @@ export const tooltipArrowPositions = {
     borderRightColor: "transparent",
     borderBottomColor: "transparent",
     left: "100%",
-    margin: "0 0 0 -1px",
+    margin: `${space.zero} ${space.zero} ${space.zero} -1px`,
     top: "6px",
   },
 };
