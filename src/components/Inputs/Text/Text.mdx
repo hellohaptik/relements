@@ -1,13 +1,30 @@
-import { CodeBlock, ConfigBlock } from '@src/helpers/DocBlocks';
-import Text from './Text';
+import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
+import Text from "./Text";
 
 # Text
 
-> A regular input element where user interacts textually
+> A regular input element where user interacts textually. Adheres to Haptik Design System.
 
-<CodeBlock>
-  <Text label="Demo Label" value={'Demo Value'} onChange={console.log}/>
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+    marginTop: "3rem"
+  }}
+>
+
+<CodeBlock title="Themed Text Input">
+  <Text themed label="Label" onChange={console.log} />
 </CodeBlock>
+
+<CodeBlock title="Default Text Input">
+  <Text label="Demo Label" value={"Demo Value"} onChange={console.log} />
+</CodeBlock>
+
+</div>
+
+<div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
 
 ## Configuration
 
@@ -15,26 +32,146 @@ import Text from './Text';
 
 ## Examples
 
-<CodeBlock title="Type : Default">
-  <Text onChange={console.log} />
+#### Disabled
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+  }}
+>
+
+<CodeBlock title="Themed">
+  <Text themed disabled />
 </CodeBlock>
 
-<CodeBlock title="Type : Disabled">
-  <Text value={''} onChange={console.log} disabled />
+<CodeBlock title="Default">
+  <Text value={""} onChange={console.log} disabled />
 </CodeBlock>
 
-<CodeBlock title="Type : With Label">
-  <Text label="Demo Label" onChange={console.log}/>
+</div>
+
+<div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
+
+#### With Label
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+  }}
+>
+
+<CodeBlock title="Themed">
+  <Text themed onChange={console.log} label="Label Swag! 😎" />
 </CodeBlock>
 
-<CodeBlock title="Type : With Value">
-  <Text value={'Demo Value'} onChange={console.log}/>
+<CodeBlock title="Default">
+  <Text label="Demo Label" onChange={console.log} />
 </CodeBlock>
 
-<CodeBlock title="Type : Error">
-  <Text label="Demo Label" error={'This is a demo error'} onChange={console.log}/>
+</div>
+
+<div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
+
+#### With Value
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+  }}
+>
+
+<CodeBlock title="Themed">
+  <Text themed onChange={console.log} value="Value Swag!" />
 </CodeBlock>
 
-<CodeBlock title="Type : Tooltip">
-  <Text prefixClassName="test" label="Demo Label" value={'Demo Value'} onChange={console.log} tooltip={'This is a demo tooltip'}/>
+<CodeBlock title="Default">
+  <Text value={"Demo Value"} onChange={console.log} />
 </CodeBlock>
+
+</div>
+
+<div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
+
+#### Error
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+  }}
+>
+
+<CodeBlock title="Themed">
+  <Text themed onChange={console.log} label="Oh no!" error="Error Swag!" />
+</CodeBlock>
+
+<CodeBlock title="Default">
+  <Text
+    label="Demo Label"
+    error={"This is a demo error"}
+    onChange={console.log}
+  />
+</CodeBlock>
+
+</div>
+
+<div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
+
+#### Tooltip
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+  }}
+>
+<CodeBlock title="Themed">
+  <Text themed tooltip="Awesome tooltip swag!" label="Label" onChange={console.log} />
+</CodeBlock>
+
+<CodeBlock title="Default">
+  <Text
+    prefixClassName="test"
+    label="Demo Label"
+    value={"Demo Value"}
+    onChange={console.log}
+    tooltip={"This is a demo tooltip"}
+  />
+</CodeBlock>
+
+</div>
+
+<div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
+
+#### Multiline
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+  }}
+>
+
+<CodeBlock title="Themed">
+  <Text
+    themed
+    onChange={console.log}
+    multiline
+    placeholder="I can go long, but will look cooler"
+  />
+</CodeBlock>
+
+<CodeBlock title="Default">
+  <Text onChange={console.log} multiline placeholder="I can go long too" />
+</CodeBlock>
+
+</div>

@@ -3,49 +3,69 @@ import Dropdown from "./Dropdown";
 
 # Dropdown
 
-> A regular input element where user inputs a Number
+> A regular dropdown. Adheres to Haptik's Design System.
 
-<CodeBlock>
-{
-    (value, setValue) => (
-        <Dropdown
-            placeholder="Test placeholder"
-            className="my-dropdown"
-            prefixClassName="my-yoooo"
-            options={[
-            { text: "Option text 1" },
-            { text: "Option text 2" },
-            { text: "Option text 3" },
-            { text: "Option text 4" },
-            { text: "Option text 1" },
-            { text: "Option text 2" },
-            { text: "Option text 3" },
-            { text: "Option text 4" },
-            { text: "Option text 1" },
-            { text: "Option text 2" },
-            { text: "Option text 3" },
-            { text: "Option text 4" },
-            { text: "Option text 1" },
-            { text: "Option text 2" },
-            { text: "Option text 3" },
-            { text: "Option text 4" },
-            { text: "Option text 1" },
-            { text: "Option text 2" },
-            { text: "Option text 3" },
-            { text: "Option text 4" },
-            { text: "Option text 1" },
-            { text: "Option text 2" },
-            { text: "Option text 3" },
-            { text: "Option text 4" },
-                ]}
-            label="This is the label"
-            value={value}
-            onChange={setValue}
-        />
-    )
-}
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+    marginTop: "3rem"
+  }}
+>
+<CodeBlock title="Themed">
+  {(value, setValue) => (
+      <Dropdown
+        themed
+        placeholder="Select a value"
+        options={[{ text: "Yeah!" }, { text: "Cooool" }, { text: "Nice" }]}
+        label="Label"
+        value={value}
+        onChange={setValue}
+      />
+    )}
+</CodeBlock>
+
+<CodeBlock title="Regular">
+{(value, setValue) => (
+    <Dropdown
+    placeholder="Test placeholder"
+    className="my-dropdown"
+    prefixClassName="my-yoooo"
+    options={[
+    { text: "Option text 1" },
+    { text: "Option text 2" },
+    { text: "Option text 3" },
+    { text: "Option text 4" },
+    { text: "Option text 1" },
+    { text: "Option text 2" },
+    { text: "Option text 3" },
+    { text: "Option text 4" },
+    { text: "Option text 1" },
+    { text: "Option text 2" },
+    { text: "Option text 3" },
+    { text: "Option text 4" },
+    { text: "Option text 1" },
+    { text: "Option text 2" },
+    { text: "Option text 3" },
+    { text: "Option text 4" },
+    { text: "Option text 1" },
+    { text: "Option text 2" },
+    { text: "Option text 3" },
+    { text: "Option text 4" },
+    { text: "Option text 1" },
+    { text: "Option text 2" },
+    { text: "Option text 3" },
+    { text: "Option text 4" },
+        ]}
+    label="This is a label"
+    value={value}
+    onChange={setValue}
+    />
+)}
 
 </CodeBlock>
+</div>
 
 ## Configuration
 
@@ -53,136 +73,302 @@ import Dropdown from "./Dropdown";
 
 ## Examples
 
-<CodeBlock title="Default">
-{
-    (value, setValue) => (
-        <Dropdown
-            placeholder="Test placeholder"
-            className="my-dropdown"
-            prefixClassName="my-yoooo"
-            options={[
-            { text: "Option text 1" },
-            { text: "Option text 2" },
-            { text: "Option text 3" },
-            { text: "Option text 4" },
-                ]}
-            label="This is the label"
-            value={value}
-            onChange={setValue}
-        />
-    )
-}
+#### Default
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+  }}
+>
+<CodeBlock title="Themed">
+  {(value, setValue) => (
+      <Dropdown
+        themed
+        placeholder="Select a value"
+        options={[{ text: "Yeah!" }, { text: "Cooool" }, { text: "Nice" }]}
+        label="Label"
+        value={value}
+        onChange={setValue}
+      />
+    )}
 </CodeBlock>
-<CodeBlock title="With Multiple" defaultValue={[{ title: "Option text 1" }]}>
-{
-    (value, setValue) => (
-        <Dropdown
-            placeholder="Test placeholder"
-            className="my-dropdown"
-            prefixClassName="my-yoooo"
-            options={[
-            { labal: 'All', title: "Option text 1" },
-            { labal: 'All', title: "Option text 2" },
-            { labal: 'All', title: "Option text 3" },
-            { labal: 'All', title: "Option text 4" },
-                ]}
-            label="This is the label"
-            value={value}
-            onChange={setValue}
-            optionKey="title"
-            searchKeys={['title']}
-            withMultiple
-            withSearch
-        />
-    )
-}
+
+<CodeBlock title="Regular">
+{(value, setValue) => (
+    <Dropdown
+    placeholder="Test placeholder"
+    className="my-dropdown"
+    prefixClassName="my-yoooo"
+    options={[
+    { text: "Option text 1" },
+    { text: "Option text 2" },
+    { text: "Option text 3" },
+    { text: "Option text 4" },
+        ]}
+    label="This is a label"
+    value={value}
+    onChange={setValue}
+    />
+)}
 </CodeBlock>
-<CodeBlock title="With Multiple, withSearch & withCheckbox" defaultValue={[{ title: "Option text 1" }]}>
-{
-    (value, setValue) => (
-        <Dropdown
-            placeholder="Test placeholder"
-            className="my-dropdown"
-            prefixClassName="my-yoooo"
-            options={[
-            { label: 'All', title: "Option text 1" },
-            { label: 'All', title: "Option text 2" },
-            { label: 'All', title: "Option text 3" },
-            { label: 'All', title: "Option text 4" },
-            { label: 'All', title: "Option text 5" },
-            { label: 'All', title: "Option text 6" },
-            { label: 'All', title: "Option text 7" },
-            { label: 'All', title: "Option text 8" },
-            { label: 'All', title: "Option text 9" },
-            { label: 'All', title: "Option text 10" },
-            { label: 'All', title: "Option text 11" },
-            { label: 'All', title: "Option text 12" },
-                ]}
-            label="This is the label"
-            value={value}
-            onChange={setValue}
-            optionKey="title"
-            searchKeys={['title']}
-            withMultiple
-            withSearch
-            withCheckbox
-        />
-    )
-}
+</div>
+
+<div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
+
+#### With Search
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+  }}
+>
+<CodeBlock title="Themed">
+  {(value, setValue) => (
+      <Dropdown
+        themed
+        placeholder="Select a value"
+        options={[{ text: "Yeah!" }, { text: "Cooool" }, { text: "Nice" }]}
+        label="Label"
+        value={value}
+        onChange={setValue}
+        withSearch
+      />
+    )}
 </CodeBlock>
-<CodeBlock title="With Multiple & withCheckbox" defaultValue={[{ title: "Option text 1" }]}>
-{
-    (value, setValue) => (
-        <Dropdown
-            placeholder="Test placeholder"
-            className="my-dropdown"
-            prefixClassName="my-yoooo"
-            options={[
-            { label: 'All', title: "Option text 1" },
-            { label: 'All', title: "Option text 2" },
-            { label: 'All', title: "Option text 3" },
-            { label: 'All', title: "Option text 4" },
-            { label: 'All', title: "Option text 5" },
-            { label: 'All', title: "Option text 6" },
-            { label: 'All', title: "Option text 7" },
-            { label: 'All', title: "Option text 8" },
-            { label: 'All', title: "Option text 9" },
-            { label: 'All', title: "Option text 10" },
-            { label: 'All', title: "Option text 11" },
-            { label: 'All', title: "Option text 12" },
-                ]}
-            label="This is the label"
-            value={value}
-            onChange={setValue}
-            optionKey="title"
-            searchKeys={['title']}
-            withMultiple
-            withCheckbox
-        />
-    )
-}
+
+<CodeBlock title="Regular">
+{(value, setValue) => (
+    <Dropdown
+    placeholder="Test placeholder"
+    className="my-dropdown"
+    prefixClassName="my-yoooo"
+    options={[
+    { text: "Option text 1" },
+    { text: "Option text 2" },
+    { text: "Option text 3" },
+    { text: "Option text 4" },
+        ]}
+    label="This is a label"
+    value={value}
+    onChange={setValue}
+    withSearch
+    />
+)}
 </CodeBlock>
-<CodeBlock title="With Search">
-{
-    (value, setValue) => (
-        <Dropdown
-            placeholder="Test placeholder"
-            className="my-dropdown"
-            prefixClassName="my-yoooo"
-            options={[
-            { text: "Option text 1" },
-            { text: "Option text 2" },
-            { text: "Option text 3" },
-            { text: "Option text 4" },
-                ]}
-            label="This is the label"
-            value={value}
-            onChange={setValue}
-            withSearch
-        />
-    )
-}
+</div>
+
+<div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
+
+#### With Multiple
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+  }}
+>
+<CodeBlock title="Themed">
+  {(value, setValue) => (
+      <Dropdown
+        themed
+        placeholder="Select items"
+        options={[{ text: "Yeah!" }, { text: "Cooool" }, { text: "Nice" }]}
+        label="Label"
+        value={value}
+        onChange={setValue}
+        withMultiple
+        withSearch
+      />
+    )}
 </CodeBlock>
+
+<CodeBlock title="Regular">
+{(value, setValue) => (
+    <Dropdown
+    placeholder="Test placeholder"
+    className="my-dropdown"
+    prefixClassName="my-yoooo"
+    options={[
+    { text: "Option text 1" },
+    { text: "Option text 2" },
+    { text: "Option text 3" },
+    { text: "Option text 4" },
+        ]}
+    label="This is a label"
+    value={value}
+    onChange={setValue}
+    withMultiple
+    withSearch
+    />
+)}
+</CodeBlock>
+</div>
+
+<div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
+
+#### With Multiple, With Search & With Checkbox 🧐
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+  }}
+>
+
+<CodeBlock title="Themed" defaultValue={[{ title: "Option text 1" }]}>
+  {(value, setValue) => (
+    <Dropdown
+      themed
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      options={[
+        { label: "All", title: "Option text 1" },
+        { label: "All", title: "Option text 2" },
+        { label: "All", title: "Option text 3" },
+        { label: "All", title: "Option text 4" },
+        { label: "All", title: "Option text 5" },
+        { label: "All", title: "Option text 6" },
+        { label: "All", title: "Option text 7" },
+        { label: "All", title: "Option text 8" },
+        { label: "All", title: "Option text 9" },
+        { label: "All", title: "Option text 10" },
+        { label: "All", title: "Option text 11" },
+        { label: "All", title: "Option text 12" },
+      ]}
+      label="This is the label"
+      value={value}
+      onChange={setValue}
+      optionKey="title"
+      searchKeys={["title"]}
+      withMultiple
+      withSearch
+      withCheckbox
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock title="Default" defaultValue={[{ title: "Option text 1" }]}>
+  {(value, setValue) => (
+    <Dropdown
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      options={[
+        { label: "All", title: "Option text 1" },
+        { label: "All", title: "Option text 2" },
+        { label: "All", title: "Option text 3" },
+        { label: "All", title: "Option text 4" },
+        { label: "All", title: "Option text 5" },
+        { label: "All", title: "Option text 6" },
+        { label: "All", title: "Option text 7" },
+        { label: "All", title: "Option text 8" },
+        { label: "All", title: "Option text 9" },
+        { label: "All", title: "Option text 10" },
+        { label: "All", title: "Option text 11" },
+        { label: "All", title: "Option text 12" },
+      ]}
+      label="This is the label"
+      value={value}
+      onChange={setValue}
+      optionKey="title"
+      searchKeys={["title"]}
+      withMultiple
+      withSearch
+      withCheckbox
+    />
+  )}
+</CodeBlock>
+
+</div>
+
+<div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
+
+#### With Multiple & With Checkbox
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+  }}
+>
+
+<CodeBlock title="Themed" defaultValue={[{ title: "Option text 1" }]}>
+  {(value, setValue) => (
+    <Dropdown
+      themed
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      options={[
+        { label: "All", title: "Option text 1" },
+        { label: "All", title: "Option text 2" },
+        { label: "All", title: "Option text 3" },
+        { label: "All", title: "Option text 4" },
+        { label: "All", title: "Option text 5" },
+        { label: "All", title: "Option text 6" },
+        { label: "All", title: "Option text 7" },
+        { label: "All", title: "Option text 8" },
+        { label: "All", title: "Option text 9" },
+        { label: "All", title: "Option text 10" },
+        { label: "All", title: "Option text 11" },
+        { label: "All", title: "Option text 12" },
+      ]}
+      label="This is the label"
+      value={value}
+      onChange={setValue}
+      optionKey="title"
+      searchKeys={["title"]}
+      withMultiple
+      withCheckbox
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock
+  title="Default"
+  defaultValue={[{ title: "Option text 1" }]}
+>
+  {(value, setValue) => (
+    <Dropdown
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      options={[
+        { label: "All", title: "Option text 1" },
+        { label: "All", title: "Option text 2" },
+        { label: "All", title: "Option text 3" },
+        { label: "All", title: "Option text 4" },
+        { label: "All", title: "Option text 5" },
+        { label: "All", title: "Option text 6" },
+        { label: "All", title: "Option text 7" },
+        { label: "All", title: "Option text 8" },
+        { label: "All", title: "Option text 9" },
+        { label: "All", title: "Option text 10" },
+        { label: "All", title: "Option text 11" },
+        { label: "All", title: "Option text 12" },
+      ]}
+      label="This is the label"
+      value={value}
+      onChange={setValue}
+      optionKey="title"
+      searchKeys={["title"]}
+      withMultiple
+      withCheckbox
+    />
+  )}
+</CodeBlock>
+
+</div>
+
+<div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
 
 <CodeBlock title="With Create">
   {(value, setValue) => (

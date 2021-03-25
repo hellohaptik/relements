@@ -3,6 +3,12 @@ import cc from "classcat";
 import PropTypes from "prop-types";
 import Context from "@src/components/Context";
 
+import {
+  ThemedTextInputWrapper,
+  ThemedTextInput,
+  ThemedTextarea,
+} from "./ThemedTextInput";
+
 import styles from "./TextInput.scss";
 
 export const TextInput = ({
@@ -24,6 +30,10 @@ export const TextInput = ({
   prefixClassName,
   prefixComponent,
   postfixComponent,
+  themed,
+  variant,
+  label,
+  style,
 }) => {
   const input = React.useRef(null);
   const { primaryColor } = React.useContext(Context);
@@ -89,24 +99,86 @@ export const TextInput = ({
     ]),
   };
 
-  return (
-    <div
-      ref={innerRef}
-      tabIndex="0"
-      onFocus={onFocus}
-      onBlur={onBlur}
-      onMouseDown={onMouseDown}
-      onKeyDown={onKeyDown}
-      className={classNames.main}
-      style={focusedStyle}
-    >
-      {prefixComponent}
-      <div className={`${styles.input} ${prefixClassName}-inner`}>
-        {renderInput()}
+  const renderInputContainer = () => {
+    if (themed) {
+      let renderElement = null;
+      let mode = null;
+      let inputWrapperMode = "default";
+
+      if (disabled) {
+        mode = "disabled";
+      }
+
+      if (error) {
+        mode = "error";
+      }
+
+      if (variant === "dropdown" || "dropdownActive") {
+        inputWrapperMode = "dropdown";
+      }
+
+      if (label || error) {
+        inputWrapperMode = "label";
+      }
+
+      const inputProps = {
+        onFocus,
+        onBlur,
+        onMouseDown,
+        onKeyDown,
+        disabled: disabled || !editable,
+        value: textValue,
+        onChange: handleChange,
+        placeholder: placeholder || "type here...",
+        type: "text",
+        ref: variant === "dropdown" || "dropdownActive" ? innerRef : handleRef,
+        variant,
+        mode,
+        style,
+      };
+
+      if (!multiline) {
+        renderElement = (
+          <ThemedTextInputWrapper mode={inputWrapperMode}>
+            {prefixComponent}
+            <ThemedTextInput {...inputProps} data-testid="inputText" />
+            {postfixComponent}
+          </ThemedTextInputWrapper>
+        );
+      } else {
+        renderElement = (
+          <ThemedTextarea
+            {...inputProps}
+            ref={handleRef}
+            mode={label || error ? "label" : "default"}
+          />
+        );
+      }
+
+      return renderElement;
+    }
+
+    return (
+      <div
+        ref={innerRef}
+        tabIndex="0"
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onMouseDown={onMouseDown}
+        onKeyDown={onKeyDown}
+        className={classNames.main}
+        style={focusedStyle}
+      >
+        {prefixComponent}
+        <div className={`${styles.input} ${prefixClassName}-inner`}>
+          {renderInput()}
+        </div>
+        {postfixComponent}
       </div>
-      {postfixComponent}
-    </div>
-  );
+    );
+  };
+
+  return renderInputContainer();
 };
 
 TextInput.propTypes = {
@@ -128,6 +200,10 @@ TextInput.propTypes = {
   prefixComponent: PropTypes.node,
   value: PropTypes.string,
   multiline: PropTypes.bool,
+  themed: PropTypes.bool,
+  variant: PropTypes.string,
+  label: PropTypes.string,
+  style: PropTypes.object,
 };
 
 TextInput.defaultProps = {
@@ -147,4 +223,8 @@ TextInput.defaultProps = {
   placeholder: "",
   prefixClassName: "",
   value: "",
+  themed: false,
+  variant: "",
+  label: "",
+  style: {},
 };

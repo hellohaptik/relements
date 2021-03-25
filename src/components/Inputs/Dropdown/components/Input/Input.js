@@ -6,7 +6,10 @@ import Icon from "@src/components/UI/Icon";
 import AngleDownIcon from "@src/icons/angle-down.svg";
 import { TextInput } from "@src/components/Inputs/_common/TextInput";
 import { ChipsInput } from "@src/components/Inputs/_common/ChipsInput";
+import Tooltip from "@src/components/Overlays/Tooltip";
 import WithTooltip from "@src/components/Overlays/WithTooltip";
+
+import { DropdownArrow } from "../../ThemedDropdown";
 
 import styles from "./Input.scss";
 
@@ -26,10 +29,15 @@ const Input = ({
   tooltip,
   prefixClassName,
   disabled,
+  themed,
 }) => {
   const focusedClassName = focused ? styles.focused : "";
   const reversedClassName = isReversed ? styles.reversed : "";
   const className = `${styles.input} ${focusedClassName} ${reversedClassName}`;
+  const dropdownClassName = `${themed && styles.dropdownIcon} ${themed &&
+    focused &&
+    styles.dropdownIconActive}`;
+
   const postfixComponent = tooltip ? (
     <WithTooltip
       className={`${prefixClassName}-tooltip`}
@@ -39,7 +47,22 @@ const Input = ({
       <Icon className={`${prefixClassName}-icon`} src={AngleDownIcon} />
     </WithTooltip>
   ) : (
-    <Icon className={`${prefixClassName}-icon`} src={AngleDownIcon} />
+    <Icon
+      className={`${prefixClassName}-icon ${dropdownClassName}`}
+      src={AngleDownIcon}
+    />
+  );
+
+  const themedPostfixComponent = tooltip ? (
+    <Tooltip themed tooltip={tooltip} position="BOTTOM">
+      <DropdownArrow mode={focused ? "active" : "inactive"}>
+        <Icon src={AngleDownIcon} />
+      </DropdownArrow>
+    </Tooltip>
+  ) : (
+    <DropdownArrow mode={focused ? "active" : "inactive"}>
+      <Icon src={AngleDownIcon} />
+    </DropdownArrow>
   );
 
   const commonProps = {
@@ -49,8 +72,10 @@ const Input = ({
     placeholder,
     className,
     prefixClassName,
-    postfixComponent,
+    postfixComponent: themed ? themedPostfixComponent : postfixComponent,
     disabled,
+    themed,
+    variant: focused ? "dropdownActive" : "dropdown",
   };
 
   // if multiple selection is allowed, then we use the chips input
@@ -108,6 +133,7 @@ Input.propTypes = {
   value: PropTypes.arrayOf(PropTypes.shape({})),
   withMultiple: PropTypes.bool,
   withSearch: PropTypes.bool,
+  themed: PropTypes.bool,
 };
 
 Input.defaultProps = {
@@ -123,6 +149,7 @@ Input.defaultProps = {
   prefixClassName: "",
   tooltip: "",
   text: "",
+  themed: false,
 };
 
 export default Input;
