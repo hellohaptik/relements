@@ -1,9 +1,10 @@
 import { colors } from "./colors";
+import space from "./space";
 
 export const tooltipColors = {
   primary: {
     color: colors.grey.pastel,
-    backgroundColor: colors.blue.dark,
+    backgroundColor: colors.grey.deep,
   },
   success: {
     color: colors.grey.pastel,
@@ -17,27 +18,45 @@ export const tooltipColors = {
 
 export const tooltipArrowColors = {
   primary: {
-    bottom: {
-      borderBottomColor: colors.blue.dark,
-    },
     top: {
-      borderTopColor: colors.blue.dark,
+      borderTopColor: colors.grey.deep,
+    },
+    right: {
+      borderRightColor: colors.grey.deep,
+    },
+    bottom: {
+      borderBottomColor: colors.grey.deep,
+    },
+    left: {
+      borderLeftColor: colors.grey.deep,
     },
   },
   success: {
-    bottom: {
-      borderBottomColor: colors.green.haptik,
-    },
     top: {
       borderTopColor: colors.green.dark,
     },
+    right: {
+      borderRightColor: colors.green.haptik,
+    },
+    bottom: {
+      borderBottomColor: colors.green.haptik,
+    },
+    left: {
+      borderLeftColor: colors.green.haptik,
+    },
   },
   danger: {
+    top: {
+      borderTopColor: colors.red.dark,
+    },
+    right: {
+      borderRightColor: colors.red.haptik,
+    },
     bottom: {
       borderBottomColor: colors.red.haptik,
     },
-    top: {
-      borderTopColor: colors.red.dark,
+    left: {
+      borderLeftColor: colors.red.haptik,
     },
   },
 };
@@ -54,37 +73,51 @@ export const tooltipModes = {
 };
 
 export const tooltipArrowPositions = {
+  top: {
+    borderRightColor: "transparent",
+    borderBottomColor: "transparent",
+    borderLeftColor: "transparent",
+    marginTop: space.zero,
+    top: "100%",
+  },
+  right: {
+    borderTopColor: "transparent",
+    borderBottomColor: "transparent",
+    borderLeftColor: "transparent",
+    left: "-6px",
+    top: "6px",
+  },
   bottom: {
-    borderTopColor: "transparent !important",
-    borderRightColor: "transparent !important",
-    borderLeftColor: "transparent !important",
+    borderTopColor: "transparent",
+    borderRightColor: "transparent",
+    borderLeftColor: "transparent",
     marginTop: "-11px",
     top: 0,
   },
-  top: {
-    borderTopColor: "#28394b !important",
-    borderRightColor: "transparent !important",
-    borderBottomColor: "transparent !important",
-    borderLeftColor: "transparent !important",
-    marginTop: 0,
-    top: "100%",
+  left: {
+    borderTopColor: "transparent",
+    borderRightColor: "transparent",
+    borderBottomColor: "transparent",
+    left: "100%",
+    margin: `${space.zero} ${space.zero} ${space.zero} -1px`,
+    top: "6px",
   },
 };
 
 export const tooltipSizes = {
   small: {
-    fontSize: "xs",
+    fontSize: "0",
     paddingX: "sm",
     paddingY: "xs",
   },
   regular: {
-    fontSize: "sm",
-    paddingX: "md",
-    paddingY: "sm",
+    fontSize: "1",
+    paddingX: "sm",
+    paddingY: "xs",
   },
   large: {
-    fontSize: "md",
-    paddingX: "lg",
-    paddingY: "md",
+    fontSize: "2",
+    paddingX: "md",
+    paddingY: "sm",
   },
 };
