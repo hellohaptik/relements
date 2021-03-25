@@ -175,6 +175,22 @@ test("max date", async () => {
   );
 });
 
+test("only start date selected", async () => {
+  const mockFn = jest.fn();
+  render(
+    <Component
+      value={{
+        startDate: dayjs().toDate(),
+      }}
+      prefixClassName="test"
+      onChange={mockFn}
+      withRange
+      withComparison
+      numCalender
+    />,
+  );
+});
+
 test("On Comparison Toggle", async () => {
   const mockFn = jest.fn();
   render(
