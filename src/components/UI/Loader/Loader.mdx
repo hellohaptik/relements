@@ -1,5 +1,5 @@
-import { CodeBlock, ConfigBlock } from '@src/helpers/DocBlocks';
-import Loader from './Loader';
+import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
+import Loader from "./Loader";
 
 # Loader
 
@@ -20,13 +20,17 @@ import Loader from './Loader';
 </CodeBlock>
 
 <CodeBlock title="Type: With custom class">
-  <Loader className={'custom'} />
+  <Loader className={"custom"} />
 </CodeBlock>
 
 <CodeBlock title="Type: With custom prefix class and custom class">
-  <Loader prefixClassName={'prefix'} className={'custom'} />
+  <Loader prefixClassName={"prefix"} className={"custom"} />
 </CodeBlock>
 
 <CodeBlock title="Size: Custom size">
   <Loader size={50} />
+</CodeBlock>
+
+<CodeBlock title="Themed">
+  <Loader themed />
 </CodeBlock>
