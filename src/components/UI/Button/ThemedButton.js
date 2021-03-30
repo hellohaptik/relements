@@ -34,7 +34,7 @@ const style = props => ({
   },
 });
 
-const ThemeButton = styled("button")(
+const ThemedButton = styled("button")(
   style,
   space,
   color,
@@ -45,7 +45,7 @@ const ThemeButton = styled("button")(
 );
 
 // Customizable CSS props
-ThemeButton.defaultProps = {
+ThemedButton.defaultProps = {
   borderRadius: "sm",
   borderWidth: 0,
   borderStyle: "solid",
@@ -58,4 +58,4 @@ ThemeButton.defaultProps = {
   fontFamily: `"Proxima Nova", sans-serif`,
 };
 
-export default ThemeButton;
+export default ThemedButton;
