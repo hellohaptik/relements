@@ -54,7 +54,7 @@ function WithTooltip({
       className={`${styles.withTooltipWrapper} ${className} ${prefixClassName}`}
     >
       {children}
-      {tooltip && (
+      {tooltip !== null && (
         <Tooltip {...withTooltipProps}>
           <div className={tooltipContentClassName}>{tooltip}</div>
         </Tooltip>
@@ -76,7 +76,7 @@ WithTooltip.propTypes = {
 WithTooltip.defaultProps = {
   children: null,
   className: "",
-  tooltip: "",
+  tooltip: null,
   position: "TOP",
   disabled: false,
   onClick: () => {},
