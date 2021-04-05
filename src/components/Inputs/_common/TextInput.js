@@ -113,7 +113,11 @@ export const TextInput = ({
         mode = "error";
       }
 
-      if (variant === "dropdown" || "dropdownActive") {
+      if (
+        variant === "dropdown" ||
+        variant === "dropdownActive" ||
+        variant === "dropdownActiveTop"
+      ) {
         inputWrapperMode = "dropdown";
       }
 
@@ -131,7 +135,12 @@ export const TextInput = ({
         onChange: handleChange,
         placeholder: placeholder || "type here...",
         type: "text",
-        ref: variant === "dropdown" || "dropdownActive" ? innerRef : handleRef,
+        ref:
+          variant === "dropdown" ||
+          variant === "dropdownActive" ||
+          variant === "dropdownActiveTop"
+            ? innerRef
+            : handleRef,
         variant,
         mode,
         style,

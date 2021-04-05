@@ -1,20 +1,5 @@
 @import "constants/index.scss";
 
-:local {
-  .dropdown {
-    &Icon {
-      position: absolute;
-      top: 18px;
-      right: 10px;
-      transition: transform 0.3s ease;
-
-      &Active {
-        transform: rotate(180deg);
-      }
-    }
-  }
-}
-
 .input {
   &.focused {
     &:not(.reversed) {

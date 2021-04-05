@@ -65,6 +65,15 @@ const Input = ({
     </DropdownArrow>
   );
 
+  let dropdownVariant = "dropdown";
+  if (focused) {
+    if (isReversed) {
+      dropdownVariant = "dropdownActiveTop";
+    } else {
+      dropdownVariant = "dropdownActive";
+    }
+  }
+
   const commonProps = {
     innerRef,
     inputRef,
@@ -75,7 +84,7 @@ const Input = ({
     postfixComponent: themed ? themedPostfixComponent : postfixComponent,
     disabled,
     themed,
-    variant: focused ? "dropdownActive" : "dropdown",
+    variant: dropdownVariant,
   };
 
   // if multiple selection is allowed, then we use the chips input

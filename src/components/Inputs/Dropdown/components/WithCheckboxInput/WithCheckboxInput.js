@@ -32,12 +32,17 @@ const WithCheckboxInput = ({
 
   const renderWithCheckboxInput = () => {
     if (themed) {
+      let dropdownVariant = "dropdown";
+      if (focused) {
+        if (isReversed) {
+          dropdownVariant = "dropdownActiveTop";
+        } else {
+          dropdownVariant = "dropdownActive";
+        }
+      }
       return (
-        <DropdownWrapper>
-          <DropdownWithCheckboxInput
-            ref={innerRef}
-            variant={focused ? "dropdownActive" : "dropdown"}
-          >
+        <DropdownWrapper ref={innerRef}>
+          <DropdownWithCheckboxInput ref={innerRef} variant={dropdownVariant}>
             {value.map(valueObject => valueObject[optionKey]).join(", ") ||
               "Nothing selected."}
             {tooltip ? (

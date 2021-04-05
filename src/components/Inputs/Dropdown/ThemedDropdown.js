@@ -24,6 +24,16 @@ const DropdownOptionsVariant = variant({
   },
 });
 
+// If Dropdown opens at top when its towards bottom of the screen
+const DropdownOptionsPositionVariant = variant({
+  prop: "positionVariant",
+  scale: "dropdownOptionsPositionVariant",
+  variants: {
+    top: {},
+    default: {},
+  },
+});
+
 const DropdownOptionMode = variant({
   prop: "mode",
   scale: "dropdownOptionModes",
@@ -45,6 +55,22 @@ const DropdownArrowMode = variant({
   scale: "dropdownArrowModes",
   variants: {
     active: {},
+  },
+});
+
+const DropdownCheckboxOptionsMode = variant({
+  prop: "mode",
+  scale: "dropdownCheckboxOptionsModes",
+  variants: {
+    withoutSearch: {},
+  },
+});
+
+const DropdownCheckboxSearchWrapperMode = variant({
+  prop: "mode",
+  scale: "dropdownCheckboxSearchWrapperModes",
+  variants: {
+    withoutSearch: {},
   },
 });
 
@@ -70,11 +96,8 @@ const optionsStyle = props => ({
   overflowY: "auto",
   backgroundColor: "#fff",
   border: `1px solid ${props.theme.colors.blue.dark}}`,
-  borderTop: 0,
   boxSizing: "border-box",
   marginTop: "-1px",
-  borderBottomRightRadius: 4,
-  borderBottomLeftRadius: 4,
   transition: "transform 0.3s ease, opacity 0.3s ease",
   boxShadow: "0 10px 20px rgba(0, 0, 0, 0.1)",
 });
@@ -120,7 +143,7 @@ const checkboxWrapperStyle = {
 
 const checkboxSearchWrapperStyle = {
   position: "relative",
-  padding: "4px 12px 10px",
+  padding: "10px 12px 10px",
 };
 
 const checkboxOptionsWrapperStyle = {
@@ -132,7 +155,7 @@ const checkboxOptionsWrapperStyle = {
 
 const dropdownCheckboxSearchStyle = {
   position: "absolute",
-  top: 18,
+  top: 17,
   left: 19,
   zIndex: 1,
   width: 25,
@@ -142,6 +165,11 @@ const dropdownCheckboxSearchStyle = {
     height: "100%",
   },
 };
+
+const dropdownCreateTextStyle = props => ({
+  color: props.theme.colors.green.haptik,
+  paddingRight: 4,
+});
 
 const DropdownWrapper = styled("div")(
   wrapperStyle,
@@ -169,6 +197,7 @@ const DropdownOptions = styled("div")(
   typography,
   DropdownOptionsMode,
   DropdownOptionsVariant,
+  DropdownOptionsPositionVariant,
 );
 
 const DropdownOption = styled("div")(
@@ -212,6 +241,7 @@ const DropdownCheckboxSearchWrapper = styled("div")(
   color,
   border,
   typography,
+  DropdownCheckboxSearchWrapperMode,
 );
 
 const DropdownCheckboxOptionsWrapper = styled("div")(
@@ -220,10 +250,19 @@ const DropdownCheckboxOptionsWrapper = styled("div")(
   color,
   border,
   typography,
+  DropdownCheckboxOptionsMode,
 );
 
 const DropdownCheckboxSearchIcon = styled("div")(
   dropdownCheckboxSearchStyle,
+  space,
+  color,
+  border,
+  typography,
+);
+
+const DropdownCreateText = styled("span")(
+  dropdownCreateTextStyle,
   space,
   color,
   border,
@@ -255,4 +294,5 @@ export {
   DropdownCheckboxSearchWrapper,
   DropdownCheckboxOptionsWrapper,
   DropdownCheckboxSearchIcon,
+  DropdownCreateText,
 };

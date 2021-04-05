@@ -37,4 +37,12 @@ export const textInputVariants = {
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 0,
   },
+  dropdownActiveTop: {
+    paddingRight: 38,
+    paddingLeft: 12,
+    borderColor: colors.blue.dark,
+    borderTopColor: "transparent",
+    borderTopRightRadius: 0,
+    borderTopLeftRadius: 0,
+  },
 };

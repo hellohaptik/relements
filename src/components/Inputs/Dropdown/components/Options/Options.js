@@ -138,13 +138,15 @@ const Options = ({
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
         >
-          <DropdownCheckboxSearchWrapper>
+          <DropdownCheckboxSearchWrapper
+            mode={withSearch ? "withSearch" : "withoutSearch"}
+          >
             <DropdownCheckboxSearchIcon>
               <Icon src={SearchIcon} />
             </DropdownCheckboxSearchIcon>
             <Text
               themed
-              ref={inputRef}
+              innerRef={inputRef}
               placeholder="Search here"
               onChange={handleSearchText}
               onFocus={handleOnSearchFocus}
@@ -154,12 +156,15 @@ const Options = ({
               }}
             />
           </DropdownCheckboxSearchWrapper>
-          <DropdownCheckboxOptionsWrapper>
+
+          <DropdownCheckboxOptionsWrapper
+            mode={withSearch ? "default" : "withoutSearch"}
+          >
             {options.map((option, i) => {
               if (option.isZeroState) {
                 return (
                   <Option
-                    key={`${option.label}-${i}`}
+                    key={`themed-${option.label}-${i}`}
                     selected={highlightIndex === i}
                     innerRef={dropdownDOMs.current[i]}
                     isZeroState={option.isZeroState}
@@ -173,7 +178,7 @@ const Options = ({
               // TODO: Add "create mode" as and when required
               return (
                 <Checkbox.Item
-                  key={`${option.label}-${i}`}
+                  key={`themed-${option.label}-${i}`}
                   label={option.label}
                   value={option.isSelected}
                   onChange={() => {
@@ -292,6 +297,7 @@ const Options = ({
             onBlur={onBlur}
             mode={mode}
             variant={withCheckbox ? "withCheckbox" : "default"}
+            positionVariant={isReversed ? "top" : "default"}
           >
             {renderOptionsInner()}
           </DropdownOptions>

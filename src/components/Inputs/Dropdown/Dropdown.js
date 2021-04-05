@@ -103,6 +103,7 @@ const Dropdown = ({
     withCheckbox,
     withMultiple,
     value: inputValue,
+    themed,
   });
 
   // To determine whether the dropdown options container opens above the dropdown
@@ -263,6 +264,7 @@ const Dropdown = ({
   const mouseEnter = () => {
     withCheckbox && withMultiple && setIsMouseOnOptions(true);
   };
+
   const mouseLeave = () => {
     withCheckbox && withMultiple && setIsMouseOnOptions(false);
   };
@@ -276,7 +278,9 @@ const Dropdown = ({
           onFocus={handleFocus}
           onBlur={handleBlur}
         >
-          <Text variant="h4.semi-bold">{label}</Text>
+          <Text variant="h4.semi-bold" color={error && "red.haptik"}>
+            {label} {error && ` (${error})`}
+          </Text>
           {withMultiple && withCheckbox ? (
             <WithCheckboxInput
               innerRef={inputWrapperRef}

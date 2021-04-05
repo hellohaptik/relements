@@ -13,7 +13,6 @@ export const dropdownOptionsModes = {
 
 export const dropdownOptionModes = {
   disabled: {
-    opacity: 0.5,
     pointerEvents: "none",
   },
 };
@@ -21,6 +20,17 @@ export const dropdownOptionModes = {
 export const dropdownOptionsVariant = {
   withCheckbox: {
     overflow: "initial",
+  },
+};
+
+export const dropdownOptionsPositionVariant = {
+  default: {
+    borderBottomRightRadius: 4,
+    borderBottomLeftRadius: 4,
+  },
+  top: {
+    borderTopRightRadius: 4,
+    borderTopLeftRadius: 4,
   },
 };
 
@@ -41,5 +51,26 @@ export const dropdownWithCheckboxInputVariants = {
     borderBottomColor: "transparent",
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 0,
+  },
+  dropdownActiveTop: {
+    borderColor: colors.blue.dark,
+    borderTopColor: "transparent",
+    borderTopRightRadius: 0,
+    borderTopLeftRadius: 0,
+  },
+};
+
+export const dropdownCheckboxOptionsModes = {
+  withoutSearch: {
+    paddingTop: 10,
+  },
+};
+
+export const dropdownCheckboxSearchWrapperModes = {
+  withoutSearch: {
+    opacity: 0,
+    padding: 0,
+    height: 0,
+    pointerEvents: "none",
   },
 };

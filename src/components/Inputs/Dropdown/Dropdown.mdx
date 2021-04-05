@@ -332,10 +332,7 @@ import Dropdown from "./Dropdown";
   )}
 </CodeBlock>
 
-<CodeBlock
-  title="Default"
-  defaultValue={[{ title: "Option text 1" }]}
->
+<CodeBlock title="Default" defaultValue={[{ title: "Option text 1" }]}>
   {(value, setValue) => (
     <Dropdown
       placeholder="Test placeholder"
@@ -370,7 +367,39 @@ import Dropdown from "./Dropdown";
 
 <div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
 
-<CodeBlock title="With Create">
+#### With Create
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+  }}
+>
+
+<CodeBlock title="Themed">
+  {(value, setValue) => (
+    <Dropdown
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      options={[
+        { text: "Option text 1" },
+        { text: "Option text 2" },
+        { text: "Option text 3" },
+        { text: "Option text 4" },
+      ]}
+      label="This is the label"
+      value={value}
+      onChange={setValue}
+      withCreate
+      withSearch
+      themed
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock title="Default">
   {(value, setValue) => (
     <Dropdown
       placeholder="Test placeholder"
@@ -391,7 +420,42 @@ import Dropdown from "./Dropdown";
   )}
 </CodeBlock>
 
-<CodeBlock title="Disabled">
+</div>
+
+<div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
+
+#### Disabled
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+  }}
+>
+
+<CodeBlock title="Themed">
+  {(value, setValue) => (
+    <Dropdown
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      value={[{ text: "Option text 1" }]}
+      options={[
+        { text: "Option text 1" },
+        { text: "Option text 2" },
+        { text: "Option text 3" },
+        { text: "Option text 4" },
+      ]}
+      label="This is the label"
+      onChange={setValue}
+      themed
+      disabled
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock title="Default">
   {(value, setValue) => (
     <Dropdown
       placeholder="Test placeholder"
@@ -411,7 +475,42 @@ import Dropdown from "./Dropdown";
   )}
 </CodeBlock>
 
-<CodeBlock title="Simple Array">
+</div>
+
+<div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
+
+#### Simple Array
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+  }}
+>
+
+<CodeBlock title="Themed">
+  {(value, setValue) => (
+    <Dropdown
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      value={value}
+      options={[
+        { text: "Option text 1" },
+        { text: "Option text 2" },
+        { text: "Option text 3" },
+        { text: "Option text 4" },
+      ]}
+      label="This is the label"
+      onChange={setValue}
+      withSearch
+      themed
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock title="Default">
   {(value, setValue) => (
     <Dropdown
       placeholder="Test placeholder"
@@ -430,3 +529,62 @@ import Dropdown from "./Dropdown";
     />
   )}
 </CodeBlock>
+
+</div>
+
+<div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
+
+#### Error
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+  }}
+>
+
+<CodeBlock title="Themed">
+  {(value, setValue) => (
+    <Dropdown
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      value={value}
+      options={[
+        { text: "Option text 1" },
+        { text: "Option text 2" },
+        { text: "Option text 3" },
+        { text: "Option text 4" },
+      ]}
+      label="This is the label"
+      onChange={setValue}
+      withSearch
+      themed
+      error="Nope!"
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock title="Default">
+  {(value, setValue) => (
+    <Dropdown
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      value={value}
+      options={[
+        { text: "Option text 1" },
+        { text: "Option text 2" },
+        { text: "Option text 3" },
+        { text: "Option text 4" },
+      ]}
+      label="This is the label"
+      onChange={setValue}
+      withSearch
+      error="Noooo!"
+    />
+  )}
+</CodeBlock>
+
+</div>

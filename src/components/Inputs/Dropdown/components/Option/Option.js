@@ -37,7 +37,12 @@ const Option = ({
           data-testid="dropdown-option"
           mode={children === noOptionsText ? "disabled" : "default"}
         >
-          <Text variant="body.md">{children}</Text>
+          <Text
+            variant="body.md"
+            color={children === noOptionsText && "red.haptik"}
+          >
+            {children}
+          </Text>
         </DropdownOption>
       );
     }
