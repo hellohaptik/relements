@@ -16,6 +16,38 @@ import Checkbox from "./Checkbox";
   )}
 </CodeBlock>
 
+# Themed Checkbox
+
+## Themed Checkbox Stacked
+
+<CodeBlock defaultValue={[{ title: "Good Node" }]}>
+  {(value, onChange) => (
+    <Checkbox
+      label="Node Type"
+      value={value}
+      onChange={onChange}
+      themed
+      mode="stacked"
+      options={[{ title: "Good Node" }, { title: "Bad Node" }]}
+    />
+  )}
+</CodeBlock>
+
+## Themed Checkbox Inline
+
+<CodeBlock defaultValue={[{ title: "Good Node" }]}>
+  {(value, onChange) => (
+    <Checkbox
+      label="Node Type"
+      value={value}
+      onChange={onChange}
+      themed
+      mode="inline"
+      options={[{ title: "Good Node" }, { title: "Bad Node" }]}
+    />
+  )}
+</CodeBlock>
+
 ## Configuration
 
 <ConfigBlock of={Checkbox} />

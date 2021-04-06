@@ -38,12 +38,12 @@ export const buttonColors = {
 
 export const buttonSizes = {
   small: {
-    fontSize: "xs",
+    fontSize: "1",
   },
   medium: {
-    fontSize: "sm",
+    fontSize: "2",
   },
   large: {
-    fontSize: "md",
+    fontSize: "3",
   },
 };

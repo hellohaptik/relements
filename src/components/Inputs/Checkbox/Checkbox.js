@@ -6,18 +6,48 @@ import styles from "./Checkbox.scss";
 import { Label } from "../_common/Label";
 import { useCheckbox } from "./hooks/useCheckbox";
 
-const Checkbox = ({
-  value,
-  onChange,
-  options,
-  label,
-  hint,
-  disabled,
-  className,
-  prefixClassName,
-  error,
-}) => {
+import ThemedCheckboxWrapper from "./ThemedCheckbox/ThemedCheckboxWrapper";
+
+const Checkbox = props => {
+  const {
+    value,
+    onChange,
+    options,
+    label,
+    hint,
+    disabled,
+    className,
+    prefixClassName,
+    error,
+  } = props;
+
   const [activeIndexes, handleChange] = useCheckbox(value, onChange, options);
+
+  if (props.themed) {
+    const checkboxProps = {
+      ...props,
+      "data-testid": "themedCheckbox",
+    };
+    return (
+      <ThemedCheckboxWrapper {...checkboxProps}>
+        {props.options.map((option, i) => {
+          return (
+            <CheckboxOption
+              value={activeIndexes.includes(i)}
+              onChange={handleChange(i)}
+              label={option.title}
+              error={error}
+              themed={props.themed}
+              mode={props.mode}
+              disabled={disabled}
+              prefixClassName={`${prefixClassName}-option`}
+            />
+          );
+        })}
+      </ThemedCheckboxWrapper>
+    );
+  }
+
   return (
     <div
       data-testid="checkbox"
@@ -68,6 +98,8 @@ Checkbox.propTypes = {
   options: PropTypes.array,
   /** If the input is disabled (non-editable) */
   disabled: PropTypes.bool,
+  mode: PropTypes.string,
+  themed: PropTypes.bool,
 };
 
 Checkbox.defaultProps = {
@@ -80,6 +112,8 @@ Checkbox.defaultProps = {
   prefixClassName: "",
   options: [],
   disabled: false,
+  mode: "inline",
+  themed: false,
 };
 
 Checkbox.classNames = {

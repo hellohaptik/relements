@@ -5,6 +5,8 @@ import cc from "classcat";
 import Icon from "@src/components/UI/Icon";
 import TickIcon from "@src/icons/checkmark.svg";
 
+import Text from "@src/components/UI/Text";
+
 import { colors } from "@src/Theme/colors";
 
 import styles from "./CheckboxOption.scss";
@@ -17,6 +19,8 @@ const CheckboxOption = ({
   className,
   prefixClassName,
   disabled,
+  themed,
+  mode,
 }) => {
   const classNames = {
     main: cc([
@@ -61,13 +65,18 @@ const CheckboxOption = ({
       data-testid="checkbox-item"
       className={classNames.main}
       onClick={e => onChange(!value, e)}
+      style={mode === "stacked" ? { marginBottom: 12 } : null}
     >
       <div style={colorStyles.box} className={classNames.box}>
         <Icon className={classNames.boxIcon} src={TickIcon} />
       </div>
-      <span style={colorStyles.label} className={classNames.label}>
-        {label}
-      </span>
+      {themed ? (
+        <Text variant="body.md">{label}</Text>
+      ) : (
+        <span style={colorStyles.label} className={classNames.label}>
+          {label}
+        </span>
+      )}
     </div>
   );
 };
@@ -87,6 +96,8 @@ CheckboxOption.propTypes = {
   prefixClassName: PropTypes.string,
   /** Whether the input is enabled or disabled */
   disabled: PropTypes.string,
+  mode: PropTypes.string,
+  themed: PropTypes.bool,
 };
 
 CheckboxOption.defaultProps = {
@@ -97,6 +108,8 @@ CheckboxOption.defaultProps = {
   innerRef: () => {},
   prefixClassName: "",
   disabled: false,
+  mode: "inline",
+  themed: false,
 };
 
 CheckboxOption.classNames = {

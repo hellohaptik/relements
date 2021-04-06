@@ -11,6 +11,14 @@ import Checkbox from "./Checkbox";
   )}
 </CodeBlock>
 
+# Checkbox.Item Themed
+
+<CodeBlock defaultValue={true}>
+  {(value, onChange) => (
+    <Checkbox.Item themed label="Node Type" value={value} onChange={onChange} />
+  )}
+</CodeBlock>
+
 ## Configuration
 
 <ConfigBlock of={Checkbox.Item} />

@@ -1,18 +1,6 @@
-@import "constants/index.scss";
-
-$green: #008744;
-$blue: #0057e7;
-$red: #d62d20;
-$yellow: #ffa700;
-$white: #eee;
-
-// scaling... any units
-$width: 100px;
-
 .loader {
   position: relative;
   margin: 0 auto;
-  width: $width;
 
   &Inner {
     animation: rotate 2s linear infinite;

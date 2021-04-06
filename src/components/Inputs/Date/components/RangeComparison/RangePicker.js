@@ -115,7 +115,7 @@ export default class RangePicker extends React.Component {
     } = this.state;
     return {
       startDate: startDate ? startDate.startOf("day").toDate() : startDate,
-      endDate: endDate ? endDate.endOf("day").toDate() : null,
+      endDate: endDate ? endDate.endOf("day").toDate() : startDate,
       comparisonStartDate: comparisonStartDate
         ? comparisonStartDate.startOf("day").toDate()
         : null,

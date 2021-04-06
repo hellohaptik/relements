@@ -6,7 +6,7 @@ import Icon from "components/UI/Icon";
 
 import styles from "./Button.scss";
 import Context from "../../Context";
-import ThemeButton from "./ThemeButton";
+import ThemedButton from "./ThemedButton";
 
 /**
  * Button component. Renders a button
@@ -20,7 +20,7 @@ const Button = props => {
       ref: props.innerRef,
       "data-testid": "themedButton",
     };
-    return <ThemeButton {...buttonProps}>{props.children}</ThemeButton>;
+    return <ThemedButton {...buttonProps}>{props.children}</ThemedButton>;
   }
 
   const {
