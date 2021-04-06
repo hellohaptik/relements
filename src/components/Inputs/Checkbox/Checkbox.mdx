@@ -113,6 +113,19 @@ import Checkbox from "./Checkbox";
   )}
 </CodeBlock>
 
+<CodeBlock title="Disabled Themed" defaultValue={[{ title: "F&B" }]}>
+  {(value, onChange) => (
+    <Checkbox
+      label="Businesses"
+      value={value}
+      onChange={onChange}
+      disabled
+      themed
+      options={[{ title: "Tech" }, { title: "F&B" }, { title: "Finance" }]}
+    />
+  )}
+</CodeBlock>
+
 <CodeBlock title="Tooltip" defaultValue={[{ title: "Good Node" }]}>
   {(value, onChange) => (
     <Checkbox

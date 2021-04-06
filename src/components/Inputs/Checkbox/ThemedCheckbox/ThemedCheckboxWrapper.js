@@ -1,9 +1,5 @@
 import styled from "styled-components";
-import space from "@styled-system/space";
-import color from "@styled-system/color";
-import border from "@styled-system/border";
 import variant from "@styled-system/variant";
-import typography from "@styled-system/typography";
 
 const CheckboxWrapperMode = variant({
     prop: "mode",

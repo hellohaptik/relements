@@ -41,3 +41,15 @@ import Checkbox from "./Checkbox";
     />
   )}
 </CodeBlock>
+
+<CodeBlock title="Disabled Themed" defaultValue={false}>
+  {(value, onChange) => (
+    <Checkbox.Item
+      label="Node Type"
+      value={value}
+      onChange={onChange}
+      themed
+      disabled
+    />
+  )}
+</CodeBlock>
