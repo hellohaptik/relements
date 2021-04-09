@@ -18,6 +18,7 @@ const Option = ({
   isNew,
   themed,
   noOptionsText,
+  checkboxSearch,
 }) => {
   const { primaryColor } = React.useContext(Context);
   const dropdownOptionSelectedStyle = selected
@@ -27,15 +28,23 @@ const Option = ({
   const selectedClassName = selected ? `${className}-selected` : "";
   const zeroStateClassName = isZeroState ? styles.zeroState : "";
   const isNewClassName = isNew ? styles.isNew : "";
+  let optionMode = "default";
 
   const renderOption = () => {
     if (themed) {
+      if (children === noOptionsText) {
+        if (checkboxSearch) {
+          optionMode = "disabledWithCheckboxSearch";
+        } else {
+          optionMode = "disabled";
+        }
+      }
       return (
         <DropdownOption
           ref={innerRef}
           onClick={!isZeroState ? onClick : null}
           data-testid="dropdown-option"
-          mode={children === noOptionsText ? "disabled" : "default"}
+          mode={optionMode}
         >
           <Text
             variant="body.md"

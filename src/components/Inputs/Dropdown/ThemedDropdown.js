@@ -7,6 +7,8 @@ import typography from "@styled-system/typography";
 
 import { inputStyle } from "@src/components/Inputs/_common/ThemedTextInput";
 
+import Box from "@src/components/UI/Box";
+
 const DropdownOptionsMode = variant({
   prop: "mode",
   scale: "dropdownOptionsModes",
@@ -124,39 +126,39 @@ const withCheckboxInputStyle = props => {
   };
 };
 
-const dropdownArrowStyle = {
+const dropdownArrowStyle = props => ({
   position: "absolute",
   top: 0,
   height: "100%",
   display: "flex",
   alignItems: "center",
-  right: 10,
+  right: props.theme.space.lg - props.theme.space.xs, // 10px
   transition: "transform 0.3s ease",
-};
+});
 
 const checkboxWrapperStyle = {
-  maxHeight: "inherit",
+  maxHeight: 198,
   overflow: "hidden",
-  display: "flex",
-  flexDirection: "column",
 };
 
-const checkboxSearchWrapperStyle = {
+const checkboxSearchWrapperStyle = props => ({
   position: "relative",
-  padding: "10px 12px 10px",
-};
+  padding: `${props.theme.space.lg - props.theme.space.xs}px ${
+    props.theme.space.md
+  }px ${props.theme.space.lg - props.theme.space.xs}px`, // "10px 12px 10px",
+});
 
-const checkboxOptionsWrapperStyle = {
+const checkboxOptionsWrapperStyle = props => ({
   position: "relative",
   height: "calc(100vh - 60px)", // Height of the Search Wrapper
   overflowY: "auto",
-  paddingBottom: 10,
-};
+  paddingBottom: `${props.theme.space.lg - props.theme.space.xs}px`, // "10px",
+});
 
 const dropdownCheckboxSearchStyle = {
   position: "absolute",
-  top: 17,
-  left: 19,
+  top: 15,
+  left: 15,
   zIndex: 1,
   width: 25,
   height: 25,
@@ -168,10 +170,10 @@ const dropdownCheckboxSearchStyle = {
 
 const dropdownCreateTextStyle = props => ({
   color: props.theme.colors.green.haptik,
-  paddingRight: 4,
+  paddingRight: props.theme.space.xs,
 });
 
-const DropdownWrapper = styled("div")(
+const DropdownWrapper = styled(Box)(
   wrapperStyle,
   space,
   color,
@@ -179,7 +181,7 @@ const DropdownWrapper = styled("div")(
   typography,
 );
 
-const DropdownOptionsWrapper = styled("div")(space, color, border, typography);
+const DropdownOptionsWrapper = styled(Box)(space, color, border, typography);
 
 const DropdownOptionsOverlay = styled("div")(
   optionsOverlayStyle,
@@ -227,15 +229,16 @@ const DropdownArrow = styled("div")(
   DropdownArrowMode,
 );
 
-const DropdownCheckboxWrapper = styled("div")(
+const DropdownCheckboxWrapper = styled(Box)(
   checkboxWrapperStyle,
   space,
   color,
   border,
   typography,
+  DropdownWithCheckboxVariant,
 );
 
-const DropdownCheckboxSearchWrapper = styled("div")(
+const DropdownCheckboxSearchWrapper = styled(Box)(
   checkboxSearchWrapperStyle,
   space,
   color,
@@ -244,7 +247,7 @@ const DropdownCheckboxSearchWrapper = styled("div")(
   DropdownCheckboxSearchWrapperMode,
 );
 
-const DropdownCheckboxOptionsWrapper = styled("div")(
+const DropdownCheckboxOptionsWrapper = styled(Box)(
   checkboxOptionsWrapperStyle,
   space,
   color,
@@ -272,10 +275,29 @@ const DropdownCreateText = styled("span")(
 // Customizable CSS props
 DropdownWrapper.defaultProps = {
   fontFamily: `"Proxima Nova", sans-serif`,
+  padding: "zero",
+  display: "inherit",
 };
 
 DropdownOptionsWrapper.defaultProps = {
   fontFamily: `"Proxima Nova", sans-serif`,
+  padding: "zero",
+  display: "initial",
+};
+
+DropdownCheckboxWrapper.defaultProps = {
+  padding: "zero",
+  display: "flex",
+  flexDirection: "column",
+};
+
+DropdownCheckboxSearchWrapper.defaultProps = {
+  display: "initial",
+};
+
+DropdownCheckboxOptionsWrapper.defaultProps = {
+  padding: "zero",
+  display: "initial",
 };
 
 DropdownOptions.defaultProps = {

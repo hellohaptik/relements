@@ -5,6 +5,8 @@ import border from "@styled-system/border";
 import variant from "@styled-system/variant";
 import typography from "@styled-system/typography";
 
+import Box from "@src/components/UI/Box";
+
 const InputMode = variant({
   prop: "mode",
   scale: "textInputModes",
@@ -30,30 +32,37 @@ const InputVariant = variant({
 });
 
 // Non customizable CSS props
-const inputStyle = props => ({
-  borderRadius: props.theme.radii.sm,
-  border: `${props.theme.borderWidths.xs}px solid ${props.theme.colors.grey.haptik}`,
-  backgroundColor: props.theme.colors.grey.pastel,
-  boxSizing: "border-box",
-  width: "100%",
-  padding: "10px 8px",
-  transition: "border 0.3s ease, color 0.3s ease",
-  outline: "none",
-  "&:focus": {
-    border: `${props.theme.borderWidths.xs}px solid ${props.theme.colors.blue.dark}`,
-  },
-  "&:hover": {
-    border: `${props.theme.borderWidths.xs}px solid ${props.theme.colors.blue.dark}`,
-  },
-  resize: "none",
-  overflowY: "hidden",
-});
+const inputStyle = props => {
+  const { theme } = props;
+  const { radii, borderWidths, colors, space } = theme;
+  const paddingTopBottom = space.lg - space.xs; // 10px
+  const paddingLeftRight = space.sm; // 8px
+
+  return {
+    borderRadius: radii.sm,
+    border: `${borderWidths.xs}px solid ${colors.grey.haptik}`,
+    backgroundColor: colors.grey.pastel,
+    boxSizing: "border-box",
+    width: "100%",
+    padding: `${paddingTopBottom}px ${paddingLeftRight}px`,
+    transition: "border 0.3s ease, color 0.3s ease",
+    outline: "none",
+    "&:focus": {
+      border: `${borderWidths.xs}px solid ${colors.blue.dark}`,
+    },
+    "&:hover": {
+      border: `${borderWidths.xs}px solid ${colors.blue.dark}`,
+    },
+    resize: "none",
+    overflowY: "hidden",
+  };
+};
 
 const inputWrapperStyle = {
   position: "relative",
 };
 
-const ThemedTextInputWrapper = styled("div")(
+const ThemedTextInputWrapper = styled(Box)(
   inputWrapperStyle,
   space,
   color,
@@ -87,6 +96,7 @@ ThemedTextInputWrapper.defaultProps = {
   fontFamily: `"Proxima Nova", sans-serif`,
   mode: "default",
   variant: "default",
+  padding: "zero",
 };
 
 ThemedTextInput.defaultProps = {

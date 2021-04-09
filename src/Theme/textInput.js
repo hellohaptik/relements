@@ -1,11 +1,13 @@
 import { colors } from "./colors";
+import space from "./space";
+import radii from "./radii";
 
 export const textWrapperModes = {
   label: {
-    marginTop: 8,
+    marginTop: space.sm,
   },
   dropdown: {
-    marginTop: 8,
+    marginTop: space.sm,
   },
 };
 
@@ -23,26 +25,26 @@ export const textInputModes = {
 
 export const textInputVariants = {
   dropdown: {
-    paddingRight: 38,
-    paddingLeft: 12,
+    paddingRight: space.lg + space.md + space.md,
+    paddingLeft: space.md,
     "&:hover": {
       borderColor: colors.grey.haptik,
     },
   },
   dropdownActive: {
-    paddingRight: 38,
-    paddingLeft: 12,
+    paddingRight: space.lg + space.md + space.md,
+    paddingLeft: space.md,
     borderColor: colors.blue.dark,
     borderBottomColor: "transparent",
-    borderBottomRightRadius: 0,
-    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: radii.sm - radii.sm,
+    borderBottomLeftRadius: radii.sm - radii.sm,
   },
   dropdownActiveTop: {
-    paddingRight: 38,
-    paddingLeft: 12,
+    paddingRight: space.lg + space.md + space.md,
+    paddingLeft: space.md,
     borderColor: colors.blue.dark,
     borderTopColor: "transparent",
-    borderTopRightRadius: 0,
-    borderTopLeftRadius: 0,
+    borderTopRightRadius: radii.sm - radii.sm,
+    borderTopLeftRadius: radii.sm - radii.sm,
   },
 };

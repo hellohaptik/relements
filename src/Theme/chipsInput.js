@@ -1,28 +1,32 @@
 import { colors } from "./colors";
+import space from "./space";
+import radii from "./radii";
 
 export const chipWrapperModes = {
   chipAdded: {
-    padding: "6px 8px 0px 7px",
+    padding: `${space.lg - space.sm}px ${space.sm}px ${
+      space.zero
+    }px ${space.sm - 1}px`, // "6px 8px 0px 7px",
   },
   default: {
-    padding: "7px 8px",
+    padding: `${space.sm - 1}px ${space.sm}px`, // "7px 8px",
   },
 };
 
 export const chipWrapperVariants = {
   dropdown: {
-    marginTop: 8,
-    paddingRight: "38px !important",
+    marginTop: space.sm,
+    paddingRight: space.lg + space.md + space.md,
     "&:hover": {
       borderColor: colors.grey.haptik,
     },
   },
   dropdownActive: {
-    marginTop: 8,
-    paddingRight: "38px !important",
+    marginTop: space.sm,
+    paddingRight: space.lg + space.md + space.md,
     borderColor: colors.blue.dark,
     borderBottomColor: "transparent",
-    borderBottomRightRadius: 0,
-    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: radii.xs - radii.xs,
+    borderBottomLeftRadius: radii.xs - radii.xs,
   },
 };

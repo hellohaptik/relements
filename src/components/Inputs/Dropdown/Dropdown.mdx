@@ -1,4 +1,5 @@
 import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
+import OPTIONS from "./constants";
 import Dropdown from "./Dropdown";
 
 # Dropdown
@@ -18,7 +19,7 @@ import Dropdown from "./Dropdown";
       <Dropdown
         themed
         placeholder="Select a value"
-        options={[{ text: "Yeah!" }, { text: "Cooool" }, { text: "Nice" }]}
+        options={OPTIONS.THEMED}
         label="Label"
         value={value}
         onChange={setValue}
@@ -32,32 +33,7 @@ import Dropdown from "./Dropdown";
     placeholder="Test placeholder"
     className="my-dropdown"
     prefixClassName="my-yoooo"
-    options={[
-    { text: "Option text 1" },
-    { text: "Option text 2" },
-    { text: "Option text 3" },
-    { text: "Option text 4" },
-    { text: "Option text 1" },
-    { text: "Option text 2" },
-    { text: "Option text 3" },
-    { text: "Option text 4" },
-    { text: "Option text 1" },
-    { text: "Option text 2" },
-    { text: "Option text 3" },
-    { text: "Option text 4" },
-    { text: "Option text 1" },
-    { text: "Option text 2" },
-    { text: "Option text 3" },
-    { text: "Option text 4" },
-    { text: "Option text 1" },
-    { text: "Option text 2" },
-    { text: "Option text 3" },
-    { text: "Option text 4" },
-    { text: "Option text 1" },
-    { text: "Option text 2" },
-    { text: "Option text 3" },
-    { text: "Option text 4" },
-        ]}
+    options={OPTIONS.DEFAULT}
     label="This is a label"
     value={value}
     onChange={setValue}
@@ -87,7 +63,7 @@ import Dropdown from "./Dropdown";
       <Dropdown
         themed
         placeholder="Select a value"
-        options={[{ text: "Yeah!" }, { text: "Cooool" }, { text: "Nice" }]}
+        options={OPTIONS.THEMED}
         label="Label"
         value={value}
         onChange={setValue}
@@ -101,12 +77,7 @@ import Dropdown from "./Dropdown";
     placeholder="Test placeholder"
     className="my-dropdown"
     prefixClassName="my-yoooo"
-    options={[
-    { text: "Option text 1" },
-    { text: "Option text 2" },
-    { text: "Option text 3" },
-    { text: "Option text 4" },
-        ]}
+    options={OPTIONS.DEFAULT}
     label="This is a label"
     value={value}
     onChange={setValue}
@@ -131,7 +102,7 @@ import Dropdown from "./Dropdown";
       <Dropdown
         themed
         placeholder="Select a value"
-        options={[{ text: "Yeah!" }, { text: "Cooool" }, { text: "Nice" }]}
+        options={OPTIONS.THEMED}
         label="Label"
         value={value}
         onChange={setValue}
@@ -146,12 +117,7 @@ import Dropdown from "./Dropdown";
     placeholder="Test placeholder"
     className="my-dropdown"
     prefixClassName="my-yoooo"
-    options={[
-    { text: "Option text 1" },
-    { text: "Option text 2" },
-    { text: "Option text 3" },
-    { text: "Option text 4" },
-        ]}
+    options={OPTIONS.DEFAULT}
     label="This is a label"
     value={value}
     onChange={setValue}
@@ -177,7 +143,7 @@ import Dropdown from "./Dropdown";
       <Dropdown
         themed
         placeholder="Select items"
-        options={[{ text: "Yeah!" }, { text: "Cooool" }, { text: "Nice" }]}
+        options={OPTIONS.THEMED}
         label="Label"
         value={value}
         onChange={setValue}
@@ -193,12 +159,7 @@ import Dropdown from "./Dropdown";
     placeholder="Test placeholder"
     className="my-dropdown"
     prefixClassName="my-yoooo"
-    options={[
-    { text: "Option text 1" },
-    { text: "Option text 2" },
-    { text: "Option text 3" },
-    { text: "Option text 4" },
-        ]}
+    options={OPTIONS.DEFAULT}
     label="This is a label"
     value={value}
     onChange={setValue}
@@ -228,20 +189,7 @@ import Dropdown from "./Dropdown";
       placeholder="Test placeholder"
       className="my-dropdown"
       prefixClassName="my-yoooo"
-      options={[
-        { label: "All", title: "Option text 1" },
-        { label: "All", title: "Option text 2" },
-        { label: "All", title: "Option text 3" },
-        { label: "All", title: "Option text 4" },
-        { label: "All", title: "Option text 5" },
-        { label: "All", title: "Option text 6" },
-        { label: "All", title: "Option text 7" },
-        { label: "All", title: "Option text 8" },
-        { label: "All", title: "Option text 9" },
-        { label: "All", title: "Option text 10" },
-        { label: "All", title: "Option text 11" },
-        { label: "All", title: "Option text 12" },
-      ]}
+      options={OPTIONS.SEARCH}
       label="This is the label"
       value={value}
       onChange={setValue}
@@ -260,20 +208,7 @@ import Dropdown from "./Dropdown";
       placeholder="Test placeholder"
       className="my-dropdown"
       prefixClassName="my-yoooo"
-      options={[
-        { label: "All", title: "Option text 1" },
-        { label: "All", title: "Option text 2" },
-        { label: "All", title: "Option text 3" },
-        { label: "All", title: "Option text 4" },
-        { label: "All", title: "Option text 5" },
-        { label: "All", title: "Option text 6" },
-        { label: "All", title: "Option text 7" },
-        { label: "All", title: "Option text 8" },
-        { label: "All", title: "Option text 9" },
-        { label: "All", title: "Option text 10" },
-        { label: "All", title: "Option text 11" },
-        { label: "All", title: "Option text 12" },
-      ]}
+      options={OPTIONS.SEARCH}
       label="This is the label"
       value={value}
       onChange={setValue}
@@ -307,20 +242,7 @@ import Dropdown from "./Dropdown";
       placeholder="Test placeholder"
       className="my-dropdown"
       prefixClassName="my-yoooo"
-      options={[
-        { label: "All", title: "Option text 1" },
-        { label: "All", title: "Option text 2" },
-        { label: "All", title: "Option text 3" },
-        { label: "All", title: "Option text 4" },
-        { label: "All", title: "Option text 5" },
-        { label: "All", title: "Option text 6" },
-        { label: "All", title: "Option text 7" },
-        { label: "All", title: "Option text 8" },
-        { label: "All", title: "Option text 9" },
-        { label: "All", title: "Option text 10" },
-        { label: "All", title: "Option text 11" },
-        { label: "All", title: "Option text 12" },
-      ]}
+      options={OPTIONS.SEARCH}
       label="This is the label"
       value={value}
       onChange={setValue}
@@ -338,20 +260,7 @@ import Dropdown from "./Dropdown";
       placeholder="Test placeholder"
       className="my-dropdown"
       prefixClassName="my-yoooo"
-      options={[
-        { label: "All", title: "Option text 1" },
-        { label: "All", title: "Option text 2" },
-        { label: "All", title: "Option text 3" },
-        { label: "All", title: "Option text 4" },
-        { label: "All", title: "Option text 5" },
-        { label: "All", title: "Option text 6" },
-        { label: "All", title: "Option text 7" },
-        { label: "All", title: "Option text 8" },
-        { label: "All", title: "Option text 9" },
-        { label: "All", title: "Option text 10" },
-        { label: "All", title: "Option text 11" },
-        { label: "All", title: "Option text 12" },
-      ]}
+      options={OPTIONS.SEARCH}
       label="This is the label"
       value={value}
       onChange={setValue}
@@ -383,12 +292,7 @@ import Dropdown from "./Dropdown";
       placeholder="Test placeholder"
       className="my-dropdown"
       prefixClassName="my-yoooo"
-      options={[
-        { text: "Option text 1" },
-        { text: "Option text 2" },
-        { text: "Option text 3" },
-        { text: "Option text 4" },
-      ]}
+      options={OPTIONS.THEMED}
       label="This is the label"
       value={value}
       onChange={setValue}
@@ -405,12 +309,7 @@ import Dropdown from "./Dropdown";
       placeholder="Test placeholder"
       className="my-dropdown"
       prefixClassName="my-yoooo"
-      options={[
-        { text: "Option text 1" },
-        { text: "Option text 2" },
-        { text: "Option text 3" },
-        { text: "Option text 4" },
-      ]}
+      options={OPTIONS.DEFAULT}
       label="This is the label"
       value={value}
       onChange={setValue}
@@ -440,13 +339,8 @@ import Dropdown from "./Dropdown";
       placeholder="Test placeholder"
       className="my-dropdown"
       prefixClassName="my-yoooo"
-      value={[{ text: "Option text 1" }]}
-      options={[
-        { text: "Option text 1" },
-        { text: "Option text 2" },
-        { text: "Option text 3" },
-        { text: "Option text 4" },
-      ]}
+      value={[{ text: "Nice" }]}
+      options={OPTIONS.THEMED}
       label="This is the label"
       onChange={setValue}
       themed
@@ -462,12 +356,7 @@ import Dropdown from "./Dropdown";
       className="my-dropdown"
       prefixClassName="my-yoooo"
       value={[{ text: "Option text 1" }]}
-      options={[
-        { text: "Option text 1" },
-        { text: "Option text 2" },
-        { text: "Option text 3" },
-        { text: "Option text 4" },
-      ]}
+      options={OPTIONS.DEFAULT}
       label="This is the label"
       onChange={setValue}
       disabled
@@ -496,12 +385,7 @@ import Dropdown from "./Dropdown";
       className="my-dropdown"
       prefixClassName="my-yoooo"
       value={value}
-      options={[
-        { text: "Option text 1" },
-        { text: "Option text 2" },
-        { text: "Option text 3" },
-        { text: "Option text 4" },
-      ]}
+      options={OPTIONS.THEMED}
       label="This is the label"
       onChange={setValue}
       withSearch
@@ -517,12 +401,7 @@ import Dropdown from "./Dropdown";
       className="my-dropdown"
       prefixClassName="my-yoooo"
       value={value}
-      options={[
-        { text: "Option text 1" },
-        { text: "Option text 2" },
-        { text: "Option text 3" },
-        { text: "Option text 4" },
-      ]}
+      options={OPTIONS.DEFAULT}
       label="This is the label"
       onChange={setValue}
       withSearch
@@ -551,12 +430,7 @@ import Dropdown from "./Dropdown";
       className="my-dropdown"
       prefixClassName="my-yoooo"
       value={value}
-      options={[
-        { text: "Option text 1" },
-        { text: "Option text 2" },
-        { text: "Option text 3" },
-        { text: "Option text 4" },
-      ]}
+      options={OPTIONS.THEMED}
       label="This is the label"
       onChange={setValue}
       withSearch
@@ -573,16 +447,56 @@ import Dropdown from "./Dropdown";
       className="my-dropdown"
       prefixClassName="my-yoooo"
       value={value}
-      options={[
-        { text: "Option text 1" },
-        { text: "Option text 2" },
-        { text: "Option text 3" },
-        { text: "Option text 4" },
-      ]}
+      options={OPTIONS.DEFAULT}
       label="This is the label"
       onChange={setValue}
       withSearch
       error="Noooo!"
+    />
+  )}
+</CodeBlock>
+
+</div>
+
+<div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
+
+#### Empty State
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 48%",
+    gridColumnGap: "15px",
+  }}
+>
+
+<CodeBlock title="Themed">
+  {(value, setValue) => (
+    <Dropdown
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      value={value}
+      options={[]}
+      label="This is the label"
+      onChange={setValue}
+      withSearch
+      themed
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock title="Default">
+  {(value, setValue) => (
+    <Dropdown
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      value={value}
+      options={[]}
+      label="This is the label"
+      onChange={setValue}
+      withSearch
     />
   )}
 </CodeBlock>

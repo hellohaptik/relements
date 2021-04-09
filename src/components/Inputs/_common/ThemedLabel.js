@@ -5,6 +5,9 @@ import border from "@styled-system/border";
 import variant from "@styled-system/variant";
 import typography from "@styled-system/typography";
 
+import Box from "@src/components/UI/Box";
+import Text from "@src/components/UI/Text";
+
 const labelMode = variant({
   prop: "mode",
   scale: "labelModes",
@@ -22,11 +25,9 @@ const labelWrapperStyle = {
 
 const labelStyle = {
   position: "relative",
-  marginRight: 5,
-  fontWeight: "bold",
 };
 
-const ThemedLabelWrapper = styled("div")(
+const ThemedLabelWrapper = styled(Box)(
   labelWrapperStyle,
   space,
   color,
@@ -34,7 +35,7 @@ const ThemedLabelWrapper = styled("div")(
   typography,
 );
 
-const ThemedLabel = styled("div")(
+const ThemedLabel = styled(Text)(
   labelStyle,
   space,
   color,
@@ -48,10 +49,13 @@ ThemedLabelWrapper.defaultProps = {
   fontFamily: `"Proxima Nova", sans-serif`,
   mode: "default",
   variant: "default",
+  padding: "zero",
 };
 
 ThemedLabel.defaultProps = {
   fontFamily: `"Proxima Nova", sans-serif`,
+  variant: "h4.semi-bold",
+  marginRight: "xs",
 };
 
 export { ThemedLabelWrapper, ThemedLabel };

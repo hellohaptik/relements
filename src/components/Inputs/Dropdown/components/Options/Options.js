@@ -131,12 +131,23 @@ const Options = ({
     width: rect.width,
   };
 
+  let checkboxWrapperVariant;
+
+  if (focused) {
+    if (isReversed) {
+      checkboxWrapperVariant = "dropdownActiveTop";
+    } else {
+      checkboxWrapperVariant = "dropdownActive";
+    }
+  }
+
   const renderWithCheckbox = () => {
     if (themed) {
       return (
         <DropdownCheckboxWrapper
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
+          variant={checkboxWrapperVariant}
         >
           <DropdownCheckboxSearchWrapper
             mode={withSearch ? "withSearch" : "withoutSearch"}
@@ -170,6 +181,7 @@ const Options = ({
                     isZeroState={option.isZeroState}
                     themed={true}
                     noOptionsText={noOptionsText}
+                    checkboxSearch
                   >
                     {option.label}
                   </Option>

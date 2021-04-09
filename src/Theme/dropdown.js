@@ -1,4 +1,6 @@
 import { colors } from "./colors";
+import space from "./space";
+import radii from "./radii";
 
 export const dropdownOptionsModes = {
   active: {
@@ -15,6 +17,9 @@ export const dropdownOptionModes = {
   disabled: {
     pointerEvents: "none",
   },
+  disabledWithCheckboxSearch: {
+    paddingTop: space.zero,
+  },
 };
 
 export const dropdownOptionsVariant = {
@@ -25,12 +30,12 @@ export const dropdownOptionsVariant = {
 
 export const dropdownOptionsPositionVariant = {
   default: {
-    borderBottomRightRadius: 4,
-    borderBottomLeftRadius: 4,
+    borderBottomRightRadius: radii.sm,
+    borderBottomLeftRadius: radii.sm,
   },
   top: {
-    borderTopRightRadius: 4,
-    borderTopLeftRadius: 4,
+    borderTopRightRadius: radii.sm,
+    borderTopLeftRadius: radii.sm,
   },
 };
 
@@ -49,20 +54,20 @@ export const dropdownWithCheckboxInputVariants = {
   dropdownActive: {
     borderColor: colors.blue.dark,
     borderBottomColor: "transparent",
-    borderBottomRightRadius: 0,
-    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: radii.xs,
+    borderBottomLeftRadius: radii.xs,
   },
   dropdownActiveTop: {
     borderColor: colors.blue.dark,
     borderTopColor: "transparent",
-    borderTopRightRadius: 0,
-    borderTopLeftRadius: 0,
+    borderTopRightRadius: radii.xs,
+    borderTopLeftRadius: radii.xs,
   },
 };
 
 export const dropdownCheckboxOptionsModes = {
   withoutSearch: {
-    paddingTop: 10,
+    paddingTop: space.lg - space.xs, // "10px"
   },
 };
 

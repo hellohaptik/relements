@@ -290,7 +290,6 @@ const Dropdown = ({
               disabled={disabled}
               focused={focused}
               isReversed={isReversed}
-              prefixClassName={`${prefixClassName}-input`}
               themed
             />
           ) : (
@@ -309,7 +308,6 @@ const Dropdown = ({
               withMultiple={withMultiple}
               optionKey={optionKey}
               disabled={disabled}
-              prefixClassName={`${prefixClassName}-input`}
               themed
             />
           )}
