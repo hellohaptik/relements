@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Icon from "components/UI/Icon";
 import Button from "components/UI/Button";
 import Text from "@src/components/UI/Text";
+import Box from "@src/components/UI/Box";
 import CloseIcon from "icons/close.svg";
 import ArrowIcon from "icons/arrow.svg";
 import CloseIconV2 from "icons/close-v2.svg";
@@ -28,7 +29,7 @@ const ComponentDrawerHeader = props => {
     };
     return (
       <ThemedDrawerHeader {...drawerHeaderProps}>
-        <div className={styles.leftColumn}>
+        <Box padding="0">
           {onBackButtonClick ? (
             <Icon
               onClick={onBackButtonClick}
@@ -37,10 +38,10 @@ const ComponentDrawerHeader = props => {
             />
           ) : null}
           <Text variant="h3.semi-bold">{props.children}</Text>
-        </div>
-        <div className={styles.rightColumn}>
+        </Box>
+        <Box padding="0">
           <Icon onClick={onClose} src={CloseIconV2} />
-        </div>
+        </Box>
       </ThemedDrawerHeader>
     );
   }
