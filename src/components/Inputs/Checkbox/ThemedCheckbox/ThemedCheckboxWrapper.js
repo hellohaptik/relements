@@ -10,13 +10,13 @@ const CheckboxWrapperMode = variant({
 });
 
 const style = props => ({
-    display: props.mode == 'stacked' ? 'block' : 'flex',
+    display: props.mode === 'stacked' ? 'block' : 'flex',
 });
 
 const ThemedCheckboxWrapper= styled('div')(style,CheckboxWrapperMode);
 
 ThemedCheckboxWrapper.defaultProps = {
-    mode: "inline",
+    mode: "stacked",
 };
 
 export default ThemedCheckboxWrapper;

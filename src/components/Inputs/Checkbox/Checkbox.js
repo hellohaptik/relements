@@ -7,6 +7,7 @@ import { Label } from "../_common/Label";
 import { useCheckbox } from "./hooks/useCheckbox";
 
 import ThemedCheckboxWrapper from "./ThemedCheckbox/ThemedCheckboxWrapper";
+import ThemedCheckboxItem from "./ThemedCheckbox/ThemedCheckboxItem";
 
 const Checkbox = props => {
   const {
@@ -32,7 +33,7 @@ const Checkbox = props => {
       <ThemedCheckboxWrapper {...checkboxProps}>
         {props.options.map((option, i) => {
           return (
-            <CheckboxOption
+            <ThemedCheckboxItem
               value={activeIndexes.includes(i)}
               onChange={handleChange(i)}
               label={option.title}
@@ -98,6 +99,7 @@ Checkbox.propTypes = {
   options: PropTypes.array,
   /** If the input is disabled (non-editable) */
   disabled: PropTypes.bool,
+  /** Mode to align checkboxes vertically or horizontally */
   mode: PropTypes.string,
   themed: PropTypes.bool,
 };
@@ -112,7 +114,7 @@ Checkbox.defaultProps = {
   prefixClassName: "",
   options: [],
   disabled: false,
-  mode: "inline",
+  mode: "stacked",
   themed: false,
 };
 

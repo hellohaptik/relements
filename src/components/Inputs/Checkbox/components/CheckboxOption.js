@@ -6,23 +6,29 @@ import Context from "@src/components/Context";
 import Icon from "@src/components/UI/Icon";
 import TickIcon from "@src/icons/checkmark.svg";
 
-import Text from "@src/components/UI/Text";
-
 import { colors } from "@src/Theme/colors";
+import ThemedCheckboxItem from "../ThemedCheckbox/ThemedCheckboxItem";
+
 
 import styles from "./CheckboxOption.scss";
 
-const CheckboxOption = ({
-  label,
-  onChange,
-  value,
-  innerRef,
-  className,
-  prefixClassName,
-  disabled,
-  themed,
-  mode,
-}) => {
+const CheckboxOption = props => {
+
+  const {
+    label,
+    onChange,
+    value,
+    innerRef,
+    className,
+    prefixClassName,
+    disabled,
+    themed,
+  } = props;
+
+  if(props.themed){
+    return <ThemedCheckboxItem  {...props} />
+  }
+
   const { primaryColor } = React.useContext(Context);
   const classNames = {
     main: cc([
@@ -67,18 +73,13 @@ const CheckboxOption = ({
       data-testid="checkbox-item"
       className={classNames.main}
       onClick={e => onChange(!value, e)}
-      style={mode === "stacked" ? { marginBottom: 12 } : null}
     >
       <div style={colorStyles.box} className={classNames.box}>
         <Icon className={classNames.boxIcon} src={TickIcon} />
       </div>
-      {themed ? (
-        <Text variant="body.md">{label}</Text>
-      ) : (
-        <span style={colorStyles.label} className={classNames.label}>
-          {label}
-        </span>
-      )}
+      <span style={colorStyles.label} className={classNames.label}>
+        {label}
+      </span>
     </div>
   );
 };
