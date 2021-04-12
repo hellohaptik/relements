@@ -156,7 +156,11 @@ export const TextInput = ({
               tabIndex="0"
             >
               {prefixComponent}
-              <ThemedTextInput {...defaultInputProps} data-testid="inputText" />
+              <ThemedTextInput
+                {...defaultInputProps}
+                data-testid="inputText"
+                ref={handleRef}
+              />
               {postfixComponent}
             </ThemedTextInputWrapper>
           );
