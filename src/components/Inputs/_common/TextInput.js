@@ -104,6 +104,10 @@ export const TextInput = ({
       let renderElement = null;
       let mode = null;
       let inputWrapperMode = "default";
+      const isDropdown =
+        variant === "dropdown" ||
+        variant === "dropdownActive" ||
+        variant === "dropdownActiveTop";
 
       if (disabled) {
         mode = "disabled";
@@ -113,11 +117,7 @@ export const TextInput = ({
         mode = "error";
       }
 
-      if (
-        variant === "dropdown" ||
-        variant === "dropdownActive" ||
-        variant === "dropdownActiveTop"
-      ) {
+      if (isDropdown) {
         inputWrapperMode = "dropdown";
       }
 
@@ -125,39 +125,54 @@ export const TextInput = ({
         inputWrapperMode = "label";
       }
 
-      const inputProps = {
-        onFocus,
-        onBlur,
-        onMouseDown,
-        onKeyDown,
+      const defaultInputProps = {
         disabled: disabled || !editable,
         value: textValue,
         onChange: handleChange,
         placeholder: placeholder || "type here...",
         type: "text",
-        ref:
-          variant === "dropdown" ||
-          variant === "dropdownActive" ||
-          variant === "dropdownActiveTop"
-            ? innerRef
-            : handleRef,
+        ref: isDropdown ? innerRef : handleRef,
         variant,
         mode,
         style,
       };
 
+      const additionalInputProps = {
+        onFocus,
+        onBlur,
+        onMouseDown,
+        onKeyDown,
+      };
+
+      const allInputProps = { ...defaultInputProps, ...additionalInputProps };
+
       if (!multiline) {
-        renderElement = (
-          <ThemedTextInputWrapper mode={inputWrapperMode}>
-            {prefixComponent}
-            <ThemedTextInput {...inputProps} data-testid="inputText" />
-            {postfixComponent}
-          </ThemedTextInputWrapper>
-        );
+        if (isDropdown) {
+          renderElement = (
+            <ThemedTextInputWrapper
+              mode={inputWrapperMode}
+              {...additionalInputProps}
+              ref={innerRef}
+              tabIndex="0"
+            >
+              {prefixComponent}
+              <ThemedTextInput {...defaultInputProps} data-testid="inputText" />
+              {postfixComponent}
+            </ThemedTextInputWrapper>
+          );
+        } else {
+          renderElement = (
+            <ThemedTextInputWrapper mode={inputWrapperMode}>
+              {prefixComponent}
+              <ThemedTextInput {...allInputProps} data-testid="inputText" />
+              {postfixComponent}
+            </ThemedTextInputWrapper>
+          );
+        }
       } else {
         renderElement = (
           <ThemedTextarea
-            {...inputProps}
+            {...allInputProps}
             ref={handleRef}
             mode={label || error ? "label" : "default"}
           />

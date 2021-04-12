@@ -29,4 +29,12 @@ export const chipWrapperVariants = {
     borderBottomRightRadius: radii.xs - radii.xs,
     borderBottomLeftRadius: radii.xs - radii.xs,
   },
+  dropdownActiveTop: {
+    marginTop: space.sm,
+    paddingRight: space.lg + space.md + space.md,
+    borderColor: colors.blue.dark,
+    borderTopColor: "transparent",
+    borderTopRightRadius: radii.xs - radii.xs,
+    borderTopLeftRadius: radii.xs - radii.xs,
+  },
 };

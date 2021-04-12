@@ -47,6 +47,7 @@ const Options = ({
 }) => {
   const { visible, enabled } = useActivify(focused);
   const { primaryColor } = React.useContext(Context);
+  const [dropdownContainerRect, setDropdownContainerRect] = React.useState(0);
 
   // A ref to store all the DOM elements for all the options
   const dropdownDOMs = React.useRef();
@@ -82,7 +83,11 @@ const Options = ({
     dropdownDOMs.current = new Array(options.length)
       .fill(0)
       .map(() => React.createRef());
-  }, [options.length]);
+
+    // Refresh the rect dimensions whenever there are changes in options
+    const rect = attachTo.current && attachTo.current.getBoundingClientRect();
+    setDropdownContainerRect(rect);
+  }, [options.length, options, attachTo.current]);
 
   /* Dropdown options scrollIntoView useEffect
    * whenever the highlightIndex changes
@@ -118,18 +123,23 @@ const Options = ({
 
   if (!enabled) return null;
 
-  const rect = attachTo.current && attachTo.current.getBoundingClientRect();
+  const getPosition = () => {
+    return {
+      top: isReversed
+        ? undefined
+        : dropdownContainerRect.bottom + window.scrollY,
+      bottom: isReversed
+        ? window.innerHeight - dropdownContainerRect.top - window.scrollY - 1
+        : undefined,
+      left: dropdownContainerRect.left,
+      width: dropdownContainerRect.width,
+    };
+  };
+
   // based on if the dropdown options should show above (isReversed) or below
   // the input, we assign positional properties that will be applied to the outermost
   // options div.
-  const position = {
-    top: isReversed ? undefined : rect.bottom + window.scrollY,
-    bottom: isReversed
-      ? window.innerHeight - rect.top - window.scrollY - 1
-      : undefined,
-    left: rect.left,
-    width: rect.width,
-  };
+  const position = getPosition();
 
   let checkboxWrapperVariant;
 

@@ -22,6 +22,12 @@ export const dropdownOptionModes = {
   },
 };
 
+export const dropdownOptionVariant = {
+  selected: {
+    background: colors.blue.pastel,
+  },
+};
+
 export const dropdownOptionsVariant = {
   withCheckbox: {
     overflow: "initial",

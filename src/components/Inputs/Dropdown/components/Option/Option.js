@@ -45,6 +45,9 @@ const Option = ({
           onClick={!isZeroState ? onClick : null}
           data-testid="dropdown-option"
           mode={optionMode}
+          variant={
+            selected && children !== noOptionsText ? "selected" : "default"
+          }
         >
           <Text
             variant="body.md"

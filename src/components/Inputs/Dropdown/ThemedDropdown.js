@@ -44,6 +44,15 @@ const DropdownOptionMode = variant({
   },
 });
 
+const DropdownOptionVariant = variant({
+  prop: "variant",
+  scale: "dropdownOptionVariant",
+  variants: {
+    default: {},
+    selected: {},
+  },
+});
+
 const DropdownWithCheckboxVariant = variant({
   prop: "variant",
   scale: "dropdownWithCheckboxInputVariants",
@@ -122,6 +131,9 @@ const withCheckboxInputStyle = props => {
 
   return {
     marginTop: 8,
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
     ...inputStyles,
   };
 };
@@ -209,6 +221,7 @@ const DropdownOption = styled("div")(
   border,
   typography,
   DropdownOptionMode,
+  DropdownOptionVariant,
 );
 
 const DropdownWithCheckboxInput = styled("div")(

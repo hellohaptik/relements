@@ -60,6 +60,7 @@ const inputStyle = props => {
 
 const inputWrapperStyle = {
   position: "relative",
+  outline: "none",
 };
 
 const ThemedTextInputWrapper = styled(Box)(
