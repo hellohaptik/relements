@@ -19,6 +19,10 @@ export const tableSpace = {
     px: "sm",
     py: "xs",
   },
+  sparse: {
+    px: "md",
+    py: "lg",
+  },
 };
 
 export const tableRowBackground = {
