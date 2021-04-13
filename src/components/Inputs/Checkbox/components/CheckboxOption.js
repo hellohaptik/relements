@@ -6,9 +6,7 @@ import Context from "@src/components/Context";
 import Icon from "@src/components/UI/Icon";
 import TickIcon from "@src/icons/checkmark.svg";
 
-import { colors } from "@src/Theme/colors";
 import ThemedCheckboxItem from "../ThemedCheckbox/ThemedCheckboxItem";
-
 
 import styles from "./CheckboxOption.scss";
 
@@ -22,7 +20,6 @@ const CheckboxOption = props => {
     className,
     prefixClassName,
     disabled,
-    themed,
   } = props;
 
   if(props.themed){
@@ -51,20 +48,15 @@ const CheckboxOption = props => {
   const colorStyles = {
     box: value
       ? {
-          background: themed ? (disabled ? colors.grey.deep : colors.blue.dark) : primaryColor,
-          borderColor: themed ? (disabled ? colors.grey.deep : colors.blue.dark) : primaryColor,
+          background: primaryColor,
+          borderColor: primaryColor,
         }
-      : {
-          background: themed ? colors.background : null,
-          borderColor: themed ? (disabled ? colors.grey.deep : colors.blue.dark) : null,
-        },
+      : {},
     label: value
       ? {
-          color: themed ? (disabled ? colors.grey.deep : colors.grey.dark) : primaryColor,
+          color: primaryColor,
         }
-      : {
-          color: themed ? colors.grey.deep : null,
-        },
+      : {},
   };
 
   return (
@@ -99,7 +91,6 @@ CheckboxOption.propTypes = {
   prefixClassName: PropTypes.string,
   /** Whether the input is enabled or disabled */
   disabled: PropTypes.string,
-  mode: PropTypes.string,
   themed: PropTypes.bool,
 };
 
@@ -111,7 +102,6 @@ CheckboxOption.defaultProps = {
   innerRef: () => {},
   prefixClassName: "",
   disabled: false,
-  mode: "inline",
   themed: false,
 };
 
