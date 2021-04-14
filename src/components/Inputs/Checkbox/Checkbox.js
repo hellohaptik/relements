@@ -85,16 +85,18 @@ Checkbox.propTypes = {
   className: PropTypes.string,
   /** The hint text that shows up below the label */
   hint: PropTypes.string,
-  /** The value of the input */
-  value: PropTypes.string,
   /** Label text */
   label: PropTypes.string,
   /** If the input has an error. */
   error: PropTypes.bool,
-  /** onChange callback */
-  onChange: PropTypes.func,
   /** The prefix classname appended to all elements */
   prefixClassName: PropTypes.string,
+
+  // Themed props
+  /** onChange callback */
+  onChange: PropTypes.func,
+  /** The value of the input */
+  value: PropTypes.string,
   /** Array of options (checkboxes) */
   options: PropTypes.array,
   /** If the input is disabled (non-editable) */

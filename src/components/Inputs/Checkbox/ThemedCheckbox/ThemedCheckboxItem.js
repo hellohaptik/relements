@@ -1,37 +1,61 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Icon from "@src/components/UI/Icon";
-
 import styled from "styled-components";
-
+import variant from "@styled-system/variant";
 import { colors } from "@src/Theme/colors";
 import Text from "@src/components/UI/Text";
+import Box from "@src/components/UI/Box";
 
 import TickIcon from "@src/icons/checkmark.svg";
 
-const ThemedCheckboxItemWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  margin-right: 24px;
-  cursor: ${props => !props.disabled && 'pointer'};
-  margin-bottom: ${props => (props.mode === "stacked" ? "12px" : "0px")};
-  pointer-events: ${props => props.disabled && 'none'};
-`;
+const checkboxWrapperItem = variant({
+  prop: "mode",
+  scale: "checkboxItemWrapperModes",
+  variants: {
+    inline: {},
+  },
+});
 
-const iff = (condition, then, otherwise) => condition ? then : otherwise;
+// Non customizable CSS props
+const checkboxItemStyle = props => ({
+  alignItems: "center",
+  cursor: !props.disabled && "pointer",
+  pointerEvents: props.disabled && "none",
+  "&:last-child": {
+    marginBottom: 0,
+  },
+});
 
-const ThemedCheckbox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s ease-out;
-  background-color: ${props => props.value ? iff(props.disabled, colors.grey.deep, colors.blue.dark) : colors.background};
-  border: 1px solid ${props => (props.disabled ? colors.grey.deep : colors.blue.dark)};
-  width: 18px;
-  height: 18px;
-  margin-right: 8px;
-  border-radius: 4px;
-`;
+const ThemedCheckboxItemWrapper = styled(Box)(
+  checkboxItemStyle,
+  checkboxWrapperItem,
+);
+
+const iff = (condition, then, otherwise) => (condition ? then : otherwise);
+
+const checkboxItem = variant({
+  scale: "checkboxVariants",
+  variants: {},
+});
+
+// Non customizable CSS props
+const checkboxStyle = props => ({
+  justifyContent: "center",
+  alignItems: "center",
+  transition: "background-color 0.2s ease-out",
+  backgroundColor: props.value
+    ? iff(props.disabled, colors.grey.deep, colors.blue.dark)
+    : colors.background,
+  width: 18,
+  height: 18,
+  marginRight: props.theme.space.sm,
+  borderRadius: props.theme.space.xs,
+  borderWidth: props.theme.borderWidths.xs,
+  padding: 0,
+});
+
+const ThemedCheckbox = styled(Box)(checkboxStyle, checkboxItem);
 
 const ThemedCheckboxIcon = styled(Icon)`
   width: 16px;
@@ -49,7 +73,11 @@ const ThemedCheckboxItem = props => {
   const { label, onChange, value, disabled, mode } = props;
 
   return (
-    <ThemedCheckboxItemWrapper disabled={disabled} mode={mode} onClick={e => onChange(!value, e)}>
+    <ThemedCheckboxItemWrapper
+      disabled={disabled}
+      mode={mode}
+      onClick={e => onChange(!value, e)}
+    >
       <ThemedCheckbox disabled={disabled} value={value}>
         <ThemedCheckboxIcon value={value} src={TickIcon} />
       </ThemedCheckbox>

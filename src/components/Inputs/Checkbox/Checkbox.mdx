@@ -1,29 +1,15 @@
 import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
 import Checkbox from "./Checkbox";
 
-# Checkbox
+# Themed Checkbox
 
 > An input element that helps gather multiple options (The user can usually select more than one option at a time.)
 
-<CodeBlock defaultValue={[{ title: "Good Node" }]}>
-  {(value, onChange) => (
-    <Checkbox
-      label="Node Type"
-      value={value}
-      onChange={onChange}
-      options={[{ title: "Good Node" }, { title: "Bad Node" }]}
-    />
-  )}
-</CodeBlock>
-
-# Themed Checkbox
-
-## Themed Checkbox Stacked
+## Checkbox Stacked
 
 <CodeBlock defaultValue={[{ title: "Good Node" }]}>
   {(value, onChange) => (
     <Checkbox
-      label="Node Type"
       value={value}
       onChange={onChange}
       themed
@@ -33,12 +19,11 @@ import Checkbox from "./Checkbox";
   )}
 </CodeBlock>
 
-## Themed Checkbox Inline
+## Checkbox Inline
 
 <CodeBlock defaultValue={[{ title: "Good Node" }]}>
   {(value, onChange) => (
     <Checkbox
-      label="Node Type"
       value={value}
       onChange={onChange}
       themed
@@ -48,49 +33,30 @@ import Checkbox from "./Checkbox";
   )}
 </CodeBlock>
 
-## Configuration
-
-<ConfigBlock of={Checkbox} />
-
 ## Examples
 
 <CodeBlock title="Multiple Options" defaultValue={[{ title: "Good Node" }]}>
   {(value, onChange) => (
     <Checkbox
-      label="Node Type"
       value={value}
       onChange={onChange}
+      themed
       options={[
-        { title: "Good Node" },
-        { title: "Bad Node" },
-        { title: "Awesome Node" },
+        { title: "React" },
+        { title: "Angular" },
+        { title: "Vue" },
+        { title: "Svelte" },
       ]}
     />
   )}
 </CodeBlock>
 
-<CodeBlock title="With Hint Text" defaultValue={[{ title: "Radiohead" }]}>
-  {(value, onChange) => (
+<CodeBlock title="OnChange Option" defaultValue={[{ title: "React" }]}>
+  {(value) => (
     <Checkbox
-      label="Bands you like?"
       value={value}
-      onChange={onChange}
-      hint="Hi this is the hint text"
-      options={[{ title: "Metallica" }, { title: "Radiohead" }]}
-    />
-  )}
-</CodeBlock>
-
-<CodeBlock
-  title="With Error"
-  defaultValue={[{ title: "React" }, { title: "Svelte" }]}
->
-  {(value, onChange) => (
-    <Checkbox
-      label="Frontend"
-      value={value}
-      onChange={onChange}
-      error="Hi this is an error"
+      onChange={(res) => alert('changed : '+JSON.stringify(res))}
+      themed
       options={[
         { title: "React" },
         { title: "Angular" },
@@ -104,40 +70,11 @@ import Checkbox from "./Checkbox";
 <CodeBlock title="Disabled" defaultValue={[{ title: "F&B" }]}>
   {(value, onChange) => (
     <Checkbox
-      label="Businesses"
-      value={value}
-      onChange={onChange}
-      disabled
-      options={[{ title: "Tech" }, { title: "F&B" }, { title: "Finance" }]}
-    />
-  )}
-</CodeBlock>
-
-<CodeBlock title="Disabled Themed" defaultValue={[{ title: "F&B" }]}>
-  {(value, onChange) => (
-    <Checkbox
-      label="Businesses"
       value={value}
       onChange={onChange}
       disabled
       themed
       options={[{ title: "Tech" }, { title: "F&B" }, { title: "Finance" }]}
-    />
-  )}
-</CodeBlock>
-
-<CodeBlock title="Tooltip" defaultValue={[{ title: "Good Node" }]}>
-  {(value, onChange) => (
-    <Checkbox
-      label="Node Type"
-      value={value}
-      onChange={onChange}
-      tooltip="Hi this is a tooltip"
-      options={[
-        { title: "Good Node" },
-        { title: "Bad Node" },
-        { title: "Awesome Node" },
-      ]}
     />
   )}
 </CodeBlock>

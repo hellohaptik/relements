@@ -1,22 +1,19 @@
 import styled from "styled-components";
 import variant from "@styled-system/variant";
+import Box from "@src/components/UI/Box";
 
 const CheckboxWrapperMode = variant({
-    prop: "mode",
-    variants: {
-      inline: {},
-      stacked: {},
-    },
+  prop: "mode",
+  scale: "checkboxWrapperModes",
+  variants: {
+    stacked: {},
+  },
 });
 
-const style = props => ({
-    display: props.mode === 'stacked' ? 'block' : 'flex',
-});
-
-const ThemedCheckboxWrapper= styled('div')(style,CheckboxWrapperMode);
+const ThemedCheckboxWrapper = styled(Box)(CheckboxWrapperMode);
 
 ThemedCheckboxWrapper.defaultProps = {
-    mode: "stacked",
+  mode: "stacked",
 };
 
 export default ThemedCheckboxWrapper;

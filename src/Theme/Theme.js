@@ -10,6 +10,7 @@ import * as textTheme from "./text";
 import * as buttonTheme from "./button";
 import * as tableTheme from "./table";
 import * as tooltipTheme from "./tooltip";
+import * as checkboxTheme from "./checkbox";
 
 export const Theme = {
   space,
@@ -24,4 +25,5 @@ export const Theme = {
   ...tableTheme,
   ...textTheme,
   ...tooltipTheme,
+  ...checkboxTheme,
 };
