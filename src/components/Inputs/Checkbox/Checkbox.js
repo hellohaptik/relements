@@ -27,7 +27,7 @@ const Checkbox = props => {
   if (props.themed) {
     const checkboxProps = {
       ...props,
-      "data-testid": "themedCheckbox",
+      "data-testid": "checkbox",
     };
     return (
       <ThemedCheckboxWrapper {...checkboxProps}>

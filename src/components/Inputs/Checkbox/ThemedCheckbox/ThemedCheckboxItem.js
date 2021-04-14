@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import Icon from "@src/components/UI/Icon";
 import styled from "styled-components";
 import variant from "@styled-system/variant";
-import { colors } from "@src/Theme/colors";
 import Text from "@src/components/UI/Text";
 import Box from "@src/components/UI/Box";
 
@@ -45,8 +44,12 @@ const checkboxStyle = props => ({
   alignItems: "center",
   transition: "background-color 0.2s ease-out",
   backgroundColor: props.value
-    ? iff(props.disabled, colors.grey.deep, colors.blue.dark)
-    : colors.background,
+    ? iff(
+        props.disabled,
+        props.theme.colors.grey.deep,
+        props.theme.colors.blue.dark,
+      )
+    : props.theme.colors.background,
   width: 18,
   height: 18,
   marginRight: props.theme.space.sm,
