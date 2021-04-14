@@ -1,7 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Context from "@src/components/Context";
+import Text from "@src/components/UI/Text";
 import { rgba } from "@src/utils/generic";
+
+import { DropdownOption } from "../../ThemedDropdown";
 
 import styles from "./Option.scss";
 
@@ -13,6 +16,9 @@ const Option = ({
   className,
   isZeroState,
   isNew,
+  themed,
+  noOptionsText,
+  checkboxSearch,
 }) => {
   const { primaryColor } = React.useContext(Context);
   const dropdownOptionSelectedStyle = selected
@@ -22,21 +28,54 @@ const Option = ({
   const selectedClassName = selected ? `${className}-selected` : "";
   const zeroStateClassName = isZeroState ? styles.zeroState : "";
   const isNewClassName = isNew ? styles.isNew : "";
-  return (
-    <div
-      ref={innerRef}
-      style={dropdownOptionSelectedStyle}
-      className={`${styles.dropdownOption} ${className} ${selectedClassName} ${zeroStateClassName} ${isNewClassName}`}
-      onClick={!isZeroState ? onClick : null}
-      data-testid="dropdown-option"
-    >
-      <span
-        style={dropdownOptionTextStyle}
-        className={`${styles.dropdownOptionText}`}
-        dangerouslySetInnerHTML={{ __html: children }}
-      />
-    </div>
-  );
+  let optionMode = "default";
+
+  const renderOption = () => {
+    if (themed) {
+      if (children === noOptionsText) {
+        if (checkboxSearch) {
+          optionMode = "disabledWithCheckboxSearch";
+        } else {
+          optionMode = "disabled";
+        }
+      }
+      return (
+        <DropdownOption
+          ref={innerRef}
+          onClick={!isZeroState ? onClick : null}
+          data-testid="dropdown-option"
+          mode={optionMode}
+          variant={
+            selected && children !== noOptionsText ? "selected" : "default"
+          }
+        >
+          <Text
+            variant="body.md"
+            color={children === noOptionsText && "red.haptik"}
+          >
+            {children}
+          </Text>
+        </DropdownOption>
+      );
+    }
+    return (
+      <div
+        ref={innerRef}
+        style={dropdownOptionSelectedStyle}
+        className={`${styles.dropdownOption} ${className} ${selectedClassName} ${zeroStateClassName} ${isNewClassName}`}
+        onClick={!isZeroState ? onClick : null}
+        data-testid="dropdown-option"
+      >
+        <span
+          style={dropdownOptionTextStyle}
+          className={`${styles.dropdownOptionText}`}
+          dangerouslySetInnerHTML={{ __html: children }}
+        />
+      </div>
+    );
+  };
+
+  return renderOption();
 };
 
 Option.propTypes = {
@@ -47,6 +86,8 @@ Option.propTypes = {
   isZeroState: PropTypes.bool,
   onClick: PropTypes.func,
   selected: PropTypes.bool,
+  themed: PropTypes.bool,
+  noOptionsText: PropTypes.string,
 };
 
 Option.defaultProps = {
@@ -57,6 +98,8 @@ Option.defaultProps = {
   isNew: false,
   isZeroState: false,
   selected: false,
+  themed: false,
+  noOptionsText: "",
 };
 
 export default Option;

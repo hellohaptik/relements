@@ -3,8 +3,15 @@ import AutosizeInput from "react-input-autosize";
 import PropTypes from "prop-types";
 import Context from "@src/components/Context";
 import Icon from "@src/components/UI/Icon";
+import Text from "@src/components/UI/Text";
 import CrossIcon from "@src/icons/close.svg";
+import CloseV3Icon from "@src/icons/closeV3.svg";
 
+import {
+  ThemedChipsInputWrapper,
+  ThemedChipsContainer,
+  ThemedChip,
+} from "./ThemedChipsInput";
 import styles from "./ChipsInput.scss";
 import { useChips } from "./hooks/useChips";
 
@@ -28,6 +35,8 @@ export const ChipsInput = ({
   optionKey = "text",
   prefixClassName = "",
   typeValue = "",
+  themed = false,
+  variant = "default",
 }) => {
   const { primaryColor } = React.useContext(Context);
   const focusedClassNameString = focused ? "focused" : "";
@@ -59,10 +68,15 @@ export const ChipsInput = ({
   });
 
   const renderInput = () => {
+    // Since an external plugin is used here, we are adding a class for themed chips input
+    const className = !themed
+      ? `${styles.newChip} ${prefixClassName}-input`
+      : `${styles.themedNewChip} ${value.length > 0 &&
+          styles.themedNewChipAdded}`;
     return (
       <AutosizeInput
         ref={inputRef}
-        inputClassName={`${styles.newChip} ${prefixClassName}-input`}
+        inputClassName={className}
         onKeyDown={handleKeyDown}
         onChange={handleChange}
         value={inputValue}
@@ -73,6 +87,19 @@ export const ChipsInput = ({
 
   const renderChip = (chip, i) => {
     const title = typeof chip === "object" ? chip[optionKey] : chip;
+
+    if (themed) {
+      return (
+        <ThemedChip key={i}>
+          <Text variant="body.md">{title}</Text>
+          {!disabled && (
+            <div onMouseDown={handleDelete(i)} style={{ marginLeft: 8 }}>
+              <Icon src={CloseV3Icon} size={Icon.SIZES.SMALL} />
+            </div>
+          )}
+        </ThemedChip>
+      );
+    }
     return (
       <div key={i} className={`${styles.chip} ${prefixClassName}-chip`}>
         {title}
@@ -95,24 +122,50 @@ export const ChipsInput = ({
     setInputValue(typeValue);
   }, [typeValue]);
 
-  return (
-    <div
-      tabIndex="-1"
-      ref={innerRef}
-      style={focusedStyle}
-      className={`${styles.chips} ${prefixClassName} ${errorClassName} ${className} ${focusedClassNameString}`}
-      onFocus={onFocus}
-      onBlur={onBlur}
-      onMouseDown={onMouseDown}
-    >
-      {prefixComponent}
-      <div className={`${styles.chipsTrack} ${prefixClassName}-chips`}>
-        {value.length > 0 ? value.map(renderChip) : null}
-        {!disabled ? renderInput() : null}
+  const renderChipsInput = () => {
+    if (themed) {
+      const chipsPresent = value.length > 0;
+
+      return (
+        <ThemedChipsInputWrapper
+          tabIndex="-1"
+          ref={innerRef}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          onMouseDown={onMouseDown}
+          variant={variant}
+          mode={chipsPresent ? "chipAdded" : "default"}
+        >
+          {prefixComponent}
+          <ThemedChipsContainer>
+            {chipsPresent ? value.map(renderChip) : null}
+            {!disabled ? renderInput() : null}
+          </ThemedChipsContainer>
+          {postfixComponent}
+        </ThemedChipsInputWrapper>
+      );
+    }
+    return (
+      <div
+        tabIndex="-1"
+        ref={innerRef}
+        style={focusedStyle}
+        className={`${styles.chips} ${prefixClassName} ${errorClassName} ${className} ${focusedClassNameString}`}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onMouseDown={onMouseDown}
+      >
+        {prefixComponent}
+        <div className={`${styles.chipsTrack} ${prefixClassName}-chips`}>
+          {value.length > 0 ? value.map(renderChip) : null}
+          {!disabled ? renderInput() : null}
+        </div>
+        {postfixComponent}
       </div>
-      {postfixComponent}
-    </div>
-  );
+    );
+  };
+
+  return renderChipsInput();
 };
 
 ChipsInput.propTypes = {
@@ -135,4 +188,6 @@ ChipsInput.propTypes = {
   postfixComponent: PropTypes.node,
   prefixClassName: PropTypes.string,
   typeValue: PropTypes.string,
+  themed: PropTypes.bool,
+  variant: PropTypes.string,
 };

@@ -23,6 +23,8 @@ const Text = ({
   disabled,
   multiline,
   innerRef,
+  themed,
+  style,
 }) => {
   const _TextInputDOM = useRef();
   const { focused, setFocused, handleFocus, handleBlur } = useInput(
@@ -50,6 +52,7 @@ const Text = ({
         className={`${styles.dropdownLabel} ${prefixClassName}-label`}
         disabled={disabled}
         tooltip={tooltip}
+        themed={themed}
       >
         <span data-testid="labelText">{label}</span>
       </Label>
@@ -69,6 +72,9 @@ const Text = ({
         disabled={disabled}
         error={error}
         multiline={multiline}
+        themed={themed}
+        label={label}
+        style={style}
       />
     </div>
   );
@@ -103,6 +109,10 @@ Text.propTypes = {
   multiline: PropTypes.bool,
   /** Passing Ref for input field reference */
   innerRef: PropTypes.func,
+  /** Flag to determine if text input is themed */
+  themed: PropTypes.bool,
+  /** Overrides styles of the core input element */
+  style: PropTypes.object,
 };
 
 Text.defaultProps = {
@@ -119,6 +129,8 @@ Text.defaultProps = {
   onBlur: () => {},
   onKeyDown: () => {},
   innerRef: () => {},
+  themed: false,
+  style: {},
 };
 
 Text.classNames = {

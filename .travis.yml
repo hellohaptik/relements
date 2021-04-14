@@ -40,8 +40,8 @@ jobs:
       deploy:
         skip_cleanup: true
         provider: npm
-        email: "pratham.agrawal92@gmail.com"
-        api_key: $NPM_TOKEN
+        email: "gopal.ojha.1989@gmail.com"
+        api_key: $NPM_AUTOMATION_TOKEN
         tag: next
         on:
           branch: develop
@@ -50,7 +50,7 @@ jobs:
       deploy:
         provider: pages
         skip-cleanup: true
-        github-token: $GITHUB_TOKEN
+        github-token: $GH_TOKEN
         local_dir: storybook-static
         repo: hellohaptik/relements
         target_branch: gh-pages
@@ -82,8 +82,8 @@ jobs:
       deploy:
         skip_cleanup: true
         provider: npm
-        email: "pratham.agrawal92@gmail.com"
-        api_key: $NPM_TOKEN
+        email: "gopal.ojha.1989@gmail.com"
+        api_key: $NPM_AUTOMATION_TOKEN
         edge: true
         on:
           branch: master
@@ -92,7 +92,7 @@ jobs:
       deploy:
         provider: pages
         skip-cleanup: true
-        github-token: $GITHUB_TOKEN
+        github-token: $GH_TOKEN
         local_dir: storybook-static
         repo: hellohaptik/relements
         target_branch: gh-pages
