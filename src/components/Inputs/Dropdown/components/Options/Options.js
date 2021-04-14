@@ -132,11 +132,10 @@ const Options = ({
   };
 
   React.useEffect(() => {
-    if (themed && focused) {
+    themed &&
+      focused &&
       window.addEventListener("scroll", handleScroll, { passive: true });
-    } else {
-      window.removeEventListener("scroll", handleScroll);
-    }
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [themed, focused]);
 
   if (!enabled) return null;
