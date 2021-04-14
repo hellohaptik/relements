@@ -1,27 +1,17 @@
 import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
 import Checkbox from "./Checkbox";
 
-# Checkbox.Item
+# Checkbox.Item Themed
 
 > A clickable UI element with active and hover states. Indicates to the user that it's clickable.
 
 <CodeBlock defaultValue={true}>
   {(value, onChange) => (
-    <Checkbox.Item label="Node Type" value={value} onChange={onChange} />
+    <Checkbox.Item themed label="Node Type" value={value} onChange={onChange} />
   )}
 </CodeBlock>
-
-## Configuration
-
-<ConfigBlock of={Checkbox.Item} />
 
 ## Examples
-
-<CodeBlock title="Default" defaultValue={false}>
-  {(value, onChange) => (
-    <Checkbox.Item label="Node Type" value={value} onChange={onChange} />
-  )}
-</CodeBlock>
 
 <CodeBlock title="Disabled" defaultValue={false}>
   {(value, onChange) => (
@@ -29,7 +19,34 @@ import Checkbox from "./Checkbox";
       label="Node Type"
       value={value}
       onChange={onChange}
+      themed
       disabled
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock title="Disabled checked" defaultValue={true}>
+  {(value, onChange) => (
+    <Checkbox.Item
+      label="Node Type"
+      value={value}
+      onChange={onChange}
+      themed
+      disabled
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock title="OnChange Callback" defaultValue={false}>
+  {(value, onChange) => (
+    <Checkbox.Item
+      label="Node Type"
+      value={value}
+      onChange={(result) => {
+        alert(JSON.stringify(result));
+        onChange(result)}
+      }
+      themed
     />
   )}
 </CodeBlock>
