@@ -41,8 +41,8 @@ const WithCheckboxInput = ({
         }
       }
       return (
-        <DropdownWrapper ref={innerRef}>
-          <DropdownWithCheckboxInput ref={innerRef} variant={dropdownVariant}>
+        <DropdownWrapper ref={innerRef} data-testid="dropdownCheckboxWrapper">
+          <DropdownWithCheckboxInput variant={dropdownVariant}>
             {value.map(valueObject => valueObject[optionKey]).join(", ") ||
               "Nothing selected."}
             {tooltip ? (

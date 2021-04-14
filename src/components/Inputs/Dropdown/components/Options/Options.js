@@ -74,6 +74,12 @@ const Options = ({
     : {};
   const reverseModeClassName = isReversed ? styles.reverse : "";
 
+  // Calculates Rect dimensions of attachTo Ref
+  const calcRect = () => {
+    const rect = attachTo.current && attachTo.current.getBoundingClientRect();
+    setDropdownContainerRect(rect);
+  };
+
   /* Dropdown refs useEffect
    * whenever the options change
    * we create n refs where n is the number of options
@@ -85,9 +91,8 @@ const Options = ({
       .map(() => React.createRef());
 
     // Refresh the rect dimensions whenever there are changes in options
-    const rect = attachTo.current && attachTo.current.getBoundingClientRect();
-    setDropdownContainerRect(rect);
-  }, [options.length, options, attachTo.current]);
+    calcRect();
+  }, [options.length, options, highlightIndex, attachTo.current]);
 
   /* Dropdown options scrollIntoView useEffect
    * whenever the highlightIndex changes
@@ -120,6 +125,19 @@ const Options = ({
       containerDOM.scrollTop = elemOffset;
     }
   }, [highlightIndex]);
+
+  const handleScroll = () => {
+    // Refresh the rect dimensions whenever user scrolls the page
+    calcRect();
+  };
+
+  React.useEffect(() => {
+    if (themed && focused) {
+      window.addEventListener("scroll", handleScroll, { passive: true });
+    } else {
+      window.removeEventListener("scroll", handleScroll);
+    }
+  }, [themed, focused]);
 
   if (!enabled) return null;
 

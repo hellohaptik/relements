@@ -121,7 +121,7 @@ const optionStyle = props => ({
   cursor: "pointer",
   transition: "background 0.3s ease",
   "&:hover": {
-    background: props.theme.colors.blue.pastel,
+    background: `${props.theme.colors.blue.pastel}50`,
   },
 });
 
