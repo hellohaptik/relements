@@ -1,3 +1,8 @@
+import React from "react";
+
+import Text from "@src/components/UI/Text";
+import { DropdownCreateText } from "../ThemedDropdown";
+
 /**
  * getOptions takes some input props and returns
  * the list of options to be rendered by the dropdown component
@@ -21,6 +26,7 @@ export default function getOptions({
   text,
   withCheckbox = false,
   withMultiple = false,
+  themed,
 }) {
   const isUsingCheckbox = withCheckbox && withMultiple;
   // ===first===
@@ -50,7 +56,14 @@ export default function getOptions({
   if (withCreate && !flatOptions.includes(text) && text.trim()) {
     filteredOptions = [
       {
-        label: `${createPrefix} <strong>${text}</strong>`,
+        label: !themed ? (
+          `${createPrefix} <strong>${text}</strong>`
+        ) : (
+          <>
+            <DropdownCreateText>{createPrefix}</DropdownCreateText>
+            <Text variant="h4.semi-bold">{text}</Text>
+          </>
+        ),
         value: { [optionKey]: text, type: "CREATE" },
         isNew: true,
       },
