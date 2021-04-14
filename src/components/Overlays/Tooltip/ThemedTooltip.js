@@ -58,7 +58,7 @@ const ArrowPositionVariant = variant({
 const wrapperStyle = {
   position: "absolute",
   pointerEvents: "auto",
-  zIndex: 2,
+  zIndex: 1099999999999,
   borderRadius: 8,
   outline: "none",
   filter: "drop-shadow(rgba(0, 0, 0, 0.2) 3px 0px 12px)",
