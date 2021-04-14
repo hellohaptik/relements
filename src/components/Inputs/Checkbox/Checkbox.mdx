@@ -51,11 +51,14 @@ import Checkbox from "./Checkbox";
   )}
 </CodeBlock>
 
-<CodeBlock title="OnChange Option" defaultValue={[{ title: "React" }]}>
+<CodeBlock title="OnChange Callback" defaultValue={[{ title: "React" }]}>
   {(value) => (
     <Checkbox
       value={value}
-      onChange={(res) => alert('changed : '+JSON.stringify(res))}
+      onChange={(result) => {
+        alert(JSON.stringify(result));
+        onChange(result)}
+      }
       themed
       options={[
         { title: "React" },
