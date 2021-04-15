@@ -6,7 +6,6 @@ import variant from "@styled-system/variant";
 import typography from "@styled-system/typography";
 
 import { inputStyle } from "@src/components/Inputs/_common/ThemedTextInput";
-
 import Box from "@src/components/UI/Box";
 
 const DropdownOptionsMode = variant({
