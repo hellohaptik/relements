@@ -162,9 +162,9 @@ const checkboxSearchWrapperStyle = props => ({
 
 const checkboxOptionsWrapperStyle = props => ({
   position: "relative",
-  height: "calc(100vh - 60px)", // Height of the Search Wrapper
+  maxHeight: "calc(100vh - 60px)", // Height of the Search Wrapper
   overflowY: "auto",
-  paddingBottom: `${props.theme.space.lg - props.theme.space.xs}px`, // "10px",
+  padding: `${props.theme.space.sm}px ${props.theme.space.zero}px`,
 });
 
 const dropdownCheckboxSearchStyle = {
@@ -183,6 +183,19 @@ const dropdownCheckboxSearchStyle = {
 const dropdownCreateTextStyle = props => ({
   color: props.theme.colors.green.haptik,
   paddingRight: props.theme.space.xs,
+});
+
+const checkboxItemWrapperStyle = props => ({
+  transition: "background 0.3s ease",
+  cursor: "pointer",
+  ">div:first-child": {
+    background: "transparent",
+    width: "100%",
+    margin: props.theme.space.zero,
+  },
+  "&:hover": {
+    background: `${props.theme.colors.blue.pastel}50`,
+  },
 });
 
 const DropdownWrapper = styled(Box)(
@@ -269,6 +282,14 @@ const DropdownCheckboxOptionsWrapper = styled(Box)(
   DropdownCheckboxOptionsMode,
 );
 
+const DropdownCheckboxItemWrapper = styled(Box)(
+  checkboxItemWrapperStyle,
+  space,
+  color,
+  border,
+  typography,
+);
+
 const DropdownCheckboxSearchIcon = styled("div")(
   dropdownCheckboxSearchStyle,
   space,
@@ -289,7 +310,8 @@ const DropdownCreateText = styled("span")(
 DropdownWrapper.defaultProps = {
   fontFamily: `"Proxima Nova", sans-serif`,
   padding: "zero",
-  display: "inherit",
+  flexDirection: "column",
+  width: "100%",
 };
 
 DropdownOptionsWrapper.defaultProps = {
@@ -310,7 +332,15 @@ DropdownCheckboxSearchWrapper.defaultProps = {
 
 DropdownCheckboxOptionsWrapper.defaultProps = {
   padding: "zero",
+  paddingBottom: "sm",
   display: "initial",
+};
+
+DropdownCheckboxItemWrapper.defaultProps = {
+  paddingTop: "xs",
+  paddingBottom: "xs",
+  paddingLeft: "sm",
+  paddingRight: "sm",
 };
 
 DropdownOptions.defaultProps = {
@@ -326,6 +356,7 @@ export {
   DropdownWithCheckboxInput,
   DropdownArrow,
   DropdownCheckboxWrapper,
+  DropdownCheckboxItemWrapper,
   DropdownCheckboxSearchWrapper,
   DropdownCheckboxOptionsWrapper,
   DropdownCheckboxSearchIcon,

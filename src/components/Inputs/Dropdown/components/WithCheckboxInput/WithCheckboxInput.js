@@ -52,7 +52,9 @@ const WithCheckboxInput = ({
                 </DropdownArrow>
               </Tooltip>
             ) : (
-              <DropdownArrow mode={focused ? "active" : "inactive"}>
+              <DropdownArrow
+                mode={focused ? "activeWithCheckbox" : "inactiveWithCheckbox"}
+              >
                 <Icon src={AngleDownIcon} />
               </DropdownArrow>
             )}
