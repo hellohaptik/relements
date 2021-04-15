@@ -138,9 +138,6 @@ storiesOf("Theme/Spec", module).add("Table variants", () => {
       <h3>Compact</h3>
       <Table themed space="compact" {...tableProps} />
       <br />
-      <h3>Sparse</h3>
-      <Table themed space="sparse" {...tableProps} />
-      <br />
       <h3>No border</h3>
       <Table themed appearance="noBorder" {...tableProps} />
       <br />
