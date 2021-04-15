@@ -11,21 +11,37 @@ const tableBorder = variant({
   },
 });
 
+const tableRowBackground = variant({
+  prop: "rowBackground",
+  scale: "tableRowBackground",
+  variants: {
+    default: {},
+    alternate: {},
+  },
+});
+
 const style = {
   display: "flex",
   flexDirection: "column",
   overflow: "hidden",
 };
 
-const ThemedTableWrapper = styled("div")(style, color, border, tableBorder);
+const ThemedTableWrapper = styled("div")(
+  style,
+  color,
+  border,
+  tableBorder,
+  tableRowBackground,
+);
 
 ThemedTableWrapper.defaultProps = {
   appearance: "withBorder",
   borderWidth: "xs",
   borderColor: "grey.haptik",
   borderStyle: "solid",
-  backgroundColor: "background",
+  backgroundColor: "grey.pastel",
   borderRadius: "3",
+  rowBackground: "default",
 };
 
 export default ThemedTableWrapper;
