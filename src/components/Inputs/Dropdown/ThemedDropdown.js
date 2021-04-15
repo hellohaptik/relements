@@ -289,7 +289,7 @@ const DropdownCreateText = styled("span")(
 DropdownWrapper.defaultProps = {
   fontFamily: `"Proxima Nova", sans-serif`,
   padding: "zero",
-  display: "inherit",
+  flexDirection: "column",
 };
 
 DropdownOptionsWrapper.defaultProps = {
