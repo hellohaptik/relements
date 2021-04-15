@@ -89,6 +89,7 @@ const DropdownCheckboxSearchWrapperMode = variant({
 const wrapperStyle = {
   position: "relative",
   outline: "none",
+  boxSizing: "border-box",
 };
 
 const optionsOverlayStyle = {
