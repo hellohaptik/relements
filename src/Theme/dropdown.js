@@ -49,6 +49,15 @@ export const dropdownArrowModes = {
   active: {
     transform: "rotate(180deg)",
   },
+  activeWithCheckbox: {
+    top: 9,
+    height: "75%",
+    transform: "rotate(180deg)",
+  },
+  inactiveWithCheckbox: {
+    top: 9,
+    height: "75%",
+  },
 };
 
 export const dropdownWithCheckboxInputVariants = {
@@ -73,7 +82,7 @@ export const dropdownWithCheckboxInputVariants = {
 
 export const dropdownCheckboxOptionsModes = {
   withoutSearch: {
-    paddingTop: space.lg - space.xs, // "10px"
+    padding: `${space.sm}px ${space.zero}px`,
   },
 };
 

@@ -413,6 +413,30 @@ import Dropdown from "./Dropdown";
 
 <div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
 
+#### Style 
+> These styles will only get applied to the main dropdown wrapper and only for themed prop
+
+<CodeBlock title="Themed">
+  {(value, setValue) => (
+    <Dropdown
+      placeholder="Test placeholder"
+      value={value}
+      options={OPTIONS.THEMED}
+      label="This is the label"
+      onChange={setValue}
+      withSearch
+      themed
+      style={{
+        padding: 10,
+        border: '1px solid blue',
+        borderRadius: 5,
+      }}
+    />
+  )}
+</CodeBlock>
+
+<div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
+
 #### Error
 
 <div

@@ -141,6 +141,17 @@ storiesOf("Theme/Spec", module).add("Table variants", () => {
       <h3>No border</h3>
       <Table themed appearance="noBorder" {...tableProps} />
       <br />
+      <h3>Alternate row background</h3>
+      <Table themed rowBackground="alternate" {...tableProps} />
+      <br />
+      <h3>No border with alternate row background</h3>
+      <Table
+        themed
+        appearance="noBorder"
+        rowBackground="alternate"
+        {...tableProps}
+      />
+      <br />
       <br />
     </Provider>
   );
