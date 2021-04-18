@@ -61,8 +61,8 @@ const checkboxStyle = props => ({
 const ThemedCheckbox = styled(Box)(checkboxStyle, checkboxItem);
 
 const ThemedCheckboxIcon = styled(Icon)`
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   opacity: ${props => (props.value ? 1 : 0)};
   transform: translateY(${props => (props.value ? "0px" : "5px")});
   transition: 0.2s ease-out;
