@@ -37,6 +37,7 @@ const Dropdown = ({
   withMultiple,
   withCheckbox,
   themed,
+  style,
 }) => {
   // stores the currently typed input (in case of withSearch)
   const [text, setText] = React.useState("");
@@ -277,6 +278,7 @@ const Dropdown = ({
           tabIndex="0"
           onFocus={handleFocus}
           onBlur={handleBlur}
+          style={style}
         >
           <Text variant="h4.semi-bold" color={error && "red.haptik"}>
             {label} {error && ` (${error})`}

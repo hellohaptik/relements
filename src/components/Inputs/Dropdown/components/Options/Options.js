@@ -16,6 +16,7 @@ import {
   DropdownOptionsOverlay,
   DropdownOptions,
   DropdownCheckboxWrapper,
+  DropdownCheckboxItemWrapper,
   DropdownCheckboxSearchWrapper,
   DropdownCheckboxOptionsWrapper,
   DropdownCheckboxSearchIcon,
@@ -216,15 +217,17 @@ const Options = ({
               }
               // TODO: Add "create mode" as and when required
               return (
-                <Checkbox.Item
-                  key={`themed-${option.label}-${i}`}
-                  label={option.label}
-                  value={option.isSelected}
-                  onChange={() => {
-                    onChange(option.value);
-                  }}
-                  className={`${styles.checkboxOptionsOption} ${prefixClassName}-option`}
-                />
+                <DropdownCheckboxItemWrapper>
+                  <Checkbox.Item
+                    themed
+                    key={`themed-${option.label}-${i}`}
+                    label={option.label}
+                    value={option.isSelected}
+                    onChange={() => {
+                      onChange(option.value);
+                    }}
+                  />
+                </DropdownCheckboxItemWrapper>
               );
             })}
           </DropdownCheckboxOptionsWrapper>

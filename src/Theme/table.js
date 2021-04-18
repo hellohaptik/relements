@@ -1,4 +1,5 @@
 import borderWidths from "./borderWidths";
+import { colors } from "./colors";
 
 export const tableBorder = {
   withBorder: {
@@ -17,5 +18,18 @@ export const tableSpace = {
   compact: {
     px: "sm",
     py: "xs",
+  },
+};
+
+export const tableRowBackground = {
+  default: {
+    backgroundColor: "inherit",
+  },
+  alternate: {
+    "& > div:last-child > div": {
+      "&:nth-child(even)": {
+        backgroundColor: colors.grey.soft,
+      },
+    },
   },
 };
