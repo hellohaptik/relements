@@ -29,7 +29,7 @@ const ComponentDrawerHeader = props => {
     };
     return (
       <ThemedDrawerHeader {...drawerHeaderProps}>
-        <Box padding="0">
+        <Box alignItems="center" padding="0">
           {onBackButtonClick ? (
             <Icon
               onClick={onBackButtonClick}

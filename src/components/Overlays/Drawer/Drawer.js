@@ -6,6 +6,7 @@ import useActivify from "@src/hooks/useActivify";
 import useEscapeKey from "@src/hooks/useEscapeKey";
 
 import DrawerHeader from "./components/DrawerHeader";
+import ThemedDrawerBody from "./ThemedDrawerBody";
 import styles from "./Drawer.scss";
 
 const Drawer = ({
@@ -76,6 +77,7 @@ const Drawer = ({
 };
 
 Drawer.Header = DrawerHeader;
+Drawer.Body = ThemedDrawerBody;
 
 Drawer.propTypes = {
   /** Children Nodes Passed down to the Drawer */

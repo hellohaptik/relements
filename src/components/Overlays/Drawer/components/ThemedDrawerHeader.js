@@ -1,12 +1,14 @@
 import styled from "styled-components";
-import { colors } from "@src/Theme/colors";
+import Box from "@src/components/UI/Box";
 
-const ThemedDrawerHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px;
-  border-bottom: 1px solid ${colors.grey.haptik};
-`;
+// Non customizable CSS props
+const headerStyle = props => ({
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: props.theme.space.lg,
+  borderBottom: `1px solid ${props.theme.colors.grey.haptik}`,
+});
+
+const ThemedDrawerHeader = styled(Box)(headerStyle);
 
 export default ThemedDrawerHeader;

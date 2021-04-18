@@ -25,9 +25,9 @@ import Drawer from './Drawer';
   {(value, setValue) => (
     <div>
       <Button onClick={() => setValue(true)}> Open Drawer </Button>
-      <Drawer onClose={() => setValue(false)} active={value}>
+      <Drawer themed onClose={() => setValue(false)} active={value}>
         <Drawer.Header themed onClose={() => setValue(false)}>Hello, world!</Drawer.Header>
-        <div style={{ padding: 24 }}>This is a modal</div>
+        <Drawer.Body padding={24}>This is a modal</Drawer.Body>
       </Drawer>
     </div>
   )}
@@ -41,7 +41,7 @@ import Drawer from './Drawer';
       <Button onClick={() => setValue(true)}> Open Drawer </Button>
       <Drawer onClose={() => setValue(false)} active={value}>
         <Drawer.Header themed onBackButtonClick={() => setValue(false)} onClose={() => setValue(false)}>Hello, world!</Drawer.Header>
-        <div style={{ padding: 24 }}>This is a modal</div>
+        <Drawer.Body padding={24}>This is a modal</Drawer.Body>
       </Drawer>
     </div>
   )}
