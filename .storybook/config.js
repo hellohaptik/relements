@@ -1,4 +1,5 @@
 import { addParameters, configure } from '@storybook/react';
+
 import customTheme from './theme';
 import './config.scss';
 
