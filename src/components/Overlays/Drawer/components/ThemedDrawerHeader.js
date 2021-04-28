@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Box from "@src/components/UI/Box";
+import Icon from "components/UI/Icon";
 
 // Non customizable CSS props
 const headerStyle = props => ({
@@ -9,6 +10,11 @@ const headerStyle = props => ({
   borderBottom: `1px solid ${props.theme.colors.grey.haptik}`,
 });
 
-const ThemedDrawerHeader = styled(Box)(headerStyle);
+const iconStyle = props => ({
+  transform: "rotate(180deg)",
+  marginRight: props.theme.space.lg,
+});
 
-export default ThemedDrawerHeader;
+export const BackIcon = styled(Icon)(iconStyle);
+
+export const ThemedDrawerHeader = styled(Box)(headerStyle);

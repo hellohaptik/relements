@@ -8,7 +8,7 @@ import CloseIcon from "icons/close.svg";
 import ArrowIcon from "icons/arrow.svg";
 import CloseIconV2 from "icons/close-v2.svg";
 import CloneIcon from "icons/synonym-duplicate.svg";
-import ThemedDrawerHeader from "./ThemedDrawerHeader";
+import { ThemedDrawerHeader, BackIcon } from "./ThemedDrawerHeader";
 import styles from "./DrawerHeader.scss";
 
 const ComponentDrawerHeader = props => {
@@ -31,17 +31,11 @@ const ComponentDrawerHeader = props => {
       <ThemedDrawerHeader {...drawerHeaderProps}>
         <Box alignItems="center" padding="0">
           {onBackButtonClick ? (
-            <Icon
-              onClick={onBackButtonClick}
-              className={styles.backicon}
-              src={ArrowIcon}
-            />
+            <BackIcon onClick={onBackButtonClick} src={ArrowIcon} />
           ) : null}
           <Text variant="h3.semi-bold">{props.children}</Text>
         </Box>
-        <Box padding="0">
-          <Icon onClick={onClose} src={CloseIconV2} />
-        </Box>
+        <Icon onClick={onClose} src={CloseIconV2} />
       </ThemedDrawerHeader>
     );
   }
