@@ -10,10 +10,22 @@ const CheckboxWrapperMode = variant({
   },
 });
 
-const ThemedCheckboxWrapper = styled(Box)(CheckboxWrapperMode);
+const checkboxWrapperVariant = variant({
+  prop: "variant",
+  scale: "checkboxWrapperVariants",
+  variants: {
+    stacked: {},
+  },
+});
+
+const ThemedCheckboxWrapper = styled(Box)(
+  CheckboxWrapperMode,
+  checkboxWrapperVariant,
+);
 
 ThemedCheckboxWrapper.defaultProps = {
   mode: "stacked",
+  padding: "zero",
 };
 
 export default ThemedCheckboxWrapper;
