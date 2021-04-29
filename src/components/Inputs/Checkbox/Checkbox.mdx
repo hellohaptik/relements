@@ -1,5 +1,6 @@
 import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
 import Checkbox from "./Checkbox";
+import { InlineCode } from "@src/Theme/components";
 
 # Themed Checkbox
 
@@ -52,13 +53,13 @@ import Checkbox from "./Checkbox";
 </CodeBlock>
 
 <CodeBlock title="OnChange Callback" defaultValue={[{ title: "React" }]}>
-  {(value) => (
+  {value => (
     <Checkbox
       value={value}
-      onChange={(result) => {
+      onChange={result => {
         alert(JSON.stringify(result));
-        onChange(result)}
-      }
+        onChange(result);
+      }}
       themed
       options={[
         { title: "React" },
@@ -78,6 +79,65 @@ import Checkbox from "./Checkbox";
       disabled
       themed
       options={[{ title: "Tech" }, { title: "F&B" }, { title: "Finance" }]}
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock title="With Label - Stacked" defaultValue={[{ title: "Good Node" }]}>
+  {(value, onChange) => (
+    <Checkbox
+      value={value}
+      onChange={onChange}
+      label="Select relevant options"
+      themed
+      options={[
+        { title: "React" },
+        { title: "Angular" },
+        { title: "Vue" },
+        { title: "Svelte" },
+      ]}
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock title="With Label - Inline" defaultValue={[{ title: "Good Node" }]}>
+  {(value, onChange) => (
+    <Checkbox
+      value={value}
+      onChange={onChange}
+      mode="inline"
+      label="Select relevant options"
+      themed
+      options={[
+        { title: "React" },
+        { title: "Angular" },
+        { title: "Vue" },
+        { title: "Svelte" },
+      ]}
+    />
+  )}
+</CodeBlock>
+
+> Since Checkbox uses <InlineCode>Box</InlineCode> as a wrapper, it can inherit all its styling props as well
+
+<CodeBlock title="With Box's Props" defaultValue={[{ title: "Good Node" }]}>
+  {(value, onChange) => (
+    <Checkbox
+      value={value}
+      onChange={onChange}
+      mode="inline"
+      label="Select relevant options"
+      themed
+      padding="md"
+      borderWidth="xs"
+      borderStyle="dashed"
+      borderColor="grey.dark"
+      options={[
+        { title: "React" },
+        { title: "Angular" },
+        { title: "Vue" },
+        { title: "Svelte" },
+      ]}
     />
   )}
 </CodeBlock>
