@@ -27,6 +27,24 @@ import Tabs from "./Tabs";
 
 ## Examples
 
+### With disabled tab
+
+<CodeBlock defaultValue="bots">
+  {(value, setValue) => (
+    <Tabs value={value}>
+      <Tabs.Item value="bots" onClick={setValue} icon="bot-says" disabled>
+        Bots
+      </Tabs.Item>
+      <Tabs.Item value="templates" onClick={setValue} icon="user-says">
+        Templates
+      </Tabs.Item>
+      <Tabs.Item value="businesses" onClick={setValue} icon="entities">
+        Businesses
+      </Tabs.Item>
+    </Tabs>
+  )}
+</CodeBlock>
+
 ### Without Icons
 
 <CodeBlock defaultValue="bots">
@@ -51,6 +69,30 @@ import Tabs from "./Tabs";
   {(value, setValue) => (
     <Tabs value={value} themed>
       <Tabs.Item value="bots" onClick={setValue} icon="bot-says" themed>
+        Bots
+      </Tabs.Item>
+      <Tabs.Item value="templates" onClick={setValue} icon="user-says" themed>
+        Templates
+      </Tabs.Item>
+      <Tabs.Item value="businesses" onClick={setValue} icon="entities" themed>
+        Businesses
+      </Tabs.Item>
+    </Tabs>
+  )}
+</CodeBlock>
+
+### Themed with disabled tab
+
+<CodeBlock defaultValue="bots">
+  {(value, setValue) => (
+    <Tabs value={value} themed>
+      <Tabs.Item
+        value="bots"
+        onClick={setValue}
+        icon="bot-says"
+        themed
+        disabled
+      >
         Bots
       </Tabs.Item>
       <Tabs.Item value="templates" onClick={setValue} icon="user-says" themed>

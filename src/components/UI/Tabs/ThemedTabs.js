@@ -18,6 +18,7 @@ const tabsIndicatorStyle = props => ({
   transformOrigin: "0 0",
   transition: "0.5s cubic-bezier(0.175, 0.5, 0.12, 1)",
   backgroundColor: props.theme.colors.blue.dark,
+  transform: `translateX(${props.left}px) scale(${props.width}, 1)`,
 });
 
 const ThemedTabs = styled("div")(tabsStyle);

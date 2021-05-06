@@ -9,17 +9,11 @@ const tabsItemsStyle = props => ({
   paddingTop: props.theme.space.sm,
   paddingBottom: props.theme.space.sm,
   cursor: "pointer",
-  opacity: "0.75",
   transition: "0.2s ease-out",
+  opacity: props.disabled ? 0.2 : props.active ? 1 : 0.75,
+  pointerEvents: props.disabled ? "none" : "auto",
   "&:hover": {
     opacity: 1,
-  },
-  "&.active": {
-    opacity: 1,
-  },
-  "&.disabled": {
-    opacity: 0.2,
-    pointerEvents: "none",
   },
 });
 

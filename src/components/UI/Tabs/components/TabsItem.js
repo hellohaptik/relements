@@ -44,11 +44,17 @@ export const TabsItem = ({
 
   if (themed) {
     return (
-      <ThemedTabsItems onClick={handleOnClick} ref={innerRef}>
+      <ThemedTabsItems
+        onClick={handleOnClick}
+        ref={innerRef}
+        disabled={disabled}
+        active={active}
+      >
         {component ? (
           React.cloneElement(component, { active })
         ) : (
           <>
+            {/* TODO: Icon should be migrated to design systems */}
             {icon ? (
               <Icon
                 src={icon}

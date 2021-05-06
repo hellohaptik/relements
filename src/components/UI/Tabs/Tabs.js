@@ -34,11 +34,7 @@ const Tabs = ({
     return (
       <ThemedTabs>
         <ThemedTabsItems>{renderTabs()}</ThemedTabsItems>
-        <ThemedTabsIndicator
-          style={{
-            transform,
-          }}
-        />
+        <ThemedTabsIndicator left={left} width={width} />
       </ThemedTabs>
     );
   return (
