@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import Context from "@src/components/Context";
 import Icon from "@src/components/UI/Icon";
+import Text from "@src/components/UI/Text";
+import ThemedTabsItems from "./ThemedTabsItem";
 
 import styles from "./TabsItem.scss";
 
@@ -21,6 +23,7 @@ export const TabsItem = ({
   innerRef,
   value,
   type,
+  themed,
 }) => {
   const { primaryColor } = React.useContext(Context);
   const component =
@@ -35,9 +38,39 @@ export const TabsItem = ({
   const disabledClassName = disabled ? styles.disabled : "";
   const bigClassName = type === "big" ? styles.big : "";
 
+  const handleOnClick = useCallback(() => {
+    onClick(value);
+  }, [value, onClick]);
+
+  if (themed) {
+    return (
+      <ThemedTabsItems onClick={handleOnClick} ref={innerRef}>
+        {component ? (
+          React.cloneElement(component, { active })
+        ) : (
+          <>
+            {icon ? (
+              <Icon
+                src={icon}
+                className={`${styles.TabsItemIcon} ${bigClassName} ${prefixClassName}-icon ${activeIconClassName}`}
+              />
+            ) : null}
+            <Text
+              variant="h3.semi-bold"
+              color={`${active ? "blue" : "grey"}.dark`}
+              textAlign="center"
+            >
+              {title}
+            </Text>
+          </>
+        )}
+      </ThemedTabsItems>
+    );
+  }
+
   return (
     <div
-      onClick={() => onClick(value)}
+      onClick={handleOnClick}
       ref={innerRef}
       className={`${styles.TabsItem} ${prefixClassName} ${activeClassName} ${disabledClassName} ${bigClassName}`}
     >
@@ -82,4 +115,6 @@ TabsItem.propTypes = {
   value: PropTypes.string,
   /* The type of tab item. (big/small) */
   type: PropTypes.string,
+  /* Use themed version of Tabs */
+  themed: PropTypes.bool,
 };

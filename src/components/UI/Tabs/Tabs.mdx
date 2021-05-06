@@ -26,3 +26,57 @@ import Tabs from "./Tabs";
 <ConfigBlock of={Tabs} />
 
 ## Examples
+
+### Without Icons
+
+<CodeBlock defaultValue="bots">
+  {(value, setValue) => (
+    <Tabs value={value} themed>
+      <Tabs.Item value="bots" onClick={setValue}>
+        Bots
+      </Tabs.Item>
+      <Tabs.Item value="templates" onClick={setValue}>
+        Templates
+      </Tabs.Item>
+      <Tabs.Item value="businesses" onClick={setValue}>
+        Businesses
+      </Tabs.Item>
+    </Tabs>
+  )}
+</CodeBlock>
+
+### Themed with Icons
+
+<CodeBlock defaultValue="bots">
+  {(value, setValue) => (
+    <Tabs value={value} themed>
+      <Tabs.Item value="bots" onClick={setValue} icon="bot-says" themed>
+        Bots
+      </Tabs.Item>
+      <Tabs.Item value="templates" onClick={setValue} icon="user-says" themed>
+        Templates
+      </Tabs.Item>
+      <Tabs.Item value="businesses" onClick={setValue} icon="entities" themed>
+        Businesses
+      </Tabs.Item>
+    </Tabs>
+  )}
+</CodeBlock>
+
+### Themed without Icons
+
+<CodeBlock defaultValue="bots">
+  {(value, setValue) => (
+    <Tabs value={value} themed>
+      <Tabs.Item value="bots" onClick={setValue} themed>
+        Bots
+      </Tabs.Item>
+      <Tabs.Item value="templates" onClick={setValue} themed>
+        Templates
+      </Tabs.Item>
+      <Tabs.Item value="businesses" onClick={setValue} themed>
+        Businesses
+      </Tabs.Item>
+    </Tabs>
+  )}
+</CodeBlock>
