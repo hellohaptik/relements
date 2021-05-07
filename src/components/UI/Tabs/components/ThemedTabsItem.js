@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import Box from "@src/components/UI/Box";
+
 const tabsItemsStyle = props => ({
   display: "flex",
   flexDirection: "column",
@@ -17,6 +19,6 @@ const tabsItemsStyle = props => ({
   },
 });
 
-const ThemedTabsItems = styled("div")(tabsItemsStyle);
+const ThemedTabsItems = styled(Box)(tabsItemsStyle);
 
 export default ThemedTabsItems;

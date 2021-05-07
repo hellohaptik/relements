@@ -24,6 +24,7 @@ export const TabsItem = ({
   value,
   type,
   themed,
+  ...designProps
 }) => {
   const { primaryColor } = React.useContext(Context);
   const component =
@@ -49,6 +50,7 @@ export const TabsItem = ({
         ref={innerRef}
         disabled={disabled}
         active={active}
+        {...designProps}
       >
         {component ? (
           React.cloneElement(component, { active })
