@@ -5,10 +5,7 @@ import Box from "@src/components/UI/Box";
 const tabsItemsStyle = props => ({
   flexDirection: "column",
   alignItems: "center",
-  paddingRight: props.theme.space.md,
-  paddingLeft: props.theme.space.md,
-  paddingTop: props.theme.space.sm,
-  paddingBottom: props.theme.space.sm,
+  padding: `${props.theme.space.sm}px ${props.theme.space.md}px`,
   cursor: "pointer",
   transition: "0.2s ease-out",
   opacity: props.disabled ? 0.2 : props.active ? 1 : 0.75,
