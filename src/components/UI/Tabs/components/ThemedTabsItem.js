@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Box from "@src/components/UI/Box";
 
 const tabsItemsStyle = props => ({
-  display: "flex",
   flexDirection: "column",
   alignItems: "center",
   paddingRight: props.theme.space.md,
