@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Context from "@src/components/Context";
+import { ThemedTabs, ThemedTabsItems, ThemedTabsIndicator } from "./ThemedTabs";
 
 import { TabsItem } from "./components/TabsItem";
 import { useTabs } from "./hooks/useTabs";
@@ -11,7 +12,14 @@ import styles from "./Tabs.scss";
  * indicator.
  * It also exposes a static property called Item which is what the component uses to render the children
  */
-const Tabs = ({ className, prefixClassName, children, value = "" }) => {
+const Tabs = ({
+  className,
+  prefixClassName,
+  children,
+  value = "",
+  themed = false,
+  ...designProps
+}) => {
   const { primaryColor } = React.useContext(Context);
   const DOMRefs = React.useRef([]);
   const [left, width, renderTabs] = useTabs(value, DOMRefs.current, children);
@@ -23,6 +31,13 @@ const Tabs = ({ className, prefixClassName, children, value = "" }) => {
       .map(() => React.createRef());
   }, [children]);
 
+  if (themed)
+    return (
+      <ThemedTabs {...designProps}>
+        <ThemedTabsItems>{renderTabs()}</ThemedTabsItems>
+        <ThemedTabsIndicator left={left} width={width} />
+      </ThemedTabs>
+    );
   return (
     <div
       data-testid="tabs"
@@ -52,6 +67,8 @@ Tabs.propTypes = {
   prefixClassName: PropTypes.string,
   /* tabs that need to be rendered. Expect <Tabs.Item> as children */
   children: PropTypes.node,
+  /* Use themed version of Tabs */
+  themed: PropTypes.bool,
 };
 
 export default Tabs;
