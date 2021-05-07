@@ -96,7 +96,7 @@
     "json-loader": "^0.5.7",
     "lint-staged": "^9.1.0",
     "majestic": "^1.6.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^5.0.0",
     "prettier": "^1.18.2",
     "prismjs": "^1.16.0",
     "prop-types": "^15.7.2",
