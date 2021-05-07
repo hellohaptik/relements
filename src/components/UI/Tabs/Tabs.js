@@ -18,6 +18,7 @@ const Tabs = ({
   children,
   value = "",
   themed = false,
+  ...designProps
 }) => {
   const { primaryColor } = React.useContext(Context);
   const DOMRefs = React.useRef([]);
@@ -32,7 +33,7 @@ const Tabs = ({
 
   if (themed)
     return (
-      <ThemedTabs>
+      <ThemedTabs {...designProps}>
         <ThemedTabsItems>{renderTabs()}</ThemedTabsItems>
         <ThemedTabsIndicator left={left} width={width} />
       </ThemedTabs>
