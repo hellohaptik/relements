@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Portal } from "react-portal";
 import PropTypes from "prop-types";
 
@@ -34,6 +34,14 @@ const Drawer = ({
   style.zIndex = zIndex;
   style.left = position === "LEFT" ? offset : "auto";
   style.right = position === "LEFT" ? "auto" : offset;
+
+  useEffect(() => {
+    if (active) {
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.documentElement.removeAttribute("style");
+    }
+  }, [active]);
 
   useEscapeKey(onClose);
 
