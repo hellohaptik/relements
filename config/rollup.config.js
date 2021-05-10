@@ -47,13 +47,8 @@ const plugins = [
   commonjs({
     include: "node_modules/**",
     namedExports: {
-      "node_modules/react/react.js": [
-        "Children",
-        "Component",
-        "PropTypes",
-        "createElement",
-      ],
-      "node_modules/react-dom/index.js": ["render", "createPortal"],
+      "node_modules/react/react.js": Object.keys(require("react")),
+      "node_modules/react-dom/index.js": Object.keys(require("react-dom")),
     },
   }),
   babel({ exclude: "node_modules/**" }),
@@ -63,17 +58,7 @@ const plugins = [
 const productionOnlyPlugins =
   process.env.NODE_ENV === "production" ? [terser()] : [];
 
-const styledEsmModule = [
-  "space",
-  "shadow",
-  "color",
-  "border",
-  "variant",
-  "typography",
-  "layout",
-  "position",
-  "flexbox",
-];
+const styledEsmModule = Object.keys(require("styled-system"));
 
 const globalFiles = {
   globals: {

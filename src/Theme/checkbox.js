@@ -10,6 +10,12 @@ export const checkboxWrapperModes = {
   },
 };
 
+export const checkboxWrapperVariants = {
+  withLabel: {
+    marginTop: space.sm,
+  },
+};
+
 export const checkboxItemWrapperModes = {
   stacked: {
     padding: 0,
