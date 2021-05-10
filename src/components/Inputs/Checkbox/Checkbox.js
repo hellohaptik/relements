@@ -30,22 +30,32 @@ const Checkbox = props => {
       "data-testid": "checkbox",
     };
     return (
-      <ThemedCheckboxWrapper {...checkboxProps}>
-        {props.options.map((option, i) => {
-          return (
-            <ThemedCheckboxItem
-              value={activeIndexes.includes(i)}
-              onChange={handleChange(i)}
-              label={option.title}
-              error={error}
-              themed={props.themed}
-              mode={props.mode}
-              disabled={disabled}
-              prefixClassName={`${prefixClassName}-option`}
-            />
-          );
-        })}
-      </ThemedCheckboxWrapper>
+      <>
+        {label && (
+          <Label hint={hint} disabled={disabled} error={error} themed>
+            {label}
+          </Label>
+        )}
+        <ThemedCheckboxWrapper
+          {...checkboxProps}
+          variant={label ? "withLabel" : "default"}
+        >
+          {props.options.map((option, i) => {
+            return (
+              <ThemedCheckboxItem
+                value={activeIndexes.includes(i)}
+                onChange={handleChange(i)}
+                label={option.title}
+                error={error}
+                themed={props.themed}
+                mode={props.mode}
+                disabled={disabled}
+                prefixClassName={`${prefixClassName}-option`}
+              />
+            );
+          })}
+        </ThemedCheckboxWrapper>
+      </>
     );
   }
 
