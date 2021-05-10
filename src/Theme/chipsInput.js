@@ -24,7 +24,7 @@ export const chipWrapperVariants = {
   dropdownActive: {
     marginTop: space.sm,
     paddingRight: space.lg + space.md + space.md,
-    borderColor: colors.blue.dark,
+    borderColor: colors.blue.haptik,
     borderBottomColor: "transparent",
     borderBottomRightRadius: radii.xs - radii.xs,
     borderBottomLeftRadius: radii.xs - radii.xs,
@@ -32,7 +32,7 @@ export const chipWrapperVariants = {
   dropdownActiveTop: {
     marginTop: space.sm,
     paddingRight: space.lg + space.md + space.md,
-    borderColor: colors.blue.dark,
+    borderColor: colors.blue.haptik,
     borderTopColor: "transparent",
     borderTopRightRadius: radii.xs - radii.xs,
     borderTopLeftRadius: radii.xs - radii.xs,

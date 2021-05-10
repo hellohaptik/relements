@@ -106,7 +106,7 @@ const optionsStyle = props => ({
   maxHeight: "200px",
   overflowY: "auto",
   backgroundColor: "#fff",
-  border: `1px solid ${props.theme.colors.blue.dark}}`,
+  border: `1px solid ${props.theme.colors.blue.haptik}}`,
   boxSizing: "border-box",
   marginTop: "-1px",
   transition: "transform 0.3s ease, opacity 0.3s ease",

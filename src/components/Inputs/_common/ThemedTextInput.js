@@ -48,13 +48,17 @@ const inputStyle = props => {
     transition: "border 0.3s ease, color 0.3s ease",
     outline: "none",
     "&:focus": {
-      border: `${borderWidths.xs}px solid ${colors.blue.dark}`,
+      border: `${borderWidths.xs}px solid ${colors.blue.haptik}`,
     },
     "&:hover": {
-      border: `${borderWidths.xs}px solid ${colors.blue.dark}`,
+      border: `${borderWidths.xs}px solid ${colors.blue.haptik}`,
     },
     resize: "none",
     overflowY: "hidden",
+    color: colors.black.haptik,
+    "&::-webkit-input-placeholder": {
+      color: colors.grey.dark,
+    },
   };
 };
 
@@ -104,11 +108,13 @@ ThemedTextInput.defaultProps = {
   fontFamily: `"Proxima Nova", sans-serif`,
   mode: "default",
   variant: "default",
+  fontSize: "2",
 };
 
 ThemedTextarea.defaultProps = {
   fontFamily: `"Proxima Nova", sans-serif`,
   mode: "default",
+  fontSize: "2",
 };
 
 export { ThemedTextInputWrapper, ThemedTextInput, ThemedTextarea, inputStyle };
