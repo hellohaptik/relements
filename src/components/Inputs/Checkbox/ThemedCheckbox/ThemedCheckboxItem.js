@@ -47,7 +47,7 @@ const checkboxStyle = props => ({
     ? iff(
         props.disabled,
         props.theme.colors.grey.deep,
-        props.theme.colors.blue.dark,
+        props.theme.colors.blue.haptik,
       )
     : props.theme.colors.background,
   width: 18,
@@ -55,6 +55,9 @@ const checkboxStyle = props => ({
   marginRight: props.theme.space.sm,
   borderRadius: props.theme.space.xs,
   borderWidth: props.theme.borderWidths.xs,
+  borderColor: props.disabled
+    ? props.theme.colors.grey.deep
+    : props.theme.colors.blue.haptik,
   padding: 0,
 });
 

@@ -67,13 +67,13 @@ export const dropdownWithCheckboxInputVariants = {
     },
   },
   dropdownActive: {
-    borderColor: colors.blue.dark,
+    borderColor: colors.blue.haptik,
     borderBottomColor: "transparent",
     borderBottomRightRadius: radii.xs,
     borderBottomLeftRadius: radii.xs,
   },
   dropdownActiveTop: {
-    borderColor: colors.blue.dark,
+    borderColor: colors.blue.haptik,
     borderTopColor: "transparent",
     borderTopRightRadius: radii.xs,
     borderTopLeftRadius: radii.xs,

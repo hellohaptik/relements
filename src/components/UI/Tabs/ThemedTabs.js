@@ -20,7 +20,7 @@ const tabsIndicatorStyle = props => ({
   width: "1px",
   transformOrigin: "0 0",
   transition: "transform 0.5s cubic-bezier(0.175, 0.5, 0.12, 1)",
-  backgroundColor: props.theme.colors.blue.dark,
+  backgroundColor: props.theme.colors.blue.haptik,
   transform: `translateX(${props.left}px) scale(${props.width}, 1)`,
   padding: props.theme.space.zero,
 });

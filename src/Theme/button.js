@@ -4,13 +4,13 @@ import borderWidths from "./borderWidths";
 export const buttonColors = {
   primary: {
     color: colors.grey.pastel,
-    backgroundColor: colors.blue.dark,
+    backgroundColor: colors.blue.haptik,
   },
   secondary: {
-    color: colors.blue.dark,
+    color: colors.blue.haptik,
     backgroundColor: colors.grey.pastel,
     borderWidth: borderWidths.xs,
-    borderColor: colors.blue.dark,
+    borderColor: colors.blue.haptik,
   },
   danger: {
     color: colors.red.deep,
