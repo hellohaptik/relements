@@ -54,7 +54,7 @@ const circleStyle = css`
   cx: 50;
   cy: 50;
   r: 20;
-  stroke: ${props => props.theme.colors.blue.dark};
+  stroke: ${props => props.theme.colors.blue.haptik};
 `;
 
 const ThemedLoaderWrapper = styled.div`

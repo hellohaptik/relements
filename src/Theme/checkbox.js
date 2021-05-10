@@ -31,7 +31,7 @@ export const checkboxItemWrapperModes = {
 
 export const checkboxVariants = {
   primary: {
-    borderColor: colors.blue.dark,
+    borderColor: colors.blue.haptik,
   },
   disabled: {
     borderColor: colors.grey.deep,

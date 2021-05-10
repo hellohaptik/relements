@@ -2,7 +2,7 @@ import { colors } from "./colors";
 
 export const labelModes = {
   focussed: {
-    color: colors.blue.dark,
+    color: colors.blue.haptik,
   },
   default: {
     color: colors.grey.dark,

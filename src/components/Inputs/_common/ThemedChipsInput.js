@@ -31,10 +31,10 @@ const inputWrapperStyle = props => ({
   transition: "border 0.3s ease, color 0.3s ease",
   outline: "none",
   "&:focus": {
-    border: `${props.theme.borderWidths.xs}px solid ${props.theme.colors.blue.dark}`,
+    border: `${props.theme.borderWidths.xs}px solid ${props.theme.colors.blue.haptik}`,
   },
   "&:hover": {
-    border: `${props.theme.borderWidths.xs}px solid ${props.theme.colors.blue.dark}`,
+    border: `${props.theme.borderWidths.xs}px solid ${props.theme.colors.blue.haptik}`,
   },
   position: "relative",
 });

@@ -33,7 +33,7 @@ export const textInputVariants = {
   dropdownActive: {
     paddingRight: space.lg + space.md + space.md,
     paddingLeft: space.md,
-    borderColor: colors.blue.dark,
+    borderColor: colors.blue.haptik,
     borderBottomColor: "transparent",
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 0,
@@ -41,7 +41,7 @@ export const textInputVariants = {
   dropdownActiveTop: {
     paddingRight: space.lg + space.md + space.md,
     paddingLeft: space.md,
-    borderColor: colors.blue.dark,
+    borderColor: colors.blue.haptik,
     borderTopColor: "transparent",
     borderTopRightRadius: 0,
     borderTopLeftRadius: 0,
