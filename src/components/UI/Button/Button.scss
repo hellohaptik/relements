@@ -1,4 +1,8 @@
 @import "constants/index.scss";
+.buttonContainer {
+  display: inline-block;
+  position: relative;
+}
 
 .button {
   outline: none;
@@ -56,6 +60,7 @@
     background-color: rgba($warning-color, 0.1);
     color: $warning-color;
     border-color: $warning-color;
+
     &:hover {
       background-color: rgba($warning-color, 0.2);
       color: darken($warning-color, 10);
@@ -66,9 +71,17 @@
     background-color: rgba($yellow-color, 0.1);
     color: darken($yellow-color, 10);
     border-color: $yellow-color;
+
     &:hover {
       background-color: rgba($yellow-color, 0.2);
       color: darken($yellow-color, 20);
     }
   }
+}
+
+.secondaryIcon {
+  position: absolute;
+  right: -10px;
+  top: 14px;
+  cursor: pointer;
 }

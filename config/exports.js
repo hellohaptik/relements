@@ -11,6 +11,8 @@ export default {
   'ui/loader': 'src/components/UI/Loader/index.js',
   'ui/label': 'src/components/Inputs/_common/Label.js',
   'ui/alertbar': 'src/components/UI/AlertBar/index.js',
+  'ui/box': 'src/components/UI/Box/index.js',
+  'ui/text': 'src/components/UI/Text/index.js',
   
   'input/date': 'src/components/Inputs/Date/index.js',
   'input/file': 'src/components/Inputs/File/index.js',

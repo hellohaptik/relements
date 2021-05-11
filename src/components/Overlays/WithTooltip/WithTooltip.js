@@ -27,6 +27,24 @@ function WithTooltip({
     setTooltipActive(false);
   });
 
+  const defaultProps = {
+    tooltipArrowColor: "rgba(0,0,0,0.7)",
+    tooltipArrowSmall: true,
+    className: styles.withTooltipTooltip,
+    prefixClassName: `${prefixClassName}-inner`,
+  };
+
+  const tooltipProps = {
+    active: tooltipActive && !disabled,
+    position,
+    attachTo: DOMRef,
+    onClose: handleMouseLeave,
+  };
+
+  const withTooltipProps = { ...tooltipProps, ...defaultProps };
+
+  const tooltipContentClassName = `${styles.withTooltip} ${prefixClassName}-inner-wrapper`;
+
   return (
     <span
       ref={DOMRef}
@@ -36,24 +54,11 @@ function WithTooltip({
       className={`${styles.withTooltipWrapper} ${className} ${prefixClassName}`}
     >
       {children}
-      {tooltip ? (
-        <Tooltip
-          active={tooltipActive && !disabled}
-          position={position}
-          attachTo={DOMRef}
-          onClose={handleMouseLeave}
-          tooltipArrowColor="rgba(0,0,0,0.7)"
-          tooltipArrowSmall
-          className={styles.withTooltipTooltip}
-          prefixClassName={`${prefixClassName}-inner`}
-        >
-          <div
-            className={`${styles.withTooltip} ${prefixClassName}-inner-wrapper`}
-          >
-            {tooltip}
-          </div>
+      {tooltip && (
+        <Tooltip {...withTooltipProps}>
+          <div className={tooltipContentClassName}>{tooltip}</div>
         </Tooltip>
-      ) : null}
+      )}
     </span>
   );
 }

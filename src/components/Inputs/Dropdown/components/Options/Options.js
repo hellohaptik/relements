@@ -3,9 +3,25 @@ import PropTypes from "prop-types";
 import { Portal } from "react-portal";
 import useActivify from "@src/hooks/useActivify";
 import Context from "@src/components/Context";
+import Checkbox from "@src/components/Inputs/Checkbox";
+import Text from "@src/components/Inputs/Text";
+import Icon from "@src/components/UI/Icon";
+import SearchIcon from "@src/icons/search.svg";
 
 import Option from "../Option";
 import useKeyboardSelect from "../../hooks/useKeyboardSelect";
+
+import {
+  DropdownOptionsWrapper,
+  DropdownOptionsOverlay,
+  DropdownOptions,
+  DropdownCheckboxWrapper,
+  DropdownCheckboxItemWrapper,
+  DropdownCheckboxSearchWrapper,
+  DropdownCheckboxOptionsWrapper,
+  DropdownCheckboxSearchIcon,
+} from "../../ThemedDropdown";
+
 import styles from "./Options.scss";
 
 const Options = ({
@@ -14,12 +30,25 @@ const Options = ({
   onBlur,
   attachTo,
   focused,
+  inputRef,
   prefixClassName,
+  isSearchFocused,
+  handleOnSearchFocus,
+  handleOnSearchBlur,
+  handleSearchText,
   isReversed,
+  withCheckbox,
+  withMultiple,
+  withSearch,
+  onMouseEnter,
+  onMouseLeave,
   className,
+  themed,
+  noOptionsText,
 }) => {
   const { visible, enabled } = useActivify(focused);
   const { primaryColor } = React.useContext(Context);
+  const [dropdownContainerRect, setDropdownContainerRect] = React.useState(0);
 
   // A ref to store all the DOM elements for all the options
   const dropdownDOMs = React.useRef();
@@ -41,7 +70,16 @@ const Options = ({
 
   const activeClassName = visible ? styles.active : "";
   const focusedStyle = focused ? { borderColor: primaryColor } : {};
+  const focusedSearchStyle = isSearchFocused
+    ? { borderColor: primaryColor }
+    : {};
   const reverseModeClassName = isReversed ? styles.reverse : "";
+
+  // Calculates Rect dimensions of attachTo Ref
+  const calcRect = () => {
+    const rect = attachTo.current && attachTo.current.getBoundingClientRect();
+    setDropdownContainerRect(rect);
+  };
 
   /* Dropdown refs useEffect
    * whenever the options change
@@ -52,7 +90,10 @@ const Options = ({
     dropdownDOMs.current = new Array(options.length)
       .fill(0)
       .map(() => React.createRef());
-  }, [options.length]);
+
+    // Refresh the rect dimensions whenever there are changes in options
+    calcRect();
+  }, [options.length, options, highlightIndex, attachTo.current]);
 
   /* Dropdown options scrollIntoView useEffect
    * whenever the highlightIndex changes
@@ -86,51 +127,242 @@ const Options = ({
     }
   }, [highlightIndex]);
 
+  const handleScroll = () => {
+    // Refresh the rect dimensions whenever user scrolls the page
+    calcRect();
+  };
+
+  React.useEffect(() => {
+    themed &&
+      focused &&
+      window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [themed, focused]);
+
   if (!enabled) return null;
 
-  const rect = attachTo.current.getBoundingClientRect();
+  const getPosition = () => {
+    return {
+      top: isReversed
+        ? undefined
+        : dropdownContainerRect.bottom + window.scrollY,
+      bottom: isReversed
+        ? window.innerHeight - dropdownContainerRect.top - window.scrollY - 1
+        : undefined,
+      left: dropdownContainerRect.left,
+      width: dropdownContainerRect.width,
+    };
+  };
+
   // based on if the dropdown options should show above (isReversed) or below
   // the input, we assign positional properties that will be applied to the outermost
   // options div.
-  const position = {
-    top: isReversed ? undefined : rect.bottom + window.scrollY,
-    bottom: isReversed
-      ? window.innerHeight - rect.top - window.scrollY - 1
-      : undefined,
-    left: rect.left,
-    width: rect.width,
+  const position = getPosition();
+
+  let checkboxWrapperVariant;
+
+  if (focused) {
+    if (isReversed) {
+      checkboxWrapperVariant = "dropdownActiveTop";
+    } else {
+      checkboxWrapperVariant = "dropdownActive";
+    }
+  }
+
+  const renderWithCheckbox = () => {
+    if (themed) {
+      return (
+        <DropdownCheckboxWrapper
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+          variant={checkboxWrapperVariant}
+        >
+          <DropdownCheckboxSearchWrapper
+            mode={withSearch ? "withSearch" : "withoutSearch"}
+          >
+            <DropdownCheckboxSearchIcon>
+              <Icon src={SearchIcon} />
+            </DropdownCheckboxSearchIcon>
+            <Text
+              themed
+              innerRef={inputRef}
+              placeholder="Search here"
+              onChange={handleSearchText}
+              onFocus={handleOnSearchFocus}
+              onBlur={handleOnSearchBlur}
+              style={{
+                paddingLeft: 36,
+              }}
+            />
+          </DropdownCheckboxSearchWrapper>
+
+          <DropdownCheckboxOptionsWrapper
+            mode={withSearch ? "default" : "withoutSearch"}
+          >
+            {options.map((option, i) => {
+              if (option.isZeroState) {
+                return (
+                  <Option
+                    key={`themed-${option.label}-${i}`}
+                    selected={highlightIndex === i}
+                    innerRef={dropdownDOMs.current[i]}
+                    isZeroState={option.isZeroState}
+                    themed={true}
+                    noOptionsText={noOptionsText}
+                    checkboxSearch
+                  >
+                    {option.label}
+                  </Option>
+                );
+              }
+              // TODO: Add "create mode" as and when required
+              return (
+                <DropdownCheckboxItemWrapper>
+                  <Checkbox.Item
+                    themed
+                    key={`themed-${option.label}-${i}`}
+                    label={option.label}
+                    value={option.isSelected}
+                    onChange={() => {
+                      onChange(option.value);
+                    }}
+                  />
+                </DropdownCheckboxItemWrapper>
+              );
+            })}
+          </DropdownCheckboxOptionsWrapper>
+        </DropdownCheckboxWrapper>
+      );
+    }
+
+    return (
+      <div
+        className={styles.checkboxOptions}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
+        <div
+          className={`${styles.checkboxOptionsSearchWrapper}  ${!withSearch &&
+            styles.noBorder}`}
+          style={{ borderColor: focused ? primaryColor : undefined }}
+        >
+          <Icon
+            src={SearchIcon}
+            className={`${
+              styles.checkboxOptionsSearchIcon
+            } ${prefixClassName}-icon  ${!withSearch && styles.noDisplay}`}
+          />
+          <input
+            ref={inputRef}
+            className={`${styles.checkboxOptionsSearch} ${!withSearch &&
+              styles.hidden}`}
+            style={focusedSearchStyle}
+            placeholder="Search here"
+            onChange={e => handleSearchText(e.target.value)}
+            onFocus={handleOnSearchFocus}
+            onBlur={handleOnSearchBlur}
+          />
+        </div>
+        <div className={styles.checkboxOptionsWrapper}>
+          {options.map((option, i) => {
+            if (option.isZeroState) {
+              return (
+                <Option
+                  key={`${option.label}-${i}`}
+                  selected={highlightIndex === i}
+                  innerRef={dropdownDOMs.current[i]}
+                  isZeroState={option.isZeroState}
+                  className={`${prefixClassName}-option ${styles.checkboxOptionsWrapperZeroState}`}
+                >
+                  {option.label}
+                </Option>
+              );
+            }
+            // TODO: Add "create mode" as and when required
+            return (
+              <Checkbox.Item
+                key={`${option.label}-${i}`}
+                label={option.label}
+                value={option.isSelected}
+                onChange={() => {
+                  onChange(option.value);
+                }}
+                className={`${styles.checkboxOptionsOption} ${prefixClassName}-option`}
+              />
+            );
+          })}
+        </div>
+      </div>
+    );
   };
 
-  return (
-    <Portal>
+  const renderOptionsInner = () => {
+    if (withCheckbox && withMultiple) {
+      return renderWithCheckbox();
+    }
+
+    return (
+      <>
+        {options.map((option, i) => {
+          return (
+            <Option
+              key={`${option.label}-${i}`}
+              selected={highlightIndex === i}
+              innerRef={dropdownDOMs.current[i]}
+              onClick={() => {
+                onChange(option.value);
+              }}
+              isZeroState={option.isZeroState}
+              isNew={option.isNew}
+              className={`${prefixClassName}-option`}
+              themed={themed}
+              noOptionsText={noOptionsText}
+            >
+              {option.label}
+            </Option>
+          );
+        })}
+      </>
+    );
+  };
+
+  const renderOptions = () => {
+    if (themed) {
+      const mode = visible ? "active" : "inactive";
+
+      return (
+        <DropdownOptionsWrapper>
+          <DropdownOptionsOverlay />
+          <DropdownOptions
+            ref={scrollContainer}
+            style={{ ...position }}
+            onBlur={onBlur}
+            mode={mode}
+            variant={withCheckbox ? "withCheckbox" : "default"}
+            positionVariant={isReversed ? "top" : "default"}
+          >
+            {renderOptionsInner()}
+          </DropdownOptions>
+        </DropdownOptionsWrapper>
+      );
+    }
+
+    return (
       <div className={`${styles.dropdownOptionsWrapper}  ${className}`}>
         <div className={styles.dropdownOptionsOverlay} />
         <div
           ref={scrollContainer}
           style={{ ...position, ...focusedStyle }}
           className={`${styles.dropdownOptions} ${activeClassName} ${reverseModeClassName} ${prefixClassName}-options`}
+          onBlur={onBlur}
         >
-          {options.map((option, i) => {
-            return (
-              <Option
-                key={`${option.label}-${i}`}
-                selected={highlightIndex === i}
-                innerRef={dropdownDOMs.current[i]}
-                onClick={() => {
-                  onChange(option.value);
-                }}
-                isZeroState={option.isZeroState}
-                isNew={option.isNew}
-                className={`${prefixClassName}-option`}
-              >
-                {option.label}
-              </Option>
-            );
-          })}
+          {renderOptionsInner()}
         </div>
       </div>
-    </Portal>
-  );
+    );
+  };
+
+  return <Portal>{renderOptions()}</Portal>;
 };
 
 Options.propTypes = {
@@ -138,8 +370,14 @@ Options.propTypes = {
   className: PropTypes.string,
   focused: PropTypes.bool,
   isReversed: PropTypes.bool,
+  withCheckbox: PropTypes.bool,
+  withMultiple: PropTypes.bool,
+  withSearch: PropTypes.bool,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
+  inputRef: PropTypes.shape({}),
   attachTo: PropTypes.shape({
     current: PropTypes.node,
   }),
@@ -149,6 +387,12 @@ Options.propTypes = {
       value: PropTypes.shape({}),
     }),
   ),
+  isSearchFocused: PropTypes.bool,
+  handleOnSearchFocus: PropTypes.func,
+  handleOnSearchBlur: PropTypes.func,
+  handleSearchText: PropTypes.func,
+  themed: PropTypes.bool,
+  noOptionsText: PropTypes.string,
 };
 
 Options.defaultProps = {
@@ -156,10 +400,19 @@ Options.defaultProps = {
   className: "",
   focused: false,
   isReversed: false,
+  withCheckbox: false,
+  withMultiple: false,
+  isSearchFocused: false,
+  withSearch: false,
   onBlur: () => {},
   onChange: () => {},
+  handleOnSearchFocus: () => {},
+  handleOnSearchBlur: () => {},
+  handleSearchText: () => {},
   options: [],
   attachTo: {},
+  themed: false,
+  noOptionsText: "",
 };
 
 export default Options;

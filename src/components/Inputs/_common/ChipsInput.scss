@@ -62,6 +62,15 @@
   cursor: pointer;
 }
 
+.themedNewChip {
+  border: none;
+  font-family: "Proxima Nova", sans-serif;
+  outline: none;
+  &Added {
+    margin-bottom: 6px;
+  }
+}
+
 .newChip {
   margin-right: 6px;
   margin-bottom: 6px;

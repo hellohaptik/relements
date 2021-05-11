@@ -8,23 +8,31 @@ import Checkbox from "components/Inputs/Checkbox";
 import Input from "../Input";
 import styles from "./Comparison.scss";
 
-function Shortcuts({ startDate, endDate, onChange, prefixClassName }) {
+function Shortcuts({
+  startDate,
+  endDate,
+  onChange,
+  prefixClassName,
+  comparisonStartDate,
+  comparisonEndDate,
+}) {
   const numDays = endDate ? endDate.diff(startDate, "d") + 1 : 0;
   const prevComparisonStartDate = startDate.subtract(numDays, "d");
   const prevComparisonEndDate = startDate.subtract(1, "d");
+
   const isPreviousPeriod =
-    startDate &&
-    endDate &&
-    startDate.isSame(prevComparisonStartDate) &&
-    endDate.isSame(prevComparisonEndDate);
+    comparisonStartDate &&
+    comparisonEndDate &&
+    comparisonStartDate.isSame(prevComparisonStartDate) &&
+    comparisonEndDate.isSame(prevComparisonEndDate);
 
   return (
     <div className={`${styles.inputsButtons} ${prefixClassName}`}>
       <Button
         onClick={() => {
           onChange(
-            startDate.subtract(numDays, "days").startOf("day"),
-            startDate.subtract(1, "days").endOf("day"),
+            startDate.subtract(numDays, "days"),
+            startDate.subtract(1, "days"),
           );
         }}
         className={`${styles.inputsButton} ${
@@ -38,7 +46,9 @@ function Shortcuts({ startDate, endDate, onChange, prefixClassName }) {
         onClick={() => {
           onChange(null, null, "comparisonStartDate");
         }}
-        className={`${styles.inputsButton} ${styles.comparison} ${prefixClassName}-button`}
+        className={`${styles.inputsButton} ${
+          !isPreviousPeriod ? styles.compare : ""
+        } ${prefixClassName}-button`}
         primary={!isPreviousPeriod}
       >
         Custom
@@ -73,6 +83,8 @@ function Comparison({
             prefixClassName={`${prefixClassName}-shortcuts`}
             startDate={startDate}
             endDate={endDate}
+            comparisonStartDate={comparisonStartDate}
+            comparisonEndDate={comparisonEndDate}
             onChange={onChange}
           />
           <div
@@ -131,6 +143,8 @@ Shortcuts.propTypes = {
   prefixClassName: PropTypes.string,
   endDate: PropTypes.instanceOf(dayjs),
   startDate: PropTypes.instanceOf(dayjs),
+  comparisonEndDate: PropTypes.instanceOf(dayjs),
+  comparisonStartDate: PropTypes.instanceOf(dayjs),
 };
 
 Shortcuts.defaultProps = {

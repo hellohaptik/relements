@@ -1,35 +1,92 @@
 import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
 import Checkbox from "./Checkbox";
 
-# Checkbox.Item
+# Checkbox.Item Themed
 
 > A clickable UI element with active and hover states. Indicates to the user that it's clickable.
 
-<CodeBlock defaultValue={true}>
+<CodeBlock
+  defaultValue={false}
+  codeString={`<Checkbox.Item
+        themed
+        label="Node Type"
+        value={true}
+        onChange={() => {...}}
+      />`}
+>
   {(value, onChange) => (
-    <Checkbox.Item label="Node Type" value={value} onChange={onChange} />
+    <Checkbox.Item themed label="Node Type" value={value} onChange={onChange} />
   )}
 </CodeBlock>
-
-## Configuration
-
-<ConfigBlock of={Checkbox.Item} />
 
 ## Examples
 
-<CodeBlock title="Default" defaultValue={false}>
-  {(value, onChange) => (
-    <Checkbox.Item label="Node Type" value={value} onChange={onChange} />
-  )}
-</CodeBlock>
-
-<CodeBlock title="Disabled" defaultValue={false}>
+<CodeBlock
+  title="Disabled"
+  defaultValue={false}
+  codeString={`<Checkbox.Item
+      label="Node Type"
+      value={false}
+      onChange={() => {...}}
+      themed
+      disabled
+    />`}
+>
   {(value, onChange) => (
     <Checkbox.Item
       label="Node Type"
       value={value}
       onChange={onChange}
+      themed
       disabled
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock
+  title="Disabled checked"
+  defaultValue={true}
+  codeString={`<Checkbox.Item
+      label="Node Type"
+      value={true}
+      onChange={() => {...}}
+      themed
+      disabled
+    />`}
+>
+  {(value, onChange) => (
+    <Checkbox.Item
+      label="Node Type"
+      value={value}
+      onChange={onChange}
+      themed
+      disabled
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock
+  title="OnChange Callback"
+  defaultValue={false}
+  codeString={`<Checkbox.Item
+      label="Node Type"
+      value={false}
+      onChange={result => {
+        alert(JSON.stringify(result));
+        onChange(result);
+      }}
+      themed
+    />`}
+>
+  {(value, onChange) => (
+    <Checkbox.Item
+      label="Node Type"
+      value={value}
+      onChange={result => {
+        alert(JSON.stringify(result));
+        onChange(result);
+      }}
+      themed
     />
   )}
 </CodeBlock>

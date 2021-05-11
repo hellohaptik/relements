@@ -2,25 +2,40 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { rgba } from "@src/utils/generic";
+import Icon from "components/UI/Icon";
 
 import styles from "./Button.scss";
 import Context from "../../Context";
+import ThemedButton from "./ThemedButton";
 
 /**
  * Button component. Renders a button
  * based on type and size. Uses the children prop
  * to render the contents of the button.
  */
-const Button = ({
-  prefixClassName = "",
-  className = "",
-  type,
-  size,
-  disabled,
-  onClick,
-  innerRef,
-  children,
-}) => {
+const Button = props => {
+  if (props.themed) {
+    const buttonProps = {
+      ...props,
+      ref: props.innerRef,
+      "data-testid": "themedButton",
+    };
+    return <ThemedButton {...buttonProps}>{props.children}</ThemedButton>;
+  }
+
+  const {
+    prefixClassName = "",
+    className = "",
+    type,
+    size,
+    disabled,
+    onClick,
+    innerRef,
+    children,
+    secondaryIcon,
+    onSecondaryIconClick,
+  } = props;
+
   const { primaryColor } = React.useContext(Context);
 
   /**
@@ -89,25 +104,42 @@ const Button = ({
     return disabled ? styles.disabled : "";
   });
 
-  return (
-    <button
-      data-testid="button"
-      type="button"
-      disabled={disabled}
-      ref={innerRef}
-      onClick={onClick}
-      style={!disabled ? getColorStyles() : undefined}
-      className={`
-        ${styles.button}
-        ${prefixClassName}
-        ${className}
-        ${getDisabledClassName()}
-        ${getTypeClassName()}
-        ${getSizeClassName()}
-      `}
-    >
-      {children}
-    </button>
+  const renderButton = () => {
+    return (
+      <button
+        data-testid="button"
+        type="button"
+        disabled={disabled}
+        ref={innerRef}
+        onClick={onClick}
+        style={!disabled ? getColorStyles() : undefined}
+        className={`
+          ${styles.button}
+          ${prefixClassName}
+          ${className}
+          ${getDisabledClassName()}
+          ${getTypeClassName()}
+          ${getSizeClassName()}
+        `}
+      >
+        {children}
+      </button>
+    );
+  };
+
+  return !secondaryIcon ? (
+    renderButton()
+  ) : (
+    <div className={styles.buttonContainer}>
+      {renderButton()}
+      <span
+        data-testid="secondry-icon"
+        className={styles.secondaryIcon}
+        onClick={onSecondaryIconClick}
+      >
+        <Icon src={secondaryIcon} />
+      </span>
+    </div>
   );
 };
 
@@ -163,6 +195,11 @@ Button.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]).isRequired,
+  /** String identifier for the icon supported by relements <Icon /> or a react node. Optional. */
+  secondaryIcon: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  /** secondary icon onClick callback */
+  onSecondaryIconClick: PropTypes.func,
+  themed: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -172,6 +209,8 @@ Button.defaultProps = {
   size: Button.SIZES.MEDIUM,
   disabled: false,
   onClick: () => {},
+  onSecondaryIconClick: () => {},
+  themed: false,
 };
 
 Button.classNames = {

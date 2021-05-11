@@ -6,17 +6,25 @@ import Context from "@src/components/Context";
 import Icon from "@src/components/UI/Icon";
 import TickIcon from "@src/icons/checkmark.svg";
 
+import ThemedCheckboxItem from "../ThemedCheckbox/ThemedCheckboxItem";
+
 import styles from "./CheckboxOption.scss";
 
-const CheckboxOption = ({
-  label,
-  onChange,
-  value,
-  innerRef,
-  className,
-  prefixClassName,
-  disabled,
-}) => {
+const CheckboxOption = props => {
+  const {
+    label,
+    onChange,
+    value,
+    innerRef,
+    className,
+    prefixClassName,
+    disabled,
+  } = props;
+
+  if (props.themed) {
+    return <ThemedCheckboxItem {...props} />;
+  }
+
   const { primaryColor } = React.useContext(Context);
   const classNames = {
     main: cc([
@@ -82,6 +90,7 @@ CheckboxOption.propTypes = {
   prefixClassName: PropTypes.string,
   /** Whether the input is enabled or disabled */
   disabled: PropTypes.string,
+  themed: PropTypes.bool,
 };
 
 CheckboxOption.defaultProps = {
@@ -92,6 +101,7 @@ CheckboxOption.defaultProps = {
   innerRef: () => {},
   prefixClassName: "",
   disabled: false,
+  themed: false,
 };
 
 CheckboxOption.classNames = {

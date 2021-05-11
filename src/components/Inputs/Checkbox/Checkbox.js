@@ -6,18 +6,59 @@ import styles from "./Checkbox.scss";
 import { Label } from "../_common/Label";
 import { useCheckbox } from "./hooks/useCheckbox";
 
-const Checkbox = ({
-  value,
-  onChange,
-  options,
-  label,
-  hint,
-  disabled,
-  className,
-  prefixClassName,
-  error,
-}) => {
+import ThemedCheckboxWrapper from "./ThemedCheckbox/ThemedCheckboxWrapper";
+import ThemedCheckboxItem from "./ThemedCheckbox/ThemedCheckboxItem";
+
+const Checkbox = props => {
+  const {
+    value,
+    onChange,
+    options,
+    label,
+    hint,
+    disabled,
+    className,
+    prefixClassName,
+    error,
+  } = props;
+
   const [activeIndexes, handleChange] = useCheckbox(value, onChange, options);
+
+  if (props.themed) {
+    const checkboxProps = {
+      ...props,
+      "data-testid": "checkbox",
+    };
+    return (
+      <>
+        {label && (
+          <Label hint={hint} disabled={disabled} error={error} themed>
+            {label}
+          </Label>
+        )}
+        <ThemedCheckboxWrapper
+          {...checkboxProps}
+          variant={label ? "withLabel" : "default"}
+        >
+          {props.options.map((option, i) => {
+            return (
+              <ThemedCheckboxItem
+                value={activeIndexes.includes(i)}
+                onChange={handleChange(i)}
+                label={option.title}
+                error={error}
+                themed={props.themed}
+                mode={props.mode}
+                disabled={disabled}
+                prefixClassName={`${prefixClassName}-option`}
+              />
+            );
+          })}
+        </ThemedCheckboxWrapper>
+      </>
+    );
+  }
+
   return (
     <div
       data-testid="checkbox"
@@ -54,20 +95,25 @@ Checkbox.propTypes = {
   className: PropTypes.string,
   /** The hint text that shows up below the label */
   hint: PropTypes.string,
-  /** The value of the input */
-  value: PropTypes.string,
   /** Label text */
   label: PropTypes.string,
   /** If the input has an error. */
   error: PropTypes.bool,
-  /** onChange callback */
-  onChange: PropTypes.func,
   /** The prefix classname appended to all elements */
   prefixClassName: PropTypes.string,
+
+  // Themed props
+  /** onChange callback */
+  onChange: PropTypes.func,
+  /** The value of the input */
+  value: PropTypes.string,
   /** Array of options (checkboxes) */
   options: PropTypes.array,
   /** If the input is disabled (non-editable) */
   disabled: PropTypes.bool,
+  /** Mode to align checkboxes vertically or horizontally */
+  mode: PropTypes.string,
+  themed: PropTypes.bool,
 };
 
 Checkbox.defaultProps = {
@@ -80,6 +126,8 @@ Checkbox.defaultProps = {
   prefixClassName: "",
   options: [],
   disabled: false,
+  mode: "stacked",
+  themed: false,
 };
 
 Checkbox.classNames = {

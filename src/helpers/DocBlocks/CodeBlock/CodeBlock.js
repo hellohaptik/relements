@@ -3,11 +3,20 @@ import jsxToString from "jsx-to-string";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
 
+import Provider from "@src/components/Context/Provider";
 import useActivify from "@src/hooks/useActivify";
 
 import styles from "./CodeBlock.scss";
 
-const CodeBlock = ({ customStyles = {}, children, title, defaultValue }) => {
+const CodeBlock = ({
+  customStyles = {},
+  children,
+  title,
+  defaultValue,
+
+  // TODO: Find a better approach to render code other than codeString
+  codeString,
+}) => {
   const codeRef = React.useRef();
   const childRef = React.useRef();
   const [value, setValue] = React.useState(defaultValue);
@@ -33,28 +42,32 @@ const CodeBlock = ({ customStyles = {}, children, title, defaultValue }) => {
     typeof children === "function"
       ? children(value, setValue, childRef)
       : children;
+
   return (
-    <div className={styles.codeBlockWrapper}>
-      {title ? <div className={styles.codeBlockTitle}>{title}</div> : null}
-      <div className={styles.codeBlock} style={customStyles}>
-        <div className={`${styles.codeBlockPreview} ${toggledClassName}`}>
-          {child}
-        </div>
-        {enabled ? (
-          <div style={bodyStyle} className={styles.codeBlockBody}>
-            <div ref={codeRef} className="language-javascript">
-              <SyntaxHighlighter language="jsx" style={tomorrow}>
-                {child.props.originalType.__codeString ||
-                  CodeBlock.getCode(child)}
-              </SyntaxHighlighter>
-            </div>
+    <Provider>
+      <div className={styles.codeBlockWrapper}>
+        {title ? <div className={styles.codeBlockTitle}>{title}</div> : null}
+        <div className={styles.codeBlock} style={customStyles}>
+          <div className={`${styles.codeBlockPreview} ${toggledClassName}`}>
+            {child}
           </div>
-        ) : null}
+          {enabled ? (
+            <div style={bodyStyle} className={styles.codeBlockBody}>
+              <div ref={codeRef} className="language-javascript">
+                <SyntaxHighlighter language="jsx" style={tomorrow}>
+                  {codeString ||
+                    child.props.originalType.__codeString ||
+                    CodeBlock.getCode(child)}
+                </SyntaxHighlighter>
+              </div>
+            </div>
+          ) : null}
+        </div>
+        <div onClick={toggleCode} className={styles.codeBlockToggle}>
+          {`${codeOpen ? "Hide" : "Show"} Code`}
+        </div>
       </div>
-      <div onClick={toggleCode} className={styles.codeBlockToggle}>
-        {`${codeOpen ? "Hide" : "Show"} Code`}
-      </div>
-    </div>
+    </Provider>
   );
 };
 

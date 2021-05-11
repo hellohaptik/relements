@@ -20,6 +20,26 @@ import { DATA } from "./Table.storybook.js";
 
 <ConfigBlock of={Table} />
 
+## Clickable
+
+<CodeBlock defaultValue="bots">
+  {() => {
+    const [activeIndex, setActiveIndex] = React.useState(-1);
+    return (
+      <Table
+        sortable
+        sortKey="title"
+        sortOrder={-1}
+        columns={DATA.columns}
+        rows={DATA.data}
+        onRowClick={(index, row) => setActiveIndex(index)}
+        activeIndex={activeIndex}
+        highlightActiveRow
+      />
+    );
+  }}
+</CodeBlock>
+
 ## Examples
 
 <CodeBlock title="Virtual Scrolling" defaultValue="bots">
