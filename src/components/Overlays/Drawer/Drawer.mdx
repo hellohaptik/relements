@@ -19,6 +19,34 @@ import Drawer from './Drawer';
   )}
 </CodeBlock>
 
+# Themed Drawer
+
+<CodeBlock>
+  {(value, setValue) => (
+    <div>
+      <Button onClick={() => setValue(true)}> Open Drawer </Button>
+      <Drawer themed onClose={() => setValue(false)} active={value}>
+        <Drawer.Header themed onClose={() => setValue(false)}>Hello, world!</Drawer.Header>
+        <Drawer.Body padding={24}>This is a modal</Drawer.Body>
+      </Drawer>
+    </div>
+  )}
+</CodeBlock>
+
+# Themed Drawer with back button
+
+<CodeBlock>
+  {(value, setValue) => (
+    <div>
+      <Button onClick={() => setValue(true)}> Open Drawer </Button>
+      <Drawer onClose={() => setValue(false)} active={value}>
+        <Drawer.Header themed onBackButtonClick={() => setValue(false)} onClose={() => setValue(false)}>Hello, world!</Drawer.Header>
+        <Drawer.Body padding={24}>This is a modal</Drawer.Body>
+      </Drawer>
+    </div>
+  )}
+</CodeBlock>
+
 ## Configuration
 
 <ConfigBlock of={Drawer} />
