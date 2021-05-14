@@ -11,7 +11,7 @@ const RadioIconOuter = styled("div")({
   alignItems: "center",
   justifyContent: "center",
   borderRadius: "50%",
-  marginRight: "8px",
+  marginRight: props => `${props.theme.space.sm}px`,
   border: props =>
     `1px solid ${
       props.disabled
@@ -34,6 +34,12 @@ const RadioIconInner = styled("div")({
       : props.theme.colors.blue.haptik,
 });
 
+/**
+ * Component to render radio icon
+ * @param {Object} props
+ * @param {boolean} props.selected
+ * @param {boolean} props.disabled
+ */
 const RadioIcon = props => (
   <RadioIconOuter {...props}>
     <RadioIconInner {...props} />
@@ -52,12 +58,22 @@ const Item = styled(Box)({
   alignItems: "center",
 });
 
-export const RadioItem = ({
+/**
+ * Component to render radio options
+ * @param {Object} props
+ * @param {Object} props.children
+ * @param {string} props.value
+ * @param {string} props.selectedValue
+ * @param {()=>{}} props.onClick
+ * @param {Object} props.designProps
+ * @param {boolean} props.disabled
+ */
+const RadioItem = ({
   children,
   value,
   selectedValue,
   onClick,
-  marginProp,
+  designProps,
   disabled = false,
 }) => {
   return (
@@ -66,7 +82,7 @@ export const RadioItem = ({
         !disabled && onClick && onClick(value);
       }}
       disabled={disabled}
-      {...marginProp}
+      {...designProps}
     >
       <RadioIcon selected={selectedValue === value} disabled={disabled} />
       <Text variant="body.lg" color={disabled ? "grey.dark" : "text"}>
@@ -82,71 +98,7 @@ RadioItem.propTypes = {
   selectedValue: PropTypes.string,
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
-  marginProp: PropTypes.object,
+  designProps: PropTypes.object,
 };
 
-const RadioBody = ({ children, onChange, marginProp }) => {
-  const [selectedValue, setSelectedValue] = React.useState();
-  React.useEffect(() => {
-    onChange && onChange(selectedValue);
-  }, [selectedValue]);
-  const childrenWithProps = React.Children.map(children, element =>
-    React.cloneElement(element, {
-      onClick: setSelectedValue,
-      selectedValue,
-      marginProp,
-    }),
-  );
-
-  return <>{childrenWithProps}</>;
-};
-
-RadioBody.propTypes = {
-  children: PropTypes.node,
-  onChange: PropTypes.func,
-  marginProp: PropTypes.object,
-};
-
-export const RadioInline = ({ children, onChange }) => {
-  const marginProp = { marginRight: "md" };
-  return (
-    <Box>
-      <RadioBody onChange={onChange} marginProp={marginProp}>
-        {children}
-      </RadioBody>
-    </Box>
-  );
-};
-
-RadioInline.propTypes = {
-  children: PropTypes.node,
-  onChange: PropTypes.func,
-};
-
-export const RadioStacked = ({ children, onChange }) => {
-  const marginProp = { marginBottom: "md" };
-  return (
-    <Box flexDirection="column">
-      <RadioBody onChange={onChange} marginProp={marginProp}>
-        {children}
-      </RadioBody>
-    </Box>
-  );
-};
-
-RadioStacked.propTypes = {
-  children: PropTypes.node,
-  onChange: PropTypes.func,
-};
-
-export function ThemedRadio({ children }) {
-  return <>{children}</>;
-}
-
-ThemedRadio.propTypes = {
-  children: PropTypes.node,
-};
-
-ThemedRadio.Inline = RadioInline;
-ThemedRadio.Stacked = RadioStacked;
-ThemedRadio.Item = RadioItem;
+export default RadioItem;

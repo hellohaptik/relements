@@ -6,7 +6,7 @@ import RadioOption from "./components/RadioOption";
 import styles from "./Radio.scss";
 import { Label } from "../_common/Label";
 import { useRadio } from "./hooks/useRadio";
-import { ThemedRadio, RadioItem } from "./components/ThemedRadio";
+import { Radio as ThemedRadio } from "./components/Themed/Radio";
 
 const Radio = props => {
   const [activeIndex, handleChange] = useRadio(
@@ -22,29 +22,29 @@ const Radio = props => {
         {props.stacked ? (
           <Box flexDirection="column">
             {props.options.map((option, i) => (
-              <RadioItem
+              <ThemedRadio.Item
                 value={option.title}
                 selectedValue={props.options[activeIndex][props.optionKey]}
                 onClick={handleChange(i)}
                 disabled={props.disabled}
-                marginProp={{ marginBottom: "md" }}
+                designProps={{ marginBottom: "md" }}
               >
                 {option.title}
-              </RadioItem>
+              </ThemedRadio.Item>
             ))}
           </Box>
         ) : (
           <Box>
             {props.options.map((option, i) => (
-              <RadioItem
+              <ThemedRadio.Item
                 value={option.title}
                 selectedValue={props.options[activeIndex][props.optionKey]}
                 onClick={handleChange(i)}
                 disabled={props.disabled}
-                marginProp={{ marginRight: "md" }}
+                designProps={{ marginRight: "md" }}
               >
                 {option.title}
-              </RadioItem>
+              </ThemedRadio.Item>
             ))}
           </Box>
         )}
@@ -94,8 +94,6 @@ const Radio = props => {
     </div>
   );
 };
-
-Radio.Themed = require("./components/ThemedRadio").ThemedRadio;
 
 Radio.propTypes = {
   /** The classname to appended to the outermost element */
@@ -153,5 +151,6 @@ Radio.classNames = {
 };
 
 Radio.Item = RadioOption;
+Radio.Themed = ThemedRadio;
 
 export default Radio;
