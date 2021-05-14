@@ -9,6 +9,53 @@ import Box from "@src/components/UI/Box";
 import Text from "@src/components/UI/Text";
 import { Code, InlineCode } from "../../../Theme/components";
 
+const OldApiRadio = () => {
+  const [value, setValue] = React.useState({ title: "Option 1" });
+  const [stackValue, setStackValue] = React.useState({ title: "Option 1" });
+  return (
+    <>
+      <Text>Inline</Text>
+      <Radio
+        themed
+        value={value}
+        onChange={setValue}
+        options={[{ title: "Option 1" }, { title: "Option 2" }]}
+        optionKey="title"
+      />
+      <Code>
+        {[
+          `<Radio`,
+          `\tthemed`,
+          `\tvalue={value}`,
+          `\tonChange={setValue}`,
+          `\toptions={[{ title: "Option 1" }, { title: "Option 2" }]}`,
+          `\toptionKey="title"/>`,
+        ].join("\n")}
+      </Code>
+      <Text>Stacked</Text>
+      <Radio
+        stacked
+        themed
+        value={stackValue}
+        onChange={setStackValue}
+        options={[{ title: "Option 1" }, { title: "Option 2" }]}
+        optionKey="title"
+      />
+      <Code>
+        {[
+          `<Radio`,
+          `\tthemed`,
+          `\tstacked`,
+          `\tvalue={value}`,
+          `\tonChange={setValue}`,
+          `\toptions={[{ title: "Option 1" }, { title: "Option 2" }]}`,
+          `\toptionKey="title"/>`,
+        ].join("\n")}
+      </Code>
+    </>
+  );
+};
+
 storiesOf("Components|Inputs/Radio", module)
   .add("Old Documentation", () => <Docs />)
   .add("Design Components", () => {
@@ -73,6 +120,9 @@ storiesOf("Components|Inputs/Radio", module)
             </Radio.Themed.Item>
           </Radio.Themed.Stacked>
           <Code>{disabledCode}</Code>
+
+          <Text variant="h2.semi-bold">Using old style API</Text>
+          <OldApiRadio />
         </Box>
         <Box flexDirection="column">
           <Text variant="display-2.semi-bold">More examples</Text>
