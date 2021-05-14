@@ -57,7 +57,7 @@ const Radio = ({
   );
 };
 
-Radio.Themed = require("./ThemedRadio").ThemedRadio;
+Radio.Themed = require("./components/ThemedRadio").ThemedRadio;
 
 Radio.propTypes = {
   /** The classname to appended to the outermost element */

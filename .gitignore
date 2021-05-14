@@ -26,3 +26,5 @@ test/**/out
 .vscode
 **/.history/
 
+
+.vercel
