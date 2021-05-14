@@ -12,7 +12,12 @@ const RadioIconOuter = styled("div")({
   justifyContent: "center",
   borderRadius: "50%",
   marginRight: "8px",
-  border: props => `1px solid ${props.theme.colors.blue.haptik}`,
+  border: props =>
+    `1px solid ${
+      props.disabled
+        ? props.theme.colors.grey.dark
+        : props.theme.colors.blue.haptik
+    }`,
   backgroundColor: props => props.theme.colors.backgroundColor,
 });
 
@@ -23,21 +28,25 @@ const RadioIconInner = styled("div")({
   transition: "opacity 0.25s ease, transform 0.25s ease",
   transform: props => (props.selected ? "scale(1, 1)" : "scale(0.5, 0.5)"),
   opacity: props => (props.selected ? 1 : 0),
-  backgroundColor: props => props.theme.colors.blue.haptik,
+  backgroundColor: props =>
+    props.disabled
+      ? props.theme.colors.grey.dark
+      : props.theme.colors.blue.haptik,
 });
 
-const RadioIcon = ({ selected }) => (
-  <RadioIconOuter>
-    <RadioIconInner selected={selected} />
+const RadioIcon = props => (
+  <RadioIconOuter {...props}>
+    <RadioIconInner {...props} />
   </RadioIconOuter>
 );
 
 RadioIcon.propTypes = {
   selected: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 const Item = styled(Box)({
-  cursor: "pointer",
+  cursor: props => (props.disabled ? "not-allowed" : "pointer"),
   padding: 0,
   flexShrink: 0,
   alignItems: "center",
@@ -46,14 +55,23 @@ const Item = styled(Box)({
 export const RadioItem = ({
   children,
   value,
-  selected,
+  selectedValue,
   onClick,
   marginProp,
+  disabled = false,
 }) => {
   return (
-    <Item onClick={() => onClick(value)} {...marginProp}>
-      <RadioIcon selected={selected === value} />
-      <Text variant="body.lg">{children}</Text>
+    <Item
+      onClick={() => {
+        !disabled && onClick && onClick(value);
+      }}
+      disabled={disabled}
+      {...marginProp}
+    >
+      <RadioIcon selected={selectedValue === value} disabled={disabled} />
+      <Text variant="body.lg" color={disabled ? "grey.dark" : "text"}>
+        {children}
+      </Text>
     </Item>
   );
 };
@@ -61,18 +79,23 @@ export const RadioItem = ({
 RadioItem.propTypes = {
   children: PropTypes.node,
   value: PropTypes.string,
-  selected: PropTypes.string,
+  selectedValue: PropTypes.string,
+  disabled: PropTypes.bool,
   onClick: PropTypes.func,
   marginProp: PropTypes.object,
 };
 
 const RadioBody = ({ children, onChange, marginProp }) => {
-  const [selected, setSelected] = React.useState();
+  const [selectedValue, setSelectedValue] = React.useState();
   React.useEffect(() => {
-    onChange && onChange(selected);
-  }, [selected]);
+    onChange && onChange(selectedValue);
+  }, [selectedValue]);
   const childrenWithProps = React.Children.map(children, element =>
-    React.cloneElement(element, { onClick: setSelected, selected, marginProp }),
+    React.cloneElement(element, {
+      onClick: setSelectedValue,
+      selectedValue,
+      marginProp,
+    }),
   );
 
   return <>{childrenWithProps}</>;

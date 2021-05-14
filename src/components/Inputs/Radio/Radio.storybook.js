@@ -25,6 +25,12 @@ storiesOf("Components|Inputs/Radio", module)
       `\t<Radio.Themed.Item value="2">Option 2</Radio.Themed.Item>`,
       `</Radio.Themed.Stacked>`,
     ].join("\n");
+    const disabledCode = [
+      `<Radio.Themed.Stacked onChange={handleOnChange}>`,
+      `\t<Radio.Themed.Item disabled value="1">Option 1</Radio.Themed.Item>`,
+      `\t<Radio.Themed.Item disabled value="2">Option 2</Radio.Themed.Item>`,
+      `</Radio.Themed.Stacked>`,
+    ].join("\n");
     return (
       <Provider>
         <Box flexDirection="column">
@@ -56,6 +62,17 @@ storiesOf("Components|Inputs/Radio", module)
             <Radio.Themed.Item value="2">Option 2</Radio.Themed.Item>
           </Radio.Themed.Stacked>
           <Code>{stackedCode}</Code>
+
+          <Text variant="h2.semi-bold">Disabled</Text>
+          <Radio.Themed.Stacked onChange={console.log}>
+            <Radio.Themed.Item disabled value="1">
+              Option 1
+            </Radio.Themed.Item>
+            <Radio.Themed.Item disabled value="2">
+              Option 2
+            </Radio.Themed.Item>
+          </Radio.Themed.Stacked>
+          <Code>{disabledCode}</Code>
         </Box>
         <Box flexDirection="column">
           <Text variant="display-2.semi-bold">More examples</Text>
