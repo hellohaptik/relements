@@ -26,7 +26,7 @@ const Radio = props => {
                 value={option.title}
                 selectedValue={props.options[activeIndex][props.optionKey]}
                 onClick={handleChange(i)}
-                disabled={disabled}
+                disabled={props.disabled}
                 marginProp={{ marginBottom: "md" }}
               >
                 {option.title}
@@ -40,7 +40,7 @@ const Radio = props => {
                 value={option.title}
                 selectedValue={props.options[activeIndex][props.optionKey]}
                 onClick={handleChange(i)}
-                disabled={disabled}
+                disabled={props.disabled}
                 marginProp={{ marginRight: "md" }}
               >
                 {option.title}

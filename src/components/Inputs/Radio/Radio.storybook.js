@@ -14,7 +14,7 @@ const OldApiRadio = () => {
   const [stackValue, setStackValue] = React.useState({ title: "Option 1" });
   return (
     <>
-      <Text>Inline</Text>
+      <Text>Inline (default)</Text>
       <Radio
         themed
         value={value}
@@ -46,6 +46,28 @@ const OldApiRadio = () => {
           `<Radio`,
           `\tthemed`,
           `\tstacked`,
+          `\tvalue={value}`,
+          `\tonChange={setValue}`,
+          `\toptions={[{ title: "Option 1" }, { title: "Option 2" }]}`,
+          `\toptionKey="title"/>`,
+        ].join("\n")}
+      </Code>
+      <Text>Disabled</Text>
+      <Radio
+        stacked
+        themed
+        value={stackValue}
+        onChange={setStackValue}
+        options={[{ title: "Option 1" }, { title: "Option 2" }]}
+        optionKey="title"
+        disabled
+      />
+      <Code>
+        {[
+          `<Radio`,
+          `\tthemed`,
+          `\tstacked`,
+          `\tdisabled`,
           `\tvalue={value}`,
           `\tonChange={setValue}`,
           `\toptions={[{ title: "Option 1" }, { title: "Option 2" }]}`,
