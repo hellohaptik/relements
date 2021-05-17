@@ -71,6 +71,24 @@ storiesOf("Components|Inputs/Radio", module).add("Design Components", () => {
             `\toptionKey="title"/>`,
           ].join("\n")}
         </Code>
+        <Radio
+          themed
+          label="With radio label"
+          value={{ title: "Option one" }}
+          options={[{ title: "Option one" }]}
+          optionKey="title"
+        />
+        <Code>
+          {[
+            `<Radio`,
+            `\tthemed`,
+            `\tlabel="With radio label"`,
+            `\tonChange={setValue}`,
+            `\tvalue={{ title: "Option one" }}`,
+            `\toptions={[{ title: "Option one" }]}`,
+            `\toptionKey="title"/>`,
+          ].join("\n")}
+        </Code>
         <Text variant="h2.semi-bold">Disabled</Text>
         <Radio
           themed

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Box from "@src/components/UI/Box";
 
 import RadioOption from "./components/RadioOption";
 import styles from "./Radio.scss";
@@ -33,19 +34,32 @@ const Radio = ({
 
   if (designProps.themed) {
     return (
-      <ThemedRadioWrapper {...designProps}>
-        {options.map((option, i) => (
-          <ThemedRadio.Item
-            key={i}
-            value={option.title}
-            selectedValue={options[activeIndex][optionKey]}
-            onClick={handleChange(i)}
-            {...designProps}
+      <Box flexDirection="column" padding="zero">
+        {Boolean(label) && (
+          <Label
+            hint={hint}
+            tooltip={tooltip}
+            error={error}
+            disabled={disabled}
+            className={`${prefixClassName}-label`}
           >
-            {option.title}
-          </ThemedRadio.Item>
-        ))}
-      </ThemedRadioWrapper>
+            {label}
+          </Label>
+        )}
+        <ThemedRadioWrapper {...designProps}>
+          {options.map((option, i) => (
+            <ThemedRadio.Item
+              key={i}
+              value={option.title}
+              selectedValue={options[activeIndex][optionKey]}
+              onClick={handleChange(i)}
+              {...designProps}
+            >
+              {option.title}
+            </ThemedRadio.Item>
+          ))}
+        </ThemedRadioWrapper>
+      </Box>
     );
   }
 
