@@ -11,7 +11,6 @@ import ThemedCheckboxItem from "../ThemedCheckbox/ThemedCheckboxItem";
 import styles from "./CheckboxOption.scss";
 
 const CheckboxOption = props => {
-
   const {
     label,
     onChange,
@@ -22,8 +21,8 @@ const CheckboxOption = props => {
     disabled,
   } = props;
 
-  if(props.themed){
-    return <ThemedCheckboxItem  {...props} />
+  if (props.themed) {
+    return <ThemedCheckboxItem {...props} />;
   }
 
   const { primaryColor } = React.useContext(Context);
