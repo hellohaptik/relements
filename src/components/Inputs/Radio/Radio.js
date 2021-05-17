@@ -37,11 +37,11 @@ const Radio = ({
       <Box flexDirection="column" padding="zero">
         {Boolean(label) && (
           <Label
+            themed
             hint={hint}
             tooltip={tooltip}
             error={error}
             disabled={disabled}
-            className={`${prefixClassName}-label`}
           >
             {label}
           </Label>
