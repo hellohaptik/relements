@@ -1,4 +1,6 @@
 import React from "react";
+import { variant } from "styled-system";
+import styled from "styled-components";
 import PropTypes from "prop-types";
 import Box from "@src/components/UI/Box";
 import RadioItem from "./RadioItem";
@@ -11,7 +13,7 @@ import RadioItem from "./RadioItem";
  * @param {()=>{}} props.onChange
  * @param {Object} props.designProps
  */
-const RadioBody = ({ children, onChange, designProps }) => {
+const RadioBody = ({ children, onChange, ...designProps }) => {
   const [selectedValue, setSelectedValue] = React.useState();
   React.useEffect(() => {
     onChange && onChange(selectedValue);
@@ -20,7 +22,7 @@ const RadioBody = ({ children, onChange, designProps }) => {
     React.cloneElement(element, {
       onClick: setSelectedValue,
       selectedValue,
-      designProps,
+      ...designProps,
     }),
   );
 
@@ -30,69 +32,47 @@ const RadioBody = ({ children, onChange, designProps }) => {
 RadioBody.propTypes = {
   children: PropTypes.node,
   onChange: PropTypes.func,
-  designProps: PropTypes.object,
 };
 
-/**
- * Component to render radio options inline
- * @component
- * @param {Object} props
- * @param {Object} props.children
- * @param {()=>{}} props.onChange
- */
-export const RadioInline = ({ children, onChange }) => {
-  const designProps = { marginRight: "md" };
-  return (
-    <Box>
-      <RadioBody onChange={onChange} designProps={designProps}>
-        {children}
-      </RadioBody>
-    </Box>
-  );
-};
+export const RadioWrapper = styled(Box)(
+  variant({
+    prop: "mode",
+    variants: {
+      inline: { flexDirection: "row" },
+      stacked: { flexDirection: "column" },
+    },
+  }),
+);
 
-RadioInline.propTypes = {
-  children: PropTypes.node,
-  onChange: PropTypes.func,
-};
-
-/**
- * Component to render radio options stacked
- * @component
- * @param {Object} props
- * @param {Object} props.children
- * @param {()=>{}} props.onChange
- */
-export const RadioStacked = ({ children, onChange }) => {
-  const designProps = { marginBottom: "md" };
-  return (
-    <Box flexDirection="column">
-      <RadioBody onChange={onChange} designProps={designProps}>
-        {children}
-      </RadioBody>
-    </Box>
-  );
-};
-
-RadioStacked.propTypes = {
-  children: PropTypes.node,
-  onChange: PropTypes.func,
+RadioWrapper.defaultProps = {
+  variant: "primary",
 };
 
 /**
  *
  * @param {Object} props
  * @param {Object} props.children
+ * @param {string} props.mode
+ * @param {string} props.variant
  * @returns
  */
-export function Radio({ children }) {
-  return <>{children}</>;
+export function Radio({ children, ...restProps }) {
+  return (
+    <RadioWrapper {...restProps}>
+      <RadioBody {...restProps}>{children}</RadioBody>
+    </RadioWrapper>
+  );
 }
 
 Radio.propTypes = {
   children: PropTypes.node,
+  mode: PropTypes.string,
+  variant: PropTypes.string,
 };
 
-Radio.Inline = RadioInline;
-Radio.Stacked = RadioStacked;
+Radio.defaultProps = {
+  mode: "inline",
+  variant: "primary",
+};
+
 Radio.Item = RadioItem;

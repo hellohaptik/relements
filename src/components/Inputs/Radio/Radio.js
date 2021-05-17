@@ -1,67 +1,50 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Box from "@src/components/UI/Box";
 import RadioOption from "./components/RadioOption";
 import styles from "./Radio.scss";
 import { Label } from "../_common/Label";
 import { useRadio } from "./hooks/useRadio";
-import { Radio as ThemedRadio } from "./components/Themed/Radio";
+import { Radio as ThemedRadio, RadioWrapper } from "./components/Themed/Radio";
 
-const Radio = props => {
+const Radio = ({
+  options,
+  label,
+  hint,
+  className,
+  prefixClassName,
+  error,
+  tooltip,
+  disabled,
+  value,
+  onChange,
+  optionKey,
+  ...designProps
+}) => {
   const [activeIndex, handleChange] = useRadio(
-    props.value,
-    props.onChange,
-    props.options,
-    props.optionKey,
+    value,
+    onChange,
+    options,
+    optionKey,
   );
 
-  if (props.themed) {
+  if (designProps.themed) {
     return (
-      <ThemedRadio>
-        {props.stacked ? (
-          <Box flexDirection="column">
-            {props.options.map((option, i) => (
-              <ThemedRadio.Item
-                value={option.title}
-                selectedValue={props.options[activeIndex][props.optionKey]}
-                onClick={handleChange(i)}
-                disabled={props.disabled}
-                designProps={{ marginBottom: "md" }}
-              >
-                {option.title}
-              </ThemedRadio.Item>
-            ))}
-          </Box>
-        ) : (
-          <Box>
-            {props.options.map((option, i) => (
-              <ThemedRadio.Item
-                value={option.title}
-                selectedValue={props.options[activeIndex][props.optionKey]}
-                onClick={handleChange(i)}
-                disabled={props.disabled}
-                designProps={{ marginRight: "md" }}
-              >
-                {option.title}
-              </ThemedRadio.Item>
-            ))}
-          </Box>
-        )}
-      </ThemedRadio>
+      <RadioWrapper {...designProps}>
+        {options.map((option, i) => (
+          <ThemedRadio.Item
+            key={i}
+            value={option.title}
+            selectedValue={options[activeIndex][optionKey]}
+            onClick={handleChange(i)}
+            {...designProps}
+          >
+            {option.title}
+          </ThemedRadio.Item>
+        ))}
+      </RadioWrapper>
     );
   }
-
-  const {
-    options,
-    label,
-    hint,
-    className,
-    prefixClassName,
-    error,
-    tooltip,
-    disabled,
-  } = props;
 
   return (
     <div
@@ -81,6 +64,7 @@ const Radio = props => {
         {options.map((option, i) => {
           return (
             <RadioOption
+              key={i}
               value={activeIndex === i}
               onChange={handleChange(i)}
               label={option.title}
@@ -120,8 +104,10 @@ Radio.propTypes = {
   optionKey: PropTypes.string,
   /** the key that acts like an identifier for themed comps.  */
   themed: PropTypes.bool,
-  /** the key that acts like an identifier for stacked themed comps  */
-  stacked: PropTypes.bool,
+  /** the key that acts like an identifier for radio mode - inline|stacked  */
+  mode: PropTypes.string,
+  /** the key that acts like an identifier for radio item variant - primary|disabled  */
+  variant: PropTypes.string,
 };
 
 Radio.defaultProps = {
@@ -137,7 +123,8 @@ Radio.defaultProps = {
   tooltip: "",
   optionKey: "title",
   themed: false,
-  stacked: false,
+  mode: "inline",
+  variant: "primary",
 };
 
 Radio.classNames = {
