@@ -5,7 +5,10 @@ import RadioOption from "./components/RadioOption";
 import styles from "./Radio.scss";
 import { Label } from "../_common/Label";
 import { useRadio } from "./hooks/useRadio";
-import { Radio as ThemedRadio, RadioWrapper } from "./components/Themed/Radio";
+import {
+  Radio as ThemedRadio,
+  RadioWrapper as ThemedRadioWrapper,
+} from "./components/Themed/Radio";
 
 const Radio = ({
   options,
@@ -30,7 +33,7 @@ const Radio = ({
 
   if (designProps.themed) {
     return (
-      <RadioWrapper {...designProps}>
+      <ThemedRadioWrapper {...designProps}>
         {options.map((option, i) => (
           <ThemedRadio.Item
             key={i}
@@ -42,7 +45,7 @@ const Radio = ({
             {option.title}
           </ThemedRadio.Item>
         ))}
-      </RadioWrapper>
+      </ThemedRadioWrapper>
     );
   }
 
