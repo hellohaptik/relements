@@ -1,23 +1,29 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Box from "@src/components/UI/Box";
 
 import RadioOption from "./components/RadioOption";
 import styles from "./Radio.scss";
 import { Label } from "../_common/Label";
 import { useRadio } from "./hooks/useRadio";
+import {
+  Radio as ThemedRadio,
+  RadioWrapper as ThemedRadioWrapper,
+} from "./components/Themed/Radio";
 
 const Radio = ({
-  value,
-  onChange,
   options,
   label,
   hint,
   className,
   prefixClassName,
   error,
-  optionKey,
   tooltip,
   disabled,
+  value,
+  onChange,
+  optionKey,
+  ...designProps
 }) => {
   const [activeIndex, handleChange] = useRadio(
     value,
@@ -25,6 +31,38 @@ const Radio = ({
     options,
     optionKey,
   );
+
+  if (designProps.themed) {
+    return (
+      <Box flexDirection="column" padding="zero">
+        {Boolean(label) && (
+          <Label
+            themed
+            hint={hint}
+            tooltip={tooltip}
+            error={error}
+            disabled={disabled}
+          >
+            {label}
+          </Label>
+        )}
+        <ThemedRadioWrapper {...designProps}>
+          {options.map((option, i) => (
+            <ThemedRadio.Item
+              key={i}
+              value={option.title}
+              selectedValue={options[activeIndex][optionKey]}
+              onClick={handleChange(i)}
+              {...designProps}
+            >
+              {option.title}
+            </ThemedRadio.Item>
+          ))}
+        </ThemedRadioWrapper>
+      </Box>
+    );
+  }
+
   return (
     <div
       data-testid="radio"
@@ -43,6 +81,7 @@ const Radio = ({
         {options.map((option, i) => {
           return (
             <RadioOption
+              key={i}
               value={activeIndex === i}
               onChange={handleChange(i)}
               label={option.title}
@@ -80,6 +119,12 @@ Radio.propTypes = {
   tooltip: PropTypes.string,
   /** the key that acts like an identifier for the options  */
   optionKey: PropTypes.string,
+  /** the key that acts like an identifier for themed comps.  */
+  themed: PropTypes.bool,
+  /** the key that acts like an identifier for radio mode - inline|stacked  */
+  mode: PropTypes.string,
+  /** the key that acts like an identifier for radio item variant - primary|disabled  */
+  variant: PropTypes.string,
 };
 
 Radio.defaultProps = {
@@ -94,6 +139,9 @@ Radio.defaultProps = {
   disabled: false,
   tooltip: "",
   optionKey: "title",
+  themed: false,
+  mode: "inline",
+  variant: "primary",
 };
 
 Radio.classNames = {
@@ -107,5 +155,6 @@ Radio.classNames = {
 };
 
 Radio.Item = RadioOption;
+Radio.Themed = ThemedRadio;
 
 export default Radio;
