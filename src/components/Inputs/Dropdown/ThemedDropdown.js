@@ -138,24 +138,23 @@ const withCheckboxInputStyle = props => {
   };
 };
 
-const dropdownArrowStyle = props => ({
+const DropdownIconStyle = {
   position: "absolute",
   top: 0,
   height: "100%",
   display: "flex",
   alignItems: "center",
-  right: props.theme.space.lg - props.theme.space.xs, // 10px
   transition: "transform 0.3s ease",
+};
+
+const dropdownArrowStyle = props => ({
+  ...DropdownIconStyle,
+  right: props.theme.space.lg - props.theme.space.xs, // 10px
 });
 
 const dropdownPrefixStyle = props => ({
-  position: "absolute",
-  top: 0,
-  height: "100%",
-  display: "flex",
-  alignItems: "center",
+  ...DropdownIconStyle,
   left: props.theme.space.lg - props.theme.space.xs, // 10px
-  transition: "transform 0.3s ease",
 });
 
 const checkboxWrapperStyle = {
