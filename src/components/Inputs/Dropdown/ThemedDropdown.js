@@ -148,6 +148,16 @@ const dropdownArrowStyle = props => ({
   transition: "transform 0.3s ease",
 });
 
+const dropdownPrefixStyle = props => ({
+  position: "absolute",
+  top: 0,
+  height: "100%",
+  display: "flex",
+  alignItems: "center",
+  left: props.theme.space.lg - props.theme.space.xs, // 10px
+  transition: "transform 0.3s ease",
+});
+
 const checkboxWrapperStyle = {
   maxHeight: 198,
   overflow: "hidden",
@@ -255,6 +265,14 @@ const DropdownArrow = styled("div")(
   DropdownArrowMode,
 );
 
+const DropdownPrefix = styled("div")(
+  dropdownPrefixStyle,
+  space,
+  color,
+  border,
+  typography,
+);
+
 const DropdownCheckboxWrapper = styled(Box)(
   checkboxWrapperStyle,
   space,
@@ -355,6 +373,7 @@ export {
   DropdownOption,
   DropdownWithCheckboxInput,
   DropdownArrow,
+  DropdownPrefix,
   DropdownCheckboxWrapper,
   DropdownCheckboxItemWrapper,
   DropdownCheckboxSearchWrapper,

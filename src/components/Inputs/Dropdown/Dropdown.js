@@ -38,6 +38,7 @@ const Dropdown = ({
   withCheckbox,
   themed,
   style,
+  prefixIcon,
 }) => {
   // stores the currently typed input (in case of withSearch)
   const [text, setText] = React.useState("");
@@ -310,6 +311,7 @@ const Dropdown = ({
               withMultiple={withMultiple}
               optionKey={optionKey}
               disabled={disabled}
+              prefixIcon={prefixIcon}
               themed
             />
           )}
@@ -381,6 +383,7 @@ const Dropdown = ({
             optionKey={optionKey}
             disabled={disabled}
             prefixClassName={`${prefixClassName}-input`}
+            prefixIcon={prefixIcon}
           />
         )}
         <Options

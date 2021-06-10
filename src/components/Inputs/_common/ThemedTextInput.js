@@ -59,6 +59,9 @@ const inputStyle = props => {
     "&::-webkit-input-placeholder": {
       color: colors.grey.dark,
     },
+    "&:not(:first-child)": {
+      paddingLeft: 3 * space.lg - space.xs, // 38px
+    },
   };
 };
 

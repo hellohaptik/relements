@@ -1,6 +1,7 @@
 import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
 import OPTIONS from "./constants";
 import Dropdown from "./Dropdown";
+import DateIcon from "@src/icons/date.svg";
 
 # Dropdown
 
@@ -81,6 +82,36 @@ import Dropdown from "./Dropdown";
     label="This is a label"
     value={value}
     onChange={setValue}
+    />
+)}
+</CodeBlock>
+
+<CodeBlock title="Themed with prefix icon">
+{(value, setValue) => (
+    <Dropdown
+      placeholder="Select a value"
+      options={OPTIONS.THEMED}
+      value={value}
+      label="This is a label"
+      value={value}
+      onChange={setValue}
+      prefixIcon={DateIcon}
+      themed
+    />
+)}
+</CodeBlock>
+
+<CodeBlock title="Regular with prefix icon">
+{(value, setValue) => (
+    <Dropdown
+    placeholder="Test placeholder"
+    className="my-dropdown"
+    prefixClassName="my-yoooo"
+    options={OPTIONS.DEFAULT}
+    label="This is a label"
+    value={value}
+    onChange={setValue}
+    prefixIcon={DateIcon}
     />
 )}
 </CodeBlock>
