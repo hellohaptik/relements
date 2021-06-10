@@ -63,8 +63,6 @@ const ThemedChipsInputWrapper = styled("div")(
 );
 
 const chipsContainerStyle = props => {
-  const { theme } = props;
-  const { space } = theme;
   return {
     display: "flex",
     alignItems: "center",
@@ -72,7 +70,7 @@ const chipsContainerStyle = props => {
     cursor: "text",
     width: "100%",
     "&:not(:first-child)": {
-      paddingLeft: 3 * space.lg - space.md, // 38px
+      paddingLeft: 3 * props.theme.space.lg - props.theme.space.md, // 38px
     },
   };
 };
