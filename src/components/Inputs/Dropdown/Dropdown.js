@@ -293,6 +293,7 @@ const Dropdown = ({
               disabled={disabled}
               focused={focused}
               isReversed={isReversed}
+              prefixIcon={prefixIcon}
               themed
             />
           ) : (
@@ -383,7 +384,6 @@ const Dropdown = ({
             optionKey={optionKey}
             disabled={disabled}
             prefixClassName={`${prefixClassName}-input`}
-            prefixIcon={prefixIcon}
           />
         )}
         <Options
@@ -460,6 +460,8 @@ Dropdown.propTypes = {
   withCheckbox: PropTypes.bool,
   /** Whether the dropdown will be themed */
   themed: PropTypes.bool,
+  /** prefix Icon */
+  prefixIcon: PropTypes.node,
 };
 
 Dropdown.defaultProps = {
@@ -485,6 +487,7 @@ Dropdown.defaultProps = {
   withMultiple: false,
   withCheckbox: false,
   themed: false,
+  prefixIcon: null,
 };
 
 Dropdown.classNames = {

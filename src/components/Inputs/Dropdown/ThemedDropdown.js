@@ -264,7 +264,7 @@ const DropdownArrow = styled("div")(
   DropdownArrowMode,
 );
 
-const DropdownPrefix = styled("div")(
+const DropdownPrefixIcon = styled("div")(
   dropdownPrefixStyle,
   space,
   color,
@@ -372,7 +372,7 @@ export {
   DropdownOption,
   DropdownWithCheckboxInput,
   DropdownArrow,
-  DropdownPrefix,
+  DropdownPrefixIcon,
   DropdownCheckboxWrapper,
   DropdownCheckboxItemWrapper,
   DropdownCheckboxSearchWrapper,

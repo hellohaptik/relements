@@ -101,20 +101,6 @@ import DateIcon from "@src/icons/date.svg";
 )}
 </CodeBlock>
 
-<CodeBlock title="Regular with prefix icon">
-{(value, setValue) => (
-    <Dropdown
-    placeholder="Test placeholder"
-    className="my-dropdown"
-    prefixClassName="my-yoooo"
-    options={OPTIONS.DEFAULT}
-    label="This is a label"
-    value={value}
-    onChange={setValue}
-    prefixIcon={DateIcon}
-    />
-)}
-</CodeBlock>
 </div>
 
 <div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
@@ -155,6 +141,21 @@ import DateIcon from "@src/icons/date.svg";
     withSearch
     />
 )}
+</CodeBlock>
+
+<CodeBlock title="Themed with prefix icon">
+  {(value, setValue) => (
+    <Dropdown
+      themed
+      placeholder="Select a value"
+      options={OPTIONS.THEMED}
+      label="Label"
+      value={value}
+      onChange={setValue}
+      withSearch
+      prefixIcon={DateIcon}
+    />
+    )}
 </CodeBlock>
 </div>
 
@@ -198,6 +199,22 @@ import DateIcon from "@src/icons/date.svg";
     withSearch
     />
 )}
+</CodeBlock>
+
+<CodeBlock title="Themed with prefix icon">
+  {(value, setValue) => (
+    <Dropdown
+      themed
+      placeholder="Select items"
+      options={OPTIONS.THEMED}
+      label="Label"
+      value={value}
+      onChange={setValue}
+      withMultiple
+      withSearch
+      prefixIcon={DateIcon}
+    />
+    )}
 </CodeBlock>
 </div>
 
@@ -248,6 +265,27 @@ import DateIcon from "@src/icons/date.svg";
       withMultiple
       withSearch
       withCheckbox
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock title="Themed with prefix icon" defaultValue={[{ title: "Option text 1" }]}>
+  {(value, setValue) => (
+    <Dropdown
+      themed
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      options={OPTIONS.SEARCH}
+      label="This is the label"
+      value={value}
+      onChange={setValue}
+      optionKey="title"
+      searchKeys={["title"]}
+      withMultiple
+      withSearch
+      withCheckbox
+      prefixIcon={DateIcon}
     />
   )}
 </CodeBlock>
@@ -303,6 +341,26 @@ import DateIcon from "@src/icons/date.svg";
   )}
 </CodeBlock>
 
+<CodeBlock title="Themed with prefix icon" defaultValue={[{ title: "Option text 1" }]}>
+  {(value, setValue) => (
+    <Dropdown
+      themed
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      options={OPTIONS.SEARCH}
+      label="This is the label"
+      value={value}
+      onChange={setValue}
+      optionKey="title"
+      searchKeys={["title"]}
+      withMultiple
+      withCheckbox
+      prefixIcon={DateIcon}
+    />
+  )}
+</CodeBlock>
+
 </div>
 
 <div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
@@ -346,6 +404,24 @@ import DateIcon from "@src/icons/date.svg";
       onChange={setValue}
       withCreate
       withSearch
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock title="Themed with prefix icon">
+  {(value, setValue) => (
+    <Dropdown
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      options={OPTIONS.THEMED}
+      label="This is the label"
+      value={value}
+      onChange={setValue}
+      withCreate
+      withSearch
+      themed
+      prefixIcon={DateIcon}
     />
   )}
 </CodeBlock>
@@ -395,6 +471,23 @@ import DateIcon from "@src/icons/date.svg";
   )}
 </CodeBlock>
 
+<CodeBlock title="Themed with prefix icon">
+  {(value, setValue) => (
+    <Dropdown
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      value={[{ text: "Nice" }]}
+      options={OPTIONS.THEMED}
+      label="This is the label"
+      onChange={setValue}
+      themed
+      disabled
+      prefixIcon={DateIcon}
+    />
+  )}
+</CodeBlock>
+
 </div>
 
 <div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
@@ -436,6 +529,23 @@ import DateIcon from "@src/icons/date.svg";
       label="This is the label"
       onChange={setValue}
       withSearch
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock title="Themed with prefix icon">
+  {(value, setValue) => (
+    <Dropdown
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      value={value}
+      options={OPTIONS.THEMED}
+      label="This is the label"
+      onChange={setValue}
+      withSearch
+      themed
+      prefixIcon={DateIcon}
     />
   )}
 </CodeBlock>
@@ -511,6 +621,26 @@ import DateIcon from "@src/icons/date.svg";
   )}
 </CodeBlock>
 
+<CodeBlock title="Themed with prefix icon">
+  {(value, setValue) => (
+    <Dropdown
+      placeholder="Test placeholder"
+      value={value}
+      options={OPTIONS.THEMED}
+      label="This is the label"
+      onChange={setValue}
+      withSearch
+      themed
+      prefixIcon={DateIcon}
+      style={{
+        padding: 10,
+        border: '1px solid blue',
+        borderRadius: 5,
+      }}
+    />
+  )}
+</CodeBlock>
+
 </div>
 
 <div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
@@ -552,6 +682,23 @@ import DateIcon from "@src/icons/date.svg";
       label="This is the label"
       onChange={setValue}
       withSearch
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock title="Themed with prefix icon">
+  {(value, setValue) => (
+    <Dropdown
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      value={value}
+      options={[]}
+      label="This is the label"
+      onChange={setValue}
+      withSearch
+      prefixIcon={DateIcon}
+      themed
     />
   )}
 </CodeBlock>

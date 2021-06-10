@@ -9,7 +9,7 @@ import { ChipsInput } from "@src/components/Inputs/_common/ChipsInput";
 import Tooltip from "@src/components/Overlays/Tooltip";
 import WithTooltip from "@src/components/Overlays/WithTooltip";
 
-import { DropdownArrow, DropdownPrefix } from "../../ThemedDropdown";
+import { DropdownArrow, DropdownPrefixIcon } from "../../ThemedDropdown";
 
 import styles from "./Input.scss";
 
@@ -54,14 +54,6 @@ const Input = ({
     />
   );
 
-  const prefixComponent = prefixIcon ? (
-    <Icon
-      className={styles.icon}
-      prefixClassName={`${prefixClassName}-icon`}
-      src={prefixIcon}
-    />
-  ) : null;
-
   const themedPostfixComponent = tooltip ? (
     <Tooltip themed tooltip={tooltip} position="BOTTOM">
       <DropdownArrow mode={focused ? "active" : "inactive"}>
@@ -74,15 +66,11 @@ const Input = ({
     </DropdownArrow>
   );
 
-  const themedPrefixComponent = prefixIcon ? (
-    <DropdownPrefix>
-      <Icon
-        className={styles.icon}
-        prefixClassName={`${prefixClassName}-icon`}
-        src={prefixIcon}
-      />
-    </DropdownPrefix>
-  ) : null;
+  const prefixComponent = prefixIcon && (
+    <DropdownPrefixIcon>
+      <Icon src={prefixIcon} />
+    </DropdownPrefixIcon>
+  );
 
   let dropdownVariant = "dropdown";
   if (focused) {
@@ -100,7 +88,7 @@ const Input = ({
     placeholder,
     className,
     prefixClassName,
-    prefixComponent: themed ? themedPrefixComponent : prefixComponent,
+    prefixComponent,
     postfixComponent: themed ? themedPostfixComponent : postfixComponent,
     disabled,
     themed,
