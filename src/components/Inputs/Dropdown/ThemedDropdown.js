@@ -68,6 +68,14 @@ const DropdownArrowMode = variant({
   },
 });
 
+const DropdownPrefixMode = variant({
+  prop: "mode",
+  scale: "dropdownPrefixModes",
+  variants: {
+    withCheckbox: {},
+  },
+});
+
 const DropdownCheckboxOptionsMode = variant({
   prop: "mode",
   scale: "dropdownCheckboxOptionsModes",
@@ -264,12 +272,13 @@ const DropdownArrow = styled("div")(
   DropdownArrowMode,
 );
 
-const DropdownPrefixIcon = styled("div")(
+const DropdownPrefixIcon = styled(Box)(
   dropdownPrefixStyle,
   space,
   color,
   border,
   typography,
+  DropdownPrefixMode,
 );
 
 const DropdownCheckboxWrapper = styled(Box)(
@@ -329,6 +338,10 @@ DropdownWrapper.defaultProps = {
   padding: "zero",
   flexDirection: "column",
   width: "100%",
+};
+
+DropdownPrefixIcon.defaultProps = {
+  padding: "zero",
 };
 
 DropdownOptionsWrapper.defaultProps = {

@@ -45,7 +45,7 @@ const WithCheckboxInput = ({
       return (
         <DropdownWrapper ref={innerRef} data-testid="dropdownCheckboxWrapper">
           {prefixIcon && (
-            <DropdownPrefixIcon>
+            <DropdownPrefixIcon mode="withCheckbox">
               <Icon src={prefixIcon} />
             </DropdownPrefixIcon>
           )}
