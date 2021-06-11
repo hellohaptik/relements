@@ -60,6 +60,13 @@ export const dropdownArrowModes = {
   },
 };
 
+export const dropdownIconModes = {
+  withCheckbox: {
+    top: 9,
+    height: "75%",
+  },
+};
+
 export const dropdownWithCheckboxInputVariants = {
   dropdown: {
     "&:hover": {
