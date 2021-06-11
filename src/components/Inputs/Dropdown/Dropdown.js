@@ -38,7 +38,7 @@ const Dropdown = ({
   withCheckbox,
   themed,
   style,
-  prefixIcon,
+  icon,
 }) => {
   // stores the currently typed input (in case of withSearch)
   const [text, setText] = React.useState("");
@@ -293,7 +293,7 @@ const Dropdown = ({
               disabled={disabled}
               focused={focused}
               isReversed={isReversed}
-              prefixIcon={prefixIcon}
+              icon={icon}
               themed
             />
           ) : (
@@ -312,7 +312,7 @@ const Dropdown = ({
               withMultiple={withMultiple}
               optionKey={optionKey}
               disabled={disabled}
-              prefixIcon={prefixIcon}
+              icon={icon}
               themed
             />
           )}
@@ -461,7 +461,7 @@ Dropdown.propTypes = {
   /** Whether the dropdown will be themed */
   themed: PropTypes.bool,
   /** prefix Icon */
-  prefixIcon: PropTypes.node,
+  icon: PropTypes.node,
 };
 
 Dropdown.defaultProps = {
@@ -487,7 +487,7 @@ Dropdown.defaultProps = {
   withMultiple: false,
   withCheckbox: false,
   themed: false,
-  prefixIcon: null,
+  icon: null,
 };
 
 Dropdown.classNames = {

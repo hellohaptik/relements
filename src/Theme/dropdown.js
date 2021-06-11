@@ -60,7 +60,7 @@ export const dropdownArrowModes = {
   },
 };
 
-export const dropdownPrefixModes = {
+export const dropdownIconModes = {
   withCheckbox: {
     top: 9,
     height: "75%",

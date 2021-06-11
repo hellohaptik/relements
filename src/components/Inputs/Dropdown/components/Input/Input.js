@@ -9,7 +9,7 @@ import { ChipsInput } from "@src/components/Inputs/_common/ChipsInput";
 import Tooltip from "@src/components/Overlays/Tooltip";
 import WithTooltip from "@src/components/Overlays/WithTooltip";
 
-import { DropdownArrow, DropdownPrefixIcon } from "../../ThemedDropdown";
+import { DropdownArrow, DropdownIcon } from "../../ThemedDropdown";
 
 import styles from "./Input.scss";
 
@@ -30,7 +30,7 @@ const Input = ({
   prefixClassName,
   disabled,
   themed,
-  prefixIcon,
+  icon,
 }) => {
   const focusedClassName = focused ? styles.focused : "";
   const reversedClassName = isReversed ? styles.reversed : "";
@@ -66,10 +66,10 @@ const Input = ({
     </DropdownArrow>
   );
 
-  const prefixComponent = prefixIcon && (
-    <DropdownPrefixIcon>
-      <Icon src={prefixIcon} />
-    </DropdownPrefixIcon>
+  const prefixComponent = icon && (
+    <DropdownIcon>
+      <Icon src={icon} />
+    </DropdownIcon>
   );
 
   let dropdownVariant = "dropdown";
@@ -151,7 +151,7 @@ Input.propTypes = {
   withMultiple: PropTypes.bool,
   withSearch: PropTypes.bool,
   themed: PropTypes.bool,
-  prefixIcon: PropTypes.node,
+  icon: PropTypes.node,
 };
 
 Input.defaultProps = {

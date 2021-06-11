@@ -11,7 +11,7 @@ import {
   DropdownWrapper,
   DropdownWithCheckboxInput,
   DropdownArrow,
-  DropdownPrefixIcon,
+  DropdownIcon,
 } from "../../ThemedDropdown";
 
 import styles from "./WithCheckboxInput.scss";
@@ -25,7 +25,7 @@ const WithCheckboxInput = ({
   isReversed,
   prefixClassName,
   themed,
-  prefixIcon,
+  icon,
 }) => {
   const { primaryColor } = React.useContext(Context);
   const focusedStyle = focused ? { borderColor: primaryColor } : {};
@@ -44,10 +44,10 @@ const WithCheckboxInput = ({
       }
       return (
         <DropdownWrapper ref={innerRef} data-testid="dropdownCheckboxWrapper">
-          {prefixIcon && (
-            <DropdownPrefixIcon mode="withCheckbox">
-              <Icon src={prefixIcon} />
-            </DropdownPrefixIcon>
+          {icon && (
+            <DropdownIcon mode="withCheckbox">
+              <Icon src={icon} />
+            </DropdownIcon>
           )}
           <DropdownWithCheckboxInput variant={dropdownVariant}>
             {value.map(valueObject => valueObject[optionKey]).join(", ") ||
