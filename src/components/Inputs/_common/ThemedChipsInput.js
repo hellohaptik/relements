@@ -62,12 +62,17 @@ const ThemedChipsInputWrapper = styled("div")(
   ChipWrapperVariant,
 );
 
-const chipsContainerStyle = {
-  display: "flex",
-  alignItems: "center",
-  flexWrap: "wrap",
-  cursor: "text",
-  width: "100%",
+const chipsContainerStyle = props => {
+  return {
+    display: "flex",
+    alignItems: "center",
+    flexWrap: "wrap",
+    cursor: "text",
+    width: "100%",
+    "&:not(:first-child)": {
+      paddingLeft: 3 * props.theme.space.lg - props.theme.space.md, // 38px
+    },
+  };
 };
 
 const ThemedChipsContainer = styled("div")(

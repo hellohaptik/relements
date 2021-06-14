@@ -68,6 +68,14 @@ const DropdownArrowMode = variant({
   },
 });
 
+const DropdownIconMode = variant({
+  prop: "mode",
+  scale: "dropdownIconModes",
+  variants: {
+    withCheckbox: {},
+  },
+});
+
 const DropdownCheckboxOptionsMode = variant({
   prop: "mode",
   scale: "dropdownCheckboxOptionsModes",
@@ -138,14 +146,23 @@ const withCheckboxInputStyle = props => {
   };
 };
 
-const dropdownArrowStyle = props => ({
+const DropdownIconStyle = {
   position: "absolute",
   top: 0,
   height: "100%",
   display: "flex",
   alignItems: "center",
-  right: props.theme.space.lg - props.theme.space.xs, // 10px
   transition: "transform 0.3s ease",
+};
+
+const dropdownArrowStyle = props => ({
+  ...DropdownIconStyle,
+  right: props.theme.space.lg - props.theme.space.xs, // 10px
+});
+
+const dropdownIconStyle = props => ({
+  ...DropdownIconStyle,
+  left: props.theme.space.lg - props.theme.space.xs, // 10px
 });
 
 const checkboxWrapperStyle = {
@@ -255,6 +272,15 @@ const DropdownArrow = styled("div")(
   DropdownArrowMode,
 );
 
+const DropdownIcon = styled(Box)(
+  dropdownIconStyle,
+  space,
+  color,
+  border,
+  typography,
+  DropdownIconMode,
+);
+
 const DropdownCheckboxWrapper = styled(Box)(
   checkboxWrapperStyle,
   space,
@@ -314,6 +340,10 @@ DropdownWrapper.defaultProps = {
   width: "100%",
 };
 
+DropdownIcon.defaultProps = {
+  padding: "zero",
+};
+
 DropdownOptionsWrapper.defaultProps = {
   fontFamily: `"Proxima Nova", sans-serif`,
   padding: "zero",
@@ -355,6 +385,7 @@ export {
   DropdownOption,
   DropdownWithCheckboxInput,
   DropdownArrow,
+  DropdownIcon,
   DropdownCheckboxWrapper,
   DropdownCheckboxItemWrapper,
   DropdownCheckboxSearchWrapper,
