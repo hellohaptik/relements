@@ -22,10 +22,7 @@ export default function usePositioner({
           rect.top - tooltipRect.height - POSITIONER_CONSTANTS.OFFSET.TOP;
         coordinates.left = rect.left - tooltipRect.width / 2 + rect.width / 2;
         coordinates.arrowCoords = {
-          left:
-            tooltipRect.width > POSITIONER_CONSTANTS.MAX_TOOLTIP_WIDTH
-              ? rect.left
-              : POSITIONER_CONSTANTS.ARROW.DEFAULT,
+          left: POSITIONER_CONSTANTS.ARROW.DEFAULT,
         };
         break;
       }
@@ -43,10 +40,7 @@ export default function usePositioner({
         coordinates.top = rect.bottom + POSITIONER_CONSTANTS.OFFSET.BOTTOM;
         coordinates.left = rect.left - tooltipRect.width / 2 + rect.width / 2;
         coordinates.arrowCoords = {
-          left:
-            tooltipRect.width > POSITIONER_CONSTANTS.MAX_TOOLTIP_WIDTH
-              ? rect.left
-              : POSITIONER_CONSTANTS.ARROW.DEFAULT,
+          left: POSITIONER_CONSTANTS.ARROW.DEFAULT,
         };
         break;
       }
@@ -65,10 +59,7 @@ export default function usePositioner({
         coordinates.top = rect.bottom + POSITIONER_CONSTANTS.OFFSET.BOTTOM;
         coordinates.left = rect.left - tooltipRect.width / 2 + rect.width / 2;
         coordinates.arrowCoords = {
-          left:
-            tooltipRect.width > POSITIONER_CONSTANTS.MAX_TOOLTIP_WIDTH
-              ? rect.left
-              : POSITIONER_CONSTANTS.ARROW.DEFAULT,
+          left: POSITIONER_CONSTANTS.ARROW.DEFAULT,
         };
       }
     }
@@ -77,16 +68,18 @@ export default function usePositioner({
     let rightDiff =
       window.innerWidth -
       (rect.left + rect.width / 2 + tooltipRect.width / 2) -
-      8;
+      24;
 
     if (leftDiff < 0) {
       coordinates.left -= leftDiff;
+      coordinates.arrowCoords.left = rect.left;
     } else {
       leftDiff = 0;
     }
 
     if (rightDiff < 0) {
       coordinates.left += rightDiff;
+      coordinates.arrowCoords.left = tooltipRect.width / 2 - rightDiff;
     } else {
       rightDiff = 0;
     }
