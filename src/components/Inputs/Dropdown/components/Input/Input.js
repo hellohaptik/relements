@@ -63,7 +63,7 @@ const Input = ({
     </Tooltip>
   ) : (
     <DropdownArrow mode={focused ? "active" : "inactive"}>
-      <Icon src={AngleDownIcon} />
+      <Icon src={AngleDownIcon} size={size} />
     </DropdownArrow>
   );
 
