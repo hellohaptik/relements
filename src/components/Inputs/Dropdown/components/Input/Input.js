@@ -31,6 +31,7 @@ const Input = ({
   disabled,
   themed,
   icon,
+  size,
 }) => {
   const focusedClassName = focused ? styles.focused : "";
   const reversedClassName = isReversed ? styles.reversed : "";
@@ -92,6 +93,7 @@ const Input = ({
     postfixComponent: themed ? themedPostfixComponent : postfixComponent,
     disabled,
     themed,
+    size,
     variant: dropdownVariant,
   };
 
@@ -152,6 +154,7 @@ Input.propTypes = {
   withSearch: PropTypes.bool,
   themed: PropTypes.bool,
   icon: PropTypes.node,
+  size: PropTypes.string,
 };
 
 Input.defaultProps = {
@@ -168,6 +171,7 @@ Input.defaultProps = {
   tooltip: "",
   text: "",
   themed: false,
+  size: "",
 };
 
 export default Input;

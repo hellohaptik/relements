@@ -45,6 +45,7 @@ const Options = ({
   className,
   themed,
   noOptionsText,
+  size,
 }) => {
   const { visible, enabled } = useActivify(focused);
   const { primaryColor } = React.useContext(Context);
@@ -317,6 +318,7 @@ const Options = ({
               className={`${prefixClassName}-option`}
               themed={themed}
               noOptionsText={noOptionsText}
+              size={size}
             >
               {option.label}
             </Option>
@@ -393,6 +395,7 @@ Options.propTypes = {
   handleSearchText: PropTypes.func,
   themed: PropTypes.bool,
   noOptionsText: PropTypes.string,
+  size: PropTypes.string,
 };
 
 Options.defaultProps = {
@@ -413,6 +416,7 @@ Options.defaultProps = {
   attachTo: {},
   themed: false,
   noOptionsText: "",
+  size: "",
 };
 
 export default Options;

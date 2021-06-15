@@ -28,6 +28,12 @@ export const dropdownOptionVariant = {
   },
 };
 
+export const dropdownOptionSize = {
+  small: {
+    padding: `${space.zero}px ${space.md}px`,
+  },
+};
+
 export const dropdownOptionsVariant = {
   withCheckbox: {
     overflow: "initial",

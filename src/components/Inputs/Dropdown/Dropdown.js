@@ -39,6 +39,7 @@ const Dropdown = ({
   themed,
   style,
   icon,
+  size,
 }) => {
   // stores the currently typed input (in case of withSearch)
   const [text, setText] = React.useState("");
@@ -106,6 +107,7 @@ const Dropdown = ({
     withMultiple,
     value: inputValue,
     themed,
+    size,
   });
 
   // To determine whether the dropdown options container opens above the dropdown
@@ -294,6 +296,7 @@ const Dropdown = ({
               focused={focused}
               isReversed={isReversed}
               icon={icon}
+              size={size}
               themed
             />
           ) : (
@@ -313,6 +316,7 @@ const Dropdown = ({
               optionKey={optionKey}
               disabled={disabled}
               icon={icon}
+              size={size}
               themed
             />
           )}
@@ -334,6 +338,7 @@ const Dropdown = ({
             onMouseEnter={mouseEnter}
             onMouseLeave={mouseLeave}
             withCheckbox={withCheckbox}
+            size={size}
             themed
             noOptionsText={noOptionsText}
           />

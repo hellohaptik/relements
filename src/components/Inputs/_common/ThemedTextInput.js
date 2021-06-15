@@ -31,6 +31,14 @@ const InputVariant = variant({
   },
 });
 
+const InputSize = variant({
+  prop: "size",
+  scale: "textInputSize",
+  variants: {
+    small: {},
+  },
+});
+
 // Non customizable CSS props
 const inputStyle = props => {
   const { theme } = props;
@@ -87,6 +95,7 @@ const ThemedTextInput = styled("input")(
   typography,
   InputMode,
   InputVariant,
+  InputSize,
 );
 
 const ThemedTextarea = styled("textarea")(
@@ -112,6 +121,7 @@ ThemedTextInput.defaultProps = {
   mode: "default",
   variant: "default",
   fontSize: "2",
+  size: "",
 };
 
 ThemedTextarea.defaultProps = {
