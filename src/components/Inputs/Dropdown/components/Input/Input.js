@@ -69,7 +69,7 @@ const Input = ({
 
   const prefixComponent = icon && (
     <DropdownIcon>
-      <Icon src={icon} />
+      <Icon src={icon} size={size} />
     </DropdownIcon>
   );
 
