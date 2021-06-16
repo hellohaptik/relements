@@ -5,6 +5,7 @@ import Text from "@src/components/UI/Text";
 
 import ThemedHeader from "../ThemedTable/ThemedHeader";
 import ThemedHeaderItem from "../ThemedTable/ThemedHeaderItem";
+import Icon from "@src/components/UI/Icon";
 
 import styles from "./Header.scss";
 
@@ -41,6 +42,8 @@ function Header({
               onClick={() => onSort(column)}
               {...designProps}
             >
+              {column.info && <Icon tooltip={column.info} src="info" />}
+
               {column.prefixComponent || null}
               <Text
                 {...designProps}

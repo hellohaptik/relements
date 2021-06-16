@@ -15,6 +15,7 @@ function Body({
   height,
   activeIndex,
   highlightActiveRow,
+  designProps
 }) {
   const renderRow = React.memo(
     // eslint-disable-next-line react/prop-types
@@ -30,6 +31,7 @@ function Body({
           prefixClassName={`${prefixClassName}-row`}
           active={isRowActive}
           highlightActiveRow={highlightActiveRow}
+          designProps={designProps}
         />
       );
     },
