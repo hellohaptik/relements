@@ -180,6 +180,7 @@ export const TextInput = ({
           <ThemedTextarea
             {...allInputProps}
             ref={handleRef}
+            multiline
             mode={label || error ? "label" : "default"}
           />
         );

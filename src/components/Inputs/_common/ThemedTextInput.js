@@ -41,10 +41,18 @@ const InputSize = variant({
 
 // Non customizable CSS props
 const inputStyle = props => {
-  const { theme } = props;
+  const { theme, multiline } = props;
   const { radii, borderWidths, colors, space } = theme;
   const paddingTopBottom = space.lg - space.xs; // 10px
   const paddingLeftRight = space.sm; // 8px
+
+  const multiLineStyle = !multiline
+    ? {
+        "&:not(:first-child)": {
+          paddingLeft: 3 * space.lg - space.xs, // 38px
+        },
+      }
+    : {};
 
   return {
     borderRadius: radii.sm,
@@ -67,9 +75,7 @@ const inputStyle = props => {
     "&::-webkit-input-placeholder": {
       color: colors.grey.dark,
     },
-    "&:not(:first-child)": {
-      paddingLeft: 3 * space.lg - space.xs, // 38px
-    },
+    ...multiLineStyle,
   };
 };
 
