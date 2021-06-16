@@ -46,7 +46,7 @@ const inputStyle = props => {
   const paddingTopBottom = space.lg - space.xs; // 10px
   const paddingLeftRight = space.sm; // 8px
 
-  // adds left padding when there's an icon, applies only if it's an input element
+  // adds left padding when there's an icon, applies only if it's an input element.
   const textInputStyle = !multiline
     ? {
         "&:not(:first-child)": {
