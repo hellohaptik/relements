@@ -35,7 +35,7 @@ const InputVariant = variant({
 const inputStyle = props => {
   const { theme } = props;
   const { radii, borderWidths, colors, space } = theme;
-  const paddingTopBottom = space.lg - space.xs; // 10px
+  const paddingTopBottom = space.md - space.xs; // 10px
   const paddingLeftRight = space.sm; // 8px
 
   return {
