@@ -46,7 +46,8 @@ const inputStyle = props => {
   const paddingTopBottom = space.lg - space.xs; // 10px
   const paddingLeftRight = space.sm; // 8px
 
-  const multiLineStyle = !multiline
+  // adds left padding when there's an icon, applies only if it's an input element
+  const textInputStyle = !multiline
     ? {
         "&:not(:first-child)": {
           paddingLeft: 3 * space.lg - space.xs, // 38px
@@ -75,7 +76,7 @@ const inputStyle = props => {
     "&::-webkit-input-placeholder": {
       color: colors.grey.dark,
     },
-    ...multiLineStyle,
+    ...textInputStyle,
   };
 };
 
