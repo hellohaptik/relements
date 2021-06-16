@@ -99,6 +99,7 @@ const Input = ({
 
   // if multiple selection is allowed, then we use the chips input
   // which deals with multiple item selections (arrays)
+  // TODO: add a size variant
   if (withMultiple) {
     return (
       <ChipsInput

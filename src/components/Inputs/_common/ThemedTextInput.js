@@ -121,7 +121,6 @@ ThemedTextInput.defaultProps = {
   mode: "default",
   variant: "default",
   fontSize: "2",
-  size: "",
 };
 
 ThemedTextarea.defaultProps = {
