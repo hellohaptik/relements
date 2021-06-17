@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import Context from "@src/components/Context";
 import Text from "@src/components/UI/Text";
-import Box from "@src/components/UI/Box";
 import Icon from "@src/components/UI/Icon";
 
 import ThemedHeader from "../ThemedTable/ThemedHeader";
@@ -39,30 +38,32 @@ function Header({
                 width: column.width,
                 maxWidth: column.width,
                 minWidth: column.width,
+                justifyContent: "space-between",
+                alignItems: "flex-start",
               }}
               onClick={() => onSort(column)}
               {...designProps}
             >
               {column.prefixComponent || null}
 
-              <Box pading="zero" margin="zero">
-                <Text
-                  {...designProps}
-                  variant="heading"
-                  color={isActive ? "blue.haptik" : "text"}
-                >
-                  {column.title}
-                </Text>
-                {column.info && (
-                  <Icon themed tooltip={column.info} src="info" size="small" />
-                )}
-              </Box>
-              <div
-                style={{ color: isActive ? primaryColor : undefined }}
-                className={`${styles.tableHeaderItemIcon} ${prefixClassName}-icon`}
+              <Text
+                {...designProps}
+                variant="heading"
+                color={isActive ? "blue.haptik" : "text"}
               >
-                {sortIcon}
-              </div>
+                {column.title}
+              </Text>
+              {sortIcon && (
+                <div
+                  style={{ color: isActive ? primaryColor : undefined }}
+                  className={`${styles.tableHeaderItemIcon} ${prefixClassName}-icon`}
+                >
+                  {sortIcon}
+                </div>
+              )}
+              {column.info && (
+                <Icon themed tooltip={column.info} src="info" size="small" />
+              )}
               {column.postfixComponent || null}
             </ThemedHeaderItem>
           );

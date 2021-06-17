@@ -8,6 +8,12 @@ import ThemedRowItem from "../ThemedTable/ThemedRowItem";
 
 import styles from "./Row.scss";
 
+const ellipsisStyles = {
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+};
+
 function Row({
   index,
   style,
@@ -38,7 +44,7 @@ function Row({
       ref => ref.current && ref.current.offsetWidth < ref.current.scrollWidth,
     );
     setColumnOverflowData(columnOverflowData);
-  }, []);
+  }, [refs]);
 
   if (row.hidden) return null;
   return (
@@ -51,11 +57,7 @@ function Row({
       {rowColumns.map((column, i) => {
         if (themed) {
           const TextComponent = () => (
-            <Text
-              {...designProps}
-              style={{ overflow: "hidden", textOverflow: "ellipsis" }}
-              ref={refs[i]}
-            >
+            <Text {...designProps} style={ellipsisStyles} ref={refs[i]}>
               {column.content}
             </Text>
           );
@@ -83,11 +85,7 @@ function Row({
                   }}
                   themed
                 >
-                  <Box
-                    padding="zero"
-                    margin="zero"
-                    display={{ display: "inline-grid" }}
-                  >
+                  <Box padding="zero" margin="zero" display="inline-grid">
                     <TextComponent />
                   </Box>
                 </Tooltip>
