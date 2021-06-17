@@ -73,21 +73,21 @@ import DateIcon from "@src/icons/date.svg";
 </CodeBlock>
 
 <CodeBlock title="Regular">
-{(value, setValue) => (
+  {(value, setValue) => (
     <Dropdown
-    placeholder="Test placeholder"
-    className="my-dropdown"
-    prefixClassName="my-yoooo"
-    options={OPTIONS.DEFAULT}
-    label="This is a label"
-    value={value}
-    onChange={setValue}
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      options={OPTIONS.DEFAULT}
+      label="This is a label"
+      value={value}
+      onChange={setValue}
     />
-)}
+  )}
 </CodeBlock>
 
 <CodeBlock title="Themed with prefix icon">
-{(value, setValue) => (
+  {(value, setValue) => (
     <Dropdown
       placeholder="Select a value"
       options={OPTIONS.THEMED}
@@ -98,7 +98,23 @@ import DateIcon from "@src/icons/date.svg";
       icon={DateIcon}
       themed
     />
-)}
+  )}
+</CodeBlock>
+
+<CodeBlock title="Themed, small with prefix icon">
+  {(value, setValue) => (
+    <Dropdown
+      placeholder="Select a value"
+      options={OPTIONS.THEMED}
+      value={value}
+      label="This is a label"
+      value={value}
+      onChange={setValue}
+      icon={DateIcon}
+      themed
+      size="small"
+    />
+  )}
 </CodeBlock>
 
 </div>
@@ -129,18 +145,18 @@ import DateIcon from "@src/icons/date.svg";
 </CodeBlock>
 
 <CodeBlock title="Regular">
-{(value, setValue) => (
+  {(value, setValue) => (
     <Dropdown
-    placeholder="Test placeholder"
-    className="my-dropdown"
-    prefixClassName="my-yoooo"
-    options={OPTIONS.DEFAULT}
-    label="This is a label"
-    value={value}
-    onChange={setValue}
-    withSearch
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      options={OPTIONS.DEFAULT}
+      label="This is a label"
+      value={value}
+      onChange={setValue}
+      withSearch
     />
-)}
+  )}
 </CodeBlock>
 
 <CodeBlock title="Themed with prefix icon">
@@ -186,19 +202,19 @@ import DateIcon from "@src/icons/date.svg";
 </CodeBlock>
 
 <CodeBlock title="Regular">
-{(value, setValue) => (
+  {(value, setValue) => (
     <Dropdown
-    placeholder="Test placeholder"
-    className="my-dropdown"
-    prefixClassName="my-yoooo"
-    options={OPTIONS.DEFAULT}
-    label="This is a label"
-    value={value}
-    onChange={setValue}
-    withMultiple
-    withSearch
+      placeholder="Test placeholder"
+      className="my-dropdown"
+      prefixClassName="my-yoooo"
+      options={OPTIONS.DEFAULT}
+      label="This is a label"
+      value={value}
+      onChange={setValue}
+      withMultiple
+      withSearch
     />
-)}
+  )}
 </CodeBlock>
 
 <CodeBlock title="Themed with prefix icon">
@@ -269,7 +285,10 @@ import DateIcon from "@src/icons/date.svg";
   )}
 </CodeBlock>
 
-<CodeBlock title="Themed with prefix icon" defaultValue={[{ title: "Option text 1" }]}>
+<CodeBlock
+  title="Themed with prefix icon"
+  defaultValue={[{ title: "Option text 1" }]}
+>
   {(value, setValue) => (
     <Dropdown
       themed
@@ -341,7 +360,10 @@ import DateIcon from "@src/icons/date.svg";
   )}
 </CodeBlock>
 
-<CodeBlock title="Themed with prefix icon" defaultValue={[{ title: "Option text 1" }]}>
+<CodeBlock
+  title="Themed with prefix icon"
+  defaultValue={[{ title: "Option text 1" }]}
+>
   {(value, setValue) => (
     <Dropdown
       themed
@@ -554,7 +576,8 @@ import DateIcon from "@src/icons/date.svg";
 
 <div style={{ marginBottom: 30, marginTop: 30, border: "1px solid #d5d5d5" }} />
 
-#### Style 
+#### Style
+
 > These styles will only get applied to the main dropdown wrapper and only for themed prop
 
 <CodeBlock title="Themed">
@@ -569,7 +592,7 @@ import DateIcon from "@src/icons/date.svg";
       themed
       style={{
         padding: 10,
-        border: '1px solid blue',
+        border: "1px solid blue",
         borderRadius: 5,
       }}
     />
@@ -634,7 +657,7 @@ import DateIcon from "@src/icons/date.svg";
       icon={DateIcon}
       style={{
         padding: 10,
-        border: '1px solid blue',
+        border: "1px solid blue",
         borderRadius: 5,
       }}
     />

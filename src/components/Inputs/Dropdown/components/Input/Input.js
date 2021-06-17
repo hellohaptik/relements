@@ -31,6 +31,7 @@ const Input = ({
   disabled,
   themed,
   icon,
+  size,
 }) => {
   const focusedClassName = focused ? styles.focused : "";
   const reversedClassName = isReversed ? styles.reversed : "";
@@ -62,13 +63,13 @@ const Input = ({
     </Tooltip>
   ) : (
     <DropdownArrow mode={focused ? "active" : "inactive"}>
-      <Icon src={AngleDownIcon} />
+      <Icon src={AngleDownIcon} size={size} />
     </DropdownArrow>
   );
 
   const prefixComponent = icon && (
     <DropdownIcon>
-      <Icon src={icon} />
+      <Icon src={icon} size={size} />
     </DropdownIcon>
   );
 
@@ -92,11 +93,13 @@ const Input = ({
     postfixComponent: themed ? themedPostfixComponent : postfixComponent,
     disabled,
     themed,
+    size,
     variant: dropdownVariant,
   };
 
   // if multiple selection is allowed, then we use the chips input
   // which deals with multiple item selections (arrays)
+  // TODO: add a size variant
   if (withMultiple) {
     return (
       <ChipsInput
@@ -152,6 +155,7 @@ Input.propTypes = {
   withSearch: PropTypes.bool,
   themed: PropTypes.bool,
   icon: PropTypes.node,
+  size: PropTypes.string,
 };
 
 Input.defaultProps = {
@@ -168,6 +172,7 @@ Input.defaultProps = {
   tooltip: "",
   text: "",
   themed: false,
+  size: "",
 };
 
 export default Input;

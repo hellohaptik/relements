@@ -25,6 +25,7 @@ const Text = ({
   innerRef,
   themed,
   style,
+  size,
 }) => {
   const _TextInputDOM = useRef();
   const { focused, setFocused, handleFocus, handleBlur } = useInput(
@@ -75,6 +76,7 @@ const Text = ({
         themed={themed}
         label={label}
         style={style}
+        size={size}
       />
     </div>
   );
@@ -113,6 +115,8 @@ Text.propTypes = {
   themed: PropTypes.bool,
   /** Overrides styles of the core input element */
   style: PropTypes.object,
+  /** Size of dropdown */
+  size: PropTypes.string,
 };
 
 Text.defaultProps = {
@@ -122,6 +126,7 @@ Text.defaultProps = {
   label: "",
   error: "",
   tooltip: "",
+  size: "",
   disabled: false,
   multiline: false,
   onChange: () => {},

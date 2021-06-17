@@ -47,3 +47,9 @@ export const textInputVariants = {
     borderTopLeftRadius: 0,
   },
 };
+
+export const textInputSize = {
+  small: {
+    padding: `${space.sm}px ${space.lg - space.sm}px`,
+  },
+};

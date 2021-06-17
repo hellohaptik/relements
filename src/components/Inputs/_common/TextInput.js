@@ -34,6 +34,7 @@ export const TextInput = ({
   variant,
   label,
   style,
+  size,
 }) => {
   const input = React.useRef(null);
   const { primaryColor } = React.useContext(Context);
@@ -135,6 +136,7 @@ export const TextInput = ({
         variant,
         mode,
         style,
+        size,
       };
 
       const additionalInputProps = {
@@ -178,6 +180,7 @@ export const TextInput = ({
           <ThemedTextarea
             {...allInputProps}
             ref={handleRef}
+            multiline
             mode={label || error ? "label" : "default"}
           />
         );

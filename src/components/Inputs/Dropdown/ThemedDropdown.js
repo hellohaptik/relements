@@ -43,6 +43,14 @@ const DropdownOptionMode = variant({
   },
 });
 
+const DropdownOptionSize = variant({
+  prop: "size",
+  scale: "dropdownOptionSize",
+  variants: {
+    small: {},
+  },
+});
+
 const DropdownOptionVariant = variant({
   prop: "variant",
   scale: "dropdownOptionVariant",
@@ -252,6 +260,7 @@ const DropdownOption = styled("div")(
   typography,
   DropdownOptionMode,
   DropdownOptionVariant,
+  DropdownOptionSize,
 );
 
 const DropdownWithCheckboxInput = styled("div")(

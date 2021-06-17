@@ -19,6 +19,7 @@ const Option = ({
   themed,
   noOptionsText,
   checkboxSearch,
+  size,
 }) => {
   const { primaryColor } = React.useContext(Context);
   const dropdownOptionSelectedStyle = selected
@@ -45,6 +46,7 @@ const Option = ({
           onClick={!isZeroState ? onClick : null}
           data-testid="dropdown-option"
           mode={optionMode}
+          size={size}
           variant={
             selected && children !== noOptionsText ? "selected" : "default"
           }
