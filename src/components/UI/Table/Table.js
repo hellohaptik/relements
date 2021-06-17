@@ -39,8 +39,8 @@ function Table(props) {
           columns={columns}
           sortOrder={sortOrder}
           sortKey={sortKey}
-          themed
           designProps={designProps}
+          themed
         />
         <RenderBody
           {...rowProps}
@@ -51,8 +51,8 @@ function Table(props) {
           columns={columns}
           rowHeight={rowHeight}
           height={height}
-          themed
           designProps={designProps}
+          themed
         />
       </ThemedTableWrapper>
     );

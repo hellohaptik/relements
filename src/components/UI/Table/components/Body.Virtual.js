@@ -15,7 +15,11 @@ function Body({
   height,
   activeIndex,
   highlightActiveRow,
+  designProps,
+  themed,
 }) {
+  // Themed just for passing theming information
+
   const renderRow = React.memo(
     // eslint-disable-next-line react/prop-types
     ({ index, style, data }) => {
@@ -30,6 +34,8 @@ function Body({
           prefixClassName={`${prefixClassName}-row`}
           active={isRowActive}
           highlightActiveRow={highlightActiveRow}
+          designProps={designProps}
+          themed={themed}
         />
       );
     },
@@ -61,6 +67,8 @@ Body.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.object),
   activeIndex: PropTypes.bool,
   highlightActiveRow: PropTypes.bool,
+  designProps: PropTypes.shape({}),
+  themed: PropTypes.bool,
 };
 
 Body.defaultProps = {
@@ -71,6 +79,8 @@ Body.defaultProps = {
   columns: [],
   rowHeight: 0,
   height: 300,
+  designProps: PropTypes.shape({}),
+  themed: false,
 };
 
 export default Body;
