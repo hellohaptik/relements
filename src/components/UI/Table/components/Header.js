@@ -62,7 +62,7 @@ function Header({
                 </div>
               )}
               {column.info && (
-                <Icon themed tooltip={column.info} src="info" size="small" />
+                <Icon themed tooltip={column.info} src="infoV3" size="small" />
               )}
               {column.postfixComponent || null}
             </ThemedHeaderItem>

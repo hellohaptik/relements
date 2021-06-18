@@ -1,5 +1,6 @@
 import InfoIcon from "icons/info.svg";
 import InfoIconV2 from "icons/infoV2.svg";
+import InfoIconV3 from "icons/infoV3.svg";
 import UserSaysIcon from "icons/user-says.svg";
 import BotSaysIcon from "icons/bot-says.svg";
 import EntitiesIcon from "icons/entities.svg";
@@ -93,6 +94,7 @@ import PlusCalendar from "icons/plusCalendar.svg";
 export const ICON_MAP = {
   info: InfoIcon,
   infoV2: InfoIconV2,
+  infoV3: InfoIconV3,
   "user-says": UserSaysIcon,
   "bot-says": BotSaysIcon,
   entities: EntitiesIcon,
