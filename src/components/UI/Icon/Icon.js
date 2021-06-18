@@ -49,7 +49,8 @@ const Icon = ({
       } ${prefixClassName} ${className} ${getSizeClassName()}`}
     >
       {themed ? (
-        <Tooltip tooltip={tooltip} themed>
+        // offset={{ top: -8 }} to directly touch the icon
+        <Tooltip offset={{ top: -8 }} tooltip={tooltip} themed>
           <IconSvg className={`${prefixClassName}-svg`} />
         </Tooltip>
       ) : (
