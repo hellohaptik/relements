@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Text from "@src/components/UI/Text";
+import Box from "@src/components/UI/Box";
+import Tooltip from "@src/components/Overlays/Tooltip";
 
 import ThemedRowItem from "../ThemedTable/ThemedRowItem";
 
 import styles from "./Row.scss";
+
+const ellipsisStyles = {
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+};
 
 function Row({
   index,
@@ -23,9 +31,22 @@ function Row({
   const disabledClassName = row.disabled ? styles.disabled : "";
   const activeClassName = active && highlightActiveRow ? styles.selected : "";
   const rowClassName = row.className || "";
+  const [refs] = useState(() =>
+    Array(rowColumns.length)
+      .fill()
+      .map(() => React.createRef()),
+  );
+
+  const [columnOverflowData, setColumnOverflowData] = useState([]);
+
+  useEffect(() => {
+    const columnOverflowData = refs.map(
+      ref => ref.current && ref.current.offsetWidth < ref.current.scrollWidth,
+    );
+    setColumnOverflowData(columnOverflowData);
+  }, [refs]);
 
   if (row.hidden) return null;
-
   return (
     <div
       style={style}
@@ -35,6 +56,12 @@ function Row({
     >
       {rowColumns.map((column, i) => {
         if (themed) {
+          const TextComponent = () => (
+            <Text {...designProps} style={ellipsisStyles} ref={refs[i]}>
+              {column.content}
+            </Text>
+          );
+
           return (
             <ThemedRowItem
               {...designProps}
@@ -45,7 +72,26 @@ function Row({
                 minWidth: widths[i],
               }}
             >
-              <Text {...designProps}>{column.content}</Text>
+              {columnOverflowData[i] ? (
+                <Tooltip
+                  tooltip={column.content}
+                  offset={{
+                    left:
+                      (refs[i].current &&
+                        (refs[i].current.offsetWidth - 20) / 2) ||
+                      0,
+                    top:
+                      -(refs[i].current && refs[i].current.offsetTop / 2) || 0,
+                  }}
+                  themed
+                >
+                  <Box padding="zero" margin="zero" display="inline-grid">
+                    <TextComponent />
+                  </Box>
+                </Tooltip>
+              ) : (
+                <TextComponent />
+              )}
             </ThemedRowItem>
           );
         }

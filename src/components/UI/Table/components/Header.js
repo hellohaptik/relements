@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import Context from "@src/components/Context";
 import Text from "@src/components/UI/Text";
+import Icon from "@src/components/UI/Icon";
 
 import ThemedHeader from "../ThemedTable/ThemedHeader";
 import ThemedHeaderItem from "../ThemedTable/ThemedHeaderItem";
@@ -17,8 +18,8 @@ function Header({
   themed,
   designProps,
 }) {
+  const { primaryColor } = useContext(Context);
   if (!columns || columns.length === 0) return null;
-  const { primaryColor } = React.useContext(Context);
 
   if (themed) {
     return (
@@ -37,11 +38,14 @@ function Header({
                 width: column.width,
                 maxWidth: column.width,
                 minWidth: column.width,
+                justifyContent: "space-between",
+                alignItems: "flex-start",
               }}
               onClick={() => onSort(column)}
               {...designProps}
             >
               {column.prefixComponent || null}
+
               <Text
                 {...designProps}
                 variant="heading"
@@ -49,12 +53,17 @@ function Header({
               >
                 {column.title}
               </Text>
-              <div
-                style={{ color: isActive ? primaryColor : undefined }}
-                className={`${styles.tableHeaderItemIcon} ${prefixClassName}-icon`}
-              >
-                {sortIcon}
-              </div>
+              {sortIcon && (
+                <div
+                  style={{ color: isActive ? primaryColor : undefined }}
+                  className={`${styles.tableHeaderItemIcon} ${prefixClassName}-icon`}
+                >
+                  {sortIcon}
+                </div>
+              )}
+              {column.info && (
+                <Icon themed tooltip={column.info} src="info" size="small" />
+              )}
               {column.postfixComponent || null}
             </ThemedHeaderItem>
           );

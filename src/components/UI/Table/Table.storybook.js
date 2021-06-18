@@ -8,6 +8,7 @@ export const DATA = {
       title: "Rating",
       width: "100px",
       sortKey: "rating",
+      info: "Some information about Rating",
     },
     {
       title: "Comment",
@@ -27,7 +28,10 @@ export const DATA = {
   ],
   data: [
     [
-      { content: "hello", value: "hello" },
+      {
+        content: "hello overflowoverflowoverflow",
+        value: "hello overflowoverflowoverflow",
+      },
       { content: "this", value: "this" },
       { content: "is", value: "is" },
       { content: "an", value: "an" },

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import Tooltip from "@src/components/Overlays/Tooltip";
 import styles from "./Icon.scss";
 import { getIcon } from "./utils/getIcon";
 import WithTooltip from "../../Overlays/WithTooltip";
@@ -18,7 +19,9 @@ const Icon = ({
   innerRef,
   tooltip,
   tooltipPosition,
+  themed,
 }) => {
+  // Note: Themed only for getting themed tooltip
   if (!src) return null;
 
   const getSizeClassName = () => {
@@ -45,14 +48,21 @@ const Icon = ({
         styles.icon
       } ${prefixClassName} ${className} ${getSizeClassName()}`}
     >
-      <WithTooltip
-        tooltip={tooltip}
-        position={tooltipPosition}
-        className={styles.iconTooltip}
-        prefixClassName={`${prefixClassName}-tooltip`}
-      >
-        <IconSvg className={`${prefixClassName}-svg`} />
-      </WithTooltip>
+      {themed ? (
+        // offset={{ top: -8 }} to directly touch the icon
+        <Tooltip offset={{ top: -8 }} tooltip={tooltip} themed>
+          <IconSvg className={`${prefixClassName}-svg`} />
+        </Tooltip>
+      ) : (
+        <WithTooltip
+          tooltip={tooltip}
+          position={tooltipPosition}
+          className={styles.iconTooltip}
+          prefixClassName={`${prefixClassName}-tooltip`}
+        >
+          <IconSvg className={`${prefixClassName}-svg`} />
+        </WithTooltip>
+      )}
     </div>
   );
 };
@@ -70,6 +80,7 @@ Icon.defaultProps = {
   tooltipPosition: "",
   size: Icon.SIZES.MEDIUM,
   onClick: () => {},
+  themed: false,
 };
 
 Icon.propTypes = {
@@ -89,6 +100,8 @@ Icon.propTypes = {
   tooltip: PropTypes.string,
   /** Tooltip Positioning (TOP/BOTTOM) */
   tooltipPosition: PropTypes.string,
+  /** Use themed version of Icon */
+  themed: PropTypes.bool,
 };
 
 Icon.classNames = {
