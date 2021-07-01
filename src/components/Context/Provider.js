@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import { ThemeProvider } from "styled-components";
 
@@ -16,7 +16,7 @@ const getTheme = mode => ({
 });
 
 const Provider = ({ children, mode = modes[0] }) => {
-  const theme = getTheme(mode);
+  const theme = useMemo(() => getTheme(mode), [mode]);
 
   return (
     <ThemeProvider theme={theme}>
