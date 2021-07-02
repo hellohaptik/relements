@@ -1,6 +1,7 @@
 import { CodeBlock, ConfigBlock } from "@src/helpers/DocBlocks";
 import dayjs from "dayjs";
 import Date from "./Date";
+import Icon from "@src/components/UI/Icon";
 
 # DateInput
 
@@ -110,6 +111,34 @@ import Date from "./Date";
       maxDate={dayjs().add(7, "d")}
       minDate={dayjs().subtract(30, "d")}
       position="TOP"
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock
+  title="Postfix node as Relements Icon Component"
+  defaultValue={dayjs()}
+>
+  {(value, onChange) => (
+    <Date
+      label="Select Date"
+      value={value}
+      onChange={onChange}
+      postfixNode={<Icon src="plusCalendar" size="small" />}
+    />
+  )}
+</CodeBlock>
+
+<CodeBlock
+  title="Postfix node as html element"
+  defaultValue={dayjs()}
+>
+  {(value, onChange) => (
+    <Date
+      label="Select Date"
+      value={value}
+      onChange={onChange}
+      postfixNode={<div>$</div>}
     />
   )}
 </CodeBlock>
