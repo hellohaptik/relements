@@ -10575,9 +10575,9 @@ magic-string@^0.25.2:
     sourcemap-codec "^1.4.4"
 
 majestic@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/majestic/-/majestic-1.6.0.tgz#4ac02b6a49ca231874c4d045591082450135fbc4"
-  integrity sha512-fq0KZWd8m2ouco2CPfYGZ2eCCwfzjiaioKHK/+1s6pc3lbB9soksaRlpLtZIzT2FTxcimUzZu0aLRR9xQMOnoA==
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/majestic/-/majestic-1.8.1.tgz#b9ee3d18371aa07e1ebd514221e23f1474945749"
+  integrity sha512-YsSmJHrgF5JfJkbcez4oPE9xrSf9XSC7j2kFytOgVJY72vkWQqXH2gJHnMsjCrKdtxh3GX2oDP5akNDXpYAGxQ==
   dependencies:
     node-fetch "^2.3.0"
     open "^6.0.0"
