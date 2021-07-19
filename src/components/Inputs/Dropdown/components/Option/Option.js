@@ -43,6 +43,7 @@ const Option = ({
       return (
         <DropdownOption
           ref={innerRef}
+          onMouseDown={e => e.preventDefault()}
           onClick={!isZeroState ? onClick : null}
           data-testid="dropdown-option"
           mode={optionMode}
@@ -65,6 +66,7 @@ const Option = ({
         ref={innerRef}
         style={dropdownOptionSelectedStyle}
         className={`${styles.dropdownOption} ${className} ${selectedClassName} ${zeroStateClassName} ${isNewClassName}`}
+        onMouseDown={e => e.preventDefault()}
         onClick={!isZeroState ? onClick : null}
         data-testid="dropdown-option"
       >
