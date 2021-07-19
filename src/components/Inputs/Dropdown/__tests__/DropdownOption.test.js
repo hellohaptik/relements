@@ -34,6 +34,13 @@ test("On Click", async () => {
   expect(mockFn).toHaveBeenCalled();
 });
 
+test("On Mouse Down", async () => {
+  const mockFn = jest.fn();
+  const { getByTestId } = render(component({ onMouseDown: mockFn }));
+  fireEvent.mouseDown(getByTestId("dropdown-option"));
+  expect(mockFn).toHaveBeenCalled();
+});
+
 test("Ref", async () => {
   const mockRef = jest.fn();
   const mockFn = jest.fn();

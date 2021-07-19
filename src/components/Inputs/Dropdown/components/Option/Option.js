@@ -20,6 +20,7 @@ const Option = ({
   noOptionsText,
   checkboxSearch,
   size,
+  onMouseDown,
 }) => {
   const { primaryColor } = React.useContext(Context);
   const dropdownOptionSelectedStyle = selected
@@ -43,7 +44,7 @@ const Option = ({
       return (
         <DropdownOption
           ref={innerRef}
-          onMouseDown={e => e.preventDefault()}
+          onMouseDown={onMouseDown}
           onClick={!isZeroState ? onClick : null}
           data-testid="dropdown-option"
           mode={optionMode}
@@ -66,7 +67,7 @@ const Option = ({
         ref={innerRef}
         style={dropdownOptionSelectedStyle}
         className={`${styles.dropdownOption} ${className} ${selectedClassName} ${zeroStateClassName} ${isNewClassName}`}
-        onMouseDown={e => e.preventDefault()}
+        onMouseDown={onMouseDown}
         onClick={!isZeroState ? onClick : null}
         data-testid="dropdown-option"
       >
@@ -92,6 +93,7 @@ Option.propTypes = {
   selected: PropTypes.bool,
   themed: PropTypes.bool,
   noOptionsText: PropTypes.string,
+  onMouseDown: PropTypes.func,
 };
 
 Option.defaultProps = {
@@ -104,6 +106,7 @@ Option.defaultProps = {
   selected: false,
   themed: false,
   noOptionsText: "",
+  onMouseDown: e => e.preventDefault(),
 };
 
 export default Option;
