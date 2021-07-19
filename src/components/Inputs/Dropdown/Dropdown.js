@@ -144,7 +144,7 @@ const Dropdown = ({
     // we set a timeout to give the component enough time to dispatch both the events.
     // once both the events fire, we can ignore the second one. (when blurCount is 2)
     // otherwise it will reset the text to the old value.
-    // 100 is a sufficiently high value
+    // 200 is a sufficiently high value
     // the delay is non-consequential as it's only there when the input resets
     setTimeout(() => {
       if (text !== firstValueLabel && target && blurCount.current === 1) {
@@ -156,7 +156,7 @@ const Dropdown = ({
         else if (optionIndex > -1) onChange(dropdownOptions[optionIndex].value);
         else setText(firstValueLabel);
       }
-    }, 100);
+    }, 200);
   };
 
   const handleFocus = e => {
@@ -255,7 +255,14 @@ const Dropdown = ({
         : listOfOptionObjects;
 
     setOptions(mergedOptions);
-  }, [propOptions.length, createdOption]);
+  }, [
+    propOptions,
+    propOptions.length,
+    createdOption,
+    isSimpleOptionsMode,
+    optionKey,
+    withCreate,
+  ]);
 
   React.useEffect(() => {
     // we set the search text for single selection
@@ -263,7 +270,7 @@ const Dropdown = ({
     // the input text shows the selected value
     if (withMultiple) return;
     setText(firstValueLabel || "");
-  }, [firstValueLabel]);
+  }, [firstValueLabel, withMultiple]);
 
   const mouseEnter = () => {
     withCheckbox && withMultiple && setIsMouseOnOptions(true);
