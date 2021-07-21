@@ -34,6 +34,7 @@ test("On Click", async () => {
   expect(mockFn).toHaveBeenCalled();
 });
 
+//test On Mouse Down Event
 test("On Mouse Down", async () => {
   const mockFn = jest.fn();
   const { getByTestId } = render(component({ onMouseDown: mockFn }));

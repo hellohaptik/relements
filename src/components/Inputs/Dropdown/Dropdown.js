@@ -141,22 +141,17 @@ const Dropdown = ({
       setText("");
     }
 
-    // we set a timeout to give the component enough time to dispatch both the events.
-    // once both the events fire, we can ignore the second one. (when blurCount is 2)
+    // If onClick event fire, we can ignore the second one. (when blurCount is 2)
     // otherwise it will reset the text to the old value.
-    // 100 is a sufficiently high value
-    // the delay is non-consequential as it's only there when the input resets
-    setTimeout(() => {
-      if (text !== firstValueLabel && target && blurCount.current === 1) {
-        const optionIndex = dropdownOptions
-          .map(option => option.label)
-          .indexOf(text);
+    if (text !== firstValueLabel && target && blurCount.current === 1) {
+      const optionIndex = dropdownOptions
+        .map(option => option.label)
+        .indexOf(text);
 
-        if (withMultiple) setText("");
-        else if (optionIndex > -1) onChange(dropdownOptions[optionIndex].value);
-        else setText(firstValueLabel);
-      }
-    }, 100);
+      if (withMultiple) setText("");
+      else if (optionIndex > -1) onChange(dropdownOptions[optionIndex].value);
+      else setText(firstValueLabel);
+    }
   };
 
   const handleFocus = e => {
@@ -182,8 +177,12 @@ const Dropdown = ({
     onChange(isSimpleOptionsMode ? e[optionKey] : e);
     // we don't blur if multiple options can be selected
     // this is a UX decision.
-    if (!withMultiple) handleBlur(e);
-    else if (!withCheckbox) setText("");
+    if (!withMultiple) {
+      // onClick event has fired
+      // increment the blur count
+      blurCount.current += 1;
+      handleBlur(e);
+    } else if (!withCheckbox) setText("");
 
     // if we allow creation and the new option selected
     // is a new option (does not exist in the options list)
