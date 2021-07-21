@@ -27,7 +27,7 @@
     "node": ">=10.22.0"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.4.4",
+    "@babel/polyfill": "^7.12.1",
     "@mdx-js/loader": "^1.0.21",
     "@rollup/plugin-url": "^6.0.0",
     "fuse.js": "^3.4.4",
