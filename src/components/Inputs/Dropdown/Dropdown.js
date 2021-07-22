@@ -141,22 +141,18 @@ const Dropdown = ({
       setText("");
     }
 
-    // we set a timeout to give the component enough time to dispatch both the events.
-    // once both the events fire, we can ignore the second one. (when blurCount is 2)
+    // If onClick event fire, we don't need to set value to old value
+    // value of blurCount will be incresed to 2 in onMouseDown event
     // otherwise it will reset the text to the old value.
-    // 100 is a sufficiently high value
-    // the delay is non-consequential as it's only there when the input resets
-    setTimeout(() => {
-      if (text !== firstValueLabel && target && blurCount.current === 1) {
-        const optionIndex = dropdownOptions
-          .map(option => option.label)
-          .indexOf(text);
+    if (text !== firstValueLabel && target && blurCount.current === 1) {
+      const optionIndex = dropdownOptions
+        .map(option => option.label)
+        .indexOf(text);
 
-        if (withMultiple) setText("");
-        else if (optionIndex > -1) onChange(dropdownOptions[optionIndex].value);
-        else setText(firstValueLabel);
-      }
-    }, 100);
+      if (withMultiple) setText("");
+      else if (optionIndex > -1) onChange(dropdownOptions[optionIndex].value);
+      else setText(firstValueLabel);
+    }
   };
 
   const handleFocus = e => {
@@ -177,13 +173,20 @@ const Dropdown = ({
     clearTimeout(timeoutRef.current);
   };
 
+  // when user click on the option from dropdown, onMouseDown event will get fire
+  // we can ignore the duplicate blur event
+  const onMouseDown = () => {
+    blurCount.current += 1;
+  };
+
   const handleChange = e => {
     // if it's simple mode, then we return a string value
     onChange(isSimpleOptionsMode ? e[optionKey] : e);
     // we don't blur if multiple options can be selected
     // this is a UX decision.
-    if (!withMultiple) handleBlur(e);
-    else if (!withCheckbox) setText("");
+    if (!withMultiple) {
+      handleBlur(e);
+    } else if (!withCheckbox) setText("");
 
     // if we allow creation and the new option selected
     // is a new option (does not exist in the options list)
@@ -255,7 +258,14 @@ const Dropdown = ({
         : listOfOptionObjects;
 
     setOptions(mergedOptions);
-  }, [propOptions.length, createdOption]);
+  }, [
+    propOptions,
+    propOptions.length,
+    createdOption,
+    isSimpleOptionsMode,
+    optionKey,
+    withCreate,
+  ]);
 
   React.useEffect(() => {
     // we set the search text for single selection
@@ -263,7 +273,7 @@ const Dropdown = ({
     // the input text shows the selected value
     if (withMultiple) return;
     setText(firstValueLabel || "");
-  }, [firstValueLabel]);
+  }, [firstValueLabel, withMultiple]);
 
   const mouseEnter = () => {
     withCheckbox && withMultiple && setIsMouseOnOptions(true);
@@ -326,6 +336,7 @@ const Dropdown = ({
             focused={focused}
             options={dropdownOptions}
             onChange={handleOptionClick}
+            onMouseDown={onMouseDown}
             handleOnSearchFocus={handleOnSearchFocus}
             handleOnSearchBlur={handleOnSearchBlur}
             handleSearchText={handleSearchText}
@@ -397,6 +408,7 @@ const Dropdown = ({
           focused={focused}
           options={dropdownOptions}
           onChange={handleOptionClick}
+          onMouseDown={onMouseDown}
           handleOnSearchFocus={handleOnSearchFocus}
           handleOnSearchBlur={handleOnSearchBlur}
           handleSearchText={handleSearchText}
