@@ -141,7 +141,8 @@ const Dropdown = ({
       setText("");
     }
 
-    // If onClick event fire, we can ignore the second one. (when blurCount is 2)
+    // If onClick event fire, we don't need to set value to old value
+    // value of blurCount will be incresed to 2 in onMouseDown event
     // otherwise it will reset the text to the old value.
     if (text !== firstValueLabel && target && blurCount.current === 1) {
       const optionIndex = dropdownOptions
@@ -172,6 +173,8 @@ const Dropdown = ({
     clearTimeout(timeoutRef.current);
   };
 
+  // when user click on the option from dropdown, onMouseDown event will get fire
+  // we can ignore the duplicate blur event
   const onMouseDown = () => {
     blurCount.current += 1;
   };
