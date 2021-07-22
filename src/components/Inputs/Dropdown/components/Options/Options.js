@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import { Portal } from "react-portal";
 import useActivify from "@src/hooks/useActivify";
@@ -46,6 +46,7 @@ const Options = ({
   themed,
   noOptionsText,
   size,
+  onMouseDown,
 }) => {
   const { visible, enabled } = useActivify(focused);
   const { primaryColor } = React.useContext(Context);
@@ -77,10 +78,10 @@ const Options = ({
   const reverseModeClassName = isReversed ? styles.reverse : "";
 
   // Calculates Rect dimensions of attachTo Ref
-  const calcRect = () => {
+  const calcRect = useCallback(() => {
     const rect = attachTo.current && attachTo.current.getBoundingClientRect();
     setDropdownContainerRect(rect);
-  };
+  }, [attachTo, setDropdownContainerRect]);
 
   /* Dropdown refs useEffect
    * whenever the options change
@@ -94,7 +95,7 @@ const Options = ({
 
     // Refresh the rect dimensions whenever there are changes in options
     calcRect();
-  }, [options.length, options, highlightIndex, attachTo.current]);
+  }, [options.length, options, highlightIndex, calcRect]);
 
   /* Dropdown options scrollIntoView useEffect
    * whenever the highlightIndex changes
@@ -128,17 +129,17 @@ const Options = ({
     }
   }, [highlightIndex]);
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     // Refresh the rect dimensions whenever user scrolls the page
     calcRect();
-  };
+  }, [calcRect]);
 
   React.useEffect(() => {
     themed &&
       focused &&
       window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [themed, focused]);
+  }, [themed, focused, handleScroll]);
 
   if (!enabled) return null;
 
@@ -313,6 +314,7 @@ const Options = ({
               onClick={() => {
                 onChange(option.value);
               }}
+              onMouseDown={onMouseDown}
               isZeroState={option.isZeroState}
               isNew={option.isNew}
               className={`${prefixClassName}-option`}
@@ -396,6 +398,7 @@ Options.propTypes = {
   themed: PropTypes.bool,
   noOptionsText: PropTypes.string,
   size: PropTypes.string,
+  onMouseDown: PropTypes.func,
 };
 
 Options.defaultProps = {
@@ -417,6 +420,7 @@ Options.defaultProps = {
   themed: false,
   noOptionsText: "",
   size: "",
+  onMouseDown: () => {},
 };
 
 export default Options;

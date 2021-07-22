@@ -106,7 +106,7 @@ Option.defaultProps = {
   selected: false,
   themed: false,
   noOptionsText: "",
-  onMouseDown: e => e.preventDefault(),
+  onMouseDown: () => {},
 };
 
 export default Option;

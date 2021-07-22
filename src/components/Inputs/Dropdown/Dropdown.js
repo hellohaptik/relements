@@ -172,15 +172,16 @@ const Dropdown = ({
     clearTimeout(timeoutRef.current);
   };
 
+  const onMouseDown = () => {
+    blurCount.current += 1;
+  };
+
   const handleChange = e => {
     // if it's simple mode, then we return a string value
     onChange(isSimpleOptionsMode ? e[optionKey] : e);
     // we don't blur if multiple options can be selected
     // this is a UX decision.
     if (!withMultiple) {
-      // onClick event has fired
-      // increment the blur count
-      blurCount.current += 1;
       handleBlur(e);
     } else if (!withCheckbox) setText("");
 
@@ -332,6 +333,7 @@ const Dropdown = ({
             focused={focused}
             options={dropdownOptions}
             onChange={handleOptionClick}
+            onMouseDown={onMouseDown}
             handleOnSearchFocus={handleOnSearchFocus}
             handleOnSearchBlur={handleOnSearchBlur}
             handleSearchText={handleSearchText}
@@ -403,6 +405,7 @@ const Dropdown = ({
           focused={focused}
           options={dropdownOptions}
           onChange={handleOptionClick}
+          onMouseDown={onMouseDown}
           handleOnSearchFocus={handleOnSearchFocus}
           handleOnSearchBlur={handleOnSearchBlur}
           handleSearchText={handleSearchText}
